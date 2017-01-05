@@ -53,7 +53,7 @@ public class PartyActivity extends AppCompatActivity
             }
         });
 
-        partyPresenter = new PartyPresenter(this, getIntent().getIntExtra(PARTY_ID, - 1));
+        partyPresenter = new PartyPresenter(getIntent().getIntExtra(PARTY_ID, - 1));
 
         refreshUi();
     }

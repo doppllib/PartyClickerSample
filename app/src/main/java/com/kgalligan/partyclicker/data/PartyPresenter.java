@@ -1,8 +1,10 @@
 package com.kgalligan.partyclicker.data;
 import android.content.Context;
 
-import co.touchlab.android.threading.tasks.Task;
-import co.touchlab.android.threading.tasks.TaskQueue;
+import com.kgalligan.partyclicker.AppManager;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by kgalligan on 1/5/17.
@@ -10,29 +12,22 @@ import co.touchlab.android.threading.tasks.TaskQueue;
 
 public class PartyPresenter
 {
-    private final int       partyId;
     private final Party     party;
     private       int       partyCount;
-    private final TaskQueue taskQueue;
-    private final Task      comingTask;
-    private final Task      goingTask;
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-    public PartyPresenter(Context context, int partyId)
+    public PartyPresenter(int partyId)
     {
-        this.partyId = partyId;
-        DatabaseHelper databaseHelper = DatabaseHelper.getInstance(context);
+        DatabaseHelper databaseHelper = DatabaseHelper.getInstance(AppManager.getContext());
         party = databaseHelper.loadParty(partyId);
         partyCount = databaseHelper.countCurrentParty(partyId);
-        this.taskQueue = TaskQueue.loadQueueDefault(context);
-        comingTask = new ModPersonTask(party, true);
-        goingTask = new ModPersonTask(party, false);
     }
 
 
     public void addPerson()
     {
         partyCount++;
-        taskQueue.execute(comingTask);
+        executorService.execute(new ModPersonTask(party, true, AppManager.getContext()));
     }
 
     public void removePerson()
@@ -40,7 +35,7 @@ public class PartyPresenter
         if(partyCount > 0)
         {
             partyCount--;
-            taskQueue.execute(goingTask);
+            executorService.execute(new ModPersonTask(party, false, AppManager.getContext()));
         }
     }
 

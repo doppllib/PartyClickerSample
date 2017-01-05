@@ -22,7 +22,7 @@ public class DatabaseHelper extends SqueakyOpenHelper
 {
 
     private static final String DATABASE_FILE_NAME = "db";
-    private static final int    BASELINE           = 1;
+    private static final int    BASELINE           = 5;
 
     private static final int CURRENT_VERSION = BASELINE;
 
@@ -67,12 +67,12 @@ public class DatabaseHelper extends SqueakyOpenHelper
         try
         {
             TableUtils.dropTables(new SQLiteDatabaseImpl(db), true, tableClasses);
-            TableUtils.createTables(new SQLiteDatabaseImpl(db), tableClasses);
         }
         catch(SQLException e)
         {
             throw new RuntimeException(e);
         }
+        onCreate(db);
     }
 
     @Override

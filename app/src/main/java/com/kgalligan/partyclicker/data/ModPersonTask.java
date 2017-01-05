@@ -1,32 +1,26 @@
 package com.kgalligan.partyclicker.data;
 import android.content.Context;
 
-import co.touchlab.android.threading.tasks.Task;
-
 /**
  * Created by kgalligan on 1/5/17.
  */
 
-public class ModPersonTask extends Task
+public class ModPersonTask implements Runnable
 {
     private final Party party;
     private final boolean coming;
+    private final Context context;
 
-    public ModPersonTask(Party party, boolean coming)
+    public ModPersonTask(Party party, boolean coming, Context context)
     {
         this.party = party;
         this.coming = coming;
+        this.context = context;
     }
 
     @Override
-    protected void run(Context context) throws Throwable
+    public void run()
     {
         DatabaseHelper.getInstance(context).addPerson(party, coming);
-    }
-
-    @Override
-    protected boolean handleError(Context context, Throwable throwable)
-    {
-        return false;
     }
 }
