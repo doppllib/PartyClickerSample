@@ -43,4 +43,9 @@ public class PartyPresenter
     {
         return partyCount;
     }
+
+    public Party getParty()
+    {
+        return party;
+    }
 }

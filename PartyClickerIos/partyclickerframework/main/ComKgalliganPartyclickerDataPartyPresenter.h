@@ -16,6 +16,8 @@
 #if !defined (ComKgalliganPartyclickerDataPartyPresenter_) && (INCLUDE_ALL_ComKgalliganPartyclickerDataPartyPresenter || defined(INCLUDE_ComKgalliganPartyclickerDataPartyPresenter))
 #define ComKgalliganPartyclickerDataPartyPresenter_
 
+@class ComKgalliganPartyclickerDataParty;
+
 @interface ComKgalliganPartyclickerDataPartyPresenter : NSObject
 
 #pragma mark Public
@@ -23,6 +25,8 @@
 - (instancetype)initWithInt:(jint)partyId;
 
 - (void)addPerson;
+
+- (ComKgalliganPartyclickerDataParty *)getParty;
 
 - (jint)getPartyCount;
 

@@ -7,9 +7,11 @@
 //
 
 #import "ShowPartyViewController.h"
+#import "ComKgalliganPartyclickerDataParty.h"
 
 @interface ShowPartyViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *addPersonButton;
+@property (weak, nonatomic) IBOutlet UILabel *partyName;
 
 @end
 
@@ -32,7 +34,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self showCount];
+    
+    [self.partyName setText:[self.presenter getParty]->name_];
     // Do any additional setup after loading the view.
 }
 

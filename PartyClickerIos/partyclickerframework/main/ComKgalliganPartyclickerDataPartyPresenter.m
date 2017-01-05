@@ -48,6 +48,10 @@ J2OBJC_FIELD_SETTER(ComKgalliganPartyclickerDataPartyPresenter, executorService_
   return partyCount_;
 }
 
+- (ComKgalliganPartyclickerDataParty *)getParty {
+  return party_;
+}
+
 - (void)dealloc {
   RELEASE_(party_);
   RELEASE_(executorService_);
@@ -60,6 +64,7 @@ J2OBJC_FIELD_SETTER(ComKgalliganPartyclickerDataPartyPresenter, executorService_
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LComKgalliganPartyclickerDataParty;", 0x1, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -67,6 +72,7 @@ J2OBJC_FIELD_SETTER(ComKgalliganPartyclickerDataPartyPresenter, executorService_
   methods[1].selector = @selector(addPerson);
   methods[2].selector = @selector(removePerson);
   methods[3].selector = @selector(getPartyCount);
+  methods[4].selector = @selector(getParty);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "party_", "LComKgalliganPartyclickerDataParty;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
@@ -74,7 +80,7 @@ J2OBJC_FIELD_SETTER(ComKgalliganPartyclickerDataPartyPresenter, executorService_
     { "executorService_", "LJavaUtilConcurrentExecutorService;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
   };
   static const void *ptrTable[] = { "I" };
-  static const J2ObjcClassInfo _ComKgalliganPartyclickerDataPartyPresenter = { "PartyPresenter", "com.kgalligan.partyclicker.data", ptrTable, methods, fields, 7, 0x1, 4, 3, -1, -1, -1, -1, -1 };
+  static const J2ObjcClassInfo _ComKgalliganPartyclickerDataPartyPresenter = { "PartyPresenter", "com.kgalligan.partyclicker.data", ptrTable, methods, fields, 7, 0x1, 5, 3, -1, -1, -1, -1, -1 };
   return &_ComKgalliganPartyclickerDataPartyPresenter;
 }
 
