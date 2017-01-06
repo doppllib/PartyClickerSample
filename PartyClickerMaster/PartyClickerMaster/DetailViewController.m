@@ -14,6 +14,7 @@
 
 @interface DetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *countLabel;
+@property (weak, nonatomic) IBOutlet UIButton *removeButton;
 
 @end
 
@@ -31,7 +32,9 @@
 
 -(void) showCount
 {
-    NSString * countString = [NSString stringWithFormat:@"%d", [self.detailItem getPartyCount]];
+    jint count = [self.detailItem getPartyCount];
+    NSString * countString = [NSString stringWithFormat:@"%d", count];
+    [self.removeButton setEnabled:count > 0];
     [self.countLabel setText:countString];
 }
 

@@ -3,10 +3,13 @@
 //  source: /Users/kgalligan/devel-doppl/PartyClicker/app/src/main/java/com/kgalligan/partyclicker/data/Party.java
 //
 
+#include "AndroidContentContext.h"
 #include "CoTouchlabSqueakyFieldDataType.h"
 #include "CoTouchlabSqueakyFieldDatabaseField.h"
 #include "CoTouchlabSqueakyFieldTypesVoidType.h"
 #include "CoTouchlabSqueakyTableDatabaseTable.h"
+#include "ComKgalliganPartyclickerAppManager.h"
+#include "ComKgalliganPartyclickerDataDatabaseHelper.h"
 #include "ComKgalliganPartyclickerDataParty.h"
 #include "IOSClass.h"
 #include "IOSObjectArray.h"
@@ -44,6 +47,10 @@ J2OBJC_INITIALIZED_DEFN(ComKgalliganPartyclickerDataParty)
   return JreStrcat("$$$", [((JavaTextDateFormat *) nil_chk(ComKgalliganPartyclickerDataParty_standardDateFormat)) formatWithJavaUtilDate:created_], @" - ", [((JavaTextDateFormat *) nil_chk(ComKgalliganPartyclickerDataParty_standardTimeFormat)) formatWithJavaUtilDate:created_]);
 }
 
+- (jint)countPeople {
+  return [((ComKgalliganPartyclickerDataDatabaseHelper *) nil_chk(ComKgalliganPartyclickerDataDatabaseHelper_getInstanceWithAndroidContentContext_(ComKgalliganPartyclickerAppManager_getContext()))) countCurrentPartyWithInt:id__];
+}
+
 - (NSString *)description {
   return JreStrcat("$$$", name_, @" - ", [((JavaTextSimpleDateFormat *) nil_chk(ComKgalliganPartyclickerDataParty_timeFormat)) formatWithJavaUtilDate:created_]);
 }
@@ -64,14 +71,16 @@ J2OBJC_IGNORE_DESIGNATED_END
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, "LNSString;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x1, 0, -1, -1, -1, -1, -1 },
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   methods[0].selector = @selector(dateString);
-  methods[1].selector = @selector(description);
-  methods[2].selector = @selector(init);
+  methods[1].selector = @selector(countPeople);
+  methods[2].selector = @selector(description);
+  methods[3].selector = @selector(init);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "timeFormat", "LJavaTextSimpleDateFormat;", .constantValue.asLong = 0, 0x1a, -1, 1, -1, -1 },
@@ -82,7 +91,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     { "created_", "LJavaUtilDate;", .constantValue.asLong = 0, 0x1, -1, -1, -1, 7 },
   };
   static const void *ptrTable[] = { "toString", &ComKgalliganPartyclickerDataParty_timeFormat, &ComKgalliganPartyclickerDataParty_standardDateFormat, &ComKgalliganPartyclickerDataParty_standardTimeFormat, "id", (void *)&ComKgalliganPartyclickerDataParty__Annotations$0, (void *)&ComKgalliganPartyclickerDataParty__Annotations$1, (void *)&ComKgalliganPartyclickerDataParty__Annotations$2, (void *)&ComKgalliganPartyclickerDataParty__Annotations$3 };
-  static const J2ObjcClassInfo _ComKgalliganPartyclickerDataParty = { "Party", "com.kgalligan.partyclicker.data", ptrTable, methods, fields, 7, 0x1, 3, 6, -1, -1, -1, -1, 8 };
+  static const J2ObjcClassInfo _ComKgalliganPartyclickerDataParty = { "Party", "com.kgalligan.partyclicker.data", ptrTable, methods, fields, 7, 0x1, 4, 6, -1, -1, -1, -1, 8 };
   return &_ComKgalliganPartyclickerDataParty;
 }
 

@@ -40,6 +40,8 @@
 
 - (ComKgalliganPartyclickerDataParty *)createPartyWithNSString:(NSString *)name;
 
+- (void)deletePartyWithComKgalliganPartyclickerDataParty:(ComKgalliganPartyclickerDataParty *)party;
+
 + (ComKgalliganPartyclickerDataDatabaseHelper *)getInstanceWithAndroidContentContext:(AndroidContentContext *)context;
 
 - (id<CoTouchlabSqueakyDaoDao>)getPartyDao;

@@ -29,6 +29,8 @@
 
 - (instancetype)init;
 
+- (jint)countPeople;
+
 - (NSString *)dateString;
 
 - (NSString *)description;

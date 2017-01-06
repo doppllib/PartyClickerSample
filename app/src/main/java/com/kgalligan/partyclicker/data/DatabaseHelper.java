@@ -166,6 +166,22 @@ public class DatabaseHelper extends SqueakyOpenHelper
         }
     }
 
+    public void deleteParty(final Party party)
+    {
+        performTransactionOrThrowRuntime(new Callable<Void>()
+        {
+            @Override
+            public Void call() throws Exception
+            {
+                Where<Person> where = new Where<>(getPersonDao());
+                where.eq("party", party);
+                getPersonDao().delete(where);
+                getPartyDao().delete(party);
+                return null;
+            }
+        });
+    }
+
     public Party loadParty(int id)
     {
         try

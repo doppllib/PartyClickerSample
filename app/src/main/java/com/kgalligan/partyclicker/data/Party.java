@@ -1,4 +1,6 @@
 package com.kgalligan.partyclicker.data;
+import com.kgalligan.partyclicker.AppManager;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,6 +31,11 @@ public class Party
     public String dateString()
     {
         return standardDateFormat.format(created) + " - " + standardTimeFormat.format(created);
+    }
+
+    public int countPeople()
+    {
+        return DatabaseHelper.getInstance(AppManager.getContext()).countCurrentParty(id);
     }
 
     @Override

@@ -26,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self refreshParties];
+    
     // Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
@@ -39,6 +39,13 @@
 - (void)viewWillAppear:(BOOL)animated {
     self.clearsSelectionOnViewWillAppear = self.splitViewController.isCollapsed;
     [super viewWillAppear:animated];
+    
+    BOOL callTableRefresh = self.parties != nil;
+    [self refreshParties];
+    if(callTableRefresh)
+    {
+        [self.tableView reloadData];
+    }
 }
 
 
@@ -99,7 +106,10 @@
 
     ComKgalliganPartyclickerDataParty* party = (ComKgalliganPartyclickerDataParty*)[self.parties getWithInt:(jint)indexPath.row];
     
+    NSString* countString = [NSString stringWithFormat:@"%d", [party countPeople]];
+    
     cell.textLabel.text = [party dateString];
+    cell.detailTextLabel.text = countString;
     
     return cell;
 }
@@ -115,7 +125,11 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         //[self.objects removeObjectAtIndex:indexPath.row];
         //[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        ComKgalliganPartyclickerDataDatabaseHelper* dh = [ComKgalliganPartyclickerDataDatabaseHelper getInstanceWithAndroidContentContext:[ComKgalliganPartyclickerAppManager getContext]];
+        ComKgalliganPartyclickerDataParty* party = (ComKgalliganPartyclickerDataParty*)[self.parties getWithInt:(jint)indexPath.row];
+        [dh deletePartyWithComKgalliganPartyclickerDataParty:party];
         [self refreshParties];
+        [self.tableView reloadData];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }
