@@ -36,14 +36,7 @@
     [self performSegueWithIdentifier:@"ShowParty" sender:party];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"ShowParty"]) {
-        ShowPartyViewController *detailVC = segue.destinationViewController;
-        ComKgalliganPartyclickerDataParty *party = (ComKgalliganPartyclickerDataParty *)sender;
-        detailVC.presenter = [[ComKgalliganPartyclickerDataPartyPresenter alloc] initWithInt:party->id__];
-    }
-}
+
 
 - (void) refreshParties
 {
@@ -83,6 +76,15 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     ComKgalliganPartyclickerDataParty* party = (ComKgalliganPartyclickerDataParty*)[self.parties getWithInt:(jint)indexPath.row];
     [self performSegueWithIdentifier:@"ShowParty" sender:party];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"ShowParty"]) {
+        ShowPartyViewController *detailVC = segue.destinationViewController;
+        ComKgalliganPartyclickerDataParty *party = (ComKgalliganPartyclickerDataParty *)sender;
+        detailVC.presenter = [[ComKgalliganPartyclickerDataPartyPresenter alloc] initWithInt:party->id__];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

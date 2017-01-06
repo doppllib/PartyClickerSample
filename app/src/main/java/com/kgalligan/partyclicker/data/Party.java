@@ -1,4 +1,5 @@
 package com.kgalligan.partyclicker.data;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -13,6 +14,8 @@ import co.touchlab.squeaky.table.DatabaseTable;
 public class Party
 {
     private static final SimpleDateFormat timeFormat = new SimpleDateFormat("MM/dd/yyyy hh:MM a");
+    private static final DateFormat       standardDateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
+    private static final DateFormat       standardTimeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
 
     @DatabaseField(generatedId = true)
     public int id;
@@ -22,6 +25,11 @@ public class Party
 
     @DatabaseField(dataType = DataType.DATE_LONG)
     public Date created;
+
+    public String dateString()
+    {
+        return standardDateFormat.format(created) + " - " + standardTimeFormat.format(created);
+    }
 
     @Override
     public String toString()

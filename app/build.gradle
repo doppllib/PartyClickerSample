@@ -37,8 +37,8 @@ dependencies {
 }
 
 j2objcConfig {
-    copyMainOutput="../PartyClickerIos/partyclickerframework/main"
-    copyTestOutput="../PartyClickerIos/partyclickerframework/test"
+    copyMainOutput="../PartyClickerMaster/partyclickerframework/main"
+    copyTestOutput="../PartyClickerMaster/partyclickerframework/test"
     copyDependencies true
 
     translatePattern{

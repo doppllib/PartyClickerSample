@@ -61,7 +61,7 @@
                     <connections>
                         <outlet property="partyNameField" destination="xSu-ir-cvZ" id="KJb-pO-ddg"/>
                         <outlet property="tableView" destination="pqD-i0-Fir" id="JSE-Ta-LPS"/>
-                        <segue destination="fgg-VU-6wV" kind="showDetail" identifier="ShowParty" id="yWK-7Q-6AR"/>
+                        <segue destination="fgg-VU-6wV" kind="show" identifier="ShowParty" action="showDetailViewController:sender:" id="yWK-7Q-6AR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
