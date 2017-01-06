@@ -63,6 +63,8 @@
     [self refreshParties];
     
     [self.tableView reloadData];
+    
+    [self performSegueWithIdentifier:@"showDetail" sender:[NSIndexPath indexPathForItem:0 inSection:0]];
 }
 
 - (void) refreshParties
@@ -120,7 +122,6 @@
     return YES;
 }
 
-
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         //[self.objects removeObjectAtIndex:indexPath.row];
@@ -131,7 +132,7 @@
         [self refreshParties];
         [self.tableView reloadData];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+        
     }
 }
 
