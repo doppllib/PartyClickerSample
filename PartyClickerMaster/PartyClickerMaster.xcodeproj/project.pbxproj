@@ -455,6 +455,7 @@
 		632F200C1E1EEDC40080F6CC /* CoTouchlabSqueakyStmtQuerySimpleComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = 632F1E581E1EEDC30080F6CC /* CoTouchlabSqueakyStmtQuerySimpleComparison.m */; };
 		632F200D1E1EEDC40080F6CC /* CoTouchlabSqueakyStmtWhere.h in Headers */ = {isa = PBXBuildFile; fileRef = 632F1E591E1EEDC30080F6CC /* CoTouchlabSqueakyStmtWhere.h */; };
 		632F200E1E1EEDC40080F6CC /* CoTouchlabSqueakyStmtWhere.m in Sources */ = {isa = PBXBuildFile; fileRef = 632F1E5A1E1EEDC30080F6CC /* CoTouchlabSqueakyStmtWhere.m */; };
+		632F20111E1F3FF70080F6CC /* CountListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 632F20101E1F3FF70080F6CC /* CountListTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -935,6 +936,8 @@
 		632F1E581E1EEDC30080F6CC /* CoTouchlabSqueakyStmtQuerySimpleComparison.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoTouchlabSqueakyStmtQuerySimpleComparison.m; sourceTree = "<group>"; };
 		632F1E591E1EEDC30080F6CC /* CoTouchlabSqueakyStmtWhere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoTouchlabSqueakyStmtWhere.h; sourceTree = "<group>"; };
 		632F1E5A1E1EEDC30080F6CC /* CoTouchlabSqueakyStmtWhere.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoTouchlabSqueakyStmtWhere.m; sourceTree = "<group>"; };
+		632F200F1E1F3FF70080F6CC /* CountListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountListTableViewController.h; sourceTree = "<group>"; };
+		632F20101E1F3FF70080F6CC /* CountListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountListTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -991,6 +994,8 @@
 				632F1C831E1EEA690080F6CC /* LaunchScreen.storyboard */,
 				632F1C861E1EEA690080F6CC /* Info.plist */,
 				632F1C721E1EEA690080F6CC /* Supporting Files */,
+				632F200F1E1F3FF70080F6CC /* CountListTableViewController.h */,
+				632F20101E1F3FF70080F6CC /* CountListTableViewController.m */,
 			);
 			path = PartyClickerMaster;
 			sourceTree = "<group>";
@@ -1823,6 +1828,7 @@
 			files = (
 				632F1C771E1EEA690080F6CC /* AppDelegate.m in Sources */,
 				632F1C7A1E1EEA690080F6CC /* MasterViewController.m in Sources */,
+				632F20111E1F3FF70080F6CC /* CountListTableViewController.m in Sources */,
 				632F1C741E1EEA690080F6CC /* main.m in Sources */,
 				632F1C7D1E1EEA690080F6CC /* DetailViewController.m in Sources */,
 			);

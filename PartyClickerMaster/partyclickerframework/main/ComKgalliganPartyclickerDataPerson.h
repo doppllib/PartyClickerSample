@@ -31,9 +31,11 @@
 
 - (instancetype)init;
 
+- (NSString *)recordedString;
+
 @end
 
-J2OBJC_EMPTY_STATIC_INIT(ComKgalliganPartyclickerDataPerson)
+J2OBJC_STATIC_INIT(ComKgalliganPartyclickerDataPerson)
 
 J2OBJC_FIELD_SETTER(ComKgalliganPartyclickerDataPerson, recorded_, JavaUtilDate *)
 J2OBJC_FIELD_SETTER(ComKgalliganPartyclickerDataPerson, party_, ComKgalliganPartyclickerDataParty *)

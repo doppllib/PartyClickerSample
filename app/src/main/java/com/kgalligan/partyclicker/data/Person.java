@@ -1,4 +1,5 @@
 package com.kgalligan.partyclicker.data;
+import java.text.DateFormat;
 import java.util.Date;
 
 import co.touchlab.squeaky.field.DataType;
@@ -11,6 +12,8 @@ import co.touchlab.squeaky.table.DatabaseTable;
 @DatabaseTable
 public class Person
 {
+    private static final DateFormat standardTimeFormat = DateFormat.getTimeInstance(DateFormat.MEDIUM);
+
     @DatabaseField(generatedId = true)
     public int id;
 
@@ -22,4 +25,9 @@ public class Person
 
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
     public Party party;
+
+    public String recordedString()
+    {
+        return standardTimeFormat.format(recorded);
+    }
 }

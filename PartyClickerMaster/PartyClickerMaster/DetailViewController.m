@@ -7,6 +7,7 @@
 //
 
 #import "DetailViewController.h"
+#import "CountListTableViewController.h"
 #import "ComKgalliganPartyclickerDataDatabaseHelper.h"
 #import "ComKgalliganPartyclickerAppManager.h"
 #import "ComKgalliganPartyclickerDataParty.h"
@@ -56,6 +57,15 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"showDetail"]) {
+        
+        CountListTableViewController *controller = (CountListTableViewController *)[[segue destinationViewController] topViewController];
+        controller.party = [self.detailItem getParty];
+        
+    }
 }
 
 

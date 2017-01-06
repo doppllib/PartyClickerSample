@@ -1,12 +1,15 @@
 package com.kgalligan.partyclicker.data;
 import com.kgalligan.partyclicker.AppManager;
 
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import co.touchlab.squeaky.field.DataType;
 import co.touchlab.squeaky.field.DatabaseField;
+import co.touchlab.squeaky.stmt.Where;
 import co.touchlab.squeaky.table.DatabaseTable;
 
 /**
@@ -38,6 +41,20 @@ public class Party
         return DatabaseHelper.getInstance(AppManager.getContext()).countCurrentParty(id);
     }
 
+    public List<Person> allPeople()
+    {
+        try
+        {
+            DatabaseHelper databaseHelper = DatabaseHelper.getInstance(AppManager.getContext());
+            Where<Person> where = new Where<>(databaseHelper.getPersonDao());
+            where.eq("party", this);
+            return databaseHelper.getPersonDao().query(where).orderBy("recorded").list();
+        }
+        catch(SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
     @Override
     public String toString()
     {

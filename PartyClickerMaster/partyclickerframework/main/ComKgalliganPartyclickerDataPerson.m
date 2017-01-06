@@ -13,7 +13,12 @@
 #include "IOSObjectArray.h"
 #include "J2ObjC_source.h"
 #include "java/lang/annotation/Annotation.h"
+#include "java/text/DateFormat.h"
 #include "java/util/Date.h"
+
+inline JavaTextDateFormat *ComKgalliganPartyclickerDataPerson_get_standardTimeFormat();
+static JavaTextDateFormat *ComKgalliganPartyclickerDataPerson_standardTimeFormat;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(ComKgalliganPartyclickerDataPerson, standardTimeFormat, JavaTextDateFormat *)
 
 __attribute__((unused)) static IOSObjectArray *ComKgalliganPartyclickerDataPerson__Annotations$0();
 
@@ -25,7 +30,13 @@ __attribute__((unused)) static IOSObjectArray *ComKgalliganPartyclickerDataPerso
 
 __attribute__((unused)) static IOSObjectArray *ComKgalliganPartyclickerDataPerson__Annotations$4();
 
+J2OBJC_INITIALIZED_DEFN(ComKgalliganPartyclickerDataPerson)
+
 @implementation ComKgalliganPartyclickerDataPerson
+
+- (NSString *)recordedString {
+  return [((JavaTextDateFormat *) nil_chk(ComKgalliganPartyclickerDataPerson_standardTimeFormat)) formatWithJavaUtilDate:recorded_];
+}
 
 J2OBJC_IGNORE_DESIGNATED_BEGIN
 - (instancetype)init {
@@ -42,21 +53,31 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
+    { NULL, "LNSString;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
-  methods[0].selector = @selector(init);
+  methods[0].selector = @selector(recordedString);
+  methods[1].selector = @selector(init);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "id__", "I", .constantValue.asLong = 0, 0x1, 0, -1, -1, 1 },
-    { "recorded_", "LJavaUtilDate;", .constantValue.asLong = 0, 0x1, -1, -1, -1, 2 },
-    { "val_", "S", .constantValue.asLong = 0, 0x1, -1, -1, -1, 3 },
-    { "party_", "LComKgalliganPartyclickerDataParty;", .constantValue.asLong = 0, 0x1, -1, -1, -1, 4 },
+    { "standardTimeFormat", "LJavaTextDateFormat;", .constantValue.asLong = 0, 0x1a, -1, 0, -1, -1 },
+    { "id__", "I", .constantValue.asLong = 0, 0x1, 1, -1, -1, 2 },
+    { "recorded_", "LJavaUtilDate;", .constantValue.asLong = 0, 0x1, -1, -1, -1, 3 },
+    { "val_", "S", .constantValue.asLong = 0, 0x1, -1, -1, -1, 4 },
+    { "party_", "LComKgalliganPartyclickerDataParty;", .constantValue.asLong = 0, 0x1, -1, -1, -1, 5 },
   };
-  static const void *ptrTable[] = { "id", (void *)&ComKgalliganPartyclickerDataPerson__Annotations$0, (void *)&ComKgalliganPartyclickerDataPerson__Annotations$1, (void *)&ComKgalliganPartyclickerDataPerson__Annotations$2, (void *)&ComKgalliganPartyclickerDataPerson__Annotations$3, (void *)&ComKgalliganPartyclickerDataPerson__Annotations$4 };
-  static const J2ObjcClassInfo _ComKgalliganPartyclickerDataPerson = { "Person", "com.kgalligan.partyclicker.data", ptrTable, methods, fields, 7, 0x1, 1, 4, -1, -1, -1, -1, 5 };
+  static const void *ptrTable[] = { &ComKgalliganPartyclickerDataPerson_standardTimeFormat, "id", (void *)&ComKgalliganPartyclickerDataPerson__Annotations$0, (void *)&ComKgalliganPartyclickerDataPerson__Annotations$1, (void *)&ComKgalliganPartyclickerDataPerson__Annotations$2, (void *)&ComKgalliganPartyclickerDataPerson__Annotations$3, (void *)&ComKgalliganPartyclickerDataPerson__Annotations$4 };
+  static const J2ObjcClassInfo _ComKgalliganPartyclickerDataPerson = { "Person", "com.kgalligan.partyclicker.data", ptrTable, methods, fields, 7, 0x1, 2, 5, -1, -1, -1, -1, 6 };
   return &_ComKgalliganPartyclickerDataPerson;
+}
+
++ (void)initialize {
+  if (self == [ComKgalliganPartyclickerDataPerson class]) {
+    JreStrongAssign(&ComKgalliganPartyclickerDataPerson_standardTimeFormat, JavaTextDateFormat_getTimeInstanceWithInt_(JavaTextDateFormat_MEDIUM));
+    J2OBJC_SET_INITIALIZED(ComKgalliganPartyclickerDataPerson)
+  }
 }
 
 @end
