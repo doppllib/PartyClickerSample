@@ -48,6 +48,13 @@ J2OBJC_INITIALIZED_DEFN(ComKgalliganPartyclickerDataParty)
 
 @implementation ComKgalliganPartyclickerDataParty
 
+J2OBJC_IGNORE_DESIGNATED_BEGIN
+- (instancetype)init {
+  ComKgalliganPartyclickerDataParty_init(self);
+  return self;
+}
+J2OBJC_IGNORE_DESIGNATED_END
+
 - (NSString *)dateString {
   return JreStrcat("$$$", [((JavaTextDateFormat *) nil_chk(ComKgalliganPartyclickerDataParty_standardDateFormat)) formatWithJavaUtilDate:created_], @" - ", [((JavaTextDateFormat *) nil_chk(ComKgalliganPartyclickerDataParty_standardTimeFormat)) formatWithJavaUtilDate:created_]);
 }
@@ -72,13 +79,6 @@ J2OBJC_INITIALIZED_DEFN(ComKgalliganPartyclickerDataParty)
   return JreStrcat("$$$", name_, @" - ", [((JavaTextSimpleDateFormat *) nil_chk(ComKgalliganPartyclickerDataParty_timeFormat)) formatWithJavaUtilDate:created_]);
 }
 
-J2OBJC_IGNORE_DESIGNATED_BEGIN
-- (instancetype)init {
-  ComKgalliganPartyclickerDataParty_init(self);
-  return self;
-}
-J2OBJC_IGNORE_DESIGNATED_END
-
 - (void)dealloc {
   RELEASE_(name_);
   RELEASE_(created_);
@@ -87,19 +87,19 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
+    { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LJavaUtilList;", 0x1, -1, -1, -1, 0, -1, -1 },
     { NULL, "LNSString;", 0x1, 1, -1, -1, -1, -1, -1 },
-    { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
-  methods[0].selector = @selector(dateString);
-  methods[1].selector = @selector(countPeople);
-  methods[2].selector = @selector(allPeople);
-  methods[3].selector = @selector(description);
-  methods[4].selector = @selector(init);
+  methods[0].selector = @selector(init);
+  methods[1].selector = @selector(dateString);
+  methods[2].selector = @selector(countPeople);
+  methods[3].selector = @selector(allPeople);
+  methods[4].selector = @selector(description);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "timeFormat", "LJavaTextSimpleDateFormat;", .constantValue.asLong = 0, 0x1a, -1, 2, -1, -1 },

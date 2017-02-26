@@ -33,15 +33,15 @@
 
 J2OBJC_EMPTY_STATIC_INIT(ComKgalliganPartyclickerAppManager)
 
-FOUNDATION_EXPORT void ComKgalliganPartyclickerAppManager_init__WithAndroidAppApplication_(AndroidAppApplication *context);
-
-FOUNDATION_EXPORT AndroidContentContext *ComKgalliganPartyclickerAppManager_getContext();
-
 FOUNDATION_EXPORT void ComKgalliganPartyclickerAppManager_init(ComKgalliganPartyclickerAppManager *self);
 
 FOUNDATION_EXPORT ComKgalliganPartyclickerAppManager *new_ComKgalliganPartyclickerAppManager_init() NS_RETURNS_RETAINED;
 
 FOUNDATION_EXPORT ComKgalliganPartyclickerAppManager *create_ComKgalliganPartyclickerAppManager_init();
+
+FOUNDATION_EXPORT void ComKgalliganPartyclickerAppManager_init__WithAndroidAppApplication_(AndroidAppApplication *context);
+
+FOUNDATION_EXPORT AndroidContentContext *ComKgalliganPartyclickerAppManager_getContext();
 
 J2OBJC_TYPE_LITERAL_HEADER(ComKgalliganPartyclickerAppManager)
 

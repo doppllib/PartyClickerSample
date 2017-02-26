@@ -34,16 +34,16 @@ J2OBJC_INITIALIZED_DEFN(ComKgalliganPartyclickerDataPerson)
 
 @implementation ComKgalliganPartyclickerDataPerson
 
-- (NSString *)recordedString {
-  return [((JavaTextDateFormat *) nil_chk(ComKgalliganPartyclickerDataPerson_standardTimeFormat)) formatWithJavaUtilDate:recorded_];
-}
-
 J2OBJC_IGNORE_DESIGNATED_BEGIN
 - (instancetype)init {
   ComKgalliganPartyclickerDataPerson_init(self);
   return self;
 }
 J2OBJC_IGNORE_DESIGNATED_END
+
+- (NSString *)recordedString {
+  return [((JavaTextDateFormat *) nil_chk(ComKgalliganPartyclickerDataPerson_standardTimeFormat)) formatWithJavaUtilDate:recorded_];
+}
 
 - (void)dealloc {
   RELEASE_(recorded_);
@@ -53,13 +53,13 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
-    { NULL, "LNSString;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x1, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
-  methods[0].selector = @selector(recordedString);
-  methods[1].selector = @selector(init);
+  methods[0].selector = @selector(init);
+  methods[1].selector = @selector(recordedString);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "standardTimeFormat", "LJavaTextDateFormat;", .constantValue.asLong = 0, 0x1a, -1, 0, -1, -1 },

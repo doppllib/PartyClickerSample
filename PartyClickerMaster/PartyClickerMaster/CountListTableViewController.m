@@ -25,7 +25,8 @@
     
     self.people = (JavaUtilArrayList*)[self.party allPeople];
     
-    self.navigationItem.title = [self.party dateString];
+    //Bigger screens show the title twice because the "Back" button is named the same
+    //self.navigationItem.title = [self.party dateString];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

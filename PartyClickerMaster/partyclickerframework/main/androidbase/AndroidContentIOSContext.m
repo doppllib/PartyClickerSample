@@ -10,13 +10,12 @@
 #include "AndroidContentSharedPreferences.h"
 #include "AndroidDatabaseDatabaseErrorHandler.h"
 #include "AndroidDatabaseSqliteSQLiteDatabase.h"
+#include "AndroidInternalUtilXmlUtils.h"
 #include "AndroidOsFileUtils.h"
 #include "AndroidOsHandler.h"
 #include "AndroidOsLooper.h"
-#include "IOSClass.h"
 #include "IOSObjectArray.h"
 #include "J2ObjC_source.h"
-#include "RenameComAndroidInternalUtilXmlUtils.h"
 #include "android/util/Log.h"
 #include "java/io/File.h"
 #include "java/io/FileInputStream.h"
@@ -67,6 +66,13 @@ NSString *AndroidContentIOSContext_DATABASES = @"databases";
 NSString *AndroidContentIOSContext_TAG = @"IOSContext";
 
 @implementation AndroidContentIOSContext
+
+J2OBJC_IGNORE_DESIGNATED_BEGIN
+- (instancetype)init {
+  AndroidContentIOSContext_init(self);
+  return self;
+}
+J2OBJC_IGNORE_DESIGNATED_END
 
 - (AndroidOsLooper *)getMainLooper {
   return AndroidOsLooper_getMainLooper();
@@ -119,7 +125,7 @@ NSString *AndroidContentIOSContext_TAG = @"IOSContext";
     if (AndroidOsFileUtils_getFileStatusWithNSString_withAndroidOsFileUtils_FileStatus_([prefsFile getPath], stat) && [prefsFile canRead]) {
       @try {
         JavaIoFileInputStream *str = create_JavaIoFileInputStream_initWithJavaIoFile_(prefsFile);
-        map = RenameComAndroidInternalUtilXmlUtils_readMapXmlWithJavaIoInputStream_(str);
+        map = AndroidInternalUtilXmlUtils_readMapXmlWithJavaIoInputStream_(str);
         [str close];
       }
       @catch (OrgXmlpullV1XmlPullParserException *e) {
@@ -228,13 +234,6 @@ NSString *AndroidContentIOSContext_TAG = @"IOSContext";
   return [((JavaIoFile *) nil_chk([self getDirWithNSString:AndroidContentIOSContext_DATABASES withInt:AndroidContentContext_MODE_PRIVATE])) list];
 }
 
-J2OBJC_IGNORE_DESIGNATED_BEGIN
-- (instancetype)init {
-  AndroidContentIOSContext_init(self);
-  return self;
-}
-J2OBJC_IGNORE_DESIGNATED_END
-
 - (void)dealloc {
   RELEASE_(mSync_);
   RELEASE_(mPreferencesDir_);
@@ -244,6 +243,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
+    { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LAndroidOsLooper;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LJavaIoFile;", 0xa, 0, 1, -1, -1, -1, -1 },
     { NULL, "LJavaIoFile;", 0x1, 2, 3, -1, -1, -1, -1 },
@@ -268,35 +268,34 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, "Z", 0x1, 20, 3, -1, -1, -1, -1 },
     { NULL, "LJavaIoFile;", 0x1, 21, 3, -1, -1, -1, -1 },
     { NULL, "[LNSString;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
-  methods[0].selector = @selector(getMainLooper);
-  methods[1].selector = @selector(makeBackupFileWithJavaIoFile:);
-  methods[2].selector = @selector(getSharedPrefsFileWithNSString:);
-  methods[3].selector = @selector(makeFilenameWithJavaIoFile:withNSString:);
-  methods[4].selector = @selector(getSharedPreferencesWithNSString:withInt:);
-  methods[5].selector = @selector(getPreferencesDir);
-  methods[6].selector = @selector(openFileInputWithNSString:);
-  methods[7].selector = @selector(openFileOutputWithNSString:withInt:);
-  methods[8].selector = @selector(findLocalFileWithNSString:);
-  methods[9].selector = @selector(deleteFileWithNSString:);
-  methods[10].selector = @selector(getFileStreamPathWithNSString:);
-  methods[11].selector = @selector(getFilesDir);
-  methods[12].selector = @selector(getRootDir);
-  methods[13].selector = @selector(getRootDirString);
-  methods[14].selector = @selector(getExternalFilesDirWithNSString:);
-  methods[15].selector = @selector(getExternalFilesDirsWithNSString:);
-  methods[16].selector = @selector(getCacheDir);
-  methods[17].selector = @selector(fileList);
-  methods[18].selector = @selector(getDirWithNSString:withInt:);
-  methods[19].selector = @selector(openOrCreateDatabaseWithNSString:withInt:withAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:);
-  methods[20].selector = @selector(openOrCreateDatabaseWithNSString:withInt:withAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:withAndroidDatabaseDatabaseErrorHandler:);
-  methods[21].selector = @selector(deleteDatabaseWithNSString:);
-  methods[22].selector = @selector(getDatabasePathWithNSString:);
-  methods[23].selector = @selector(databaseList);
-  methods[24].selector = @selector(init);
+  methods[0].selector = @selector(init);
+  methods[1].selector = @selector(getMainLooper);
+  methods[2].selector = @selector(makeBackupFileWithJavaIoFile:);
+  methods[3].selector = @selector(getSharedPrefsFileWithNSString:);
+  methods[4].selector = @selector(makeFilenameWithJavaIoFile:withNSString:);
+  methods[5].selector = @selector(getSharedPreferencesWithNSString:withInt:);
+  methods[6].selector = @selector(getPreferencesDir);
+  methods[7].selector = @selector(openFileInputWithNSString:);
+  methods[8].selector = @selector(openFileOutputWithNSString:withInt:);
+  methods[9].selector = @selector(findLocalFileWithNSString:);
+  methods[10].selector = @selector(deleteFileWithNSString:);
+  methods[11].selector = @selector(getFileStreamPathWithNSString:);
+  methods[12].selector = @selector(getFilesDir);
+  methods[13].selector = @selector(getRootDir);
+  methods[14].selector = @selector(getRootDirString);
+  methods[15].selector = @selector(getExternalFilesDirWithNSString:);
+  methods[16].selector = @selector(getExternalFilesDirsWithNSString:);
+  methods[17].selector = @selector(getCacheDir);
+  methods[18].selector = @selector(fileList);
+  methods[19].selector = @selector(getDirWithNSString:withInt:);
+  methods[20].selector = @selector(openOrCreateDatabaseWithNSString:withInt:withAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:);
+  methods[21].selector = @selector(openOrCreateDatabaseWithNSString:withInt:withAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:withAndroidDatabaseDatabaseErrorHandler:);
+  methods[22].selector = @selector(deleteDatabaseWithNSString:);
+  methods[23].selector = @selector(getDatabasePathWithNSString:);
+  methods[24].selector = @selector(databaseList);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "DATABASES", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 22, -1, -1 },
@@ -312,13 +311,27 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 @end
 
+void AndroidContentIOSContext_init(AndroidContentIOSContext *self) {
+  AndroidAppApplication_init(self);
+  JreStrongAssignAndConsume(&self->mSync_, new_NSObject_init());
+  JreStrongAssignAndConsume(&self->sSharedPrefs_, new_JavaUtilHashMap_init());
+}
+
+AndroidContentIOSContext *new_AndroidContentIOSContext_init() {
+  J2OBJC_NEW_IMPL(AndroidContentIOSContext, init)
+}
+
+AndroidContentIOSContext *create_AndroidContentIOSContext_init() {
+  J2OBJC_CREATE_IMPL(AndroidContentIOSContext, init)
+}
+
 JavaIoFile *AndroidContentIOSContext_makeBackupFileWithJavaIoFile_(JavaIoFile *prefsFile) {
   AndroidContentIOSContext_initialize();
   return create_JavaIoFile_initWithNSString_(JreStrcat("$$", [((JavaIoFile *) nil_chk(prefsFile)) getPath], @".bak"));
 }
 
 JavaIoFile *AndroidContentIOSContext_makeFilenameWithJavaIoFile_withNSString_(AndroidContentIOSContext *self, JavaIoFile *base, NSString *name) {
-  if ([((NSString *) nil_chk(name)) indexOf:JreLoadStatic(JavaIoFile, separatorChar)] < 0) {
+  if ([((NSString *) nil_chk(name)) java_indexOf:JreLoadStatic(JavaIoFile, separatorChar)] < 0) {
     return create_JavaIoFile_initWithJavaIoFile_withNSString_(base, name);
   }
   @throw create_JavaLangIllegalArgumentException_initWithNSString_(JreStrcat("$$$", @"File ", name, @" contains a path separator"));
@@ -343,20 +356,6 @@ NSString *AndroidContentIOSContext_getRootDirString(AndroidContentIOSContext *se
   NSString *documentsDirectory = [paths firstObject];
   
   return documentsDirectory;
-}
-
-void AndroidContentIOSContext_init(AndroidContentIOSContext *self) {
-  AndroidAppApplication_init(self);
-  JreStrongAssignAndConsume(&self->mSync_, new_NSObject_init());
-  JreStrongAssignAndConsume(&self->sSharedPrefs_, new_JavaUtilHashMap_init());
-}
-
-AndroidContentIOSContext *new_AndroidContentIOSContext_init() {
-  J2OBJC_NEW_IMPL(AndroidContentIOSContext, init)
-}
-
-AndroidContentIOSContext *create_AndroidContentIOSContext_init() {
-  J2OBJC_CREATE_IMPL(AndroidContentIOSContext, init)
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(AndroidContentIOSContext)

@@ -60,29 +60,26 @@ __attribute__((unused)) static ComKgalliganPartyclickerDataDatabaseHelper *new_C
 
 __attribute__((unused)) static ComKgalliganPartyclickerDataDatabaseHelper *create_ComKgalliganPartyclickerDataDatabaseHelper_initWithAndroidContentContext_(AndroidContentContext *context);
 
-@interface ComKgalliganPartyclickerDataDatabaseHelper_$1 : NSObject < JavaUtilConcurrentCallable > {
+@interface ComKgalliganPartyclickerDataDatabaseHelper_1 : NSObject < JavaUtilConcurrentCallable > {
  @public
   ComKgalliganPartyclickerDataDatabaseHelper *this$0_;
   ComKgalliganPartyclickerDataParty *val$party_;
 }
 
-- (id)call;
-
 - (instancetype)initWithComKgalliganPartyclickerDataDatabaseHelper:(ComKgalliganPartyclickerDataDatabaseHelper *)outer$
                              withComKgalliganPartyclickerDataParty:(ComKgalliganPartyclickerDataParty *)capture$0;
 
+- (JavaLangVoid *)call;
+
 @end
 
-J2OBJC_EMPTY_STATIC_INIT(ComKgalliganPartyclickerDataDatabaseHelper_$1)
+J2OBJC_EMPTY_STATIC_INIT(ComKgalliganPartyclickerDataDatabaseHelper_1)
 
-J2OBJC_FIELD_SETTER(ComKgalliganPartyclickerDataDatabaseHelper_$1, this$0_, ComKgalliganPartyclickerDataDatabaseHelper *)
-J2OBJC_FIELD_SETTER(ComKgalliganPartyclickerDataDatabaseHelper_$1, val$party_, ComKgalliganPartyclickerDataParty *)
+__attribute__((unused)) static void ComKgalliganPartyclickerDataDatabaseHelper_1_initWithComKgalliganPartyclickerDataDatabaseHelper_withComKgalliganPartyclickerDataParty_(ComKgalliganPartyclickerDataDatabaseHelper_1 *self, ComKgalliganPartyclickerDataDatabaseHelper *outer$, ComKgalliganPartyclickerDataParty *capture$0);
 
-__attribute__((unused)) static void ComKgalliganPartyclickerDataDatabaseHelper_$1_initWithComKgalliganPartyclickerDataDatabaseHelper_withComKgalliganPartyclickerDataParty_(ComKgalliganPartyclickerDataDatabaseHelper_$1 *self, ComKgalliganPartyclickerDataDatabaseHelper *outer$, ComKgalliganPartyclickerDataParty *capture$0);
+__attribute__((unused)) static ComKgalliganPartyclickerDataDatabaseHelper_1 *new_ComKgalliganPartyclickerDataDatabaseHelper_1_initWithComKgalliganPartyclickerDataDatabaseHelper_withComKgalliganPartyclickerDataParty_(ComKgalliganPartyclickerDataDatabaseHelper *outer$, ComKgalliganPartyclickerDataParty *capture$0) NS_RETURNS_RETAINED;
 
-__attribute__((unused)) static ComKgalliganPartyclickerDataDatabaseHelper_$1 *new_ComKgalliganPartyclickerDataDatabaseHelper_$1_initWithComKgalliganPartyclickerDataDatabaseHelper_withComKgalliganPartyclickerDataParty_(ComKgalliganPartyclickerDataDatabaseHelper *outer$, ComKgalliganPartyclickerDataParty *capture$0) NS_RETURNS_RETAINED;
-
-__attribute__((unused)) static ComKgalliganPartyclickerDataDatabaseHelper_$1 *create_ComKgalliganPartyclickerDataDatabaseHelper_$1_initWithComKgalliganPartyclickerDataDatabaseHelper_withComKgalliganPartyclickerDataParty_(ComKgalliganPartyclickerDataDatabaseHelper *outer$, ComKgalliganPartyclickerDataParty *capture$0);
+__attribute__((unused)) static ComKgalliganPartyclickerDataDatabaseHelper_1 *create_ComKgalliganPartyclickerDataDatabaseHelper_1_initWithComKgalliganPartyclickerDataDatabaseHelper_withComKgalliganPartyclickerDataParty_(ComKgalliganPartyclickerDataDatabaseHelper *outer$, ComKgalliganPartyclickerDataParty *capture$0);
 
 @implementation ComKgalliganPartyclickerDataDatabaseHelper
 
@@ -185,7 +182,7 @@ __attribute__((unused)) static ComKgalliganPartyclickerDataDatabaseHelper_$1 *cr
 }
 
 - (void)deletePartyWithComKgalliganPartyclickerDataParty:(ComKgalliganPartyclickerDataParty *)party {
-  [self performTransactionOrThrowRuntimeWithJavaUtilConcurrentCallable:create_ComKgalliganPartyclickerDataDatabaseHelper_$1_initWithComKgalliganPartyclickerDataDatabaseHelper_withComKgalliganPartyclickerDataParty_(self, party)];
+  [self performTransactionOrThrowRuntimeWithJavaUtilConcurrentCallable:create_ComKgalliganPartyclickerDataDatabaseHelper_1_initWithComKgalliganPartyclickerDataDatabaseHelper_withComKgalliganPartyclickerDataParty_(self, party)];
 }
 
 - (ComKgalliganPartyclickerDataParty *)loadPartyWithInt:(jint)id_ {
@@ -275,20 +272,20 @@ ComKgalliganPartyclickerDataDatabaseHelper *ComKgalliganPartyclickerDataDatabase
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ComKgalliganPartyclickerDataDatabaseHelper)
 
-@implementation ComKgalliganPartyclickerDataDatabaseHelper_$1
+@implementation ComKgalliganPartyclickerDataDatabaseHelper_1
 
-- (id)call {
+- (instancetype)initWithComKgalliganPartyclickerDataDatabaseHelper:(ComKgalliganPartyclickerDataDatabaseHelper *)outer$
+                             withComKgalliganPartyclickerDataParty:(ComKgalliganPartyclickerDataParty *)capture$0 {
+  ComKgalliganPartyclickerDataDatabaseHelper_1_initWithComKgalliganPartyclickerDataDatabaseHelper_withComKgalliganPartyclickerDataParty_(self, outer$, capture$0);
+  return self;
+}
+
+- (JavaLangVoid *)call {
   CoTouchlabSqueakyStmtWhere *where = create_CoTouchlabSqueakyStmtWhere_initWithCoTouchlabSqueakyDaoDao_([this$0_ getPersonDao]);
   [where eqWithNSString:@"party" withId:val$party_];
   [((id<CoTouchlabSqueakyDaoDao>) nil_chk([this$0_ getPersonDao])) delete__WithCoTouchlabSqueakyDaoQuery:where];
   [((id<CoTouchlabSqueakyDaoDao>) nil_chk([this$0_ getPartyDao])) delete__WithId:val$party_];
   return nil;
-}
-
-- (instancetype)initWithComKgalliganPartyclickerDataDatabaseHelper:(ComKgalliganPartyclickerDataDatabaseHelper *)outer$
-                             withComKgalliganPartyclickerDataParty:(ComKgalliganPartyclickerDataParty *)capture$0 {
-  ComKgalliganPartyclickerDataDatabaseHelper_$1_initWithComKgalliganPartyclickerDataDatabaseHelper_withComKgalliganPartyclickerDataParty_(self, outer$, capture$0);
-  return self;
 }
 
 - (void)dealloc {
@@ -299,35 +296,35 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ComKgalliganPartyclickerDataDatabaseHelper)
 
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
+    { NULL, NULL, 0x0, -1, -1, -1, -1, -1, -1 },
     { NULL, "LJavaLangVoid;", 0x1, -1, -1, 0, -1, -1, -1 },
-    { NULL, NULL, 0x0, -1, 1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
-  methods[0].selector = @selector(call);
-  methods[1].selector = @selector(initWithComKgalliganPartyclickerDataDatabaseHelper:withComKgalliganPartyclickerDataParty:);
+  methods[0].selector = @selector(initWithComKgalliganPartyclickerDataDatabaseHelper:withComKgalliganPartyclickerDataParty:);
+  methods[1].selector = @selector(call);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "this$0_", "LComKgalliganPartyclickerDataDatabaseHelper;", .constantValue.asLong = 0, 0x1012, -1, -1, -1, -1 },
     { "val$party_", "LComKgalliganPartyclickerDataParty;", .constantValue.asLong = 0, 0x1012, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LJavaLangException;", "LComKgalliganPartyclickerDataDatabaseHelper;LComKgalliganPartyclickerDataParty;", "LComKgalliganPartyclickerDataDatabaseHelper;", "deletePartyWithComKgalliganPartyclickerDataParty:", "Ljava/lang/Object;Ljava/util/concurrent/Callable<Ljava/lang/Void;>;" };
-  static const J2ObjcClassInfo _ComKgalliganPartyclickerDataDatabaseHelper_$1 = { "", "com.kgalligan.partyclicker.data", ptrTable, methods, fields, 7, 0x8008, 2, 2, 2, -1, 3, 4, -1 };
-  return &_ComKgalliganPartyclickerDataDatabaseHelper_$1;
+  static const void *ptrTable[] = { "LJavaLangException;", "LComKgalliganPartyclickerDataDatabaseHelper;", "deletePartyWithComKgalliganPartyclickerDataParty:", "Ljava/lang/Object;Ljava/util/concurrent/Callable<Ljava/lang/Void;>;" };
+  static const J2ObjcClassInfo _ComKgalliganPartyclickerDataDatabaseHelper_1 = { "", "com.kgalligan.partyclicker.data", ptrTable, methods, fields, 7, 0x8018, 2, 2, 1, -1, 2, 3, -1 };
+  return &_ComKgalliganPartyclickerDataDatabaseHelper_1;
 }
 
 @end
 
-void ComKgalliganPartyclickerDataDatabaseHelper_$1_initWithComKgalliganPartyclickerDataDatabaseHelper_withComKgalliganPartyclickerDataParty_(ComKgalliganPartyclickerDataDatabaseHelper_$1 *self, ComKgalliganPartyclickerDataDatabaseHelper *outer$, ComKgalliganPartyclickerDataParty *capture$0) {
+void ComKgalliganPartyclickerDataDatabaseHelper_1_initWithComKgalliganPartyclickerDataDatabaseHelper_withComKgalliganPartyclickerDataParty_(ComKgalliganPartyclickerDataDatabaseHelper_1 *self, ComKgalliganPartyclickerDataDatabaseHelper *outer$, ComKgalliganPartyclickerDataParty *capture$0) {
   JreStrongAssign(&self->this$0_, outer$);
   JreStrongAssign(&self->val$party_, capture$0);
   NSObject_init(self);
 }
 
-ComKgalliganPartyclickerDataDatabaseHelper_$1 *new_ComKgalliganPartyclickerDataDatabaseHelper_$1_initWithComKgalliganPartyclickerDataDatabaseHelper_withComKgalliganPartyclickerDataParty_(ComKgalliganPartyclickerDataDatabaseHelper *outer$, ComKgalliganPartyclickerDataParty *capture$0) {
-  J2OBJC_NEW_IMPL(ComKgalliganPartyclickerDataDatabaseHelper_$1, initWithComKgalliganPartyclickerDataDatabaseHelper_withComKgalliganPartyclickerDataParty_, outer$, capture$0)
+ComKgalliganPartyclickerDataDatabaseHelper_1 *new_ComKgalliganPartyclickerDataDatabaseHelper_1_initWithComKgalliganPartyclickerDataDatabaseHelper_withComKgalliganPartyclickerDataParty_(ComKgalliganPartyclickerDataDatabaseHelper *outer$, ComKgalliganPartyclickerDataParty *capture$0) {
+  J2OBJC_NEW_IMPL(ComKgalliganPartyclickerDataDatabaseHelper_1, initWithComKgalliganPartyclickerDataDatabaseHelper_withComKgalliganPartyclickerDataParty_, outer$, capture$0)
 }
 
-ComKgalliganPartyclickerDataDatabaseHelper_$1 *create_ComKgalliganPartyclickerDataDatabaseHelper_$1_initWithComKgalliganPartyclickerDataDatabaseHelper_withComKgalliganPartyclickerDataParty_(ComKgalliganPartyclickerDataDatabaseHelper *outer$, ComKgalliganPartyclickerDataParty *capture$0) {
-  J2OBJC_CREATE_IMPL(ComKgalliganPartyclickerDataDatabaseHelper_$1, initWithComKgalliganPartyclickerDataDatabaseHelper_withComKgalliganPartyclickerDataParty_, outer$, capture$0)
+ComKgalliganPartyclickerDataDatabaseHelper_1 *create_ComKgalliganPartyclickerDataDatabaseHelper_1_initWithComKgalliganPartyclickerDataDatabaseHelper_withComKgalliganPartyclickerDataParty_(ComKgalliganPartyclickerDataDatabaseHelper *outer$, ComKgalliganPartyclickerDataParty *capture$0) {
+  J2OBJC_CREATE_IMPL(ComKgalliganPartyclickerDataDatabaseHelper_1, initWithComKgalliganPartyclickerDataDatabaseHelper_withComKgalliganPartyclickerDataParty_, outer$, capture$0)
 }
