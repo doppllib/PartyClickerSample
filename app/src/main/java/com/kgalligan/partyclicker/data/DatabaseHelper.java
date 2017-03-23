@@ -53,6 +53,14 @@ public class DatabaseHelper extends SqueakyOpenHelper
     {
         try
         {
+            /*Observable.just("Hello").subscribe(new Action1<String>()
+            {
+                @Override
+                public void call(String s)
+                {
+                    System.out.println(s);
+                }
+            });*/
             TableUtils.createTables(new SQLiteDatabaseImpl(db), tableClasses);
         }
         catch(SQLException e)

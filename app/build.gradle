@@ -30,16 +30,23 @@ dependencies {
 
     compile 'co.touchlab.squeaky:squeaky-query:0.5.0.0'
     annotationProcessor 'co.touchlab.squeaky:squeaky-processor:0.5.0.0'
+    testAnnotationProcessor 'co.touchlab.squeaky:squeaky-processor:0.5.0.0'
 
     doppl 'co.touchlab.doppl:androidbase:0.6.1-SNAPSHOT:doppl'
     doppl 'co.touchlab.squeaky:squeaky-core:0.5.0.5:doppl'
     doppl 'co.touchlab.squeaky:squeaky-query:0.5.0.5:doppl'
+
+//    doppl 'io.reactivex:rxjava:1.2.1.4.0:doppl'
+//    compile 'io.reactivex:rxjava:1.2.1'
 }
 
 dopplConfig {
     copyMainOutput="../PartyClickerMaster/partyclickerframework/main"
     copyTestOutput="../PartyClickerMaster/partyclickerframework/test"
     copyDependencies true
+
+//    translatedPathPrefix 'com.kgalligan.partyclicker', 'PC'
+//    translatedPathPrefix 'com.kgalligan.partyclicker.data', 'PCD'
 
     translatePattern{
         include '**/data/**'
