@@ -30,6 +30,8 @@
 
 #pragma mark Public
 
+- (instancetype)initWithAndroidContentContext:(AndroidContentContext *)context;
+
 - (void)addPersonWithComKgalliganPartyclickerDataParty:(ComKgalliganPartyclickerDataParty *)party
                                            withBoolean:(jboolean)coming;
 
@@ -40,8 +42,6 @@
 - (ComKgalliganPartyclickerDataParty *)createPartyWithNSString:(NSString *)name;
 
 - (void)deletePartyWithComKgalliganPartyclickerDataParty:(ComKgalliganPartyclickerDataParty *)party;
-
-+ (ComKgalliganPartyclickerDataDatabaseHelper *)getInstanceWithAndroidContentContext:(AndroidContentContext *)context;
 
 - (id<CoTouchlabSqueakyDaoDao>)getPartyDao;
 
@@ -63,7 +63,11 @@
 
 J2OBJC_EMPTY_STATIC_INIT(ComKgalliganPartyclickerDataDatabaseHelper)
 
-FOUNDATION_EXPORT ComKgalliganPartyclickerDataDatabaseHelper *ComKgalliganPartyclickerDataDatabaseHelper_getInstanceWithAndroidContentContext_(AndroidContentContext *context);
+FOUNDATION_EXPORT void ComKgalliganPartyclickerDataDatabaseHelper_initWithAndroidContentContext_(ComKgalliganPartyclickerDataDatabaseHelper *self, AndroidContentContext *context);
+
+FOUNDATION_EXPORT ComKgalliganPartyclickerDataDatabaseHelper *new_ComKgalliganPartyclickerDataDatabaseHelper_initWithAndroidContentContext_(AndroidContentContext *context) NS_RETURNS_RETAINED;
+
+FOUNDATION_EXPORT ComKgalliganPartyclickerDataDatabaseHelper *create_ComKgalliganPartyclickerDataDatabaseHelper_initWithAndroidContentContext_(AndroidContentContext *context);
 
 J2OBJC_TYPE_LITERAL_HEADER(ComKgalliganPartyclickerDataDatabaseHelper)
 

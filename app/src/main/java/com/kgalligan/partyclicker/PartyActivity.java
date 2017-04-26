@@ -54,6 +54,9 @@ public class PartyActivity extends AppCompatActivity
         });
 
         partyPresenter = new PartyPresenter(getIntent().getIntExtra(PARTY_ID, - 1));
+        AppManager.getInstance().getDaggerComponent().inject(partyPresenter);
+
+        partyPresenter.init();
 
         refreshUi();
     }

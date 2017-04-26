@@ -6,28 +6,37 @@ import com.kgalligan.partyclicker.AppManager;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import javax.inject.Inject;
+
 /**
  * Created by kgalligan on 1/5/17.
  */
 
 public class PartyPresenter
 {
-    private final Party     party;
+    private final int partyId;
+    private Party party;
     private       int       partyCount;
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
+    @Inject
+    DatabaseHelper databaseHelper;
+
     public PartyPresenter(int partyId)
     {
-        DatabaseHelper databaseHelper = DatabaseHelper.getInstance(AppManager.getContext());
+        this.partyId = partyId;
+    }
+
+    public void init()
+    {
         party = databaseHelper.loadParty(partyId);
         partyCount = databaseHelper.countCurrentParty(partyId);
     }
 
-
     public void addPerson()
     {
         partyCount++;
-        executorService.execute(new ModPersonTask(party, true, AppManager.getContext()));
+        executorService.execute(new ModPersonTask(party, true, databaseHelper));
     }
 
     public void removePerson()
@@ -35,7 +44,7 @@ public class PartyPresenter
         if(partyCount > 0)
         {
             partyCount--;
-            executorService.execute(new ModPersonTask(party, false, AppManager.getContext()));
+            executorService.execute(new ModPersonTask(party, false, databaseHelper));
         }
     }
 

@@ -19,7 +19,7 @@
 #define INCLUDE_JavaLangRunnable 1
 #include "java/lang/Runnable.h"
 
-@class AndroidContentContext;
+@class ComKgalliganPartyclickerDataDatabaseHelper;
 @class ComKgalliganPartyclickerDataParty;
 
 @interface ComKgalliganPartyclickerDataModPersonTask : NSObject < JavaLangRunnable >
@@ -28,7 +28,7 @@
 
 - (instancetype)initWithComKgalliganPartyclickerDataParty:(ComKgalliganPartyclickerDataParty *)party
                                               withBoolean:(jboolean)coming
-                                withAndroidContentContext:(AndroidContentContext *)context;
+           withComKgalliganPartyclickerDataDatabaseHelper:(ComKgalliganPartyclickerDataDatabaseHelper *)databaseHelper;
 
 - (void)run;
 
@@ -36,11 +36,11 @@
 
 J2OBJC_EMPTY_STATIC_INIT(ComKgalliganPartyclickerDataModPersonTask)
 
-FOUNDATION_EXPORT void ComKgalliganPartyclickerDataModPersonTask_initWithComKgalliganPartyclickerDataParty_withBoolean_withAndroidContentContext_(ComKgalliganPartyclickerDataModPersonTask *self, ComKgalliganPartyclickerDataParty *party, jboolean coming, AndroidContentContext *context);
+FOUNDATION_EXPORT void ComKgalliganPartyclickerDataModPersonTask_initWithComKgalliganPartyclickerDataParty_withBoolean_withComKgalliganPartyclickerDataDatabaseHelper_(ComKgalliganPartyclickerDataModPersonTask *self, ComKgalliganPartyclickerDataParty *party, jboolean coming, ComKgalliganPartyclickerDataDatabaseHelper *databaseHelper);
 
-FOUNDATION_EXPORT ComKgalliganPartyclickerDataModPersonTask *new_ComKgalliganPartyclickerDataModPersonTask_initWithComKgalliganPartyclickerDataParty_withBoolean_withAndroidContentContext_(ComKgalliganPartyclickerDataParty *party, jboolean coming, AndroidContentContext *context) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT ComKgalliganPartyclickerDataModPersonTask *new_ComKgalliganPartyclickerDataModPersonTask_initWithComKgalliganPartyclickerDataParty_withBoolean_withComKgalliganPartyclickerDataDatabaseHelper_(ComKgalliganPartyclickerDataParty *party, jboolean coming, ComKgalliganPartyclickerDataDatabaseHelper *databaseHelper) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT ComKgalliganPartyclickerDataModPersonTask *create_ComKgalliganPartyclickerDataModPersonTask_initWithComKgalliganPartyclickerDataParty_withBoolean_withAndroidContentContext_(ComKgalliganPartyclickerDataParty *party, jboolean coming, AndroidContentContext *context);
+FOUNDATION_EXPORT ComKgalliganPartyclickerDataModPersonTask *create_ComKgalliganPartyclickerDataModPersonTask_initWithComKgalliganPartyclickerDataParty_withBoolean_withComKgalliganPartyclickerDataDatabaseHelper_(ComKgalliganPartyclickerDataParty *party, jboolean coming, ComKgalliganPartyclickerDataDatabaseHelper *databaseHelper);
 
 J2OBJC_TYPE_LITERAL_HEADER(ComKgalliganPartyclickerDataModPersonTask)
 

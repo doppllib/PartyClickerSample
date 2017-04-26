@@ -26,26 +26,14 @@ public class DatabaseHelper extends SqueakyOpenHelper
 
     private static final int CURRENT_VERSION = BASELINE;
 
-    private static DatabaseHelper instance;
-
     // @reminder Ordering matters, create foreign key dependant classes later
     private final Class[] tableClasses = new Class[] {
             Party.class, Person.class
     };
 
-    private DatabaseHelper(Context context)
+    public DatabaseHelper(Context context)
     {
         super(context, DATABASE_FILE_NAME, null, CURRENT_VERSION);
-    }
-
-    public static synchronized DatabaseHelper getInstance(Context context)
-    {
-        if(instance == null)
-        {
-            instance = new DatabaseHelper(context);
-        }
-
-        return instance;
     }
 
     @Override

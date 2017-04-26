@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.people = (JavaUtilArrayList*)[self.party allPeople];
+//    self.people = (JavaUtilArrayList*)[self.party allPeople];
     
     //Bigger screens show the title twice because the "Back" button is named the same
     //self.navigationItem.title = [self.party dateString];

@@ -9,7 +9,11 @@
 #import "AppDelegate.h"
 #import "DetailViewController.h"
 #import "AndroidOsLooper.h"
+
 #import "ComKgalliganPartyclickerAppManager.h"
+#import "ComKgalliganPartyclickerPresenterAppModule.h"
+#import "ComKgalliganPartyclickerPresenterDaggerComponent.h"
+#import "ComKgalliganPartyclickerPresenterDaggerDaggerComponent.h"
 #import "AndroidContentIOSContext.h"
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
@@ -21,9 +25,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    AndroidContentIOSContext* context = [[AndroidContentIOSContext alloc] init];
     
-    [ComKgalliganPartyclickerAppManager init__WithAndroidAppApplication:[[AndroidContentIOSContext alloc] init]];
-    [AndroidOsLooper prepareMainLooper];
+    ComKgalliganPartyclickerPresenterAppModule* appModule = [[ComKgalliganPartyclickerPresenterAppModule alloc] initWithAndroidAppApplication:context];
+    
+    id<ComKgalliganPartyclickerPresenterDaggerComponent> daggerComponent = [[[ComKgalliganPartyclickerPresenterDaggerDaggerComponent builder] appModuleWithComKgalliganPartyclickerPresenterAppModule:appModule] build];
+    
+    [ComKgalliganPartyclickerAppManager init__WithAndroidAppApplication:context withComKgalliganPartyclickerPresenterDaggerComponent:daggerComponent];
     
     UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
     UINavigationController *navigationController = [splitViewController.viewControllers lastObject];

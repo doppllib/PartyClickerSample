@@ -13,6 +13,8 @@
 #import "ComKgalliganPartyclickerAppManager.h"
 #import "ComKgalliganPartyclickerDataParty.h"
 #import "ComKgalliganPartyclickerDataPartyPresenter.h"
+#import "ComKgalliganPartyclickerPresenterDaggerComponent.h"
+#import "ComKgalliganPartyclickerPresenterPartyListPresenter.h"
 
 #import "java/util/ArrayList.h"
 
@@ -32,6 +34,10 @@
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
+    self.presenter = [[ComKgalliganPartyclickerPresenterPartyListPresenter alloc] init];
+    [[[ComKgalliganPartyclickerAppManager getInstance] getDaggerComponent] injectWithComKgalliganPartyclickerPresenterPartyListPresenter:self.presenter];
+    
+    [self.presenter applyUiInterfaceWithComKgalliganPartyclickerPresenterPartyListPresenter_UiInterface:self];
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 }
 
@@ -48,18 +54,29 @@
     }
 }
 
+- (void)dealloc{
+    [self.presenter clearUiInterface];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+- (void)refreshPartyListWithJavaUtilList:(id<JavaUtilList>)partyList
+{
+    self.parties = (JavaUtilArrayList*)partyList;
+    [self.tableView reloadData];
+}
+
+- (void)showPartyWithComKgalliganPartyclickerDataParty:(ComKgalliganPartyclickerDataParty *)party
+{
+    
+}
+
 
 - (void)insertNewObject:(id)sender {
-    ComKgalliganPartyclickerDataDatabaseHelper* dh = [ComKgalliganPartyclickerDataDatabaseHelper getInstanceWithAndroidContentContext:[ComKgalliganPartyclickerAppManager getContext]];
-    
-    ComKgalliganPartyclickerDataParty* party = [dh createPartyWithNSString:@""];
-    
+    [self.presenter createPartyWithNSString:@""];
     [self refreshParties];
     
     [self.tableView reloadData];
@@ -69,8 +86,7 @@
 
 - (void) refreshParties
 {
-    ComKgalliganPartyclickerDataDatabaseHelper* dh = [ComKgalliganPartyclickerDataDatabaseHelper getInstanceWithAndroidContentContext:[ComKgalliganPartyclickerAppManager getContext]];
-    self.parties = (JavaUtilArrayList*)[dh allParties];
+    [self.presenter callRefreshPartyList];
 }
 
 
@@ -82,6 +98,9 @@
         ComKgalliganPartyclickerDataParty* party = (ComKgalliganPartyclickerDataParty*)[self.parties getWithInt:(jint)indexPath.row];
         //ComKgalliganPartyclickerDataParty *party = (ComKgalliganPartyclickerDataParty *)sender;
         ComKgalliganPartyclickerDataPartyPresenter* presenter = [[ComKgalliganPartyclickerDataPartyPresenter alloc] initWithInt:party->id__];
+        
+        [[[ComKgalliganPartyclickerAppManager getInstance] getDaggerComponent] injectWithComKgalliganPartyclickerDataPartyPresenter:presenter];
+        [presenter init__];
         
         DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
         [controller setDetailItem:presenter];
@@ -108,7 +127,7 @@
 
     ComKgalliganPartyclickerDataParty* party = (ComKgalliganPartyclickerDataParty*)[self.parties getWithInt:(jint)indexPath.row];
     
-    NSString* countString = [NSString stringWithFormat:@"%d", [party countPeople]];
+    NSString* countString = [NSString stringWithFormat:@"%d", [self.presenter countPeopleWithComKgalliganPartyclickerDataParty:party]];
     
     cell.textLabel.text = [party dateString];
     cell.detailTextLabel.text = countString;
@@ -126,11 +145,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         //[self.objects removeObjectAtIndex:indexPath.row];
         //[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        ComKgalliganPartyclickerDataDatabaseHelper* dh = [ComKgalliganPartyclickerDataDatabaseHelper getInstanceWithAndroidContentContext:[ComKgalliganPartyclickerAppManager getContext]];
-        ComKgalliganPartyclickerDataParty* party = (ComKgalliganPartyclickerDataParty*)[self.parties getWithInt:(jint)indexPath.row];
-        [dh deletePartyWithComKgalliganPartyclickerDataParty:party];
-        [self refreshParties];
-        [self.tableView reloadData];
+        [self.presenter deletePartyWithInt:(jint)indexPath.row];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         
     }

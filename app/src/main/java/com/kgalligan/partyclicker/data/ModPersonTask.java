@@ -9,18 +9,18 @@ public class ModPersonTask implements Runnable
 {
     private final Party party;
     private final boolean coming;
-    private final Context context;
+    private final DatabaseHelper databaseHelper;
 
-    public ModPersonTask(Party party, boolean coming, Context context)
+    public ModPersonTask(Party party, boolean coming, DatabaseHelper databaseHelper)
     {
         this.party = party;
         this.coming = coming;
-        this.context = context;
+        this.databaseHelper = databaseHelper;
     }
 
     @Override
     public void run()
     {
-        DatabaseHelper.getInstance(context).addPerson(party, coming);
+        databaseHelper.addPerson(party, coming);
     }
 }

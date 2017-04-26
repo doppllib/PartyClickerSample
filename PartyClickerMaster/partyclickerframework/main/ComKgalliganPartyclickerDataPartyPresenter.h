@@ -15,9 +15,13 @@
 #if !defined (ComKgalliganPartyclickerDataPartyPresenter_) && (INCLUDE_ALL_ComKgalliganPartyclickerDataPartyPresenter || defined(INCLUDE_ComKgalliganPartyclickerDataPartyPresenter))
 #define ComKgalliganPartyclickerDataPartyPresenter_
 
+@class ComKgalliganPartyclickerDataDatabaseHelper;
 @class ComKgalliganPartyclickerDataParty;
 
-@interface ComKgalliganPartyclickerDataPartyPresenter : NSObject
+@interface ComKgalliganPartyclickerDataPartyPresenter : NSObject {
+ @public
+  ComKgalliganPartyclickerDataDatabaseHelper *databaseHelper_;
+}
 
 #pragma mark Public
 
@@ -29,11 +33,15 @@
 
 - (jint)getPartyCount;
 
+- (void)init__ OBJC_METHOD_FAMILY_NONE;
+
 - (void)removePerson;
 
 @end
 
 J2OBJC_EMPTY_STATIC_INIT(ComKgalliganPartyclickerDataPartyPresenter)
+
+J2OBJC_FIELD_SETTER(ComKgalliganPartyclickerDataPartyPresenter, databaseHelper_, ComKgalliganPartyclickerDataDatabaseHelper *)
 
 FOUNDATION_EXPORT void ComKgalliganPartyclickerDataPartyPresenter_initWithInt_(ComKgalliganPartyclickerDataPartyPresenter *self, jint partyId);
 

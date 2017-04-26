@@ -16,7 +16,6 @@
 #define ComKgalliganPartyclickerDataParty_
 
 @class JavaUtilDate;
-@protocol JavaUtilList;
 
 @interface ComKgalliganPartyclickerDataParty : NSObject {
  @public
@@ -28,10 +27,6 @@
 #pragma mark Public
 
 - (instancetype)init;
-
-- (id<JavaUtilList>)allPeople;
-
-- (jint)countPeople;
 
 - (NSString *)dateString;
 

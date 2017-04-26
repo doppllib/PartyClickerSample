@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'co.touchlab.doppl.gradle'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 25
@@ -21,23 +22,23 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    /*androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    })*/
     compile 'com.android.support:appcompat-v7:25.1.0'
     testCompile 'junit:junit:4.12'
 
     compile 'co.touchlab.squeaky:squeaky-query:0.5.0.0'
-    annotationProcessor 'co.touchlab.squeaky:squeaky-processor:0.5.0.0'
-    testAnnotationProcessor 'co.touchlab.squeaky:squeaky-processor:0.5.0.0'
+    apt 'co.touchlab.squeaky:squeaky-processor:0.5.0'
+    testApt 'co.touchlab.squeaky:squeaky-processor:0.5.0'
 
     doppl 'co.touchlab.doppl:androidbase:0.6.1-SNAPSHOT:doppl'
     doppl 'co.touchlab.squeaky:squeaky-core:0.5.0.5:doppl'
     doppl 'co.touchlab.squeaky:squeaky-query:0.5.0.5:doppl'
 
-//    doppl 'io.reactivex:rxjava:1.2.1.4.0:doppl'
-//    compile 'io.reactivex:rxjava:1.2.1'
+    doppl 'com.google.dagger:dagger:2.5.1:doppl'
+    compile 'com.google.dagger:dagger:2.5'
+    apt 'com.google.dagger:dagger-compiler:2.5'
 }
 
 dopplConfig {
@@ -48,8 +49,12 @@ dopplConfig {
 //    translatedPathPrefix 'com.kgalligan.partyclicker', 'PC'
 //    translatedPathPrefix 'com.kgalligan.partyclicker.data', 'PCD'
 
+    generatedTestSourceDirs "build/generated/source/apt/test/debug"
+
     translatePattern{
         include '**/data/**'
+        include '**/presenter/**'
+        include '**/test/**'
         include '**/AppManager.java'
     }
 }
