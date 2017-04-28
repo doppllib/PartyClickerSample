@@ -15,6 +15,10 @@ import javax.inject.Inject;
 
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 
 /**
  * Created by kgalligan on 4/28/17.
@@ -25,7 +29,7 @@ public class PartyPresenterTest
     DataProvider dataProvider;
 
     private PartyPresenter                 partyPresenter;
-    private PartyListPresenter.UiInterface uiInterface;
+    private PartyPresenter.UiInterface uiInterface;
     private Party                          party;
 
     @Before
@@ -42,6 +46,9 @@ public class PartyPresenterTest
         partyPresenter = new PartyPresenter(party.id);
 
         testComponent.inject(partyPresenter);
+
+        uiInterface = mock(PartyPresenter.UiInterface.class);
+        partyPresenter.applyUiInterface(uiInterface);
     }
 
     @Test
@@ -50,6 +57,10 @@ public class PartyPresenterTest
         initMultiParty();
 
         assertEquals(party.id, partyPresenter.getParty().id);
+
+        verify(uiInterface).updateUi();
+        verify(uiInterface).processing(false);
+        verify(uiInterface).processing(true);
     }
 
     private void initMultiParty()
@@ -73,6 +84,8 @@ public class PartyPresenterTest
 
         assertEquals(3, partyPresenter.getPartyCount());
         assertEquals(3, dataProvider.countCurrentParty(party.id));
+
+        verify(uiInterface, atLeastOnce()).updateUi();
     }
 
     @Test
@@ -84,6 +97,8 @@ public class PartyPresenterTest
 
         assertEquals(2, partyPresenter.getPartyCount());
         assertEquals(2, dataProvider.countCurrentParty(party.id));
+
+        verify(uiInterface, atLeastOnce()).updateUi();
     }
 
     @Test

@@ -17,10 +17,13 @@
 
 @class PDParty;
 @protocol PDDataProvider;
+@protocol PPPartyPresenter_UiInterface;
+@protocol RxObservable_Transformer;
 
 @interface PPPartyPresenter : NSObject {
  @public
   id<PDDataProvider> databaseHelper_;
+  id<RxObservable_Transformer> schedulerTransformer_;
 }
 
 #pragma mark Public
@@ -28,6 +31,10 @@
 - (instancetype)initWithInt:(jint)partyId;
 
 - (void)addPerson;
+
+- (void)applyUiInterfaceWithPPPartyPresenter_UiInterface:(id<PPPartyPresenter_UiInterface>)uiInterface;
+
+- (void)clearUiInterface;
 
 - (PDParty *)getParty;
 
@@ -42,6 +49,7 @@
 J2OBJC_EMPTY_STATIC_INIT(PPPartyPresenter)
 
 J2OBJC_FIELD_SETTER(PPPartyPresenter, databaseHelper_, id<PDDataProvider>)
+J2OBJC_FIELD_SETTER(PPPartyPresenter, schedulerTransformer_, id<RxObservable_Transformer>)
 
 FOUNDATION_EXPORT void PPPartyPresenter_initWithInt_(PPPartyPresenter *self, jint partyId);
 
@@ -52,6 +60,23 @@ FOUNDATION_EXPORT PPPartyPresenter *create_PPPartyPresenter_initWithInt_(jint pa
 J2OBJC_TYPE_LITERAL_HEADER(PPPartyPresenter)
 
 @compatibility_alias ComKgalliganPartyclickerPresenterPartyPresenter PPPartyPresenter;
+
+#endif
+
+#if !defined (PPPartyPresenter_UiInterface_) && (INCLUDE_ALL_PPPartyPresenter || defined(INCLUDE_PPPartyPresenter_UiInterface))
+#define PPPartyPresenter_UiInterface_
+
+@protocol PPPartyPresenter_UiInterface < JavaObject >
+
+- (void)processingWithBoolean:(jboolean)b;
+
+- (void)updateUi;
+
+@end
+
+J2OBJC_EMPTY_STATIC_INIT(PPPartyPresenter_UiInterface)
+
+J2OBJC_TYPE_LITERAL_HEADER(PPPartyPresenter_UiInterface)
 
 #endif
 

@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import com.kgalligan.partyclicker.presenter.PartyPresenter;
 
-public class PartyActivity extends AppCompatActivity
+public class PartyActivity extends AppCompatActivity implements PartyPresenter.UiInterface
 {
 
     public static final String PARTY_ID = "PARTY_ID";
@@ -33,35 +33,26 @@ public class PartyActivity extends AppCompatActivity
         addPersonButton = (Button) findViewById(R.id.addPersonButton);
         removePersonButton = findViewById(R.id.removePersonButton);
 
-        addPersonButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                partyPresenter.addPerson();
-                refreshUi();
-            }
-        });
+        addPersonButton.setOnClickListener(v -> partyPresenter.addPerson());
 
-        removePersonButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                partyPresenter.removePerson();
-                refreshUi();
-            }
-        });
+        removePersonButton.setOnClickListener(v -> partyPresenter.removePerson());
 
         partyPresenter = new PartyPresenter(getIntent().getIntExtra(PARTY_ID, - 1));
         AppManager.getInstance().getDaggerComponent().inject(partyPresenter);
 
+        partyPresenter.applyUiInterface(this);
         partyPresenter.init();
-
-        refreshUi();
     }
 
-    private void refreshUi()
+    @Override
+    public void processing(boolean b)
+    {
+        findViewById(R.id.viewControls).setVisibility(b ? View.GONE : View.VISIBLE);
+        findViewById(R.id.loadProgress).setVisibility(b ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void updateUi()
     {
         int partyCount = partyPresenter.getPartyCount();
         addPersonButton.setText(Integer.toString(partyCount));
