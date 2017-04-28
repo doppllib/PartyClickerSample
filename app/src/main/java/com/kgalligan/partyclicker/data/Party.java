@@ -36,4 +36,19 @@ public class Party
     {
         return name + " - " + timeFormat.format(created);
     }
+
+    public int getId()
+    {
+        return id;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public Date getCreated()
+    {
+        return created;
+    }
 }

@@ -54,6 +54,18 @@ J2OBJC_IGNORE_DESIGNATED_END
   return JreStrcat("$$$", name_, @" - ", [((JavaTextSimpleDateFormat *) nil_chk(PDParty_timeFormat)) formatWithJavaUtilDate:created_]);
 }
 
+- (jint)getId {
+  return id__;
+}
+
+- (NSString *)getName {
+  return name_;
+}
+
+- (JavaUtilDate *)getCreated {
+  return created_;
+}
+
 - (void)dealloc {
   RELEASE_(name_);
   RELEASE_(created_);
@@ -65,12 +77,18 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x1, 0, -1, -1, -1, -1, -1 },
+    { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilDate;", 0x1, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(dateString);
   methods[2].selector = @selector(description);
+  methods[3].selector = @selector(getId);
+  methods[4].selector = @selector(getName);
+  methods[5].selector = @selector(getCreated);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "timeFormat", "LJavaTextSimpleDateFormat;", .constantValue.asLong = 0, 0x1a, -1, 1, -1, -1 },
@@ -81,7 +99,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     { "created_", "LJavaUtilDate;", .constantValue.asLong = 0, 0x1, -1, -1, -1, 7 },
   };
   static const void *ptrTable[] = { "toString", &PDParty_timeFormat, &PDParty_standardDateFormat, &PDParty_standardTimeFormat, "id", (void *)&PDParty__Annotations$0, (void *)&PDParty__Annotations$1, (void *)&PDParty__Annotations$2, (void *)&PDParty__Annotations$3 };
-  static const J2ObjcClassInfo _PDParty = { "Party", "com.kgalligan.partyclicker.data", ptrTable, methods, fields, 7, 0x1, 3, 6, -1, -1, -1, -1, 8 };
+  static const J2ObjcClassInfo _PDParty = { "Party", "com.kgalligan.partyclicker.data", ptrTable, methods, fields, 7, 0x1, 6, 6, -1, -1, -1, -1, 8 };
   return &_PDParty;
 }
 

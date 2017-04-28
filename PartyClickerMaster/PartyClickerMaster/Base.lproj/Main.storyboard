@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="H1p-Uh-vWS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="H1p-Uh-vWS">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -29,7 +29,7 @@
         <!--Detail-->
         <scene sceneID="yUG-lL-AsK">
             <objects>
-                <viewController title="Detail" id="JEX-9P-axG" customClass="DetailViewController" sceneMemberID="viewController">
+                <viewController title="Detail" id="JEX-9P-axG" customClass="ClickScreenViewController" customModule="PartyClickerMaster" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SYR-Wa-9uf"/>
                         <viewControllerLayoutGuide type="bottom" id="GAO-Cl-Wes"/>
@@ -44,7 +44,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="70"/>
                                 <state key="normal" title="+"/>
                                 <connections>
-                                    <action selector="addPerson:" destination="JEX-9P-axG" eventType="touchUpInside" id="SPH-Jd-58n"/>
+                                    <action selector="addPerson:" destination="JEX-9P-axG" eventType="touchUpInside" id="j9W-vb-vBX"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5JI-u0-LSg">
@@ -56,7 +56,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="70"/>
                                 <state key="normal" title="-"/>
                                 <connections>
-                                    <action selector="removePerson:" destination="JEX-9P-axG" eventType="touchUpInside" id="40S-i7-p88"/>
+                                    <action selector="removePerson:" destination="JEX-9P-axG" eventType="touchUpInside" id="Lo2-Eq-QY5"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1KC-kn-8eL">
@@ -91,9 +91,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                             </button>
-                            <connections>
-                                <segue destination="e6T-ba-xLo" kind="show" id="3uH-Vt-QCd"/>
-                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Detail" id="S4l-rU-mg9">
                             <connections>
@@ -102,8 +99,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="countLabel" destination="1KC-kn-8eL" id="odd-5c-h1I"/>
-                        <outlet property="removeButton" destination="5JI-u0-LSg" id="wMH-hD-KmI"/>
+                        <outlet property="countLabel" destination="1KC-kn-8eL" id="sFd-6u-ev9"/>
+                        <outlet property="removeButton" destination="5JI-u0-LSg" id="aAF-hG-3QO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>
@@ -154,24 +151,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9D9-8D-u0I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2687" y="140"/>
-        </scene>
-        <!--Just Adding Swift-->
-        <scene sceneID="ZQ6-hw-h9o">
-            <objects>
-                <viewController id="e6T-ba-xLo" customClass="JustAddingSwift" customModule="PartyClickerMaster" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="fho-R3-KPU"/>
-                        <viewControllerLayoutGuide type="bottom" id="dFI-LO-X9N"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Dcj-DK-NGE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="j4d-we-1IA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="708" y="797"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">
@@ -298,6 +277,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="6S0-TO-JiA"/>
+        <segue reference="Tll-UG-LXB"/>
     </inferredMetricsTieBreakers>
 </document>

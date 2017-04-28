@@ -16,6 +16,8 @@
 #import "PPDaggerComponent.h"
 #import "PPPartyListPresenter.h"
 
+#import "PartyClickerMaster-Swift.h"
+
 #import "java/util/ArrayList.h"
 
 @interface MasterViewController ()
@@ -95,15 +97,12 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        ComKgalliganPartyclickerDataParty* party = (ComKgalliganPartyclickerDataParty*)[self.parties getWithInt:(jint)indexPath.row];
+        PDParty* party = (PDParty*)[self.parties getWithInt:(jint)indexPath.row];
         //ComKgalliganPartyclickerDataParty *party = (ComKgalliganPartyclickerDataParty *)sender;
-        ComKgalliganPartyclickerPresenterPartyPresenter* presenter = [[ComKgalliganPartyclickerPresenterPartyPresenter alloc] initWithInt:party->id__];
         
-        [[[PAppManager getInstance] getDaggerComponent] injectWithPPPartyPresenter:presenter];
-        [presenter init__];
+        ClickScreenViewController *controller = (ClickScreenViewController *)[[segue destinationViewController] topViewController];
+        [controller setDetailItemWithParty:party];
         
-        DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
-        [controller setDetailItem:presenter];
         controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
         controller.navigationItem.leftItemsSupplementBackButton = YES;
     }

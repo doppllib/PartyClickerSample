@@ -30,6 +30,12 @@
 
 - (NSString *)dateString;
 
+- (JavaUtilDate *)getCreated;
+
+- (jint)getId;
+
+- (NSString *)getName;
+
 - (NSString *)description;
 
 @end

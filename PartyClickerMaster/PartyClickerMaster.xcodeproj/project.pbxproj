@@ -317,6 +317,7 @@
 		63AF8BFD1EB3AA65009C8AD6 /* PTTestNoContextModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 63AF8BD21EB3AA65009C8AD6 /* PTTestNoContextModule.h */; };
 		63AF8BFE1EB3AA65009C8AD6 /* PTTestNoContextModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AF8BD31EB3AA65009C8AD6 /* PTTestNoContextModule.m */; };
 		63AF8BFF1EB3AD41009C8AD6 /* prefixes.properties in Resources */ = {isa = PBXBuildFile; fileRef = 63AF8B831EB3AA4B009C8AD6 /* prefixes.properties */; };
+		63AF8C031EB3CE74009C8AD6 /* ClickScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AF8C021EB3CE74009C8AD6 /* ClickScreenViewController.swift */; };
 		63C46A741E6344700068D0BE /* AndroidAnnotationSuppressLint.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C46A5E1E6344700068D0BE /* AndroidAnnotationSuppressLint.h */; };
 		63C46A751E6344700068D0BE /* AndroidAnnotationSuppressLint.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C46A5F1E6344700068D0BE /* AndroidAnnotationSuppressLint.m */; };
 		63C46A761E6344700068D0BE /* AndroidAnnotationTargetApi.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C46A601E6344700068D0BE /* AndroidAnnotationTargetApi.h */; };
@@ -1693,6 +1694,7 @@
 		63AF8BD31EB3AA65009C8AD6 /* PTTestNoContextModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTTestNoContextModule.m; sourceTree = "<group>"; };
 		63AF8C001EB3AE55009C8AD6 /* Main-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Main-Bridging-Header.h"; sourceTree = "<group>"; };
 		63AF8C011EB3AE55009C8AD6 /* Test-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Test-Bridging-Header.h"; sourceTree = "<group>"; };
+		63AF8C021EB3CE74009C8AD6 /* ClickScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClickScreenViewController.swift; sourceTree = "<group>"; };
 		63C46A5E1E6344700068D0BE /* AndroidAnnotationSuppressLint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AndroidAnnotationSuppressLint.h; sourceTree = "<group>"; };
 		63C46A5F1E6344700068D0BE /* AndroidAnnotationSuppressLint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AndroidAnnotationSuppressLint.m; sourceTree = "<group>"; };
 		63C46A601E6344700068D0BE /* AndroidAnnotationTargetApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AndroidAnnotationTargetApi.h; sourceTree = "<group>"; };
@@ -2776,8 +2778,6 @@
 		632F1C711E1EEA690080F6CC /* PartyClickerMaster */ = {
 			isa = PBXGroup;
 			children = (
-				63AF8C001EB3AE55009C8AD6 /* Main-Bridging-Header.h */,
-				63AF8C011EB3AE55009C8AD6 /* Test-Bridging-Header.h */,
 				632F1C751E1EEA690080F6CC /* AppDelegate.h */,
 				632F1C761E1EEA690080F6CC /* AppDelegate.m */,
 				632F1C781E1EEA690080F6CC /* MasterViewController.h */,
@@ -2793,6 +2793,9 @@
 				632F20101E1F3FF70080F6CC /* CountListTableViewController.m */,
 				63C46A8B1E634A0C0068D0BE /* JustAddingSwift.swift */,
 				63C46A8A1E634A0B0068D0BE /* PartyClickerMaster-Bridging-Header.h */,
+				63AF8C001EB3AE55009C8AD6 /* Main-Bridging-Header.h */,
+				63AF8C011EB3AE55009C8AD6 /* Test-Bridging-Header.h */,
+				63AF8C021EB3CE74009C8AD6 /* ClickScreenViewController.swift */,
 			);
 			path = PartyClickerMaster;
 			sourceTree = "<group>";
@@ -5023,6 +5026,7 @@
 				63C46A8C1E634A0C0068D0BE /* JustAddingSwift.swift in Sources */,
 				632F1C771E1EEA690080F6CC /* AppDelegate.m in Sources */,
 				632F1C7A1E1EEA690080F6CC /* MasterViewController.m in Sources */,
+				63AF8C031EB3CE74009C8AD6 /* ClickScreenViewController.swift in Sources */,
 				632F20111E1F3FF70080F6CC /* CountListTableViewController.m in Sources */,
 				632F1C741E1EEA690080F6CC /* main.m in Sources */,
 				632F1C7D1E1EEA690080F6CC /* DetailViewController.m in Sources */,

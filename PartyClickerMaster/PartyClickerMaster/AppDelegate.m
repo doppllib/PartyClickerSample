@@ -30,7 +30,7 @@
     AndroidContentIOSContext* context = [[AndroidContentIOSContext alloc] init];
     [AndroidOsLooper prepareMainLooper];
     
-    [ComKgalliganPartyclickerTestIOSTestHelper runTests];
+//    [ComKgalliganPartyclickerTestIOSTestHelper runTests];
     
     ComKgalliganPartyclickerPresenterAppModule* appModule = [[ComKgalliganPartyclickerPresenterAppModule alloc] initWithAndroidAppApplication:context];
     
