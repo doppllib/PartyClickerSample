@@ -734,7 +734,7 @@ void AndroidDatabaseCursorWindow_initWithNSString_(AndroidDatabaseCursorWindow *
   AndroidDatabaseSqliteSQLiteClosable_init(self);
   JreStrongAssign(&self->mCloseGuard_, DalvikSystemCloseGuard_get());
   self->mStartPos_ = 0;
-  JreStrongAssign(&self->mName_, name != nil && ((jint) [name length]) != 0 ? name : @"<unnamed>");
+  JreStrongAssign(&self->mName_, name != nil && [name java_length] != 0 ? name : @"<unnamed>");
   if (AndroidDatabaseCursorWindow_sCursorWindowSize < 0) {
     AndroidDatabaseCursorWindow_sCursorWindowSize = 2048 * 1024;
   }
@@ -778,7 +778,7 @@ void AndroidDatabaseCursorWindow_dispose(AndroidDatabaseCursorWindow *self) {
 NSString *AndroidDatabaseCursorWindow_printStats(AndroidDatabaseCursorWindow *self) {
   JavaLangStringBuilder *buff = create_JavaLangStringBuilder_init();
   jint total = 0;
-  NSString *s = ([buff length] > 980) ? [buff substringWithInt:0 withInt:980] : [buff description];
+  NSString *s = ([buff java_length] > 980) ? [buff substringWithInt:0 withInt:980] : [buff description];
   return JreStrcat("$I$", @"# Open Cursors=", total, s);
 }
 

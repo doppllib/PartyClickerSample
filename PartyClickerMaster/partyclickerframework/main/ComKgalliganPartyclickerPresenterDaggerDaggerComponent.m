@@ -6,7 +6,8 @@
 #include "ComKgalliganPartyclickerDataPartyPresenter_MembersInjector.h"
 #include "ComKgalliganPartyclickerPresenterAppModule.h"
 #include "ComKgalliganPartyclickerPresenterAppModule_ProvidesApplicationFactory.h"
-#include "ComKgalliganPartyclickerPresenterAppModule_ProvidesDatabaseHelperFactory.h"
+#include "ComKgalliganPartyclickerPresenterAppModule_ProvidesDataProviderFactory.h"
+#include "ComKgalliganPartyclickerPresenterAppModule_ProvidesSchedulerTransformerFactory.h"
 #include "ComKgalliganPartyclickerPresenterDaggerComponent.h"
 #include "ComKgalliganPartyclickerPresenterDaggerDaggerComponent.h"
 #include "ComKgalliganPartyclickerPresenterPartyListPresenter.h"
@@ -23,7 +24,8 @@
 @interface ComKgalliganPartyclickerPresenterDaggerDaggerComponent () {
  @public
   id<JavaxInjectProvider> providesApplicationProvider_;
-  id<JavaxInjectProvider> providesDatabaseHelperProvider_;
+  id<JavaxInjectProvider> providesDataProvider_;
+  id<JavaxInjectProvider> providesSchedulerTransformerProvider_;
   id<DaggerMembersInjector> partyListPresenterMembersInjector_;
   id<DaggerMembersInjector> partyPresenterMembersInjector_;
 }
@@ -35,7 +37,8 @@
 @end
 
 J2OBJC_FIELD_SETTER(ComKgalliganPartyclickerPresenterDaggerDaggerComponent, providesApplicationProvider_, id<JavaxInjectProvider>)
-J2OBJC_FIELD_SETTER(ComKgalliganPartyclickerPresenterDaggerDaggerComponent, providesDatabaseHelperProvider_, id<JavaxInjectProvider>)
+J2OBJC_FIELD_SETTER(ComKgalliganPartyclickerPresenterDaggerDaggerComponent, providesDataProvider_, id<JavaxInjectProvider>)
+J2OBJC_FIELD_SETTER(ComKgalliganPartyclickerPresenterDaggerDaggerComponent, providesSchedulerTransformerProvider_, id<JavaxInjectProvider>)
 J2OBJC_FIELD_SETTER(ComKgalliganPartyclickerPresenterDaggerDaggerComponent, partyListPresenterMembersInjector_, id<DaggerMembersInjector>)
 J2OBJC_FIELD_SETTER(ComKgalliganPartyclickerPresenterDaggerDaggerComponent, partyPresenterMembersInjector_, id<DaggerMembersInjector>)
 
@@ -89,7 +92,8 @@ __attribute__((unused)) static ComKgalliganPartyclickerPresenterDaggerDaggerComp
 
 - (void)dealloc {
   RELEASE_(providesApplicationProvider_);
-  RELEASE_(providesDatabaseHelperProvider_);
+  RELEASE_(providesDataProvider_);
+  RELEASE_(providesSchedulerTransformerProvider_);
   RELEASE_(partyListPresenterMembersInjector_);
   RELEASE_(partyPresenterMembersInjector_);
   [super dealloc];
@@ -113,12 +117,13 @@ __attribute__((unused)) static ComKgalliganPartyclickerPresenterDaggerDaggerComp
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "providesApplicationProvider_", "LJavaxInjectProvider;", .constantValue.asLong = 0, 0x2, -1, -1, 5, -1 },
-    { "providesDatabaseHelperProvider_", "LJavaxInjectProvider;", .constantValue.asLong = 0, 0x2, -1, -1, 6, -1 },
-    { "partyListPresenterMembersInjector_", "LDaggerMembersInjector;", .constantValue.asLong = 0, 0x2, -1, -1, 7, -1 },
-    { "partyPresenterMembersInjector_", "LDaggerMembersInjector;", .constantValue.asLong = 0, 0x2, -1, -1, 8, -1 },
+    { "providesDataProvider_", "LJavaxInjectProvider;", .constantValue.asLong = 0, 0x2, -1, -1, 6, -1 },
+    { "providesSchedulerTransformerProvider_", "LJavaxInjectProvider;", .constantValue.asLong = 0, 0x2, -1, -1, 7, -1 },
+    { "partyListPresenterMembersInjector_", "LDaggerMembersInjector;", .constantValue.asLong = 0, 0x2, -1, -1, 8, -1 },
+    { "partyPresenterMembersInjector_", "LDaggerMembersInjector;", .constantValue.asLong = 0, 0x2, -1, -1, 9, -1 },
   };
-  static const void *ptrTable[] = { "LComKgalliganPartyclickerPresenterDaggerDaggerComponent_Builder;", "initialize", "inject", "LComKgalliganPartyclickerPresenterPartyListPresenter;", "LComKgalliganPartyclickerDataPartyPresenter;", "Ljavax/inject/Provider<Landroid/app/Application;>;", "Ljavax/inject/Provider<Lcom/kgalligan/partyclicker/data/DatabaseHelper;>;", "Ldagger/MembersInjector<Lcom/kgalligan/partyclicker/presenter/PartyListPresenter;>;", "Ldagger/MembersInjector<Lcom/kgalligan/partyclicker/data/PartyPresenter;>;" };
-  static const J2ObjcClassInfo _ComKgalliganPartyclickerPresenterDaggerDaggerComponent = { "DaggerDaggerComponent", "com.kgalligan.partyclicker.presenter", ptrTable, methods, fields, 7, 0x11, 5, 4, -1, 0, -1, -1, -1 };
+  static const void *ptrTable[] = { "LComKgalliganPartyclickerPresenterDaggerDaggerComponent_Builder;", "initialize", "inject", "LComKgalliganPartyclickerPresenterPartyListPresenter;", "LComKgalliganPartyclickerDataPartyPresenter;", "Ljavax/inject/Provider<Landroid/app/Application;>;", "Ljavax/inject/Provider<Lcom/kgalligan/partyclicker/data/DataProvider;>;", "Ljavax/inject/Provider<Lrx/Observable$Transformer;>;", "Ldagger/MembersInjector<Lcom/kgalligan/partyclicker/presenter/PartyListPresenter;>;", "Ldagger/MembersInjector<Lcom/kgalligan/partyclicker/data/PartyPresenter;>;" };
+  static const J2ObjcClassInfo _ComKgalliganPartyclickerPresenterDaggerDaggerComponent = { "DaggerDaggerComponent", "com.kgalligan.partyclicker.presenter", ptrTable, methods, fields, 7, 0x11, 5, 5, -1, 0, -1, -1, -1 };
   return &_ComKgalliganPartyclickerPresenterDaggerDaggerComponent;
 }
 
@@ -126,7 +131,7 @@ __attribute__((unused)) static ComKgalliganPartyclickerPresenterDaggerDaggerComp
 
 void ComKgalliganPartyclickerPresenterDaggerDaggerComponent_initWithComKgalliganPartyclickerPresenterDaggerDaggerComponent_Builder_(ComKgalliganPartyclickerPresenterDaggerDaggerComponent *self, ComKgalliganPartyclickerPresenterDaggerDaggerComponent_Builder *builder) {
   NSObject_init(self);
-  JreAssert((builder != nil), (@"com/kgalligan/partyclicker/presenter/DaggerDaggerComponent.java:23 condition failed: assert builder != null;"));
+  JreAssert((builder != nil), (@"com/kgalligan/partyclicker/presenter/DaggerDaggerComponent.java:30 condition failed: assert builder != null;"));
   ComKgalliganPartyclickerPresenterDaggerDaggerComponent_initialize__WithComKgalliganPartyclickerPresenterDaggerDaggerComponent_Builder_(self, builder);
 }
 
@@ -145,9 +150,10 @@ ComKgalliganPartyclickerPresenterDaggerDaggerComponent_Builder *ComKgalliganPart
 
 void ComKgalliganPartyclickerPresenterDaggerDaggerComponent_initialize__WithComKgalliganPartyclickerPresenterDaggerDaggerComponent_Builder_(ComKgalliganPartyclickerPresenterDaggerDaggerComponent *self, ComKgalliganPartyclickerPresenterDaggerDaggerComponent_Builder *builder) {
   JreStrongAssign(&self->providesApplicationProvider_, DaggerInternalDoubleCheck_providerWithJavaxInjectProvider_(ComKgalliganPartyclickerPresenterAppModule_ProvidesApplicationFactory_createWithComKgalliganPartyclickerPresenterAppModule_(((ComKgalliganPartyclickerPresenterDaggerDaggerComponent_Builder *) nil_chk(builder))->appModule_)));
-  JreStrongAssign(&self->providesDatabaseHelperProvider_, DaggerInternalDoubleCheck_providerWithJavaxInjectProvider_(ComKgalliganPartyclickerPresenterAppModule_ProvidesDatabaseHelperFactory_createWithComKgalliganPartyclickerPresenterAppModule_withJavaxInjectProvider_(builder->appModule_, self->providesApplicationProvider_)));
-  JreStrongAssign(&self->partyListPresenterMembersInjector_, ComKgalliganPartyclickerPresenterPartyListPresenter_MembersInjector_createWithJavaxInjectProvider_(self->providesDatabaseHelperProvider_));
-  JreStrongAssign(&self->partyPresenterMembersInjector_, ComKgalliganPartyclickerDataPartyPresenter_MembersInjector_createWithJavaxInjectProvider_(self->providesDatabaseHelperProvider_));
+  JreStrongAssign(&self->providesDataProvider_, DaggerInternalDoubleCheck_providerWithJavaxInjectProvider_(ComKgalliganPartyclickerPresenterAppModule_ProvidesDataProviderFactory_createWithComKgalliganPartyclickerPresenterAppModule_withJavaxInjectProvider_(builder->appModule_, self->providesApplicationProvider_)));
+  JreStrongAssign(&self->providesSchedulerTransformerProvider_, DaggerInternalDoubleCheck_providerWithJavaxInjectProvider_(ComKgalliganPartyclickerPresenterAppModule_ProvidesSchedulerTransformerFactory_createWithComKgalliganPartyclickerPresenterAppModule_(builder->appModule_)));
+  JreStrongAssign(&self->partyListPresenterMembersInjector_, ComKgalliganPartyclickerPresenterPartyListPresenter_MembersInjector_createWithJavaxInjectProvider_withJavaxInjectProvider_(self->providesDataProvider_, self->providesSchedulerTransformerProvider_));
+  JreStrongAssign(&self->partyPresenterMembersInjector_, ComKgalliganPartyclickerDataPartyPresenter_MembersInjector_createWithJavaxInjectProvider_(self->providesDataProvider_));
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ComKgalliganPartyclickerPresenterDaggerDaggerComponent)

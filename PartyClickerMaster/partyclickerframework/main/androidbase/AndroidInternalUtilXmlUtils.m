@@ -287,7 +287,7 @@ jint AndroidInternalUtilXmlUtils_convertValueToIntWithJavaLangCharSequence_withI
   jint value;
   jint sign = 1;
   jint index = 0;
-  jint len = ((jint) [((NSString *) nil_chk(nm)) length]);
+  jint len = [((NSString *) nil_chk(nm)) java_length];
   jint base = 10;
   if ('-' == [nm charAtWithInt:0]) {
     sign = -1;
@@ -323,7 +323,7 @@ jint AndroidInternalUtilXmlUtils_parseUnsignedIntAttributeWithJavaLangCharSequen
   NSString *value = [((id<JavaLangCharSequence>) nil_chk(charSeq)) description];
   jlong bits;
   jint index = 0;
-  jint len = ((jint) [((NSString *) nil_chk(value)) length]);
+  jint len = [((NSString *) nil_chk(value)) java_length];
   jint base = 10;
   if ('0' == [value charAtWithInt:index]) {
     if (index == (len - 1)) return 0;
@@ -737,6 +737,7 @@ void AndroidInternalUtilXmlUtils_beginDocumentWithOrgXmlpullV1XmlPullParser_with
   AndroidInternalUtilXmlUtils_initialize();
   jint type;
   while ((type = [((id<OrgXmlpullV1XmlPullParser>) nil_chk(parser)) next]) != OrgXmlpullV1XmlPullParser_START_TAG && type != OrgXmlpullV1XmlPullParser_END_DOCUMENT) {
+    
     ;
   }
   if (type != OrgXmlpullV1XmlPullParser_START_TAG) {
@@ -751,6 +752,7 @@ void AndroidInternalUtilXmlUtils_nextElementWithOrgXmlpullV1XmlPullParser_(id<Or
   AndroidInternalUtilXmlUtils_initialize();
   jint type;
   while ((type = [((id<OrgXmlpullV1XmlPullParser>) nil_chk(parser)) next]) != OrgXmlpullV1XmlPullParser_START_TAG && type != OrgXmlpullV1XmlPullParser_END_DOCUMENT) {
+    
     ;
   }
 }

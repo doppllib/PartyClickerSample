@@ -157,13 +157,13 @@ withAndroidDatabaseCharArrayBuffer:(AndroidDatabaseCharArrayBuffer *)buffer {
   NSString *result = [self getStringWithInt:columnIndex];
   if (result != nil) {
     IOSCharArray *data = ((AndroidDatabaseCharArrayBuffer *) nil_chk(buffer))->data_;
-    if (data == nil || data->size_ < ((jint) [result length])) {
+    if (data == nil || data->size_ < [result java_length]) {
       JreStrongAssign(&buffer->data_, [result java_toCharArray]);
     }
     else {
-      [result java_getChars:0 sourceEnd:((jint) [result length]) destination:data destinationBegin:0];
+      [result java_getChars:0 sourceEnd:[result java_length] destination:data destinationBegin:0];
     }
-    buffer->sizeCopied_ = ((jint) [result length]);
+    buffer->sizeCopied_ = [result java_length];
   }
   else {
     ((AndroidDatabaseCharArrayBuffer *) nil_chk(buffer))->sizeCopied_ = 0;

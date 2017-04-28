@@ -15,14 +15,16 @@
 #if !defined (ComKgalliganPartyclickerPresenterPartyListPresenter_) && (INCLUDE_ALL_ComKgalliganPartyclickerPresenterPartyListPresenter || defined(INCLUDE_ComKgalliganPartyclickerPresenterPartyListPresenter))
 #define ComKgalliganPartyclickerPresenterPartyListPresenter_
 
-@class ComKgalliganPartyclickerDataDatabaseHelper;
 @class ComKgalliganPartyclickerDataParty;
+@protocol ComKgalliganPartyclickerDataDataProvider;
 @protocol ComKgalliganPartyclickerPresenterPartyListPresenter_UiInterface;
 @protocol JavaUtilList;
+@protocol RxObservable_Transformer;
 
 @interface ComKgalliganPartyclickerPresenterPartyListPresenter : NSObject {
  @public
-  ComKgalliganPartyclickerDataDatabaseHelper *databaseHelper_;
+  id<ComKgalliganPartyclickerDataDataProvider> databaseHelper_;
+  id<RxObservable_Transformer> schedulerTransformer_;
 }
 
 #pragma mark Public
@@ -49,7 +51,8 @@
 
 J2OBJC_EMPTY_STATIC_INIT(ComKgalliganPartyclickerPresenterPartyListPresenter)
 
-J2OBJC_FIELD_SETTER(ComKgalliganPartyclickerPresenterPartyListPresenter, databaseHelper_, ComKgalliganPartyclickerDataDatabaseHelper *)
+J2OBJC_FIELD_SETTER(ComKgalliganPartyclickerPresenterPartyListPresenter, databaseHelper_, id<ComKgalliganPartyclickerDataDataProvider>)
+J2OBJC_FIELD_SETTER(ComKgalliganPartyclickerPresenterPartyListPresenter, schedulerTransformer_, id<RxObservable_Transformer>)
 
 FOUNDATION_EXPORT void ComKgalliganPartyclickerPresenterPartyListPresenter_init(ComKgalliganPartyclickerPresenterPartyListPresenter *self);
 

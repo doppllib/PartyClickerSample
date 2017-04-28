@@ -26,6 +26,7 @@
 #import "SQLitePreparedStatement.h"
 #import "CursorWindowNative.h"
 #import "NSString+JavaString.h"
+#import "java/nio/charset/Charset.h"
 
 @implementation SQLiteConnectionNative
 
@@ -165,7 +166,7 @@ static void sqliteProfileCallback(void *data, const char *sql, sqlite3_uint64 tm
 }
 
 /*+ (void) nativeRegisterLocalizedCollators:(NSObject *)connectionPtr withLocaleStr:(NSString *)localeStr {
-    IOSByteArray *sql = [localeStr java_getBytesWithEncoding:NSUTF16StringEncoding];
+    IOSByteArray *sql = [localeStr java_getBytesWithCharset:[JavaNioCharsetCharset forNameWithNSString:@"UTF-16"]];//[localeStr java_getBytesWithEncoding:NSUTF16StringEncoding];
     uint32_t sqlLength = [sql length];
     SQLiteConnectionNative* connection = (SQLiteConnectionNative *)(connectionPtr);
 
@@ -181,7 +182,7 @@ static void sqliteProfileCallback(void *data, const char *sql, sqlite3_uint64 tm
 + (NSObject *) nativePrepareStatement:(NSObject *)connectionPtr withSql:(NSString *)sqlString {
     SQLiteConnectionNative* connection = (SQLiteConnectionNative *)(connectionPtr);
 
-    IOSByteArray *sql = [sqlString java_getBytesWithEncoding:NSUTF16StringEncoding];
+    IOSByteArray *sql = [sqlString java_getBytesWithCharset:[JavaNioCharsetCharset forNameWithNSString:@"UTF-16"]];
     uint32_t sqlLength = [sql length];
     sqlite3_stmt* statement;
     int err = sqlite3_prepare16_v2(connection->db, [sql buffer], sqlLength, &statement, NULL);
@@ -303,8 +304,7 @@ static void sqliteProfileCallback(void *data, const char *sql, sqlite3_uint64 tm
     SQLiteConnectionNative *connection = (SQLiteConnectionNative *)(connectionPtr);
     SQLitePreparedStatement *statement = (SQLitePreparedStatement *)(statementPtr);
 
-    //TODO: Figure this out with UTF16...
-    const IOSByteArray *bytes = [value java_getBytesWithEncoding:NSUTF8StringEncoding];
+    const IOSByteArray *bytes = [value java_getBytesWithCharset:[JavaNioCharsetCharset forNameWithNSString:@"UTF-8"]];
     int err = sqlite3_bind_text(statement.statement, index, [bytes buffer], [bytes length],
                                   SQLITE_TRANSIENT);
     if (err != SQLITE_OK) {

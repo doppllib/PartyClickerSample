@@ -53,8 +53,6 @@ J2OBJC_TYPE_LITERAL_HEADER(ComGoogleAutoValueAutoValue_Builder)
 #define INCLUDE_JavaLangAnnotationAnnotation 1
 #include "java/lang/annotation/Annotation.h"
 
-@class IOSObjectArray;
-
 @protocol ComGoogleAutoValueAutoValue_CopyAnnotations < JavaLangAnnotationAnnotation >
 
 @end

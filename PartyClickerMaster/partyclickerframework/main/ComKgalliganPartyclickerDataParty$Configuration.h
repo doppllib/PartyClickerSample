@@ -12,6 +12,11 @@
 #endif
 #undef RESTRICT_ComKgalliganPartyclickerDataParty$Configuration
 
+#if __has_feature(nullability)
+#pragma clang diagnostic push
+#pragma GCC diagnostic ignored "-Wnullability-completeness"
+#endif
+
 #if !defined (ComKgalliganPartyclickerDataParty_Configuration_) && (INCLUDE_ALL_ComKgalliganPartyclickerDataParty$Configuration || defined(INCLUDE_ComKgalliganPartyclickerDataParty_Configuration))
 #define ComKgalliganPartyclickerDataParty_Configuration_
 
@@ -160,4 +165,8 @@ J2OBJC_TYPE_LITERAL_HEADER(ComKgalliganPartyclickerDataParty_Configuration_Field
 
 #endif
 
+
+#if __has_feature(nullability)
+#pragma clang diagnostic pop
+#endif
 #pragma pop_macro("INCLUDE_ALL_ComKgalliganPartyclickerDataParty$Configuration")

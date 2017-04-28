@@ -615,7 +615,7 @@ void AndroidDatabaseDatabaseUtils_appendEscapedSQLStringWithJavaLangStringBuilde
   AndroidDatabaseDatabaseUtils_initialize();
   [((JavaLangStringBuilder *) nil_chk(sb)) appendWithChar:'\''];
   if ([((NSString *) nil_chk(sqlString)) java_indexOf:'\''] != -1) {
-    jint length = ((jint) [sqlString length]);
+    jint length = [sqlString java_length];
     for (jint i = 0; i < length; i++) {
       jchar c = [sqlString charAtWithInt:i];
       if (c == '\'') {
@@ -992,7 +992,7 @@ void AndroidDatabaseDatabaseUtils_createDbFromSqlStatementsWithAndroidContentCon
 jint AndroidDatabaseDatabaseUtils_getSqlStatementTypeWithNSString_(NSString *sql) {
   AndroidDatabaseDatabaseUtils_initialize();
   sql = [((NSString *) nil_chk(sql)) java_trim];
-  if (((jint) [((NSString *) nil_chk(sql)) length]) < 3) {
+  if ([((NSString *) nil_chk(sql)) java_length] < 3) {
     return AndroidDatabaseDatabaseUtils_STATEMENT_OTHER;
   }
   NSString *prefixSql = [((NSString *) nil_chk([sql java_substring:0 endIndex:3])) java_uppercaseStringWithJRELocale:JreLoadStatic(JavaUtilLocale, ROOT)];

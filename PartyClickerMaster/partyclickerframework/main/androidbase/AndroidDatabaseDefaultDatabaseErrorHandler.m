@@ -103,7 +103,7 @@ AndroidDatabaseDefaultDatabaseErrorHandler *create_AndroidDatabaseDefaultDatabas
 }
 
 void AndroidDatabaseDefaultDatabaseErrorHandler_deleteDatabaseFileWithNSString_(AndroidDatabaseDefaultDatabaseErrorHandler *self, NSString *fileName) {
-  if ([((NSString *) nil_chk(fileName)) java_equalsIgnoreCase:@":memory:"] || ((jint) [((NSString *) nil_chk([fileName java_trim])) length]) == 0) {
+  if ([((NSString *) nil_chk(fileName)) java_equalsIgnoreCase:@":memory:"] || [((NSString *) nil_chk([fileName java_trim])) java_length] == 0) {
     return;
   }
   AndroidUtilLog_eWithNSString_withNSString_(AndroidDatabaseDefaultDatabaseErrorHandler_TAG, JreStrcat("$$", @"deleting the database file: ", fileName));

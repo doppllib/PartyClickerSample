@@ -1,15 +1,10 @@
 package com.kgalligan.partyclicker.data;
-import com.kgalligan.partyclicker.AppManager;
-
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import co.touchlab.squeaky.field.DataType;
 import co.touchlab.squeaky.field.DatabaseField;
-import co.touchlab.squeaky.stmt.Where;
 import co.touchlab.squeaky.table.DatabaseTable;
 
 /**

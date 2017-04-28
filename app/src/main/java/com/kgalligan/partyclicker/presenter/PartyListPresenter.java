@@ -1,15 +1,17 @@
 package com.kgalligan.partyclicker.presenter;
 import com.google.j2objc.annotations.Weak;
-import com.kgalligan.partyclicker.data.DatabaseHelper;
+import com.kgalligan.partyclicker.data.DataProvider;
 import com.kgalligan.partyclicker.data.Party;
 import com.kgalligan.partyclicker.data.Person;
 
-import java.sql.SQLException;
 import java.util.List;
 
-import javax.inject.Inject;
 
-import co.touchlab.squeaky.stmt.Where;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import rx.Observable;
+import rx.Scheduler;
 
 /**
  * Created by kgalligan on 4/23/17.
@@ -18,7 +20,10 @@ import co.touchlab.squeaky.stmt.Where;
 public class PartyListPresenter
 {
     @Inject
-    DatabaseHelper databaseHelper;
+    DataProvider databaseHelper;
+
+    @Inject
+    Observable.Transformer schedulerTransformer;
 
     @Weak
     private UiInterface uiInterface;
@@ -41,23 +46,52 @@ public class PartyListPresenter
 
     public void callRefreshPartyList()
     {
-        uiInterface.refreshPartyList(databaseHelper.allParties());
+        Observable.<List<Party>>create(subscriber -> {
+            subscriber.onNext(databaseHelper.allParties());
+            subscriber.onCompleted();
+        })
+                .compose((Observable.Transformer<List<Party>, List<Party>>)schedulerTransformer)
+                .subscribe(o -> uiInterface.refreshPartyList(databaseHelper.allParties()));
     }
 
+    /**
+     * Open party screen for id.
+     *
+     * @param id
+     */
     public void callParty(int id)
     {
-        uiInterface.showParty(databaseHelper.loadParty(id));
+        Observable.<Party>create(subscriber -> {
+            subscriber.onNext(databaseHelper.loadParty(id));
+            subscriber.onCompleted();
+        })
+                .compose((Observable.Transformer<Party, Party>)schedulerTransformer)
+                .subscribe(party -> uiInterface.showParty(party));
     }
 
+    /**
+     * Create and show party.
+     *
+     * @param name
+     */
     public void createParty(String name)
     {
-        Party party = databaseHelper.createParty(name);
-        uiInterface.showParty(party);
+        Observable.<Party>create(subscriber -> {
+            subscriber.onNext(databaseHelper.createParty(name));
+            subscriber.onCompleted();
+        })
+                .compose((Observable.Transformer<Party, Party>)schedulerTransformer)
+                .subscribe(party -> uiInterface.showParty(party));
     }
 
     public void deleteParty(int id)
     {
-        databaseHelper.deleteParty(databaseHelper.loadParty(id));
+        Observable.create(subscriber -> {
+            databaseHelper.deleteParty(databaseHelper.loadParty(id));
+            subscriber.onCompleted();
+        })
+                .compose(schedulerTransformer)
+                .subscribe();
     }
 
     public int countPeople(Party party)
@@ -67,15 +101,6 @@ public class PartyListPresenter
 
     public List<Person> allPeople(Party party)
     {
-        try
-        {
-            Where<Person> where = new Where<>(databaseHelper.getPersonDao());
-            where.eq("party", this);
-            return databaseHelper.getPersonDao().query(where).orderBy("recorded").list();
-        }
-        catch(SQLException e)
-        {
-            throw new RuntimeException(e);
-        }
+        return databaseHelper.allPeopleForParty(party);
     }
 }

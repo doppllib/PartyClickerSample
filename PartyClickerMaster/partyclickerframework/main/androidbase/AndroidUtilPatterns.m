@@ -112,7 +112,7 @@ NSString *AndroidUtilPatterns_digitsAndPlusOnlyWithJavaUtilRegexMatcher_(JavaUti
   AndroidUtilPatterns_initialize();
   JavaLangStringBuilder *buffer = create_JavaLangStringBuilder_init();
   NSString *matchingRegion = [((JavaUtilRegexMatcher *) nil_chk(matcher)) group];
-  for (jint i = 0, size = ((jint) [((NSString *) nil_chk(matchingRegion)) length]); i < size; i++) {
+  for (jint i = 0, size = [((NSString *) nil_chk(matchingRegion)) java_length]; i < size; i++) {
     jchar character = [matchingRegion charAtWithInt:i];
     if (character == '+' || JavaLangCharacter_isDigitWithChar_(character)) {
       [buffer appendWithChar:character];

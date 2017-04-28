@@ -344,7 +344,7 @@ void AndroidUtilJsonWriter_replaceTopWithAndroidUtilJsonScope_(AndroidUtilJsonWr
 
 void AndroidUtilJsonWriter_stringWithNSString_(AndroidUtilJsonWriter *self, NSString *value) {
   [((JavaIoWriter *) nil_chk(self->out_)) writeWithNSString:@"\""];
-  for (jint i = 0, length = ((jint) [((NSString *) nil_chk(value)) length]); i < length; i++) {
+  for (jint i = 0, length = [((NSString *) nil_chk(value)) java_length]; i < length; i++) {
     jchar c = [value charAtWithInt:i];
     switch (c) {
       case '"':

@@ -772,7 +772,7 @@ NSString *AndroidTelephonyPhoneNumberUtils_extractNetworkPortionWithNSString_(NS
   if (phoneNumber == nil) {
     return nil;
   }
-  jint len = ((jint) [phoneNumber length]);
+  jint len = [phoneNumber java_length];
   JavaLangStringBuilder *ret = create_JavaLangStringBuilder_initWithInt_(len);
   jboolean firstCharAdded = false;
   for (jint i = 0; i < len; i++) {
@@ -793,7 +793,7 @@ NSString *AndroidTelephonyPhoneNumberUtils_extractNetworkPortionAltWithNSString_
   if (phoneNumber == nil) {
     return nil;
   }
-  jint len = ((jint) [phoneNumber length]);
+  jint len = [phoneNumber java_length];
   JavaLangStringBuilder *ret = create_JavaLangStringBuilder_initWithInt_(len);
   jboolean haveSeenPlus = false;
   for (jint i = 0; i < len; i++) {
@@ -819,7 +819,7 @@ NSString *AndroidTelephonyPhoneNumberUtils_stripSeparatorsWithNSString_(NSString
   if (phoneNumber == nil) {
     return nil;
   }
-  jint len = ((jint) [phoneNumber length]);
+  jint len = [phoneNumber java_length];
   JavaLangStringBuilder *ret = create_JavaLangStringBuilder_initWithInt_(len);
   for (jint i = 0; i < len; i++) {
     jchar c = [phoneNumber charAtWithInt:i];
@@ -857,7 +857,7 @@ jint AndroidTelephonyPhoneNumberUtils_indexOfLastNetworkCharWithNSString_(NSStri
   jint wIndex;
   jint origLength;
   jint trimIndex;
-  origLength = ((jint) [((NSString *) nil_chk(a)) length]);
+  origLength = [((NSString *) nil_chk(a)) java_length];
   pIndex = [a java_indexOf:AndroidTelephonyPhoneNumberUtils_PAUSE];
   wIndex = [a java_indexOf:AndroidTelephonyPhoneNumberUtils_WAIT];
   trimIndex = AndroidTelephonyPhoneNumberUtils_minPositiveWithInt_withInt_(pIndex, wIndex);
@@ -875,7 +875,7 @@ NSString *AndroidTelephonyPhoneNumberUtils_extractPostDialPortionWithNSString_(N
   jint trimIndex;
   JavaLangStringBuilder *ret = create_JavaLangStringBuilder_init();
   trimIndex = AndroidTelephonyPhoneNumberUtils_indexOfLastNetworkCharWithNSString_(phoneNumber);
-  for (jint i = trimIndex + 1, s = ((jint) [phoneNumber length]); i < s; i++) {
+  for (jint i = trimIndex + 1, s = [phoneNumber java_length]; i < s; i++) {
     jchar c = [phoneNumber charAtWithInt:i];
     if (AndroidTelephonyPhoneNumberUtils_isNonSeparatorWithChar_(c)) {
       [ret appendWithChar:c];
@@ -902,7 +902,7 @@ jboolean AndroidTelephonyPhoneNumberUtils_compareLooselyWithNSString_withNSStrin
   jint numNonDialableCharsInA = 0;
   jint numNonDialableCharsInB = 0;
   if (a == nil || b == nil) return a == b;
-  if (((jint) [a length]) == 0 || ((jint) [b length]) == 0) {
+  if ([a java_length] == 0 || [b java_length] == 0) {
     return false;
   }
   ia = AndroidTelephonyPhoneNumberUtils_indexOfLastNetworkCharWithNSString_(a);
@@ -934,8 +934,8 @@ jboolean AndroidTelephonyPhoneNumberUtils_compareLooselyWithNSString_withNSStrin
     }
   }
   if (matched < AndroidTelephonyPhoneNumberUtils_MIN_MATCH) {
-    jint effectiveALen = ((jint) [a length]) - numNonDialableCharsInA;
-    jint effectiveBLen = ((jint) [b length]) - numNonDialableCharsInB;
+    jint effectiveALen = [a java_length] - numNonDialableCharsInA;
+    jint effectiveBLen = [b java_length] - numNonDialableCharsInB;
     if (effectiveALen == effectiveBLen && effectiveALen == matched) {
       return true;
     }
@@ -966,7 +966,7 @@ jboolean AndroidTelephonyPhoneNumberUtils_compareStrictlyWithNSString_withNSStri
   if (a == nil || b == nil) {
     return a == b;
   }
-  else if (((jint) [a length]) == 0 && ((jint) [b length]) == 0) {
+  else if ([a java_length] == 0 && [b java_length] == 0) {
     return false;
   }
   jint forwardIndexA = 0;
@@ -1011,8 +1011,8 @@ jboolean AndroidTelephonyPhoneNumberUtils_compareStrictlyWithNSString_withNSStri
       }
     }
   }
-  jint backwardIndexA = ((jint) [a length]) - 1;
-  jint backwardIndexB = ((jint) [b length]) - 1;
+  jint backwardIndexA = [a java_length] - 1;
+  jint backwardIndexB = [b java_length] - 1;
   while (backwardIndexA >= forwardIndexA && backwardIndexB >= forwardIndexB) {
     jboolean skip_compare = false;
     jchar chA = [a charAtWithInt:backwardIndexA];
@@ -1091,14 +1091,14 @@ NSString *AndroidTelephonyPhoneNumberUtils_getStrippedReversedWithNSString_(NSSt
   AndroidTelephonyPhoneNumberUtils_initialize();
   NSString *np = AndroidTelephonyPhoneNumberUtils_extractNetworkPortionAltWithNSString_(phoneNumber);
   if (np == nil) return nil;
-  return AndroidTelephonyPhoneNumberUtils_internalGetStrippedReversedWithNSString_withInt_(np, ((jint) [np length]));
+  return AndroidTelephonyPhoneNumberUtils_internalGetStrippedReversedWithNSString_withInt_(np, [np java_length]);
 }
 
 NSString *AndroidTelephonyPhoneNumberUtils_internalGetStrippedReversedWithNSString_withInt_(NSString *np, jint numDigits) {
   AndroidTelephonyPhoneNumberUtils_initialize();
   if (np == nil) return nil;
   JavaLangStringBuilder *ret = create_JavaLangStringBuilder_initWithInt_(numDigits);
-  jint length = ((jint) [np length]);
+  jint length = [np java_length];
   for (jint i = length - 1, s = length; i >= 0 && (s - i) <= numDigits; i--) {
     jchar c = [np charAtWithInt:i];
     [ret appendWithChar:c];
@@ -1109,7 +1109,7 @@ NSString *AndroidTelephonyPhoneNumberUtils_internalGetStrippedReversedWithNSStri
 NSString *AndroidTelephonyPhoneNumberUtils_stringFromStringAndTOAWithNSString_withInt_(NSString *s, jint TOA) {
   AndroidTelephonyPhoneNumberUtils_initialize();
   if (s == nil) return nil;
-  if (TOA == AndroidTelephonyPhoneNumberUtils_TOA_International && ((jint) [s length]) > 0 && [s charAtWithInt:0] != '+') {
+  if (TOA == AndroidTelephonyPhoneNumberUtils_TOA_International && [s java_length] > 0 && [s charAtWithInt:0] != '+') {
     return JreStrcat("C$", '+', s);
   }
   return s;
@@ -1117,7 +1117,7 @@ NSString *AndroidTelephonyPhoneNumberUtils_stringFromStringAndTOAWithNSString_wi
 
 jint AndroidTelephonyPhoneNumberUtils_toaFromStringWithNSString_(NSString *s) {
   AndroidTelephonyPhoneNumberUtils_initialize();
-  if (s != nil && ((jint) [s length]) > 0 && [s charAtWithInt:0] == '+') {
+  if (s != nil && [s java_length] > 0 && [s charAtWithInt:0] == '+') {
     return AndroidTelephonyPhoneNumberUtils_TOA_International;
   }
   return AndroidTelephonyPhoneNumberUtils_TOA_Unknown;
@@ -1134,7 +1134,7 @@ NSString *AndroidTelephonyPhoneNumberUtils_calledPartyBCDToStringWithByteArray_w
     prependPlus = true;
   }
   AndroidTelephonyPhoneNumberUtils_internalCalledPartyBCDFragmentToStringWithJavaLangStringBuilder_withByteArray_withInt_withInt_(ret, bytes, offset + 1, length - 1);
-  if (prependPlus && [ret length] == 0) {
+  if (prependPlus && [ret java_length] == 0) {
     return @"";
   }
   if (prependPlus) {
@@ -1268,7 +1268,7 @@ jboolean AndroidTelephonyPhoneNumberUtils_isGlobalPhoneNumberWithNSString_(NSStr
 
 jboolean AndroidTelephonyPhoneNumberUtils_isDialableWithNSString_(NSString *address) {
   AndroidTelephonyPhoneNumberUtils_initialize();
-  for (jint i = 0, count = ((jint) [((NSString *) nil_chk(address)) length]); i < count; i++) {
+  for (jint i = 0, count = [((NSString *) nil_chk(address)) java_length]; i < count; i++) {
     if (!AndroidTelephonyPhoneNumberUtils_isDialableWithChar_([address charAtWithInt:i])) {
       return false;
     }
@@ -1278,7 +1278,7 @@ jboolean AndroidTelephonyPhoneNumberUtils_isDialableWithNSString_(NSString *addr
 
 jboolean AndroidTelephonyPhoneNumberUtils_isNonSeparatorWithNSString_(NSString *address) {
   AndroidTelephonyPhoneNumberUtils_initialize();
-  for (jint i = 0, count = ((jint) [((NSString *) nil_chk(address)) length]); i < count; i++) {
+  for (jint i = 0, count = [((NSString *) nil_chk(address)) java_length]; i < count; i++) {
     if (!AndroidTelephonyPhoneNumberUtils_isNonSeparatorWithChar_([address charAtWithInt:i])) {
       return false;
     }
@@ -1305,7 +1305,7 @@ IOSByteArray *AndroidTelephonyPhoneNumberUtils_numberToCalledPartyBCDWithNSStrin
 
 IOSByteArray *AndroidTelephonyPhoneNumberUtils_numberToCalledPartyBCDHelperWithNSString_withBoolean_(NSString *number, jboolean includeLength) {
   AndroidTelephonyPhoneNumberUtils_initialize();
-  jint numberLenReal = ((jint) [((NSString *) nil_chk(number)) length]);
+  jint numberLenReal = [((NSString *) nil_chk(number)) java_length];
   jint numberLenEffective = numberLenReal;
   jboolean hasPlus = [number java_indexOf:'+'] != -1;
   if (hasPlus) numberLenEffective--;
@@ -1353,11 +1353,11 @@ jint AndroidTelephonyPhoneNumberUtils_getFormatTypeForLocaleWithJavaUtilLocale_(
 void AndroidTelephonyPhoneNumberUtils_formatNumberWithAndroidTextEditable_withInt_(id<AndroidTextEditable> text, jint defaultFormattingType) {
   AndroidTelephonyPhoneNumberUtils_initialize();
   jint formatType = defaultFormattingType;
-  if ([((id<AndroidTextEditable>) nil_chk(text)) length] > 2 && [text charAtWithInt:0] == '+') {
+  if ([((id<AndroidTextEditable>) nil_chk(text)) java_length] > 2 && [text charAtWithInt:0] == '+') {
     if ([text charAtWithInt:1] == '1') {
       formatType = AndroidTelephonyPhoneNumberUtils_FORMAT_NANP;
     }
-    else if ([text length] >= 3 && [text charAtWithInt:1] == '8' && [text charAtWithInt:2] == '1') {
+    else if ([text java_length] >= 3 && [text charAtWithInt:1] == '8' && [text charAtWithInt:2] == '1') {
       formatType = AndroidTelephonyPhoneNumberUtils_FORMAT_JAPAN;
     }
     else {
@@ -1376,8 +1376,8 @@ void AndroidTelephonyPhoneNumberUtils_formatNumberWithAndroidTextEditable_withIn
 
 void AndroidTelephonyPhoneNumberUtils_formatNanpNumberWithAndroidTextEditable_(id<AndroidTextEditable> text) {
   AndroidTelephonyPhoneNumberUtils_initialize();
-  jint length = [((id<AndroidTextEditable>) nil_chk(text)) length];
-  if (length > ((jint) [@"+1-nnn-nnn-nnnn" length])) {
+  jint length = [((id<AndroidTextEditable>) nil_chk(text)) java_length];
+  if (length > [@"+1-nnn-nnn-nnnn" java_length]) {
     return;
   }
   else if (length <= 5) {
@@ -1385,7 +1385,7 @@ void AndroidTelephonyPhoneNumberUtils_formatNanpNumberWithAndroidTextEditable_(i
   }
   id<JavaLangCharSequence> saved = [text subSequenceFrom:0 to:length];
   jint p = 0;
-  while (p < [text length]) {
+  while (p < [text java_length]) {
     if ([text charAtWithInt:p] == '-') {
       [text delete__WithInt:p withInt:p + 1];
     }
@@ -1393,7 +1393,7 @@ void AndroidTelephonyPhoneNumberUtils_formatNanpNumberWithAndroidTextEditable_(i
       p++;
     }
   }
-  length = [text length];
+  length = [text java_length];
   IOSIntArray *dashPositions = [IOSIntArray arrayWithLength:3];
   jint numDashes = 0;
   jint state = AndroidTelephonyPhoneNumberUtils_NANP_STATE_DIGIT;
@@ -1448,7 +1448,7 @@ void AndroidTelephonyPhoneNumberUtils_formatNanpNumberWithAndroidTextEditable_(i
     jint pos = IOSIntArray_Get(dashPositions, i);
     [text replaceWithInt:pos + i withInt:pos + i withJavaLangCharSequence:@"-"];
   }
-  jint len = [text length];
+  jint len = [text java_length];
   while (len > 0) {
     if ([text charAtWithInt:len - 1] == '-') {
       [text delete__WithInt:len - 1 withInt:len];
@@ -1470,7 +1470,7 @@ NSString *AndroidTelephonyPhoneNumberUtils_convertKeypadLettersToDigitsWithNSStr
   if (input == nil) {
     return input;
   }
-  jint len = ((jint) [input length]);
+  jint len = [input java_length];
   if (len == 0) {
     return input;
   }
@@ -1510,7 +1510,7 @@ jboolean AndroidTelephonyPhoneNumberUtils_isNanpWithNSString_(NSString *dialStr)
   AndroidTelephonyPhoneNumberUtils_initialize();
   jboolean retVal = false;
   if (dialStr != nil) {
-    if (((jint) [dialStr length]) == AndroidTelephonyPhoneNumberUtils_NANP_LENGTH) {
+    if ([dialStr java_length] == AndroidTelephonyPhoneNumberUtils_NANP_LENGTH) {
       if (AndroidTelephonyPhoneNumberUtils_isTwoToNineWithChar_([dialStr charAtWithInt:0]) && AndroidTelephonyPhoneNumberUtils_isTwoToNineWithChar_([dialStr charAtWithInt:3])) {
         retVal = true;
         for (jint i = 1; i < AndroidTelephonyPhoneNumberUtils_NANP_LENGTH; i++) {
@@ -1551,7 +1551,7 @@ jboolean AndroidTelephonyPhoneNumberUtils_isUriNumberWithNSString_(NSString *num
 
 jint AndroidTelephonyPhoneNumberUtils_findDialableIndexFromPostDialStrWithNSString_(NSString *postDialStr) {
   AndroidTelephonyPhoneNumberUtils_initialize();
-  for (jint index = 0; index < ((jint) [((NSString *) nil_chk(postDialStr)) length]); index++) {
+  for (jint index = 0; index < [((NSString *) nil_chk(postDialStr)) java_length]; index++) {
     jchar c = [postDialStr charAtWithInt:index];
     if (AndroidTelephonyPhoneNumberUtils_isReallyDialableWithChar_(c)) {
       return index;
@@ -1676,7 +1676,7 @@ AndroidTelephonyPhoneNumberUtils_CountryCallingCodeAndNewIndex *AndroidTelephony
   AndroidTelephonyPhoneNumberUtils_initialize();
   jint state = 0;
   jint ccc = 0;
-  jint length = ((jint) [((NSString *) nil_chk(str)) length]);
+  jint length = [((NSString *) nil_chk(str)) java_length];
   for (jint i = 0; i < length; i++) {
     jchar ch = [str charAtWithInt:i];
     switch (state) {
@@ -1754,7 +1754,7 @@ AndroidTelephonyPhoneNumberUtils_CountryCallingCodeAndNewIndex *AndroidTelephony
 
 jint AndroidTelephonyPhoneNumberUtils_tryGetTrunkPrefixOmittedIndexWithNSString_withInt_(NSString *str, jint currentIndex) {
   AndroidTelephonyPhoneNumberUtils_initialize();
-  jint length = ((jint) [((NSString *) nil_chk(str)) length]);
+  jint length = [((NSString *) nil_chk(str)) java_length];
   for (jint i = currentIndex; i < length; i++) {
     jchar ch = [str charAtWithInt:i];
     if (AndroidTelephonyPhoneNumberUtils_tryGetISODigitWithChar_(ch) >= 0) {

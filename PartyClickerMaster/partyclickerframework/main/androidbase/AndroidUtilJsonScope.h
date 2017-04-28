@@ -12,6 +12,11 @@
 #endif
 #undef RESTRICT_AndroidUtilJsonScope
 
+#if __has_feature(nullability)
+#pragma clang diagnostic push
+#pragma GCC diagnostic ignored "-Wnullability-completeness"
+#endif
+
 #if !defined (AndroidUtilJsonScope_) && (INCLUDE_ALL_AndroidUtilJsonScope || defined(INCLUDE_AndroidUtilJsonScope))
 #define AndroidUtilJsonScope_
 
@@ -85,4 +90,8 @@ J2OBJC_TYPE_LITERAL_HEADER(AndroidUtilJsonScope)
 
 #endif
 
+
+#if __has_feature(nullability)
+#pragma clang diagnostic pop
+#endif
 #pragma pop_macro("INCLUDE_ALL_AndroidUtilJsonScope")

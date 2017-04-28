@@ -16,6 +16,8 @@
 #import "ComKgalliganPartyclickerPresenterDaggerDaggerComponent.h"
 #import "AndroidContentIOSContext.h"
 
+#import "ComKgalliganPartyclickerTestIOSTestHelper.h"
+
 @interface AppDelegate () <UISplitViewControllerDelegate>
 
 @end
@@ -26,6 +28,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     AndroidContentIOSContext* context = [[AndroidContentIOSContext alloc] init];
+    [AndroidOsLooper prepareMainLooper];
+    
+    [ComKgalliganPartyclickerTestIOSTestHelper runTests];
     
     ComKgalliganPartyclickerPresenterAppModule* appModule = [[ComKgalliganPartyclickerPresenterAppModule alloc] initWithAndroidAppApplication:context];
     

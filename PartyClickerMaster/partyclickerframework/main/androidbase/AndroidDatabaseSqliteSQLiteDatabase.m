@@ -1570,7 +1570,7 @@ AndroidDatabaseSqliteSQLiteDatabase_1 *create_AndroidDatabaseSqliteSQLiteDatabas
 }
 
 - (jboolean)acceptWithJavaIoFile:(JavaIoFile *)candidate {
-  return [((NSString *) nil_chk([((JavaIoFile *) nil_chk(candidate)) getName])) hasPrefix:val$prefix_];
+  return [((NSString *) nil_chk([((JavaIoFile *) nil_chk(candidate)) getName])) java_hasPrefix:val$prefix_];
 }
 
 - (void)dealloc {

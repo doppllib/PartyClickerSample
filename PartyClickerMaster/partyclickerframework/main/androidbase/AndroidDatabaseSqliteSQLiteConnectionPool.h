@@ -12,6 +12,11 @@
 #endif
 #undef RESTRICT_AndroidDatabaseSqliteSQLiteConnectionPool
 
+#if __has_feature(nullability)
+#pragma clang diagnostic push
+#pragma GCC diagnostic ignored "-Wnullability-completeness"
+#endif
+
 #if !defined (AndroidDatabaseSqliteSQLiteConnectionPool_) && (INCLUDE_ALL_AndroidDatabaseSqliteSQLiteConnectionPool || defined(INCLUDE_AndroidDatabaseSqliteSQLiteConnectionPool))
 #define AndroidDatabaseSqliteSQLiteConnectionPool_
 
@@ -132,4 +137,8 @@ J2OBJC_TYPE_LITERAL_HEADER(AndroidDatabaseSqliteSQLiteConnectionPool_AcquiredCon
 
 #endif
 
+
+#if __has_feature(nullability)
+#pragma clang diagnostic pop
+#endif
 #pragma pop_macro("INCLUDE_ALL_AndroidDatabaseSqliteSQLiteConnectionPool")

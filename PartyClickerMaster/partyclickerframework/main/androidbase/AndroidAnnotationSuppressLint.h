@@ -19,8 +19,6 @@
 #define INCLUDE_JavaLangAnnotationAnnotation 1
 #include "java/lang/annotation/Annotation.h"
 
-@class IOSObjectArray;
-
 @protocol AndroidAnnotationSuppressLint < JavaLangAnnotationAnnotation >
 
 @end

@@ -16,7 +16,8 @@
 #define ComKgalliganPartyclickerPresenterAppModule_
 
 @class AndroidAppApplication;
-@class ComKgalliganPartyclickerDataDatabaseHelper;
+@protocol ComKgalliganPartyclickerDataDataProvider;
+@protocol RxObservable_Transformer;
 
 @interface ComKgalliganPartyclickerPresenterAppModule : NSObject
 
@@ -28,7 +29,9 @@
 
 - (AndroidAppApplication *)providesApplication;
 
-- (ComKgalliganPartyclickerDataDatabaseHelper *)providesDatabaseHelperWithAndroidAppApplication:(AndroidAppApplication *)application;
+- (id<ComKgalliganPartyclickerDataDataProvider>)providesDataProviderWithAndroidAppApplication:(AndroidAppApplication *)application;
+
+- (id<RxObservable_Transformer>)providesSchedulerTransformer;
 
 @end
 

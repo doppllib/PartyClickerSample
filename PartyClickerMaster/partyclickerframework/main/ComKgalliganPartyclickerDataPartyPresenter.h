@@ -15,12 +15,12 @@
 #if !defined (ComKgalliganPartyclickerDataPartyPresenter_) && (INCLUDE_ALL_ComKgalliganPartyclickerDataPartyPresenter || defined(INCLUDE_ComKgalliganPartyclickerDataPartyPresenter))
 #define ComKgalliganPartyclickerDataPartyPresenter_
 
-@class ComKgalliganPartyclickerDataDatabaseHelper;
 @class ComKgalliganPartyclickerDataParty;
+@protocol ComKgalliganPartyclickerDataDataProvider;
 
 @interface ComKgalliganPartyclickerDataPartyPresenter : NSObject {
  @public
-  ComKgalliganPartyclickerDataDatabaseHelper *databaseHelper_;
+  id<ComKgalliganPartyclickerDataDataProvider> databaseHelper_;
 }
 
 #pragma mark Public
@@ -41,7 +41,7 @@
 
 J2OBJC_EMPTY_STATIC_INIT(ComKgalliganPartyclickerDataPartyPresenter)
 
-J2OBJC_FIELD_SETTER(ComKgalliganPartyclickerDataPartyPresenter, databaseHelper_, ComKgalliganPartyclickerDataDatabaseHelper *)
+J2OBJC_FIELD_SETTER(ComKgalliganPartyclickerDataPartyPresenter, databaseHelper_, id<ComKgalliganPartyclickerDataDataProvider>)
 
 FOUNDATION_EXPORT void ComKgalliganPartyclickerDataPartyPresenter_initWithInt_(ComKgalliganPartyclickerDataPartyPresenter *self, jint partyId);
 

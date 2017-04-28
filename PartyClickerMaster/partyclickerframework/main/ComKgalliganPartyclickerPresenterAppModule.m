@@ -3,6 +3,7 @@
 //
 
 #include "AndroidAppApplication.h"
+#include "ComKgalliganPartyclickerDataDataProvider.h"
 #include "ComKgalliganPartyclickerDataDatabaseHelper.h"
 #include "ComKgalliganPartyclickerPresenterAppModule.h"
 #include "DaggerModule.h"
@@ -10,8 +11,14 @@
 #include "IOSClass.h"
 #include "IOSObjectArray.h"
 #include "J2ObjC_source.h"
+#include "RxAndroidSchedulersAndroidSchedulers.h"
+#include "RxObservable.h"
+#include "RxScheduler.h"
+#include "RxSchedulersSchedulers.h"
 #include "java/lang/annotation/Annotation.h"
 #include "javax/inject/Singleton.h"
+
+#pragma clang diagnostic ignored "-Wprotocol"
 
 @interface ComKgalliganPartyclickerPresenterAppModule () {
  @public
@@ -28,6 +35,26 @@ __attribute__((unused)) static IOSObjectArray *ComKgalliganPartyclickerPresenter
 
 __attribute__((unused)) static IOSObjectArray *ComKgalliganPartyclickerPresenterAppModule__Annotations$2();
 
+__attribute__((unused)) static IOSObjectArray *ComKgalliganPartyclickerPresenterAppModule__Annotations$3();
+
+@interface ComKgalliganPartyclickerPresenterAppModule_$Lambda$1 : NSObject < RxObservable_Transformer >
+
+- (id)callWithId:(id)o;
+
+@end
+
+J2OBJC_STATIC_INIT(ComKgalliganPartyclickerPresenterAppModule_$Lambda$1)
+
+inline ComKgalliganPartyclickerPresenterAppModule_$Lambda$1 *ComKgalliganPartyclickerPresenterAppModule_$Lambda$1_get_instance();
+static ComKgalliganPartyclickerPresenterAppModule_$Lambda$1 *ComKgalliganPartyclickerPresenterAppModule_$Lambda$1_instance;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(ComKgalliganPartyclickerPresenterAppModule_$Lambda$1, instance, ComKgalliganPartyclickerPresenterAppModule_$Lambda$1 *)
+
+__attribute__((unused)) static void ComKgalliganPartyclickerPresenterAppModule_$Lambda$1_init(ComKgalliganPartyclickerPresenterAppModule_$Lambda$1 *self);
+
+__attribute__((unused)) static ComKgalliganPartyclickerPresenterAppModule_$Lambda$1 *new_ComKgalliganPartyclickerPresenterAppModule_$Lambda$1_init() NS_RETURNS_RETAINED;
+
+__attribute__((unused)) static ComKgalliganPartyclickerPresenterAppModule_$Lambda$1 *create_ComKgalliganPartyclickerPresenterAppModule_$Lambda$1_init();
+
 @implementation ComKgalliganPartyclickerPresenterAppModule
 
 - (instancetype)initWithAndroidAppApplication:(AndroidAppApplication *)application {
@@ -39,8 +66,12 @@ __attribute__((unused)) static IOSObjectArray *ComKgalliganPartyclickerPresenter
   return application_;
 }
 
-- (ComKgalliganPartyclickerDataDatabaseHelper *)providesDatabaseHelperWithAndroidAppApplication:(AndroidAppApplication *)application {
+- (id<ComKgalliganPartyclickerDataDataProvider>)providesDataProviderWithAndroidAppApplication:(AndroidAppApplication *)application {
   return create_ComKgalliganPartyclickerDataDatabaseHelper_initWithAndroidContentContext_(application);
+}
+
+- (id<RxObservable_Transformer>)providesSchedulerTransformer {
+  return JreLoadStatic(ComKgalliganPartyclickerPresenterAppModule_$Lambda$1, instance);
 }
 
 - (void)dealloc {
@@ -52,19 +83,21 @@ __attribute__((unused)) static IOSObjectArray *ComKgalliganPartyclickerPresenter
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
     { NULL, "LAndroidAppApplication;", 0x0, -1, -1, -1, -1, 1, -1 },
-    { NULL, "LComKgalliganPartyclickerDataDatabaseHelper;", 0x0, 2, 0, -1, -1, 3, -1 },
+    { NULL, "LComKgalliganPartyclickerDataDataProvider;", 0x0, 2, 0, -1, -1, 3, -1 },
+    { NULL, "LRxObservable_Transformer;", 0x0, -1, -1, -1, -1, 4, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   methods[0].selector = @selector(initWithAndroidAppApplication:);
   methods[1].selector = @selector(providesApplication);
-  methods[2].selector = @selector(providesDatabaseHelperWithAndroidAppApplication:);
+  methods[2].selector = @selector(providesDataProviderWithAndroidAppApplication:);
+  methods[3].selector = @selector(providesSchedulerTransformer);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "application_", "LAndroidAppApplication;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LAndroidAppApplication;", (void *)&ComKgalliganPartyclickerPresenterAppModule__Annotations$0, "providesDatabaseHelper", (void *)&ComKgalliganPartyclickerPresenterAppModule__Annotations$1, (void *)&ComKgalliganPartyclickerPresenterAppModule__Annotations$2 };
-  static const J2ObjcClassInfo _ComKgalliganPartyclickerPresenterAppModule = { "AppModule", "com.kgalligan.partyclicker.presenter", ptrTable, methods, fields, 7, 0x1, 3, 1, -1, -1, -1, -1, 4 };
+  static const void *ptrTable[] = { "LAndroidAppApplication;", (void *)&ComKgalliganPartyclickerPresenterAppModule__Annotations$0, "providesDataProvider", (void *)&ComKgalliganPartyclickerPresenterAppModule__Annotations$1, (void *)&ComKgalliganPartyclickerPresenterAppModule__Annotations$2, (void *)&ComKgalliganPartyclickerPresenterAppModule__Annotations$3 };
+  static const J2ObjcClassInfo _ComKgalliganPartyclickerPresenterAppModule = { "AppModule", "com.kgalligan.partyclicker.presenter", ptrTable, methods, fields, 7, 0x1, 4, 1, -1, -1, -1, -1, 5 };
   return &_ComKgalliganPartyclickerPresenterAppModule;
 }
 
@@ -92,7 +125,41 @@ IOSObjectArray *ComKgalliganPartyclickerPresenterAppModule__Annotations$1() {
 }
 
 IOSObjectArray *ComKgalliganPartyclickerPresenterAppModule__Annotations$2() {
+  return [IOSObjectArray arrayWithObjects:(id[]){ create_DaggerProvides(JreLoadEnum(DaggerProvides_Type, UNIQUE)), create_JavaxInjectSingleton() } count:2 type:JavaLangAnnotationAnnotation_class_()];
+}
+
+IOSObjectArray *ComKgalliganPartyclickerPresenterAppModule__Annotations$3() {
   return [IOSObjectArray arrayWithObjects:(id[]){ create_DaggerModule([IOSObjectArray arrayWithLength:0 type:IOSClass_class_()]) } count:1 type:JavaLangAnnotationAnnotation_class_()];
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ComKgalliganPartyclickerPresenterAppModule)
+
+J2OBJC_INITIALIZED_DEFN(ComKgalliganPartyclickerPresenterAppModule_$Lambda$1)
+
+@implementation ComKgalliganPartyclickerPresenterAppModule_$Lambda$1
+
+- (id)callWithId:(id)o {
+  RxObservable *observable = (RxObservable *) cast_chk(o, [RxObservable class]);
+  return [((RxObservable *) nil_chk([((RxObservable *) nil_chk(observable)) subscribeOnWithRxScheduler:RxSchedulersSchedulers_io()])) observeOnWithRxScheduler:RxAndroidSchedulersAndroidSchedulers_mainThread()];
+}
+
++ (void)initialize {
+  if (self == [ComKgalliganPartyclickerPresenterAppModule_$Lambda$1 class]) {
+    JreStrongAssignAndConsume(&ComKgalliganPartyclickerPresenterAppModule_$Lambda$1_instance, new_ComKgalliganPartyclickerPresenterAppModule_$Lambda$1_init());
+    J2OBJC_SET_INITIALIZED(ComKgalliganPartyclickerPresenterAppModule_$Lambda$1)
+  }
+}
+
+@end
+
+void ComKgalliganPartyclickerPresenterAppModule_$Lambda$1_init(ComKgalliganPartyclickerPresenterAppModule_$Lambda$1 *self) {
+  NSObject_init(self);
+}
+
+ComKgalliganPartyclickerPresenterAppModule_$Lambda$1 *new_ComKgalliganPartyclickerPresenterAppModule_$Lambda$1_init() {
+  J2OBJC_NEW_IMPL(ComKgalliganPartyclickerPresenterAppModule_$Lambda$1, init)
+}
+
+ComKgalliganPartyclickerPresenterAppModule_$Lambda$1 *create_ComKgalliganPartyclickerPresenterAppModule_$Lambda$1_init() {
+  J2OBJC_CREATE_IMPL(ComKgalliganPartyclickerPresenterAppModule_$Lambda$1, init)
+}

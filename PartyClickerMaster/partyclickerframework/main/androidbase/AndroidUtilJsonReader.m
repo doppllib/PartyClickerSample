@@ -887,9 +887,9 @@ void AndroidUtilJsonReader_skipToEndOfLine(AndroidUtilJsonReader *self) {
 }
 
 jboolean AndroidUtilJsonReader_skipToWithNSString_(AndroidUtilJsonReader *self, NSString *toFind) {
-  for (; self->pos_ + ((jint) [((NSString *) nil_chk(toFind)) length]) <= self->limit_ || AndroidUtilJsonReader_fillBufferWithInt_(self, ((jint) [toFind length])); self->pos_++) {
+  for (; self->pos_ + [((NSString *) nil_chk(toFind)) java_length] <= self->limit_ || AndroidUtilJsonReader_fillBufferWithInt_(self, [toFind java_length]); self->pos_++) {
     {
-      for (jint c = 0; c < ((jint) [toFind length]); c++) {
+      for (jint c = 0; c < [toFind java_length]; c++) {
         if (IOSCharArray_Get(nil_chk(self->buffer_), self->pos_ + c) != [toFind charAtWithInt:c]) {
           goto continue_outer;
         }

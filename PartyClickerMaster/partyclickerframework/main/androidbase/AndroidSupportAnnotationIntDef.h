@@ -19,8 +19,6 @@
 #define INCLUDE_JavaLangAnnotationAnnotation 1
 #include "java/lang/annotation/Annotation.h"
 
-@class IOSLongArray;
-
 @protocol AndroidSupportAnnotationIntDef < JavaLangAnnotationAnnotation >
 
 @end

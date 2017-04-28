@@ -386,7 +386,7 @@ void AndroidOsTrace_asyncTraceEndWithLong_withNSString_withInt_(jlong traceTag, 
 void AndroidOsTrace_beginSectionWithNSString_(NSString *sectionName) {
   AndroidOsTrace_initialize();
   if (AndroidOsTrace_isTagEnabledWithLong_(AndroidOsTrace_TRACE_TAG_APP)) {
-    if (((jint) [((NSString *) nil_chk(sectionName)) length]) > AndroidOsTrace_MAX_SECTION_NAME_LEN) {
+    if ([((NSString *) nil_chk(sectionName)) java_length] > AndroidOsTrace_MAX_SECTION_NAME_LEN) {
       @throw create_JavaLangIllegalArgumentException_initWithNSString_(@"sectionName is too long");
     }
     AndroidOsTrace_nativeTraceBeginWithLong_withNSString_(AndroidOsTrace_TRACE_TAG_APP, sectionName);

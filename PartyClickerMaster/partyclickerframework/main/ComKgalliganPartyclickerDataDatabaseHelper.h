@@ -19,6 +19,10 @@
 #define INCLUDE_CoTouchlabSqueakyDbSqliteSqueakyOpenHelper 1
 #include "CoTouchlabSqueakyDbSqliteSqueakyOpenHelper.h"
 
+#define RESTRICT_ComKgalliganPartyclickerDataDataProvider 1
+#define INCLUDE_ComKgalliganPartyclickerDataDataProvider 1
+#include "ComKgalliganPartyclickerDataDataProvider.h"
+
 @class AndroidContentContext;
 @class AndroidDatabaseSqliteSQLiteDatabase;
 @class ComKgalliganPartyclickerDataParty;
@@ -26,7 +30,7 @@
 @protocol JavaUtilConcurrentCallable;
 @protocol JavaUtilList;
 
-@interface ComKgalliganPartyclickerDataDatabaseHelper : CoTouchlabSqueakyDbSqliteSqueakyOpenHelper
+@interface ComKgalliganPartyclickerDataDatabaseHelper : CoTouchlabSqueakyDbSqliteSqueakyOpenHelper < ComKgalliganPartyclickerDataDataProvider >
 
 #pragma mark Public
 
@@ -36,6 +40,8 @@
                                            withBoolean:(jboolean)coming;
 
 - (id<JavaUtilList>)allParties;
+
+- (id<JavaUtilList>)allPeopleForPartyWithComKgalliganPartyclickerDataParty:(ComKgalliganPartyclickerDataParty *)party;
 
 - (jint)countCurrentPartyWithInt:(jint)partyId;
 

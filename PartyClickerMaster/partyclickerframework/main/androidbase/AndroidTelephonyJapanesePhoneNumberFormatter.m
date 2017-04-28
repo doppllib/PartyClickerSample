@@ -72,7 +72,7 @@ AndroidTelephonyJapanesePhoneNumberFormatter *create_AndroidTelephonyJapanesePho
 void AndroidTelephonyJapanesePhoneNumberFormatter_formatWithAndroidTextEditable_(id<AndroidTextEditable> text) {
   AndroidTelephonyJapanesePhoneNumberFormatter_initialize();
   jint rootIndex = 1;
-  jint length = [((id<AndroidTextEditable>) nil_chk(text)) length];
+  jint length = [((id<AndroidTextEditable>) nil_chk(text)) java_length];
   if (length > 3 && [((NSString *) nil_chk([((id<JavaLangCharSequence>) nil_chk([text subSequenceFrom:0 to:3])) description])) isEqual:@"+81"]) {
     rootIndex = 3;
   }
@@ -81,7 +81,7 @@ void AndroidTelephonyJapanesePhoneNumberFormatter_formatWithAndroidTextEditable_
   }
   id<JavaLangCharSequence> saved = [text subSequenceFrom:0 to:length];
   jint i = 0;
-  while (i < [text length]) {
+  while (i < [text java_length]) {
     if ([text charAtWithInt:i] == '-') {
       [text delete__WithInt:i withInt:i + 1];
     }
@@ -89,7 +89,7 @@ void AndroidTelephonyJapanesePhoneNumberFormatter_formatWithAndroidTextEditable_
       i++;
     }
   }
-  length = [text length];
+  length = [text java_length];
   jint dashposition;
   i = rootIndex;
   jint base = 0;

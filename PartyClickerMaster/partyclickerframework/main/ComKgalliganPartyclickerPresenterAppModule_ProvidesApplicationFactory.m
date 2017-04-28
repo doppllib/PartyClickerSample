@@ -62,7 +62,7 @@ J2OBJC_FIELD_SETTER(ComKgalliganPartyclickerPresenterAppModule_ProvidesApplicati
 
 void ComKgalliganPartyclickerPresenterAppModule_ProvidesApplicationFactory_initWithComKgalliganPartyclickerPresenterAppModule_(ComKgalliganPartyclickerPresenterAppModule_ProvidesApplicationFactory *self, ComKgalliganPartyclickerPresenterAppModule *module) {
   NSObject_init(self);
-  JreAssert((module != nil), (@"com/kgalligan/partyclicker/presenter/AppModule_ProvidesApplicationFactory.java:12 condition failed: assert module != null;"));
+  JreAssert((module != nil), (@"com/kgalligan/partyclicker/presenter/AppModule_ProvidesApplicationFactory.java:16 condition failed: assert module != null;"));
   JreStrongAssign(&self->module_, module);
 }
 

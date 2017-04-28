@@ -19,8 +19,8 @@
 #define INCLUDE_JavaLangRunnable 1
 #include "java/lang/Runnable.h"
 
-@class ComKgalliganPartyclickerDataDatabaseHelper;
 @class ComKgalliganPartyclickerDataParty;
+@protocol ComKgalliganPartyclickerDataDataProvider;
 
 @interface ComKgalliganPartyclickerDataModPersonTask : NSObject < JavaLangRunnable >
 
@@ -28,7 +28,7 @@
 
 - (instancetype)initWithComKgalliganPartyclickerDataParty:(ComKgalliganPartyclickerDataParty *)party
                                               withBoolean:(jboolean)coming
-           withComKgalliganPartyclickerDataDatabaseHelper:(ComKgalliganPartyclickerDataDatabaseHelper *)databaseHelper;
+             withComKgalliganPartyclickerDataDataProvider:(id<ComKgalliganPartyclickerDataDataProvider>)databaseHelper;
 
 - (void)run;
 
@@ -36,11 +36,11 @@
 
 J2OBJC_EMPTY_STATIC_INIT(ComKgalliganPartyclickerDataModPersonTask)
 
-FOUNDATION_EXPORT void ComKgalliganPartyclickerDataModPersonTask_initWithComKgalliganPartyclickerDataParty_withBoolean_withComKgalliganPartyclickerDataDatabaseHelper_(ComKgalliganPartyclickerDataModPersonTask *self, ComKgalliganPartyclickerDataParty *party, jboolean coming, ComKgalliganPartyclickerDataDatabaseHelper *databaseHelper);
+FOUNDATION_EXPORT void ComKgalliganPartyclickerDataModPersonTask_initWithComKgalliganPartyclickerDataParty_withBoolean_withComKgalliganPartyclickerDataDataProvider_(ComKgalliganPartyclickerDataModPersonTask *self, ComKgalliganPartyclickerDataParty *party, jboolean coming, id<ComKgalliganPartyclickerDataDataProvider> databaseHelper);
 
-FOUNDATION_EXPORT ComKgalliganPartyclickerDataModPersonTask *new_ComKgalliganPartyclickerDataModPersonTask_initWithComKgalliganPartyclickerDataParty_withBoolean_withComKgalliganPartyclickerDataDatabaseHelper_(ComKgalliganPartyclickerDataParty *party, jboolean coming, ComKgalliganPartyclickerDataDatabaseHelper *databaseHelper) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT ComKgalliganPartyclickerDataModPersonTask *new_ComKgalliganPartyclickerDataModPersonTask_initWithComKgalliganPartyclickerDataParty_withBoolean_withComKgalliganPartyclickerDataDataProvider_(ComKgalliganPartyclickerDataParty *party, jboolean coming, id<ComKgalliganPartyclickerDataDataProvider> databaseHelper) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT ComKgalliganPartyclickerDataModPersonTask *create_ComKgalliganPartyclickerDataModPersonTask_initWithComKgalliganPartyclickerDataParty_withBoolean_withComKgalliganPartyclickerDataDatabaseHelper_(ComKgalliganPartyclickerDataParty *party, jboolean coming, ComKgalliganPartyclickerDataDatabaseHelper *databaseHelper);
+FOUNDATION_EXPORT ComKgalliganPartyclickerDataModPersonTask *create_ComKgalliganPartyclickerDataModPersonTask_initWithComKgalliganPartyclickerDataParty_withBoolean_withComKgalliganPartyclickerDataDataProvider_(ComKgalliganPartyclickerDataParty *party, jboolean coming, id<ComKgalliganPartyclickerDataDataProvider> databaseHelper);
 
 J2OBJC_TYPE_LITERAL_HEADER(ComKgalliganPartyclickerDataModPersonTask)
 

@@ -492,11 +492,11 @@ void AndroidInternalUtilFastXmlSerializer_appendWithCharArray_withInt_withInt_(A
 }
 
 void AndroidInternalUtilFastXmlSerializer_appendWithNSString_(AndroidInternalUtilFastXmlSerializer *self, NSString *str) {
-  AndroidInternalUtilFastXmlSerializer_appendWithNSString_withInt_withInt_(self, str, 0, ((jint) [((NSString *) nil_chk(str)) length]));
+  AndroidInternalUtilFastXmlSerializer_appendWithNSString_withInt_withInt_(self, str, 0, [((NSString *) nil_chk(str)) java_length]);
 }
 
 void AndroidInternalUtilFastXmlSerializer_escapeAndAppendStringWithNSString_(AndroidInternalUtilFastXmlSerializer *self, NSString *string) {
-  jint N = ((jint) [((NSString *) nil_chk(string)) length]);
+  jint N = [((NSString *) nil_chk(string)) java_length];
   jchar NE = (jchar) ((IOSObjectArray *) nil_chk(AndroidInternalUtilFastXmlSerializer_ESCAPE_TABLE))->size_;
   IOSObjectArray *escapes = AndroidInternalUtilFastXmlSerializer_ESCAPE_TABLE;
   jint lastPos = 0;

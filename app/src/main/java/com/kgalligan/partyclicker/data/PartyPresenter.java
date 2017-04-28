@@ -1,8 +1,4 @@
 package com.kgalligan.partyclicker.data;
-import android.content.Context;
-
-import com.kgalligan.partyclicker.AppManager;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -20,7 +16,7 @@ public class PartyPresenter
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     @Inject
-    DatabaseHelper databaseHelper;
+    DataProvider databaseHelper;
 
     public PartyPresenter(int partyId)
     {

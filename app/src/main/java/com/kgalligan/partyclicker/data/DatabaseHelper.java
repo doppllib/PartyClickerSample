@@ -18,7 +18,7 @@ import co.touchlab.squeaky.table.TableUtils;
  * Created by kgalligan on 1/5/17.
  */
 
-public class DatabaseHelper extends SqueakyOpenHelper
+public class DatabaseHelper extends SqueakyOpenHelper implements DataProvider
 {
 
     private static final String DATABASE_FILE_NAME = "db";
@@ -114,6 +114,21 @@ public class DatabaseHelper extends SqueakyOpenHelper
     public int countCurrentParty(int partyId)
     {
         return (int)DatabaseUtils.longForQuery(getWritableDatabase(), "select sum(val) from person where party_id = ?", new String[]{Integer.toString(partyId)});
+    }
+
+    @Override
+    public List<Person> allPeopleForParty(Party party)
+    {
+        try
+        {
+            Where<Person> where = new Where<>(getPersonDao());
+            where.eq("party", party);
+            return getPersonDao().query(where).orderBy("recorded").list();
+        }
+        catch(SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
     public void addPerson(Party party, boolean coming)

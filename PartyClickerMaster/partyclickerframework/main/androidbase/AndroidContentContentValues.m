@@ -343,7 +343,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   JavaLangStringBuilder *sb = create_JavaLangStringBuilder_init();
   for (NSString * __strong name in nil_chk([((JavaUtilHashMap *) nil_chk(mValues_)) keySet])) {
     NSString *value = [self getAsStringWithNSString:name];
-    if ([sb length] > 0) [sb appendWithNSString:@" "];
+    if ([sb java_length] > 0) [sb appendWithNSString:@" "];
     [sb appendWithNSString:JreStrcat("$C$", name, '=', value)];
   }
   return [sb description];

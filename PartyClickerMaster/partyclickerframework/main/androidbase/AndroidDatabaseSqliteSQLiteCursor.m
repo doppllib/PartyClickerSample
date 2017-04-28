@@ -176,7 +176,7 @@ NSString *AndroidDatabaseSqliteSQLiteCursor_TAG = @"SQLiteCursor";
     if (mWindow_ != nil) {
       if (mStackTrace_ != nil) {
         NSString *sql = [((AndroidDatabaseSqliteSQLiteQuery *) nil_chk(mQuery_)) getSql];
-        jint len = ((jint) [((NSString *) nil_chk(sql)) length]);
+        jint len = [((NSString *) nil_chk(sql)) java_length];
         [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$$$$$$", @"Finalizing a Cursor that has not been deactivated or closed. database = ", [((AndroidDatabaseSqliteSQLiteDatabase *) nil_chk([mQuery_ getDatabase])) getLabel], @", table = ", mEditTable_, @", query = ", [sql java_substring:0 endIndex:(len > 1000) ? 1000 : len])];
         JavaIoStringWriter *stringWriter = create_JavaIoStringWriter_init();
         JavaIoPrintWriter *printWriter = create_JavaIoPrintWriter_initWithJavaIoWriter_(stringWriter);

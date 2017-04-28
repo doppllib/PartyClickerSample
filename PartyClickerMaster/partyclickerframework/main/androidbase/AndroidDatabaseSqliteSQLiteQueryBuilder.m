@@ -93,9 +93,9 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)appendWhereWithJavaLangCharSequence:(id<JavaLangCharSequence>)inWhere {
   if (mWhereClause_ == nil) {
-    JreStrongAssignAndConsume(&mWhereClause_, new_JavaLangStringBuilder_initWithInt_([((id<JavaLangCharSequence>) nil_chk(inWhere)) length] + 16));
+    JreStrongAssignAndConsume(&mWhereClause_, new_JavaLangStringBuilder_initWithInt_([((id<JavaLangCharSequence>) nil_chk(inWhere)) java_length] + 16));
   }
-  if ([mWhereClause_ length] == 0) {
+  if ([mWhereClause_ java_length] == 0) {
     [((JavaLangStringBuilder *) nil_chk(mWhereClause_)) appendWithChar:'('];
   }
   [((JavaLangStringBuilder *) nil_chk(mWhereClause_)) appendWithJavaLangCharSequence:inWhere];
@@ -103,9 +103,9 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)appendWhereEscapeStringWithNSString:(NSString *)inWhere {
   if (mWhereClause_ == nil) {
-    JreStrongAssignAndConsume(&mWhereClause_, new_JavaLangStringBuilder_initWithInt_(((jint) [((NSString *) nil_chk(inWhere)) length]) + 16));
+    JreStrongAssignAndConsume(&mWhereClause_, new_JavaLangStringBuilder_initWithInt_([((NSString *) nil_chk(inWhere)) java_length] + 16));
   }
-  if ([mWhereClause_ length] == 0) {
+  if ([mWhereClause_ java_length] == 0) {
     [((JavaLangStringBuilder *) nil_chk(mWhereClause_)) appendWithChar:'('];
   }
   AndroidDatabaseDatabaseUtils_appendEscapedSQLStringWithJavaLangStringBuilder_withNSString_(mWhereClause_, inWhere);
@@ -166,7 +166,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   if (mTables_ == nil) {
     return nil;
   }
-  if (mStrict_ && selection != nil && ((jint) [selection length]) > 0) {
+  if (mStrict_ && selection != nil && [selection java_length] > 0) {
     NSString *sqlForValidation = [self buildQueryWithNSStringArray:projectionIn withNSString:JreStrcat("C$C", '(', selection, ')') withNSString:groupBy withNSString:having withNSString:sortOrder withNSString:limit];
     AndroidDatabaseSqliteSQLiteQueryBuilder_validateQuerySqlWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_(self, db, sqlForValidation);
   }
@@ -190,12 +190,12 @@ J2OBJC_IGNORE_DESIGNATED_END
                              withNSString:(NSString *)limit {
   IOSObjectArray *projection = AndroidDatabaseSqliteSQLiteQueryBuilder_computeProjectionWithNSStringArray_(self, projectionIn);
   JavaLangStringBuilder *where = create_JavaLangStringBuilder_init();
-  jboolean hasBaseWhereClause = mWhereClause_ != nil && [mWhereClause_ length] > 0;
+  jboolean hasBaseWhereClause = mWhereClause_ != nil && [mWhereClause_ java_length] > 0;
   if (hasBaseWhereClause) {
     [where appendWithNSString:[((JavaLangStringBuilder *) nil_chk(mWhereClause_)) description]];
     [where appendWithChar:')'];
   }
-  if (selection != nil && ((jint) [selection length]) > 0) {
+  if (selection != nil && [selection java_length] > 0) {
     if (hasBaseWhereClause) {
       [where appendWithNSString:@" AND "];
     }

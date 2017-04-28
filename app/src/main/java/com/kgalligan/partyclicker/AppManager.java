@@ -1,6 +1,5 @@
 package com.kgalligan.partyclicker;
 import android.app.Application;
-import android.content.Context;
 
 import com.kgalligan.partyclicker.presenter.DaggerComponent;
 
@@ -14,7 +13,7 @@ public class AppManager
     private final  DaggerComponent daggerComponent;
     private static AppManager      instance;
 
-    public AppManager(Application application, DaggerComponent daggerComponent)
+    private AppManager(Application application, DaggerComponent daggerComponent)
     {
         this.application = application;
         this.daggerComponent = daggerComponent;

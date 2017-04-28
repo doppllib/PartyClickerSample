@@ -12,6 +12,11 @@
 #endif
 #undef RESTRICT_AndroidUtilXml
 
+#if __has_feature(nullability)
+#pragma clang diagnostic push
+#pragma GCC diagnostic ignored "-Wnullability-completeness"
+#endif
+
 #if !defined (AndroidUtilXml_) && (INCLUDE_ALL_AndroidUtilXml || defined(INCLUDE_AndroidUtilXml))
 #define AndroidUtilXml_
 
@@ -148,4 +153,8 @@ J2OBJC_TYPE_LITERAL_HEADER(AndroidUtilXml_Encoding)
 
 #endif
 
+
+#if __has_feature(nullability)
+#pragma clang diagnostic pop
+#endif
 #pragma pop_macro("INCLUDE_ALL_AndroidUtilXml")

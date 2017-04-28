@@ -13,6 +13,9 @@
   id<ComKgalliganPartyclickerPresenterDaggerComponent> daggerComponent_;
 }
 
+- (instancetype)initWithAndroidAppApplication:(AndroidAppApplication *)application
+withComKgalliganPartyclickerPresenterDaggerComponent:(id<ComKgalliganPartyclickerPresenterDaggerComponent>)daggerComponent;
+
 @end
 
 J2OBJC_FIELD_SETTER(ComKgalliganPartyclickerAppManager, application_, AndroidAppApplication *)
@@ -22,6 +25,12 @@ inline ComKgalliganPartyclickerAppManager *ComKgalliganPartyclickerAppManager_ge
 inline ComKgalliganPartyclickerAppManager *ComKgalliganPartyclickerAppManager_set_instance(ComKgalliganPartyclickerAppManager *value);
 static ComKgalliganPartyclickerAppManager *ComKgalliganPartyclickerAppManager_instance;
 J2OBJC_STATIC_FIELD_OBJ(ComKgalliganPartyclickerAppManager, instance, ComKgalliganPartyclickerAppManager *)
+
+__attribute__((unused)) static void ComKgalliganPartyclickerAppManager_initWithAndroidAppApplication_withComKgalliganPartyclickerPresenterDaggerComponent_(ComKgalliganPartyclickerAppManager *self, AndroidAppApplication *application, id<ComKgalliganPartyclickerPresenterDaggerComponent> daggerComponent);
+
+__attribute__((unused)) static ComKgalliganPartyclickerAppManager *new_ComKgalliganPartyclickerAppManager_initWithAndroidAppApplication_withComKgalliganPartyclickerPresenterDaggerComponent_(AndroidAppApplication *application, id<ComKgalliganPartyclickerPresenterDaggerComponent> daggerComponent) NS_RETURNS_RETAINED;
+
+__attribute__((unused)) static ComKgalliganPartyclickerAppManager *create_ComKgalliganPartyclickerAppManager_initWithAndroidAppApplication_withComKgalliganPartyclickerPresenterDaggerComponent_(AndroidAppApplication *application, id<ComKgalliganPartyclickerPresenterDaggerComponent> daggerComponent);
 
 @implementation ComKgalliganPartyclickerAppManager
 
@@ -56,7 +65,7 @@ withComKgalliganPartyclickerPresenterDaggerComponent:(id<ComKgalliganPartyclicke
 
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
-    { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
+    { NULL, NULL, 0x2, -1, 0, -1, -1, -1, -1 },
     { NULL, "V", 0x9, 1, 0, -1, -1, -1, -1 },
     { NULL, "LAndroidAppApplication;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LComKgalliganPartyclickerPresenterDaggerComponent;", 0x1, -1, -1, -1, -1, -1, -1 },

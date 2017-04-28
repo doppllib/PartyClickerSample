@@ -25,6 +25,7 @@
 #import "java/lang/IllegalStateException.h"
 #import "NSString+JavaString.h"
 #import "android/util/Log.h"
+#import "java/nio/charset/Charset.h"
 
 @implementation CursorWindowNative {
     void *data;
@@ -178,7 +179,7 @@ const void* getFieldSlotValueBlob(CursorWindowNative *window, struct FieldSlot* 
         }
 
         IOSByteArray *bytes = [IOSByteArray newArrayWithBytes:(const jbyte *)value count:sizeIncludingNull - 1];
-        NSString *result = [NSString java_stringWithBytes:bytes offset:0 length:[bytes count] encoding:NSUTF8StringEncoding];
+        NSString *result = [NSString java_stringWithBytes:bytes offset:0 length:[bytes count] charset:[JavaNioCharsetCharset forNameWithNSString:@"UTF-8"]];
 
 #if ! __has_feature(objc_arc)
 [bytes release];

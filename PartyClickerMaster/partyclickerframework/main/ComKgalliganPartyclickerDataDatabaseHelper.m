@@ -127,6 +127,17 @@ __attribute__((unused)) static ComKgalliganPartyclickerDataDatabaseHelper_1 *cre
   return (jint) AndroidDatabaseDatabaseUtils_longForQueryWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSStringArray_([self getWritableDatabase], @"select sum(val) from person where party_id = ?", [IOSObjectArray arrayWithObjects:(id[]){ JavaLangInteger_toStringWithInt_(partyId) } count:1 type:NSString_class_()]);
 }
 
+- (id<JavaUtilList>)allPeopleForPartyWithComKgalliganPartyclickerDataParty:(ComKgalliganPartyclickerDataParty *)party {
+  @try {
+    CoTouchlabSqueakyStmtWhere *where = create_CoTouchlabSqueakyStmtWhere_initWithCoTouchlabSqueakyDaoDao_([self getPersonDao]);
+    [where eqWithNSString:@"party" withId:party];
+    return [((id<CoTouchlabSqueakyDaoDao_QueryModifiers>) nil_chk([((id<CoTouchlabSqueakyDaoDao_QueryModifiers>) nil_chk([((id<CoTouchlabSqueakyDaoDao>) nil_chk([self getPersonDao])) queryWithCoTouchlabSqueakyDaoQuery:where])) orderByWithNSString:@"recorded"])) list];
+  }
+  @catch (JavaSqlSQLException *e) {
+    @throw create_JavaLangRuntimeException_initWithNSException_(e);
+  }
+}
+
 - (void)addPersonWithComKgalliganPartyclickerDataParty:(ComKgalliganPartyclickerDataParty *)party
                                            withBoolean:(jboolean)coming {
   @try {
@@ -191,11 +202,12 @@ __attribute__((unused)) static ComKgalliganPartyclickerDataDatabaseHelper_1 *cre
     { NULL, "LCoTouchlabSqueakyDaoDao;", 0x1, -1, -1, -1, 9, -1, -1 },
     { NULL, "LCoTouchlabSqueakyDaoDao;", 0x1, -1, -1, -1, 10, -1, -1 },
     { NULL, "I", 0x1, 11, 12, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 13, 14, -1, -1, -1, -1 },
-    { NULL, "LJavaUtilList;", 0x1, -1, -1, -1, 15, -1, -1 },
-    { NULL, "LComKgalliganPartyclickerDataParty;", 0x1, 16, 17, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 18, 19, -1, -1, -1, -1 },
-    { NULL, "LComKgalliganPartyclickerDataParty;", 0x1, 20, 12, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilList;", 0x1, 13, 14, -1, 15, -1, -1 },
+    { NULL, "V", 0x1, 16, 17, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilList;", 0x1, -1, -1, -1, 18, -1, -1 },
+    { NULL, "LComKgalliganPartyclickerDataParty;", 0x1, 19, 20, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 21, 14, -1, -1, -1, -1 },
+    { NULL, "LComKgalliganPartyclickerDataParty;", 0x1, 22, 12, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -207,20 +219,21 @@ __attribute__((unused)) static ComKgalliganPartyclickerDataDatabaseHelper_1 *cre
   methods[5].selector = @selector(getPartyDao);
   methods[6].selector = @selector(getPersonDao);
   methods[7].selector = @selector(countCurrentPartyWithInt:);
-  methods[8].selector = @selector(addPersonWithComKgalliganPartyclickerDataParty:withBoolean:);
-  methods[9].selector = @selector(allParties);
-  methods[10].selector = @selector(createPartyWithNSString:);
-  methods[11].selector = @selector(deletePartyWithComKgalliganPartyclickerDataParty:);
-  methods[12].selector = @selector(loadPartyWithInt:);
+  methods[8].selector = @selector(allPeopleForPartyWithComKgalliganPartyclickerDataParty:);
+  methods[9].selector = @selector(addPersonWithComKgalliganPartyclickerDataParty:withBoolean:);
+  methods[10].selector = @selector(allParties);
+  methods[11].selector = @selector(createPartyWithNSString:);
+  methods[12].selector = @selector(deletePartyWithComKgalliganPartyclickerDataParty:);
+  methods[13].selector = @selector(loadPartyWithInt:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "DATABASE_FILE_NAME", "LNSString;", .constantValue.asLong = 0, 0x1a, -1, 21, -1, -1 },
+    { "DATABASE_FILE_NAME", "LNSString;", .constantValue.asLong = 0, 0x1a, -1, 23, -1, -1 },
     { "BASELINE", "I", .constantValue.asInt = ComKgalliganPartyclickerDataDatabaseHelper_BASELINE, 0x1a, -1, -1, -1, -1 },
     { "CURRENT_VERSION", "I", .constantValue.asInt = ComKgalliganPartyclickerDataDatabaseHelper_CURRENT_VERSION, 0x1a, -1, -1, -1, -1 },
     { "tableClasses_", "[LIOSClass;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LAndroidContentContext;", "onCreate", "LAndroidDatabaseSqliteSQLiteDatabase;", "onUpgrade", "LAndroidDatabaseSqliteSQLiteDatabase;II", "onOpen", "performTransactionOrThrowRuntime", "LJavaUtilConcurrentCallable;", "(Ljava/util/concurrent/Callable<Ljava/lang/Void;>;)V", "()Lco/touchlab/squeaky/dao/Dao<Lcom/kgalligan/partyclicker/data/Party;>;", "()Lco/touchlab/squeaky/dao/Dao<Lcom/kgalligan/partyclicker/data/Person;>;", "countCurrentParty", "I", "addPerson", "LComKgalliganPartyclickerDataParty;Z", "()Ljava/util/List<Lcom/kgalligan/partyclicker/data/Party;>;", "createParty", "LNSString;", "deleteParty", "LComKgalliganPartyclickerDataParty;", "loadParty", &ComKgalliganPartyclickerDataDatabaseHelper_DATABASE_FILE_NAME };
-  static const J2ObjcClassInfo _ComKgalliganPartyclickerDataDatabaseHelper = { "DatabaseHelper", "com.kgalligan.partyclicker.data", ptrTable, methods, fields, 7, 0x1, 13, 4, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "LAndroidContentContext;", "onCreate", "LAndroidDatabaseSqliteSQLiteDatabase;", "onUpgrade", "LAndroidDatabaseSqliteSQLiteDatabase;II", "onOpen", "performTransactionOrThrowRuntime", "LJavaUtilConcurrentCallable;", "(Ljava/util/concurrent/Callable<Ljava/lang/Void;>;)V", "()Lco/touchlab/squeaky/dao/Dao<Lcom/kgalligan/partyclicker/data/Party;>;", "()Lco/touchlab/squeaky/dao/Dao<Lcom/kgalligan/partyclicker/data/Person;>;", "countCurrentParty", "I", "allPeopleForParty", "LComKgalliganPartyclickerDataParty;", "(Lcom/kgalligan/partyclicker/data/Party;)Ljava/util/List<Lcom/kgalligan/partyclicker/data/Person;>;", "addPerson", "LComKgalliganPartyclickerDataParty;Z", "()Ljava/util/List<Lcom/kgalligan/partyclicker/data/Party;>;", "createParty", "LNSString;", "deleteParty", "loadParty", &ComKgalliganPartyclickerDataDatabaseHelper_DATABASE_FILE_NAME };
+  static const J2ObjcClassInfo _ComKgalliganPartyclickerDataDatabaseHelper = { "DatabaseHelper", "com.kgalligan.partyclicker.data", ptrTable, methods, fields, 7, 0x1, 14, 4, -1, -1, -1, -1, -1 };
   return &_ComKgalliganPartyclickerDataDatabaseHelper;
 }
 
