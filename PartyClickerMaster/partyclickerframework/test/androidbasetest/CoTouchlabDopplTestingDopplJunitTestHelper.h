@@ -12,6 +12,11 @@
 #endif
 #undef RESTRICT_CoTouchlabDopplTestingDopplJunitTestHelper
 
+#if __has_feature(nullability)
+#pragma clang diagnostic push
+#pragma GCC diagnostic ignored "-Wnullability-completeness"
+#endif
+
 #if !defined (CoTouchlabDopplTestingDopplJunitTestHelper_) && (INCLUDE_ALL_CoTouchlabDopplTestingDopplJunitTestHelper || defined(INCLUDE_CoTouchlabDopplTestingDopplJunitTestHelper))
 #define CoTouchlabDopplTestingDopplJunitTestHelper_
 
@@ -306,4 +311,8 @@ J2OBJC_TYPE_LITERAL_HEADER(CoTouchlabDopplTestingDopplJunitTestHelper_ResultCont
 
 #endif
 
+
+#if __has_feature(nullability)
+#pragma clang diagnostic pop
+#endif
 #pragma pop_macro("INCLUDE_ALL_CoTouchlabDopplTestingDopplJunitTestHelper")

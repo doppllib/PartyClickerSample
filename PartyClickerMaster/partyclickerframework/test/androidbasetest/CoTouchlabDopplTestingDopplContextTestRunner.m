@@ -92,7 +92,7 @@ JavaIoFile *CoTouchlabDopplTestingDopplContextTestRunner_initContext(CoTouchlabD
   @try {
     JavaIoFile *context = JavaIoFile_createTempFileWithNSString_withNSString_(@"context", nil);
     NSString *filename = [((JavaIoFile *) nil_chk(context)) getName];
-    if (![context isDirectory] && [((NSString *) nil_chk(filename)) hasSuffix:@".tmp"]) {
+    if (![context isDirectory] && [((NSString *) nil_chk(filename)) java_hasSuffix:@".tmp"]) {
       context = create_JavaIoFile_initWithJavaIoFile_withNSString_([context getParentFile], [((NSString *) nil_chk(filename)) java_substring:0 endIndex:[filename java_lastIndexOfString:@".tmp"]]);
       if ([context exists]) @throw create_JavaLangRuntimeException_initWithNSString_(@"Can't create a new temp file for testing context");
     }

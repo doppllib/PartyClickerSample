@@ -10,13 +10,13 @@
 #import "DetailViewController.h"
 #import "AndroidOsLooper.h"
 
-#import "ComKgalliganPartyclickerAppManager.h"
-#import "ComKgalliganPartyclickerPresenterAppModule.h"
-#import "ComKgalliganPartyclickerPresenterDaggerComponent.h"
-#import "ComKgalliganPartyclickerPresenterDaggerDaggerComponent.h"
+#import "PAppManager.h"
+#import "PPAppModule.h"
+#import "PPDaggerComponent.h"
+#import "PPDaggerDaggerComponent.h"
 #import "AndroidContentIOSContext.h"
 
-#import "ComKgalliganPartyclickerTestIOSTestHelper.h"
+#import "PTIOSTestHelper.h"
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
 
@@ -34,9 +34,9 @@
     
     ComKgalliganPartyclickerPresenterAppModule* appModule = [[ComKgalliganPartyclickerPresenterAppModule alloc] initWithAndroidAppApplication:context];
     
-    id<ComKgalliganPartyclickerPresenterDaggerComponent> daggerComponent = [[[ComKgalliganPartyclickerPresenterDaggerDaggerComponent builder] appModuleWithComKgalliganPartyclickerPresenterAppModule:appModule] build];
+    id<ComKgalliganPartyclickerPresenterDaggerComponent> daggerComponent = [[[PPDaggerDaggerComponent builder] appModuleWithPPAppModule:appModule] build];
     
-    [ComKgalliganPartyclickerAppManager init__WithAndroidAppApplication:context withComKgalliganPartyclickerPresenterDaggerComponent:daggerComponent];
+    [PAppManager init__WithAndroidAppApplication:context withPPDaggerComponent:daggerComponent];
     
     UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
     UINavigationController *navigationController = [splitViewController.viewControllers lastObject];

@@ -9,12 +9,12 @@
 #import "MasterViewController.h"
 #import "DetailViewController.h"
 
-#import "ComKgalliganPartyclickerDataDatabaseHelper.h"
-#import "ComKgalliganPartyclickerAppManager.h"
-#import "ComKgalliganPartyclickerDataParty.h"
-#import "ComKgalliganPartyclickerDataPartyPresenter.h"
-#import "ComKgalliganPartyclickerPresenterDaggerComponent.h"
-#import "ComKgalliganPartyclickerPresenterPartyListPresenter.h"
+#import "PDDatabaseHelper.h"
+#import "PAppManager.h"
+#import "PDParty.h"
+#import "PPPartyPresenter.h"
+#import "PPDaggerComponent.h"
+#import "PPPartyListPresenter.h"
 
 #import "java/util/ArrayList.h"
 
@@ -35,9 +35,9 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
     self.presenter = [[ComKgalliganPartyclickerPresenterPartyListPresenter alloc] init];
-    [[[ComKgalliganPartyclickerAppManager getInstance] getDaggerComponent] injectWithComKgalliganPartyclickerPresenterPartyListPresenter:self.presenter];
+    [[[PAppManager getInstance] getDaggerComponent] injectWithPPPartyListPresenter:self.presenter];
     
-    [self.presenter applyUiInterfaceWithComKgalliganPartyclickerPresenterPartyListPresenter_UiInterface:self];
+    [self.presenter applyUiInterfaceWithPPPartyListPresenter_UiInterface:self];
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 }
 
@@ -97,9 +97,9 @@
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         ComKgalliganPartyclickerDataParty* party = (ComKgalliganPartyclickerDataParty*)[self.parties getWithInt:(jint)indexPath.row];
         //ComKgalliganPartyclickerDataParty *party = (ComKgalliganPartyclickerDataParty *)sender;
-        ComKgalliganPartyclickerDataPartyPresenter* presenter = [[ComKgalliganPartyclickerDataPartyPresenter alloc] initWithInt:party->id__];
+        ComKgalliganPartyclickerPresenterPartyPresenter* presenter = [[ComKgalliganPartyclickerPresenterPartyPresenter alloc] initWithInt:party->id__];
         
-        [[[ComKgalliganPartyclickerAppManager getInstance] getDaggerComponent] injectWithComKgalliganPartyclickerDataPartyPresenter:presenter];
+        [[[PAppManager getInstance] getDaggerComponent] injectWithPPPartyPresenter:presenter];
         [presenter init__];
         
         DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
@@ -127,7 +127,7 @@
 
     ComKgalliganPartyclickerDataParty* party = (ComKgalliganPartyclickerDataParty*)[self.parties getWithInt:(jint)indexPath.row];
     
-    NSString* countString = [NSString stringWithFormat:@"%d", [self.presenter countPeopleWithComKgalliganPartyclickerDataParty:party]];
+    NSString* countString = [NSString stringWithFormat:@"%d", [self.presenter countPeopleWithPDParty:party]];
     
     cell.textLabel.text = [party dateString];
     cell.detailTextLabel.text = countString;

@@ -1,6 +1,10 @@
 package com.kgalligan.partyclicker.data;
 
 /**
+ * Async adds db record for party person.
+ *
+ * We could do this in rxjava, but wanted a funky example.
+ *
  * Created by kgalligan on 1/5/17.
  */
 

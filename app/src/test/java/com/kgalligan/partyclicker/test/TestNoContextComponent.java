@@ -1,7 +1,7 @@
 package com.kgalligan.partyclicker.test;
 import com.kgalligan.partyclicker.data.ModPersonTaskTest;
-import com.kgalligan.partyclicker.data.PartyPresenter;
-import com.kgalligan.partyclicker.data.PartyPresenterTest;
+import com.kgalligan.partyclicker.presenter.PartyPresenter;
+import com.kgalligan.partyclicker.presenter.PartyPresenterTest;
 import com.kgalligan.partyclicker.presenter.PartyListPresenter;
 import com.kgalligan.partyclicker.presenter.PartyListPresenterTest;
 

@@ -27,9 +27,6 @@ android {
 }
 
 dependencies {
-    /*androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })*/
     compile 'com.android.support:appcompat-v7:25.1.0'
     testCompile 'junit:junit:4.12'
 
@@ -52,10 +49,7 @@ dependencies {
     doppl 'io.reactivex:rxjava:1.2.1.5:doppl'
     doppl 'io.reactivex:rxandroid:1.2.1.4:doppl'
 
-//    provided "co.touchlab.doppl:androidbase:$dopplCoreVersion"
     testCompile "co.touchlab.doppl:androidbasetest:0.6.1-SNAPSHOT"
-
-//    doppl "co.touchlab.doppl:androidbase:$dopplCoreVersion:doppl"
     testDoppl "co.touchlab.doppl:androidbasetest:0.6.1-SNAPSHOT:doppl"
 
     testCompile "org.robolectric:robolectric:3.3.2"
@@ -63,12 +57,19 @@ dependencies {
 }
 
 dopplConfig {
-    copyMainOutput="../PartyClickerMaster/partyclickerframework/main"
-    copyTestOutput="../PartyClickerMaster/partyclickerframework/test"
+
+    copyMainOutput "../PartyClickerMaster/partyclickerframework/main"
+    copyTestOutput "../PartyClickerMaster/partyclickerframework/test"
+
+    mainBridgingHeaderOutput "../PartyClickerMaster/PartyClickerMaster/Main-Bridging-Header.h"
+    testBridgingHeaderOutput "../PartyClickerMaster/PartyClickerMaster/Test-Bridging-Header.h"
+
     copyDependencies true
 
-//    translatedPathPrefix 'com.kgalligan.partyclicker', 'PC'
-//    translatedPathPrefix 'com.kgalligan.partyclicker.data', 'PCD'
+    translatedPathPrefix 'com.kgalligan.partyclicker', 'P'
+    translatedPathPrefix 'com.kgalligan.partyclicker.data', 'PD'
+    translatedPathPrefix 'com.kgalligan.partyclicker.presenter', 'PP'
+    translatedPathPrefix 'com.kgalligan.partyclicker.test', 'PT'
 
     generatedTestSourceDirs "build/generated/source/apt/test/debug"
 

@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.kgalligan.partyclicker.data.PartyPresenter;
+import com.kgalligan.partyclicker.presenter.PartyPresenter;
 
 public class PartyActivity extends AppCompatActivity
 {

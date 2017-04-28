@@ -8,7 +8,7 @@
 
 #import "CountListTableViewController.h"
 
-#import "ComKgalliganPartyclickerDataPerson.h"
+#import "PDPerson.h"
 
 #import "java/util/ArrayList.h"
 
@@ -54,7 +54,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
-    ComKgalliganPartyclickerDataPerson* person = (ComKgalliganPartyclickerDataPerson*)[self.people getWithInt:(jint)indexPath.row];
+    PDPerson* person = (PDPerson*)[self.people getWithInt:(jint)indexPath.row];
     
     cell.textLabel.text = person->val_ == -1 ? @"-" : @"+";
     cell.detailTextLabel.text = [person recordedString];

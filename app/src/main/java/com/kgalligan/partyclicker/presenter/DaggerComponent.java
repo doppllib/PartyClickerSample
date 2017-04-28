@@ -1,5 +1,4 @@
 package com.kgalligan.partyclicker.presenter;
-import com.kgalligan.partyclicker.data.PartyPresenter;
 
 import javax.inject.Singleton;
 

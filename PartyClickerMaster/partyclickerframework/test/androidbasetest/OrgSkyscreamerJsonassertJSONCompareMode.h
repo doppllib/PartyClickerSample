@@ -12,6 +12,11 @@
 #endif
 #undef RESTRICT_OrgSkyscreamerJsonassertJSONCompareMode
 
+#if __has_feature(nullability)
+#pragma clang diagnostic push
+#pragma GCC diagnostic ignored "-Wnullability-completeness"
+#endif
+
 #if !defined (OrgSkyscreamerJsonassertJSONCompareMode_) && (INCLUDE_ALL_OrgSkyscreamerJsonassertJSONCompareMode || defined(INCLUDE_OrgSkyscreamerJsonassertJSONCompareMode))
 #define OrgSkyscreamerJsonassertJSONCompareMode_
 
@@ -77,4 +82,8 @@ J2OBJC_TYPE_LITERAL_HEADER(OrgSkyscreamerJsonassertJSONCompareMode)
 
 #endif
 
+
+#if __has_feature(nullability)
+#pragma clang diagnostic pop
+#endif
 #pragma pop_macro("INCLUDE_ALL_OrgSkyscreamerJsonassertJSONCompareMode")

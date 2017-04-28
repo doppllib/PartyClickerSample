@@ -8,9 +8,9 @@
 
 #import "DetailViewController.h"
 #import "CountListTableViewController.h"
-#import "ComKgalliganPartyclickerDataDatabaseHelper.h"
-#import "ComKgalliganPartyclickerAppManager.h"
-#import "ComKgalliganPartyclickerDataParty.h"
+#import "PDDatabaseHelper.h"
+#import "PAppManager.h"
+#import "PDParty.h"
 
 
 @interface DetailViewController ()
@@ -71,7 +71,7 @@
 
 #pragma mark - Managing the detail item
 
-- (void)setDetailItem:(ComKgalliganPartyclickerDataPartyPresenter *)newDetailItem {
+- (void)setDetailItem:(PPPartyPresenter *)newDetailItem {
     if (_detailItem != newDetailItem) {
         _detailItem = newDetailItem;
         

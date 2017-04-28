@@ -71,10 +71,10 @@ OrgSkyscreamerJsonassertJSONParser *create_OrgSkyscreamerJsonassertJSONParser_in
 
 id OrgSkyscreamerJsonassertJSONParser_parseJSONWithNSString_(NSString *s) {
   OrgSkyscreamerJsonassertJSONParser_initialize();
-  if ([((NSString *) nil_chk([((NSString *) nil_chk(s)) java_trim])) hasPrefix:@"{"]) {
+  if ([((NSString *) nil_chk([((NSString *) nil_chk(s)) java_trim])) java_hasPrefix:@"{"]) {
     return create_OrgJsonJSONObject_initWithNSString_(s);
   }
-  else if ([((NSString *) nil_chk([s java_trim])) hasPrefix:@"["]) {
+  else if ([((NSString *) nil_chk([s java_trim])) java_hasPrefix:@"["]) {
     return create_OrgJsonJSONArray_initWithNSString_(s);
   }
   @throw create_OrgJsonJSONException_initWithNSString_(JreStrcat("$$", @"Unparsable JSON string: ", s));

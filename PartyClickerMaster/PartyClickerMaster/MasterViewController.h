@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ComKgalliganPartyclickerPresenterPartyListPresenter.h"
+#import "PPPartyListPresenter.h"
 
 @class DetailViewController;
 
-@interface MasterViewController : UITableViewController <ComKgalliganPartyclickerPresenterPartyListPresenter_UiInterface>
+@interface MasterViewController : UITableViewController <PPPartyListPresenter_UiInterface>
 
 @property (strong, nonatomic) DetailViewController *detailViewController;
-@property (strong, nonatomic) ComKgalliganPartyclickerPresenterPartyListPresenter *presenter;
+@property (strong, nonatomic) PPPartyListPresenter *presenter;
 
 
 @end

@@ -139,7 +139,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)failWithNSString:(NSString *)message {
   _success_ = false;
-  if ([((JavaLangStringBuilder *) nil_chk(_message_)) length] == 0) {
+  if ([((JavaLangStringBuilder *) nil_chk(_message_)) java_length] == 0) {
     [((JavaLangStringBuilder *) nil_chk(_message_)) appendWithNSString:message];
   }
   else {

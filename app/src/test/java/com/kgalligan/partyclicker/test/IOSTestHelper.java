@@ -1,7 +1,7 @@
 package com.kgalligan.partyclicker.test;
 import com.kgalligan.partyclicker.data.DatabaseHelperTest;
 import com.kgalligan.partyclicker.data.ModPersonTaskTest;
-import com.kgalligan.partyclicker.data.PartyPresenterTest;
+import com.kgalligan.partyclicker.presenter.PartyPresenterTest;
 import com.kgalligan.partyclicker.presenter.PartyListPresenterTest;
 
 import co.touchlab.doppl.testing.DopplJunitTestHelper;

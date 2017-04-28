@@ -327,13 +327,13 @@ BOOL IsNSObjectClass(Class cls) {
 - (jboolean)isJUnit3TestClassWithIOSClass:(IOSClass *)cls {
   if ([OrgJunitTest_class_() isAssignableFrom:cls]) {
     NSString *packageName = CoTouchlabDopplTestingDopplJunitTestHelper_getPackageNameWithIOSClass_(self, cls);
-    return ![((NSString *) nil_chk(packageName)) hasPrefix:@"junit.framework"] && ![packageName hasPrefix:@"junit.extensions"];
+    return ![((NSString *) nil_chk(packageName)) java_hasPrefix:@"junit.framework"] && ![packageName java_hasPrefix:@"junit.extensions"];
   }
   return false;
 }
 
 - (jboolean)isJUnit4TestClassWithIOSClass:(IOSClass *)cls {
-  if (![((NSString *) nil_chk([((IOSClass *) nil_chk(cls)) getName])) hasSuffix:@"Test"]) {
+  if (![((NSString *) nil_chk([((IOSClass *) nil_chk(cls)) getName])) java_hasSuffix:@"Test"]) {
     return false;
   }
   id<JavaLangAnnotationAnnotation> annotation = [cls getAnnotationWithIOSClass:OrgJunitRunnerRunWith_class_()];

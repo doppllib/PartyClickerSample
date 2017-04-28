@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ComKgalliganPartyclickerDataParty.h"
+#import "PDParty.h"
 
 @interface CountListTableViewController : UITableViewController
 
-@property (nonatomic, strong) ComKgalliganPartyclickerDataParty *party;
+@property (nonatomic, strong) PDParty *party;
 
 @end

@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ComKgalliganPartyclickerDataPartyPresenter.h"
+#import "PPPartyPresenter.h"
 
 @interface DetailViewController : UIViewController
 
-@property (nonatomic, strong) ComKgalliganPartyclickerDataPartyPresenter *detailItem;
+@property (nonatomic, strong) PPPartyPresenter *detailItem;
 
 @end
 
