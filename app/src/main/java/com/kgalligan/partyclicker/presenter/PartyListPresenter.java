@@ -1,24 +1,16 @@
 package com.kgalligan.partyclicker.presenter;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.j2objc.annotations.Weak;
 import com.kgalligan.partyclicker.data.DataProvider;
 import com.kgalligan.partyclicker.data.Party;
 import com.kgalligan.partyclicker.data.Person;
-import com.kgalligan.partyclicker.platform.LocationCallback;
-import com.kgalligan.partyclicker.platform.LocationData;
-import com.kgalligan.partyclicker.platform.LocationProvider;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
-
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import rx.Observable;
-import rx.Scheduler;
 
 /**
  * Created by kgalligan on 4/23/17.
@@ -87,9 +79,8 @@ public class PartyListPresenter
      *
      * @param name
      */
-    public void createParty(String name, LocationProvider locationProvider)
+    public void createParty(String name)
     {
-        Observable.create()
         Observable.<Party>create(subscriber -> {
             subscriber.onNext(databaseHelper.createParty(name));
             subscriber.onCompleted();
@@ -120,68 +111,5 @@ public class PartyListPresenter
     public List<Person> allPeople(Party party)
     {
         return databaseHelper.allPeopleForParty(party);
-    }
-
-    private Observable<LocationData> findLocation(LocationProvider locationProvider, double accuracy)
-    {
-        return Observable.create(subscriber -> {
-
-            AtomicReference<String> locationProviderId = new AtomicReference<String>(null);
-
-            locationProvider.startLocationUpdates(new LocationCallback()
-            {
-                @Override
-                public void sendLocation(LocationData location)
-                {
-//                    Log.w(TAG, "LOCATION_CALLBACK: "+ orderLogic.geoFormat().format(location.getLat()) +"/" + orderLogic.geoFormat().format(location.getLon()) + " - accuracy: "+ orderLogic.geoFormat().format(location.getAccuracy()));
-
-                    if(location.getAccuracy() <= accuracy)
-                    {
-                        String id = waitForId();
-
-                        locationProvider.stopLocationCallback(id);
-                        subscriber.onNext(location);
-                        subscriber.onCompleted();
-                    }
-                }
-
-                @Override
-                public void forceKill()
-                {
-                    subscriber.onCompleted();
-                }
-
-                @NonNull
-                private String waitForId()
-                {
-                    int loopCount = 0;
-                    String id = locationProviderId.get();
-                    while(id == null)
-                    {
-                        //Wait for thread settle
-                        try
-                        {
-                            Thread.sleep(500);
-                        }
-                        catch(InterruptedException e)
-                        {
-                            //
-                        }
-                        loopCount++;
-                        if(loopCount > 3)
-                        {
-                            //Something very wrong
-                            throw new RuntimeException("No response from location provider");
-                        }
-                    }
-                    return id;
-                }
-            });
-
-            if(providerId != null)
-                locationProviderId.set(providerId);
-            else
-                subscriber.onCompleted();
-        });
     }
 }
