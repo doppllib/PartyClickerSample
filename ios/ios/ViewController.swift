@@ -11,7 +11,8 @@ import UIKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, PPPartyListPresenter_UiInterface {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var partyNameTextView: UITextField!
-
+    @IBOutlet weak var editButton: UIBarButtonItem!
+    
     var parties: JavaUtilList!
     var presenter: PPPartyListPresenter!
     
@@ -24,7 +25,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         presenter.callRefreshPartyList()
         
         tableView.register(UITableViewCell.classForKeyedArchiver(), forCellReuseIdentifier: "SimpleTableItem")
-        // Do any additional setup after loading the view, typically from a nib.
+        styleEditButton()        
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,10 +37,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         presenter.callRefreshPartyList()
     }
     
+    @IBAction func editButton(_ sender: Any) {
+        tableView.isEditing = !tableView.isEditing
+        styleEditButton()
+    }
+    
     @IBAction func createPartyClicked(_ sender: Any) {
         presenter.createParty(with: partyNameTextView.text)
         partyNameTextView.text = ""
         presenter.callRefreshPartyList()
+    }
+    
+    func styleEditButton(){
+        editButton.title = tableView.isEditing ? "Done" : "Edit"
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -72,10 +82,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func refreshPartyList(with partyList: JavaUtilList!) {
         self.parties = partyList
         tableView.reloadData()
+        styleEditButton()
     }
     
     func showParty(with party: PDParty!) {
         performSegue(withIdentifier: "ShowParty", sender: party)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            //[self.objects removeObjectAtIndex:indexPath.row];
+            //[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            presenter.deleteParty(with: (parties.getWith(jint(indexPath.row)) as! PDParty).getId())
+            tableView.isEditing = false
+        }
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

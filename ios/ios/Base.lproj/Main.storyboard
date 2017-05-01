@@ -30,13 +30,13 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K6B-MO-hWg">
                                 <rect key="frame" x="24" y="110" width="327" height="30"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Create Party"/>
                                 <connections>
                                     <action selector="createPartyClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="z3N-yn-Vuc"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ze5-0z-tiK">
-                                <rect key="frame" x="24" y="148" width="327" height="511"/>
+                                <rect key="frame" x="16" y="148" width="343" height="511"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="H9Z-de-sRt"/>
@@ -47,20 +47,27 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="ZW3-c0-xaX" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="0hf-tp-U9J"/>
+                            <constraint firstItem="Ze5-0z-tiK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="25h-Yy-zkg"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ze5-0z-tiK" secondAttribute="trailing" id="Ahs-0q-2bX"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Ze5-0z-tiK" secondAttribute="bottom" constant="8" id="GUo-ey-jhs"/>
                             <constraint firstItem="ZW3-c0-xaX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="8" id="Oi8-je-may"/>
                             <constraint firstItem="K6B-MO-hWg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="8" id="QSP-Ui-Mqg"/>
                             <constraint firstItem="Ze5-0z-tiK" firstAttribute="top" secondItem="K6B-MO-hWg" secondAttribute="bottom" constant="8" id="U5D-rv-zWL"/>
                             <constraint firstAttribute="trailingMargin" secondItem="K6B-MO-hWg" secondAttribute="trailing" constant="8" id="UhQ-7M-hs8"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Ze5-0z-tiK" secondAttribute="trailing" constant="8" id="ZuO-Yw-pAu"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ZW3-c0-xaX" secondAttribute="trailing" constant="8" id="b4c-Ys-nzy"/>
-                            <constraint firstItem="Ze5-0z-tiK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="8" id="klq-mn-1f9"/>
                             <constraint firstItem="K6B-MO-hWg" firstAttribute="top" secondItem="ZW3-c0-xaX" secondAttribute="bottom" constant="8" id="kqA-oo-nHk"/>
                             <constraint firstItem="Ze5-0z-tiK" firstAttribute="top" secondItem="K6B-MO-hWg" secondAttribute="bottom" constant="8" id="ox1-uC-Igk"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Parties" id="gzU-hF-kg3"/>
+                    <navigationItem key="navigationItem" title="Parties" id="gzU-hF-kg3">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="w10-dr-sle">
+                            <connections>
+                                <action selector="editButton:" destination="BYZ-38-t0r" id="l8f-ZJ-EIV"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="editButton" destination="w10-dr-sle" id="kxZ-mq-bzL"/>
                         <outlet property="partyNameTextView" destination="ZW3-c0-xaX" id="dsb-VI-8xv"/>
                         <outlet property="tableView" destination="Ze5-0z-tiK" id="r71-ds-NbS"/>
                         <segue destination="Jqk-vg-sdI" kind="show" identifier="ShowParty" id="jGs-zo-5u2"/>
@@ -68,7 +75,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1026" y="169"/>
+            <point key="canvasLocation" x="766" y="5"/>
         </scene>
         <!--Party View Controller-->
         <scene sceneID="n3Q-uB-IBj">
@@ -140,7 +147,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aEc-OD-WaO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2754.4000000000001" y="37.331334332833585"/>
+            <point key="canvasLocation" x="1593" y="5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="YfJ-mn-M94">
@@ -158,7 +165,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lfz-fa-5cP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="32.799999999999997" y="130.88455772113943"/>
+            <point key="canvasLocation" x="-49" y="5"/>
         </scene>
     </scenes>
 </document>

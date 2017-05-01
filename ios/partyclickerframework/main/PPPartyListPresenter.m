@@ -12,6 +12,7 @@
 #include "RxObservable.h"
 #include "RxSubscriber.h"
 #include "RxSubscription.h"
+#include "android/util/Log.h"
 #include "java/lang/annotation/Annotation.h"
 #include "java/util/List.h"
 #include "javax/inject/Inject.h"
@@ -155,6 +156,23 @@ __attribute__((unused)) static PPPartyListPresenter_$Lambda$7 *new_PPPartyListPr
 
 __attribute__((unused)) static PPPartyListPresenter_$Lambda$7 *create_PPPartyListPresenter_$Lambda$7_initWithPPPartyListPresenter_withInt_(PPPartyListPresenter *outer$, jint capture$0);
 
+@interface PPPartyListPresenter_$Lambda$8 : NSObject < RxFunctionsAction1 > {
+ @public
+  PPPartyListPresenter *this$0_;
+}
+
+- (void)callWithId:(id)o;
+
+@end
+
+J2OBJC_EMPTY_STATIC_INIT(PPPartyListPresenter_$Lambda$8)
+
+__attribute__((unused)) static void PPPartyListPresenter_$Lambda$8_initWithPPPartyListPresenter_(PPPartyListPresenter_$Lambda$8 *self, PPPartyListPresenter *outer$);
+
+__attribute__((unused)) static PPPartyListPresenter_$Lambda$8 *new_PPPartyListPresenter_$Lambda$8_initWithPPPartyListPresenter_(PPPartyListPresenter *outer$) NS_RETURNS_RETAINED;
+
+__attribute__((unused)) static PPPartyListPresenter_$Lambda$8 *create_PPPartyListPresenter_$Lambda$8_initWithPPPartyListPresenter_(PPPartyListPresenter *outer$);
+
 @implementation PPPartyListPresenter
 
 J2OBJC_IGNORE_DESIGNATED_BEGIN
@@ -173,6 +191,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)callRefreshPartyList {
+  AndroidUtilLog_wWithNSString_withNSString_([PPPartyListPresenter_class_() getSimpleName], @"callRefreshPartyList");
   [((RxObservable *) nil_chk([((RxObservable *) nil_chk(RxObservable_createWithRxObservable_OnSubscribe_(create_PPPartyListPresenter_$Lambda$1_initWithPPPartyListPresenter_(self)))) composeWithRxObservable_Transformer:schedulerTransformer_])) subscribeWithRxFunctionsAction1:create_PPPartyListPresenter_$Lambda$2_initWithPPPartyListPresenter_(self)];
 }
 
@@ -185,7 +204,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)deletePartyWithInt:(jint)id_ {
-  [((RxObservable *) nil_chk([((RxObservable *) nil_chk(RxObservable_createWithRxObservable_OnSubscribe_(create_PPPartyListPresenter_$Lambda$7_initWithPPPartyListPresenter_withInt_(self, id_)))) composeWithRxObservable_Transformer:schedulerTransformer_])) subscribe];
+  [((RxObservable *) nil_chk([((RxObservable *) nil_chk(RxObservable_createWithRxObservable_OnSubscribe_(create_PPPartyListPresenter_$Lambda$7_initWithPPPartyListPresenter_withInt_(self, id_)))) composeWithRxObservable_Transformer:schedulerTransformer_])) subscribeWithRxFunctionsAction1:create_PPPartyListPresenter_$Lambda$8_initWithPPPartyListPresenter_(self)];
 }
 
 - (jint)countPeopleWithPDParty:(PDParty *)party {
@@ -316,7 +335,7 @@ PPPartyListPresenter_$Lambda$1 *create_PPPartyListPresenter_$Lambda$1_initWithPP
 @implementation PPPartyListPresenter_$Lambda$2
 
 - (void)callWithId:(id<JavaUtilList>)o {
-  [((id<PPPartyListPresenter_UiInterface>) nil_chk(this$0_->uiInterface_)) refreshPartyListWithJavaUtilList:[((id<PDDataProvider>) nil_chk(this$0_->databaseHelper_)) allParties]];
+  [((id<PPPartyListPresenter_UiInterface>) nil_chk(this$0_->uiInterface_)) refreshPartyListWithJavaUtilList:o];
 }
 
 - (void)dealloc {
@@ -451,8 +470,10 @@ PPPartyListPresenter_$Lambda$6 *create_PPPartyListPresenter_$Lambda$6_initWithPP
 @implementation PPPartyListPresenter_$Lambda$7
 
 - (void)callWithId:(RxSubscriber *)subscriber {
-  [((id<PDDataProvider>) nil_chk(this$0_->databaseHelper_)) deletePartyWithPDParty:[this$0_->databaseHelper_ loadPartyWithInt:val$id_]];
-  [((RxSubscriber *) nil_chk(subscriber)) onCompleted];
+  PDParty *party = [((id<PDDataProvider>) nil_chk(this$0_->databaseHelper_)) loadPartyWithInt:val$id_];
+  [((id<PDDataProvider>) nil_chk(this$0_->databaseHelper_)) deletePartyWithPDParty:party];
+  [((RxSubscriber *) nil_chk(subscriber)) onNextWithId:party];
+  [subscriber onCompleted];
 }
 
 - (void)dealloc {
@@ -474,4 +495,30 @@ PPPartyListPresenter_$Lambda$7 *new_PPPartyListPresenter_$Lambda$7_initWithPPPar
 
 PPPartyListPresenter_$Lambda$7 *create_PPPartyListPresenter_$Lambda$7_initWithPPPartyListPresenter_withInt_(PPPartyListPresenter *outer$, jint capture$0) {
   J2OBJC_CREATE_IMPL(PPPartyListPresenter_$Lambda$7, initWithPPPartyListPresenter_withInt_, outer$, capture$0)
+}
+
+@implementation PPPartyListPresenter_$Lambda$8
+
+- (void)callWithId:(id)o {
+  [this$0_ callRefreshPartyList];
+}
+
+- (void)dealloc {
+  RELEASE_(this$0_);
+  [super dealloc];
+}
+
+@end
+
+void PPPartyListPresenter_$Lambda$8_initWithPPPartyListPresenter_(PPPartyListPresenter_$Lambda$8 *self, PPPartyListPresenter *outer$) {
+  JreStrongAssign(&self->this$0_, outer$);
+  NSObject_init(self);
+}
+
+PPPartyListPresenter_$Lambda$8 *new_PPPartyListPresenter_$Lambda$8_initWithPPPartyListPresenter_(PPPartyListPresenter *outer$) {
+  J2OBJC_NEW_IMPL(PPPartyListPresenter_$Lambda$8, initWithPPPartyListPresenter_, outer$)
+}
+
+PPPartyListPresenter_$Lambda$8 *create_PPPartyListPresenter_$Lambda$8_initWithPPPartyListPresenter_(PPPartyListPresenter *outer$) {
+  J2OBJC_CREATE_IMPL(PPPartyListPresenter_$Lambda$8, initWithPPPartyListPresenter_, outer$)
 }
