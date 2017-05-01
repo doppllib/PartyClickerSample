@@ -58,11 +58,11 @@ dependencies {
 
 dopplConfig {
 
-    copyMainOutput "../PartyClickerMaster/partyclickerframework/main"
-    copyTestOutput "../PartyClickerMaster/partyclickerframework/test"
+    copyMainOutput "../ios/partyclickerframework/main"
+    copyTestOutput "../ios/partyclickerframework/test"
 
-    mainBridgingHeaderOutput "../PartyClickerMaster/PartyClickerMaster/Main-Bridging-Header.h"
-    testBridgingHeaderOutput "../PartyClickerMaster/PartyClickerMaster/Test-Bridging-Header.h"
+    mainBridgingHeaderOutput "../ios/ios/Main-Bridging-Header.h"
+    testBridgingHeaderOutput "../ios/ios/Test-Bridging-Header.h"
 
     copyDependencies true
 

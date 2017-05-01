@@ -455,6 +455,7 @@
 		632F1C611E1EBCB00080F6CC /* ComKgalliganPartyclickerAppManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 632F1C5F1E1EBCB00080F6CC /* ComKgalliganPartyclickerAppManager.h */; };
 		632F1C621E1EBCB00080F6CC /* ComKgalliganPartyclickerAppManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 632F1C601E1EBCB00080F6CC /* ComKgalliganPartyclickerAppManager.m */; };
 		632F1C651E1EC6BB0080F6CC /* ShowPartyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 632F1C641E1EC6BB0080F6CC /* ShowPartyViewController.m */; };
+		63CAB89F1EB689970082A725 /* TestSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CAB89E1EB689970082A725 /* TestSwift.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -935,6 +936,8 @@
 		632F1C601E1EBCB00080F6CC /* ComKgalliganPartyclickerAppManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComKgalliganPartyclickerAppManager.m; sourceTree = "<group>"; };
 		632F1C631E1EC6BB0080F6CC /* ShowPartyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowPartyViewController.h; sourceTree = "<group>"; };
 		632F1C641E1EC6BB0080F6CC /* ShowPartyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowPartyViewController.m; sourceTree = "<group>"; };
+		63CAB89D1EB689970082A725 /* PartyClickerIos-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PartyClickerIos-Bridging-Header.h"; sourceTree = "<group>"; };
+		63CAB89E1EB689970082A725 /* TestSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSwift.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -991,6 +994,8 @@
 				632F18401E1EABAF0080F6CC /* Supporting Files */,
 				632F1C631E1EC6BB0080F6CC /* ShowPartyViewController.h */,
 				632F1C641E1EC6BB0080F6CC /* ShowPartyViewController.m */,
+				63CAB89E1EB689970082A725 /* TestSwift.swift */,
+				63CAB89D1EB689970082A725 /* PartyClickerIos-Bridging-Header.h */,
 			);
 			path = PartyClickerIos;
 			sourceTree = "<group>";
@@ -1770,6 +1775,7 @@
 					632F183C1E1EABAF0080F6CC = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = 2UER9BPG44;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 					632F185B1E1EABC70080F6CC = {
@@ -1824,6 +1830,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				632F1C651E1EC6BB0080F6CC /* ShowPartyViewController.m in Sources */,
+				63CAB89F1EB689970082A725 /* TestSwift.swift in Sources */,
 				632F18481E1EABAF0080F6CC /* ViewController.m in Sources */,
 				632F18451E1EABAF0080F6CC /* AppDelegate.m in Sources */,
 				632F18421E1EABAF0080F6CC /* main.m in Sources */,
@@ -2177,6 +2184,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 2UER9BPG44;
 				FRAMEWORK_SEARCH_PATHS = "$(J2OBJC_LOCAL_PATH)/frameworks";
 				HEADER_SEARCH_PATHS = "$(J2OBJC_LOCAL_PATH)/frameworks/JRE.framework/Headers";
@@ -2184,6 +2192,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.PartyClickerIos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PartyClickerIos/PartyClickerIos-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -2191,6 +2202,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 2UER9BPG44;
 				FRAMEWORK_SEARCH_PATHS = "$(J2OBJC_LOCAL_PATH)/frameworks";
 				HEADER_SEARCH_PATHS = "$(J2OBJC_LOCAL_PATH)/frameworks/JRE.framework/Headers";
@@ -2198,6 +2210,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.PartyClickerIos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PartyClickerIos/PartyClickerIos-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -2278,6 +2292,7 @@
 				632F18561E1EABAF0080F6CC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		632F18651E1EABC70080F6CC /* Build configuration list for PBXNativeTarget "partyclickerframework" */ = {
 			isa = XCConfigurationList;
@@ -2286,6 +2301,7 @@
 				632F18671E1EABC70080F6CC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

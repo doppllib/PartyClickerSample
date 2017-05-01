@@ -111,4 +111,9 @@ public class PartyPresenter
     {
         return party;
     }
+
+    public boolean isRemoveActive()
+    {
+        return partyCount > 0;
+    }
 }
