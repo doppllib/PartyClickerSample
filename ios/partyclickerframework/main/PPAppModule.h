@@ -17,17 +17,21 @@
 
 @class AndroidAppApplication;
 @protocol PDDataProvider;
+@protocol PPCrashReporter;
 @protocol RxObservable_Transformer;
 
 @interface PPAppModule : NSObject
 
 #pragma mark Public
 
-- (instancetype)initWithAndroidAppApplication:(AndroidAppApplication *)application;
+- (instancetype)initWithAndroidAppApplication:(AndroidAppApplication *)application
+                          withPPCrashReporter:(id<PPCrashReporter>)crashReporter;
 
 #pragma mark Package-Private
 
 - (AndroidAppApplication *)providesApplication;
+
+- (id<PPCrashReporter>)providesCrashReporter;
 
 - (id<PDDataProvider>)providesDataProviderWithAndroidAppApplication:(AndroidAppApplication *)application;
 
@@ -37,11 +41,11 @@
 
 J2OBJC_EMPTY_STATIC_INIT(PPAppModule)
 
-FOUNDATION_EXPORT void PPAppModule_initWithAndroidAppApplication_(PPAppModule *self, AndroidAppApplication *application);
+FOUNDATION_EXPORT void PPAppModule_initWithAndroidAppApplication_withPPCrashReporter_(PPAppModule *self, AndroidAppApplication *application, id<PPCrashReporter> crashReporter);
 
-FOUNDATION_EXPORT PPAppModule *new_PPAppModule_initWithAndroidAppApplication_(AndroidAppApplication *application) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT PPAppModule *new_PPAppModule_initWithAndroidAppApplication_withPPCrashReporter_(AndroidAppApplication *application, id<PPCrashReporter> crashReporter) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT PPAppModule *create_PPAppModule_initWithAndroidAppApplication_(AndroidAppApplication *application);
+FOUNDATION_EXPORT PPAppModule *create_PPAppModule_initWithAndroidAppApplication_withPPCrashReporter_(AndroidAppApplication *application, id<PPCrashReporter> crashReporter);
 
 J2OBJC_TYPE_LITERAL_HEADER(PPAppModule)
 

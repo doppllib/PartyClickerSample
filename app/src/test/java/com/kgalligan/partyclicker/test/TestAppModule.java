@@ -3,6 +3,8 @@ import android.app.Application;
 
 import com.kgalligan.partyclicker.data.DataProvider;
 import com.kgalligan.partyclicker.data.DatabaseHelper;
+import com.kgalligan.partyclicker.presenter.CrashReporter;
+import com.kgalligan.partyclicker.presenter.LogCrashReporter;
 
 import javax.inject.Singleton;
 
@@ -31,6 +33,13 @@ public class TestAppModule
     DataProvider providesDataProvider(Application application)
     {
         return new DatabaseHelper(application);
+    }
+
+    @Provides
+    @Singleton
+    CrashReporter providesCrashReporter()
+    {
+        return new LogCrashReporter();
     }
 
     @Provides

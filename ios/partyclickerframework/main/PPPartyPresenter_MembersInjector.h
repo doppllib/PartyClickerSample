@@ -27,10 +27,15 @@
 #pragma mark Public
 
 - (instancetype)initWithJavaxInjectProvider:(id<JavaxInjectProvider>)databaseHelperProvider
+                    withJavaxInjectProvider:(id<JavaxInjectProvider>)crashReporterProvider
                     withJavaxInjectProvider:(id<JavaxInjectProvider>)schedulerTransformerProvider;
 
 + (id<DaggerMembersInjector>)createWithJavaxInjectProvider:(id<JavaxInjectProvider>)databaseHelperProvider
+                                   withJavaxInjectProvider:(id<JavaxInjectProvider>)crashReporterProvider
                                    withJavaxInjectProvider:(id<JavaxInjectProvider>)schedulerTransformerProvider;
+
++ (void)injectCrashReporterWithPPPartyPresenter:(PPPartyPresenter *)instance
+                        withJavaxInjectProvider:(id<JavaxInjectProvider>)crashReporterProvider;
 
 + (void)injectDatabaseHelperWithPPPartyPresenter:(PPPartyPresenter *)instance
                          withJavaxInjectProvider:(id<JavaxInjectProvider>)databaseHelperProvider;
@@ -44,15 +49,17 @@
 
 J2OBJC_EMPTY_STATIC_INIT(PPPartyPresenter_MembersInjector)
 
-FOUNDATION_EXPORT void PPPartyPresenter_MembersInjector_initWithJavaxInjectProvider_withJavaxInjectProvider_(PPPartyPresenter_MembersInjector *self, id<JavaxInjectProvider> databaseHelperProvider, id<JavaxInjectProvider> schedulerTransformerProvider);
+FOUNDATION_EXPORT void PPPartyPresenter_MembersInjector_initWithJavaxInjectProvider_withJavaxInjectProvider_withJavaxInjectProvider_(PPPartyPresenter_MembersInjector *self, id<JavaxInjectProvider> databaseHelperProvider, id<JavaxInjectProvider> crashReporterProvider, id<JavaxInjectProvider> schedulerTransformerProvider);
 
-FOUNDATION_EXPORT PPPartyPresenter_MembersInjector *new_PPPartyPresenter_MembersInjector_initWithJavaxInjectProvider_withJavaxInjectProvider_(id<JavaxInjectProvider> databaseHelperProvider, id<JavaxInjectProvider> schedulerTransformerProvider) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT PPPartyPresenter_MembersInjector *new_PPPartyPresenter_MembersInjector_initWithJavaxInjectProvider_withJavaxInjectProvider_withJavaxInjectProvider_(id<JavaxInjectProvider> databaseHelperProvider, id<JavaxInjectProvider> crashReporterProvider, id<JavaxInjectProvider> schedulerTransformerProvider) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT PPPartyPresenter_MembersInjector *create_PPPartyPresenter_MembersInjector_initWithJavaxInjectProvider_withJavaxInjectProvider_(id<JavaxInjectProvider> databaseHelperProvider, id<JavaxInjectProvider> schedulerTransformerProvider);
+FOUNDATION_EXPORT PPPartyPresenter_MembersInjector *create_PPPartyPresenter_MembersInjector_initWithJavaxInjectProvider_withJavaxInjectProvider_withJavaxInjectProvider_(id<JavaxInjectProvider> databaseHelperProvider, id<JavaxInjectProvider> crashReporterProvider, id<JavaxInjectProvider> schedulerTransformerProvider);
 
-FOUNDATION_EXPORT id<DaggerMembersInjector> PPPartyPresenter_MembersInjector_createWithJavaxInjectProvider_withJavaxInjectProvider_(id<JavaxInjectProvider> databaseHelperProvider, id<JavaxInjectProvider> schedulerTransformerProvider);
+FOUNDATION_EXPORT id<DaggerMembersInjector> PPPartyPresenter_MembersInjector_createWithJavaxInjectProvider_withJavaxInjectProvider_withJavaxInjectProvider_(id<JavaxInjectProvider> databaseHelperProvider, id<JavaxInjectProvider> crashReporterProvider, id<JavaxInjectProvider> schedulerTransformerProvider);
 
 FOUNDATION_EXPORT void PPPartyPresenter_MembersInjector_injectDatabaseHelperWithPPPartyPresenter_withJavaxInjectProvider_(PPPartyPresenter *instance, id<JavaxInjectProvider> databaseHelperProvider);
+
+FOUNDATION_EXPORT void PPPartyPresenter_MembersInjector_injectCrashReporterWithPPPartyPresenter_withJavaxInjectProvider_(PPPartyPresenter *instance, id<JavaxInjectProvider> crashReporterProvider);
 
 FOUNDATION_EXPORT void PPPartyPresenter_MembersInjector_injectSchedulerTransformerWithPPPartyPresenter_withJavaxInjectProvider_(PPPartyPresenter *instance, id<JavaxInjectProvider> schedulerTransformerProvider);
 

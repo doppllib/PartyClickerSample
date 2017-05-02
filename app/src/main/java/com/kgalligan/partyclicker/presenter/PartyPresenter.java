@@ -26,6 +26,9 @@ public class PartyPresenter
     DataProvider databaseHelper;
 
     @Inject
+    CrashReporter crashReporter;
+
+    @Inject
     Observable.Transformer schedulerTransformer;
 
     @Weak
@@ -78,7 +81,7 @@ public class PartyPresenter
         .subscribe(integer -> {
             uiInterface.processing(false);
             uiInterface.updateUi();
-        })
+        }, throwable -> crashReporter.report(throwable))
         ;
 
         party = databaseHelper.loadParty(partyId);

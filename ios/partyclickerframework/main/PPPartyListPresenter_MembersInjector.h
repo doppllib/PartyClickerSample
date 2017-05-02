@@ -27,10 +27,15 @@
 #pragma mark Public
 
 - (instancetype)initWithJavaxInjectProvider:(id<JavaxInjectProvider>)databaseHelperProvider
+                    withJavaxInjectProvider:(id<JavaxInjectProvider>)crashReporterProvider
                     withJavaxInjectProvider:(id<JavaxInjectProvider>)schedulerTransformerProvider;
 
 + (id<DaggerMembersInjector>)createWithJavaxInjectProvider:(id<JavaxInjectProvider>)databaseHelperProvider
+                                   withJavaxInjectProvider:(id<JavaxInjectProvider>)crashReporterProvider
                                    withJavaxInjectProvider:(id<JavaxInjectProvider>)schedulerTransformerProvider;
+
++ (void)injectCrashReporterWithPPPartyListPresenter:(PPPartyListPresenter *)instance
+                            withJavaxInjectProvider:(id<JavaxInjectProvider>)crashReporterProvider;
 
 + (void)injectDatabaseHelperWithPPPartyListPresenter:(PPPartyListPresenter *)instance
                              withJavaxInjectProvider:(id<JavaxInjectProvider>)databaseHelperProvider;
@@ -44,15 +49,17 @@
 
 J2OBJC_EMPTY_STATIC_INIT(PPPartyListPresenter_MembersInjector)
 
-FOUNDATION_EXPORT void PPPartyListPresenter_MembersInjector_initWithJavaxInjectProvider_withJavaxInjectProvider_(PPPartyListPresenter_MembersInjector *self, id<JavaxInjectProvider> databaseHelperProvider, id<JavaxInjectProvider> schedulerTransformerProvider);
+FOUNDATION_EXPORT void PPPartyListPresenter_MembersInjector_initWithJavaxInjectProvider_withJavaxInjectProvider_withJavaxInjectProvider_(PPPartyListPresenter_MembersInjector *self, id<JavaxInjectProvider> databaseHelperProvider, id<JavaxInjectProvider> crashReporterProvider, id<JavaxInjectProvider> schedulerTransformerProvider);
 
-FOUNDATION_EXPORT PPPartyListPresenter_MembersInjector *new_PPPartyListPresenter_MembersInjector_initWithJavaxInjectProvider_withJavaxInjectProvider_(id<JavaxInjectProvider> databaseHelperProvider, id<JavaxInjectProvider> schedulerTransformerProvider) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT PPPartyListPresenter_MembersInjector *new_PPPartyListPresenter_MembersInjector_initWithJavaxInjectProvider_withJavaxInjectProvider_withJavaxInjectProvider_(id<JavaxInjectProvider> databaseHelperProvider, id<JavaxInjectProvider> crashReporterProvider, id<JavaxInjectProvider> schedulerTransformerProvider) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT PPPartyListPresenter_MembersInjector *create_PPPartyListPresenter_MembersInjector_initWithJavaxInjectProvider_withJavaxInjectProvider_(id<JavaxInjectProvider> databaseHelperProvider, id<JavaxInjectProvider> schedulerTransformerProvider);
+FOUNDATION_EXPORT PPPartyListPresenter_MembersInjector *create_PPPartyListPresenter_MembersInjector_initWithJavaxInjectProvider_withJavaxInjectProvider_withJavaxInjectProvider_(id<JavaxInjectProvider> databaseHelperProvider, id<JavaxInjectProvider> crashReporterProvider, id<JavaxInjectProvider> schedulerTransformerProvider);
 
-FOUNDATION_EXPORT id<DaggerMembersInjector> PPPartyListPresenter_MembersInjector_createWithJavaxInjectProvider_withJavaxInjectProvider_(id<JavaxInjectProvider> databaseHelperProvider, id<JavaxInjectProvider> schedulerTransformerProvider);
+FOUNDATION_EXPORT id<DaggerMembersInjector> PPPartyListPresenter_MembersInjector_createWithJavaxInjectProvider_withJavaxInjectProvider_withJavaxInjectProvider_(id<JavaxInjectProvider> databaseHelperProvider, id<JavaxInjectProvider> crashReporterProvider, id<JavaxInjectProvider> schedulerTransformerProvider);
 
 FOUNDATION_EXPORT void PPPartyListPresenter_MembersInjector_injectDatabaseHelperWithPPPartyListPresenter_withJavaxInjectProvider_(PPPartyListPresenter *instance, id<JavaxInjectProvider> databaseHelperProvider);
+
+FOUNDATION_EXPORT void PPPartyListPresenter_MembersInjector_injectCrashReporterWithPPPartyListPresenter_withJavaxInjectProvider_(PPPartyListPresenter *instance, id<JavaxInjectProvider> crashReporterProvider);
 
 FOUNDATION_EXPORT void PPPartyListPresenter_MembersInjector_injectSchedulerTransformerWithPPPartyListPresenter_withJavaxInjectProvider_(PPPartyListPresenter *instance, id<JavaxInjectProvider> schedulerTransformerProvider);
 

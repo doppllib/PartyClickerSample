@@ -9,6 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, PPPartyListPresenter_UiInterface {
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var partyNameTextView: UITextField!
     @IBOutlet weak var editButton: UIBarButtonItem!
@@ -87,6 +88,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func showParty(with party: PDParty!) {
         performSegue(withIdentifier: "ShowParty", sender: party)
+    }
+    
+    func processing(withBoolean b: jboolean) {
+        
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {

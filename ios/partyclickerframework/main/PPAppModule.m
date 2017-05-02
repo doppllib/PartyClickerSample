@@ -11,6 +11,7 @@
 #include "PDDataProvider.h"
 #include "PDDatabaseHelper.h"
 #include "PPAppModule.h"
+#include "PPCrashReporter.h"
 #include "RxAndroidSchedulersAndroidSchedulers.h"
 #include "RxObservable.h"
 #include "RxScheduler.h"
@@ -23,11 +24,13 @@
 @interface PPAppModule () {
  @public
   AndroidAppApplication *application_;
+  id<PPCrashReporter> crashReporter_;
 }
 
 @end
 
 J2OBJC_FIELD_SETTER(PPAppModule, application_, AndroidAppApplication *)
+J2OBJC_FIELD_SETTER(PPAppModule, crashReporter_, id<PPCrashReporter>)
 
 __attribute__((unused)) static IOSObjectArray *PPAppModule__Annotations$0();
 
@@ -36,6 +39,8 @@ __attribute__((unused)) static IOSObjectArray *PPAppModule__Annotations$1();
 __attribute__((unused)) static IOSObjectArray *PPAppModule__Annotations$2();
 
 __attribute__((unused)) static IOSObjectArray *PPAppModule__Annotations$3();
+
+__attribute__((unused)) static IOSObjectArray *PPAppModule__Annotations$4();
 
 @interface PPAppModule_$Lambda$1 : NSObject < RxObservable_Transformer >
 
@@ -57,13 +62,18 @@ __attribute__((unused)) static PPAppModule_$Lambda$1 *create_PPAppModule_$Lambda
 
 @implementation PPAppModule
 
-- (instancetype)initWithAndroidAppApplication:(AndroidAppApplication *)application {
-  PPAppModule_initWithAndroidAppApplication_(self, application);
+- (instancetype)initWithAndroidAppApplication:(AndroidAppApplication *)application
+                          withPPCrashReporter:(id<PPCrashReporter>)crashReporter {
+  PPAppModule_initWithAndroidAppApplication_withPPCrashReporter_(self, application, crashReporter);
   return self;
 }
 
 - (AndroidAppApplication *)providesApplication {
   return application_;
+}
+
+- (id<PPCrashReporter>)providesCrashReporter {
+  return crashReporter_;
 }
 
 - (id<PDDataProvider>)providesDataProviderWithAndroidAppApplication:(AndroidAppApplication *)application {
@@ -76,6 +86,7 @@ __attribute__((unused)) static PPAppModule_$Lambda$1 *create_PPAppModule_$Lambda
 
 - (void)dealloc {
   RELEASE_(application_);
+  RELEASE_(crashReporter_);
   [super dealloc];
 }
 
@@ -83,37 +94,41 @@ __attribute__((unused)) static PPAppModule_$Lambda$1 *create_PPAppModule_$Lambda
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
     { NULL, "LAndroidAppApplication;", 0x0, -1, -1, -1, -1, 1, -1 },
-    { NULL, "LPDDataProvider;", 0x0, 2, 0, -1, -1, 3, -1 },
-    { NULL, "LRxObservable_Transformer;", 0x0, -1, -1, -1, -1, 4, -1 },
+    { NULL, "LPPCrashReporter;", 0x0, -1, -1, -1, -1, 2, -1 },
+    { NULL, "LPDDataProvider;", 0x0, 3, 4, -1, -1, 5, -1 },
+    { NULL, "LRxObservable_Transformer;", 0x0, -1, -1, -1, -1, 6, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
-  methods[0].selector = @selector(initWithAndroidAppApplication:);
+  methods[0].selector = @selector(initWithAndroidAppApplication:withPPCrashReporter:);
   methods[1].selector = @selector(providesApplication);
-  methods[2].selector = @selector(providesDataProviderWithAndroidAppApplication:);
-  methods[3].selector = @selector(providesSchedulerTransformer);
+  methods[2].selector = @selector(providesCrashReporter);
+  methods[3].selector = @selector(providesDataProviderWithAndroidAppApplication:);
+  methods[4].selector = @selector(providesSchedulerTransformer);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "application_", "LAndroidAppApplication;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
+    { "crashReporter_", "LPPCrashReporter;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LAndroidAppApplication;", (void *)&PPAppModule__Annotations$0, "providesDataProvider", (void *)&PPAppModule__Annotations$1, (void *)&PPAppModule__Annotations$2, (void *)&PPAppModule__Annotations$3 };
-  static const J2ObjcClassInfo _PPAppModule = { "AppModule", "com.kgalligan.partyclicker.presenter", ptrTable, methods, fields, 7, 0x1, 4, 1, -1, -1, -1, -1, 5 };
+  static const void *ptrTable[] = { "LAndroidAppApplication;LPPCrashReporter;", (void *)&PPAppModule__Annotations$0, (void *)&PPAppModule__Annotations$1, "providesDataProvider", "LAndroidAppApplication;", (void *)&PPAppModule__Annotations$2, (void *)&PPAppModule__Annotations$3, (void *)&PPAppModule__Annotations$4 };
+  static const J2ObjcClassInfo _PPAppModule = { "AppModule", "com.kgalligan.partyclicker.presenter", ptrTable, methods, fields, 7, 0x1, 5, 2, -1, -1, -1, -1, 7 };
   return &_PPAppModule;
 }
 
 @end
 
-void PPAppModule_initWithAndroidAppApplication_(PPAppModule *self, AndroidAppApplication *application) {
+void PPAppModule_initWithAndroidAppApplication_withPPCrashReporter_(PPAppModule *self, AndroidAppApplication *application, id<PPCrashReporter> crashReporter) {
   NSObject_init(self);
   JreStrongAssign(&self->application_, application);
+  JreStrongAssign(&self->crashReporter_, crashReporter);
 }
 
-PPAppModule *new_PPAppModule_initWithAndroidAppApplication_(AndroidAppApplication *application) {
-  J2OBJC_NEW_IMPL(PPAppModule, initWithAndroidAppApplication_, application)
+PPAppModule *new_PPAppModule_initWithAndroidAppApplication_withPPCrashReporter_(AndroidAppApplication *application, id<PPCrashReporter> crashReporter) {
+  J2OBJC_NEW_IMPL(PPAppModule, initWithAndroidAppApplication_withPPCrashReporter_, application, crashReporter)
 }
 
-PPAppModule *create_PPAppModule_initWithAndroidAppApplication_(AndroidAppApplication *application) {
-  J2OBJC_CREATE_IMPL(PPAppModule, initWithAndroidAppApplication_, application)
+PPAppModule *create_PPAppModule_initWithAndroidAppApplication_withPPCrashReporter_(AndroidAppApplication *application, id<PPCrashReporter> crashReporter) {
+  J2OBJC_CREATE_IMPL(PPAppModule, initWithAndroidAppApplication_withPPCrashReporter_, application, crashReporter)
 }
 
 IOSObjectArray *PPAppModule__Annotations$0() {
@@ -129,6 +144,10 @@ IOSObjectArray *PPAppModule__Annotations$2() {
 }
 
 IOSObjectArray *PPAppModule__Annotations$3() {
+  return [IOSObjectArray arrayWithObjects:(id[]){ create_DaggerProvides(JreLoadEnum(DaggerProvides_Type, UNIQUE)), create_JavaxInjectSingleton() } count:2 type:JavaLangAnnotationAnnotation_class_()];
+}
+
+IOSObjectArray *PPAppModule__Annotations$4() {
   return [IOSObjectArray arrayWithObjects:(id[]){ create_DaggerModule([IOSObjectArray arrayWithLength:0 type:IOSClass_class_()]) } count:1 type:JavaLangAnnotationAnnotation_class_()];
 }
 

@@ -18,12 +18,14 @@
 @class PDParty;
 @protocol JavaUtilList;
 @protocol PDDataProvider;
+@protocol PPCrashReporter;
 @protocol PPPartyListPresenter_UiInterface;
 @protocol RxObservable_Transformer;
 
 @interface PPPartyListPresenter : NSObject {
  @public
   id<PDDataProvider> databaseHelper_;
+  id<PPCrashReporter> crashReporter_;
   id<RxObservable_Transformer> schedulerTransformer_;
 }
 
@@ -52,6 +54,7 @@
 J2OBJC_EMPTY_STATIC_INIT(PPPartyListPresenter)
 
 J2OBJC_FIELD_SETTER(PPPartyListPresenter, databaseHelper_, id<PDDataProvider>)
+J2OBJC_FIELD_SETTER(PPPartyListPresenter, crashReporter_, id<PPCrashReporter>)
 J2OBJC_FIELD_SETTER(PPPartyListPresenter, schedulerTransformer_, id<RxObservable_Transformer>)
 
 FOUNDATION_EXPORT void PPPartyListPresenter_init(PPPartyListPresenter *self);
@@ -73,6 +76,8 @@ J2OBJC_TYPE_LITERAL_HEADER(PPPartyListPresenter)
 @protocol JavaUtilList;
 
 @protocol PPPartyListPresenter_UiInterface < JavaObject >
+
+- (void)processingWithBoolean:(jboolean)b;
 
 - (void)refreshPartyListWithJavaUtilList:(id<JavaUtilList>)partyList;
 

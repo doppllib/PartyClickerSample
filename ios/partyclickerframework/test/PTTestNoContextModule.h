@@ -16,6 +16,7 @@
 #define PTTestNoContextModule_
 
 @protocol PDDataProvider;
+@protocol PPCrashReporter;
 @protocol RxObservable_Transformer;
 
 @interface PTTestNoContextModule : NSObject
@@ -25,6 +26,8 @@
 - (instancetype)init;
 
 #pragma mark Package-Private
+
+- (id<PPCrashReporter>)providesCrashReporter;
 
 - (id<PDDataProvider>)providesDataProvider;
 

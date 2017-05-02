@@ -20,6 +20,7 @@
 #include "PTDaggerTestNoContextComponent.h"
 #include "PTTestNoContextComponent.h"
 #include "PTTestNoContextModule.h"
+#include "PTTestNoContextModule_ProvidesCrashReporterFactory.h"
 #include "PTTestNoContextModule_ProvidesDataProviderFactory.h"
 #include "PTTestNoContextModule_ProvidesSchedulerTransformerFactory.h"
 #include "javax/inject/Provider.h"
@@ -29,6 +30,7 @@
   id<JavaxInjectProvider> providesDataProvider_;
   id<DaggerMembersInjector> modPersonTaskTestMembersInjector_;
   id<DaggerMembersInjector> partyListPresenterTestMembersInjector_;
+  id<JavaxInjectProvider> providesCrashReporterProvider_;
   id<JavaxInjectProvider> providesSchedulerTransformerProvider_;
   id<DaggerMembersInjector> partyListPresenterMembersInjector_;
   id<DaggerMembersInjector> partyPresenterTestMembersInjector_;
@@ -44,6 +46,7 @@
 J2OBJC_FIELD_SETTER(PTDaggerTestNoContextComponent, providesDataProvider_, id<JavaxInjectProvider>)
 J2OBJC_FIELD_SETTER(PTDaggerTestNoContextComponent, modPersonTaskTestMembersInjector_, id<DaggerMembersInjector>)
 J2OBJC_FIELD_SETTER(PTDaggerTestNoContextComponent, partyListPresenterTestMembersInjector_, id<DaggerMembersInjector>)
+J2OBJC_FIELD_SETTER(PTDaggerTestNoContextComponent, providesCrashReporterProvider_, id<JavaxInjectProvider>)
 J2OBJC_FIELD_SETTER(PTDaggerTestNoContextComponent, providesSchedulerTransformerProvider_, id<JavaxInjectProvider>)
 J2OBJC_FIELD_SETTER(PTDaggerTestNoContextComponent, partyListPresenterMembersInjector_, id<DaggerMembersInjector>)
 J2OBJC_FIELD_SETTER(PTDaggerTestNoContextComponent, partyPresenterTestMembersInjector_, id<DaggerMembersInjector>)
@@ -117,6 +120,7 @@ __attribute__((unused)) static PTDaggerTestNoContextComponent_Builder *create_PT
   RELEASE_(providesDataProvider_);
   RELEASE_(modPersonTaskTestMembersInjector_);
   RELEASE_(partyListPresenterTestMembersInjector_);
+  RELEASE_(providesCrashReporterProvider_);
   RELEASE_(providesSchedulerTransformerProvider_);
   RELEASE_(partyListPresenterMembersInjector_);
   RELEASE_(partyPresenterTestMembersInjector_);
@@ -152,13 +156,14 @@ __attribute__((unused)) static PTDaggerTestNoContextComponent_Builder *create_PT
     { "providesDataProvider_", "LJavaxInjectProvider;", .constantValue.asLong = 0, 0x2, -1, -1, 8, -1 },
     { "modPersonTaskTestMembersInjector_", "LDaggerMembersInjector;", .constantValue.asLong = 0, 0x2, -1, -1, 9, -1 },
     { "partyListPresenterTestMembersInjector_", "LDaggerMembersInjector;", .constantValue.asLong = 0, 0x2, -1, -1, 10, -1 },
-    { "providesSchedulerTransformerProvider_", "LJavaxInjectProvider;", .constantValue.asLong = 0, 0x2, -1, -1, 11, -1 },
-    { "partyListPresenterMembersInjector_", "LDaggerMembersInjector;", .constantValue.asLong = 0, 0x2, -1, -1, 12, -1 },
-    { "partyPresenterTestMembersInjector_", "LDaggerMembersInjector;", .constantValue.asLong = 0, 0x2, -1, -1, 13, -1 },
-    { "partyPresenterMembersInjector_", "LDaggerMembersInjector;", .constantValue.asLong = 0, 0x2, -1, -1, 14, -1 },
+    { "providesCrashReporterProvider_", "LJavaxInjectProvider;", .constantValue.asLong = 0, 0x2, -1, -1, 11, -1 },
+    { "providesSchedulerTransformerProvider_", "LJavaxInjectProvider;", .constantValue.asLong = 0, 0x2, -1, -1, 12, -1 },
+    { "partyListPresenterMembersInjector_", "LDaggerMembersInjector;", .constantValue.asLong = 0, 0x2, -1, -1, 13, -1 },
+    { "partyPresenterTestMembersInjector_", "LDaggerMembersInjector;", .constantValue.asLong = 0, 0x2, -1, -1, 14, -1 },
+    { "partyPresenterMembersInjector_", "LDaggerMembersInjector;", .constantValue.asLong = 0, 0x2, -1, -1, 15, -1 },
   };
-  static const void *ptrTable[] = { "LPTDaggerTestNoContextComponent_Builder;", "initialize", "inject", "LPDModPersonTaskTest;", "LPPPartyListPresenterTest;", "LPPPartyListPresenter;", "LPPPartyPresenterTest;", "LPPPartyPresenter;", "Ljavax/inject/Provider<Lcom/kgalligan/partyclicker/data/DataProvider;>;", "Ldagger/MembersInjector<Lcom/kgalligan/partyclicker/data/ModPersonTaskTest;>;", "Ldagger/MembersInjector<Lcom/kgalligan/partyclicker/presenter/PartyListPresenterTest;>;", "Ljavax/inject/Provider<Lrx/Observable$Transformer;>;", "Ldagger/MembersInjector<Lcom/kgalligan/partyclicker/presenter/PartyListPresenter;>;", "Ldagger/MembersInjector<Lcom/kgalligan/partyclicker/presenter/PartyPresenterTest;>;", "Ldagger/MembersInjector<Lcom/kgalligan/partyclicker/presenter/PartyPresenter;>;" };
-  static const J2ObjcClassInfo _PTDaggerTestNoContextComponent = { "DaggerTestNoContextComponent", "com.kgalligan.partyclicker.test", ptrTable, methods, fields, 7, 0x11, 9, 7, -1, 0, -1, -1, -1 };
+  static const void *ptrTable[] = { "LPTDaggerTestNoContextComponent_Builder;", "initialize", "inject", "LPDModPersonTaskTest;", "LPPPartyListPresenterTest;", "LPPPartyListPresenter;", "LPPPartyPresenterTest;", "LPPPartyPresenter;", "Ljavax/inject/Provider<Lcom/kgalligan/partyclicker/data/DataProvider;>;", "Ldagger/MembersInjector<Lcom/kgalligan/partyclicker/data/ModPersonTaskTest;>;", "Ldagger/MembersInjector<Lcom/kgalligan/partyclicker/presenter/PartyListPresenterTest;>;", "Ljavax/inject/Provider<Lcom/kgalligan/partyclicker/presenter/CrashReporter;>;", "Ljavax/inject/Provider<Lrx/Observable$Transformer;>;", "Ldagger/MembersInjector<Lcom/kgalligan/partyclicker/presenter/PartyListPresenter;>;", "Ldagger/MembersInjector<Lcom/kgalligan/partyclicker/presenter/PartyPresenterTest;>;", "Ldagger/MembersInjector<Lcom/kgalligan/partyclicker/presenter/PartyPresenter;>;" };
+  static const J2ObjcClassInfo _PTDaggerTestNoContextComponent = { "DaggerTestNoContextComponent", "com.kgalligan.partyclicker.test", ptrTable, methods, fields, 7, 0x11, 9, 8, -1, 0, -1, -1, -1 };
   return &_PTDaggerTestNoContextComponent;
 }
 
@@ -166,7 +171,7 @@ __attribute__((unused)) static PTDaggerTestNoContextComponent_Builder *create_PT
 
 void PTDaggerTestNoContextComponent_initWithPTDaggerTestNoContextComponent_Builder_(PTDaggerTestNoContextComponent *self, PTDaggerTestNoContextComponent_Builder *builder) {
   NSObject_init(self);
-  JreAssert((builder != nil), (@"com/kgalligan/partyclicker/test/DaggerTestNoContextComponent.java:41 condition failed: assert builder != null;"));
+  JreAssert((builder != nil), (@"com/kgalligan/partyclicker/test/DaggerTestNoContextComponent.java:44 condition failed: assert builder != null;"));
   PTDaggerTestNoContextComponent_initialize__WithPTDaggerTestNoContextComponent_Builder_(self, builder);
 }
 
@@ -192,10 +197,11 @@ void PTDaggerTestNoContextComponent_initialize__WithPTDaggerTestNoContextCompone
   JreStrongAssign(&self->providesDataProvider_, DaggerInternalDoubleCheck_providerWithJavaxInjectProvider_(PTTestNoContextModule_ProvidesDataProviderFactory_createWithPTTestNoContextModule_(((PTDaggerTestNoContextComponent_Builder *) nil_chk(builder))->testNoContextModule_)));
   JreStrongAssign(&self->modPersonTaskTestMembersInjector_, PDModPersonTaskTest_MembersInjector_createWithJavaxInjectProvider_(self->providesDataProvider_));
   JreStrongAssign(&self->partyListPresenterTestMembersInjector_, PPPartyListPresenterTest_MembersInjector_createWithJavaxInjectProvider_(self->providesDataProvider_));
+  JreStrongAssign(&self->providesCrashReporterProvider_, DaggerInternalDoubleCheck_providerWithJavaxInjectProvider_(PTTestNoContextModule_ProvidesCrashReporterFactory_createWithPTTestNoContextModule_(builder->testNoContextModule_)));
   JreStrongAssign(&self->providesSchedulerTransformerProvider_, DaggerInternalDoubleCheck_providerWithJavaxInjectProvider_(PTTestNoContextModule_ProvidesSchedulerTransformerFactory_createWithPTTestNoContextModule_(builder->testNoContextModule_)));
-  JreStrongAssign(&self->partyListPresenterMembersInjector_, PPPartyListPresenter_MembersInjector_createWithJavaxInjectProvider_withJavaxInjectProvider_(self->providesDataProvider_, self->providesSchedulerTransformerProvider_));
+  JreStrongAssign(&self->partyListPresenterMembersInjector_, PPPartyListPresenter_MembersInjector_createWithJavaxInjectProvider_withJavaxInjectProvider_withJavaxInjectProvider_(self->providesDataProvider_, self->providesCrashReporterProvider_, self->providesSchedulerTransformerProvider_));
   JreStrongAssign(&self->partyPresenterTestMembersInjector_, PPPartyPresenterTest_MembersInjector_createWithJavaxInjectProvider_(self->providesDataProvider_));
-  JreStrongAssign(&self->partyPresenterMembersInjector_, PPPartyPresenter_MembersInjector_createWithJavaxInjectProvider_withJavaxInjectProvider_(self->providesDataProvider_, self->providesSchedulerTransformerProvider_));
+  JreStrongAssign(&self->partyPresenterMembersInjector_, PPPartyPresenter_MembersInjector_createWithJavaxInjectProvider_withJavaxInjectProvider_withJavaxInjectProvider_(self->providesDataProvider_, self->providesCrashReporterProvider_, self->providesSchedulerTransformerProvider_));
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(PTDaggerTestNoContextComponent)

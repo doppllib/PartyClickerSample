@@ -3,6 +3,8 @@ import android.app.Application;
 
 import com.kgalligan.partyclicker.data.DataProvider;
 import com.kgalligan.partyclicker.data.DatabaseHelper;
+import com.kgalligan.partyclicker.presenter.CrashReporter;
+import com.kgalligan.partyclicker.presenter.LogCrashReporter;
 
 import javax.inject.Singleton;
 
@@ -30,5 +32,12 @@ public class TestNoContextModule
     Observable.Transformer providesSchedulerTransformer()
     {
         return o -> (Observable)o;
+    }
+
+    @Provides
+    @Singleton
+    CrashReporter providesCrashReporter()
+    {
+        return new LogCrashReporter();
     }
 }

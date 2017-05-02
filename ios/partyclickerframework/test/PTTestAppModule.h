@@ -17,6 +17,7 @@
 
 @class AndroidAppApplication;
 @protocol PDDataProvider;
+@protocol PPCrashReporter;
 @protocol RxObservable_Transformer;
 
 @interface PTTestAppModule : NSObject
@@ -28,6 +29,8 @@
 #pragma mark Package-Private
 
 - (AndroidAppApplication *)providesApplication;
+
+- (id<PPCrashReporter>)providesCrashReporter;
 
 - (id<PDDataProvider>)providesDataProviderWithAndroidAppApplication:(AndroidAppApplication *)application;
 

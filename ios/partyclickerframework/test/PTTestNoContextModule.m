@@ -8,6 +8,8 @@
 #include "IOSObjectArray.h"
 #include "J2ObjC_source.h"
 #include "PDDataProvider.h"
+#include "PPCrashReporter.h"
+#include "PPLogCrashReporter.h"
 #include "PTMemoryDataProvider.h"
 #include "PTTestNoContextModule.h"
 #include "RxObservable.h"
@@ -21,6 +23,8 @@ __attribute__((unused)) static IOSObjectArray *PTTestNoContextModule__Annotation
 __attribute__((unused)) static IOSObjectArray *PTTestNoContextModule__Annotations$1();
 
 __attribute__((unused)) static IOSObjectArray *PTTestNoContextModule__Annotations$2();
+
+__attribute__((unused)) static IOSObjectArray *PTTestNoContextModule__Annotations$3();
 
 @interface PTTestNoContextModule_$Lambda$1 : NSObject < RxObservable_Transformer >
 
@@ -57,20 +61,26 @@ J2OBJC_IGNORE_DESIGNATED_END
   return JreLoadStatic(PTTestNoContextModule_$Lambda$1, instance);
 }
 
+- (id<PPCrashReporter>)providesCrashReporter {
+  return create_PPLogCrashReporter_init();
+}
+
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LPDDataProvider;", 0x0, -1, -1, -1, -1, 0, -1 },
     { NULL, "LRxObservable_Transformer;", 0x0, -1, -1, -1, -1, 1, -1 },
+    { NULL, "LPPCrashReporter;", 0x0, -1, -1, -1, -1, 2, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(providesDataProvider);
   methods[2].selector = @selector(providesSchedulerTransformer);
+  methods[3].selector = @selector(providesCrashReporter);
   #pragma clang diagnostic pop
-  static const void *ptrTable[] = { (void *)&PTTestNoContextModule__Annotations$0, (void *)&PTTestNoContextModule__Annotations$1, (void *)&PTTestNoContextModule__Annotations$2 };
-  static const J2ObjcClassInfo _PTTestNoContextModule = { "TestNoContextModule", "com.kgalligan.partyclicker.test", ptrTable, methods, NULL, 7, 0x1, 3, 0, -1, -1, -1, -1, 2 };
+  static const void *ptrTable[] = { (void *)&PTTestNoContextModule__Annotations$0, (void *)&PTTestNoContextModule__Annotations$1, (void *)&PTTestNoContextModule__Annotations$2, (void *)&PTTestNoContextModule__Annotations$3 };
+  static const J2ObjcClassInfo _PTTestNoContextModule = { "TestNoContextModule", "com.kgalligan.partyclicker.test", ptrTable, methods, NULL, 7, 0x1, 4, 0, -1, -1, -1, -1, 3 };
   return &_PTTestNoContextModule;
 }
 
@@ -97,6 +107,10 @@ IOSObjectArray *PTTestNoContextModule__Annotations$1() {
 }
 
 IOSObjectArray *PTTestNoContextModule__Annotations$2() {
+  return [IOSObjectArray arrayWithObjects:(id[]){ create_DaggerProvides(JreLoadEnum(DaggerProvides_Type, UNIQUE)), create_JavaxInjectSingleton() } count:2 type:JavaLangAnnotationAnnotation_class_()];
+}
+
+IOSObjectArray *PTTestNoContextModule__Annotations$3() {
   return [IOSObjectArray arrayWithObjects:(id[]){ create_DaggerModule([IOSObjectArray arrayWithLength:0 type:IOSClass_class_()]) } count:1 type:JavaLangAnnotationAnnotation_class_()];
 }
 

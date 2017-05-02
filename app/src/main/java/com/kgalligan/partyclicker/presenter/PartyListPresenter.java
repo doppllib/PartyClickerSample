@@ -22,6 +22,9 @@ public class PartyListPresenter
     DataProvider databaseHelper;
 
     @Inject
+    CrashReporter crashReporter;
+
+    @Inject
     Observable.Transformer schedulerTransformer;
 
     @Weak
@@ -47,7 +50,7 @@ public class PartyListPresenter
     public void callRefreshPartyList()
     {
         uiInterface.processing(true);
-        Log.w(PartyListPresenter.class.getSimpleName(), "callRefreshPartyList");
+
         Observable.<List<Party>>create(subscriber -> {
             subscriber.onNext(databaseHelper.allParties());
             subscriber.onCompleted();
@@ -56,7 +59,7 @@ public class PartyListPresenter
                 .subscribe(o -> {
                     uiInterface.refreshPartyList(o);
                     uiInterface.processing(false);
-                });
+                }, throwable -> crashReporter.report(throwable));
     }
 
     /**
@@ -71,7 +74,7 @@ public class PartyListPresenter
             subscriber.onCompleted();
         })
                 .compose((Observable.Transformer<Party, Party>)schedulerTransformer)
-                .subscribe(party -> uiInterface.showParty(party));
+                .subscribe(party -> uiInterface.showParty(party), throwable -> crashReporter.report(throwable));
     }
 
     /**
@@ -86,21 +89,20 @@ public class PartyListPresenter
             subscriber.onCompleted();
         })
                 .compose((Observable.Transformer<Party, Party>)schedulerTransformer)
-                .subscribe(party -> uiInterface.showParty(party));
+                .subscribe(party -> uiInterface.showParty(party), throwable -> crashReporter.report(throwable));
     }
 
     public void deleteParty(int id)
     {
-        Observable.create(subscriber -> {
+        Observable.<Party>create(subscriber -> {
             Party party = databaseHelper.loadParty(id);
             databaseHelper.deleteParty(party);
             subscriber.onNext(party);
             subscriber.onCompleted();
         })
-                .compose(schedulerTransformer)
-                .subscribe(o -> {
-                    callRefreshPartyList();
-                });
+                .compose((Observable.Transformer<Party, Party>)schedulerTransformer)
+                .subscribe(o -> callRefreshPartyList(),
+                        throwable -> crashReporter.report(throwable));
     }
 
     public int countPeople(Party party)

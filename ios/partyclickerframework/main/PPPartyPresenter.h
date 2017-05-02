@@ -17,12 +17,14 @@
 
 @class PDParty;
 @protocol PDDataProvider;
+@protocol PPCrashReporter;
 @protocol PPPartyPresenter_UiInterface;
 @protocol RxObservable_Transformer;
 
 @interface PPPartyPresenter : NSObject {
  @public
   id<PDDataProvider> databaseHelper_;
+  id<PPCrashReporter> crashReporter_;
   id<RxObservable_Transformer> schedulerTransformer_;
 }
 
@@ -51,6 +53,7 @@
 J2OBJC_EMPTY_STATIC_INIT(PPPartyPresenter)
 
 J2OBJC_FIELD_SETTER(PPPartyPresenter, databaseHelper_, id<PDDataProvider>)
+J2OBJC_FIELD_SETTER(PPPartyPresenter, crashReporter_, id<PPCrashReporter>)
 J2OBJC_FIELD_SETTER(PPPartyPresenter, schedulerTransformer_, id<RxObservable_Transformer>)
 
 FOUNDATION_EXPORT void PPPartyPresenter_initWithInt_(PPPartyPresenter *self, jint partyId);

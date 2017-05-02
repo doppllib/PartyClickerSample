@@ -19,13 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AndroidOsLooper.prepareMainLooper()
         
         let context = AndroidContentIOSContext()
-        let appModule =  PPAppModule(androidAppApplication: context);
-        
+        let appModule = PPAppModule(androidAppApplication: context, with: PPLogCrashReporter())
         
         PAppManager.init__(with: context, with: PPDaggerDaggerComponent.builder()
             .appModule(with: appModule).build())
         
-
         // Override point for customization after application launch.
         return true
     }

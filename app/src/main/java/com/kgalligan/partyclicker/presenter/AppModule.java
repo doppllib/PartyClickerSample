@@ -19,10 +19,12 @@ import rx.schedulers.Schedulers;
 public class AppModule
 {
     private final Application application;
+    private final CrashReporter crashReporter;
 
-    public AppModule(Application application)
+    public AppModule(Application application, CrashReporter crashReporter)
     {
         this.application = application;
+        this.crashReporter = crashReporter;
     }
 
     @Provides
@@ -30,6 +32,13 @@ public class AppModule
     Application providesApplication()
     {
         return application;
+    }
+
+    @Provides
+    @Singleton
+    CrashReporter providesCrashReporter()
+    {
+        return crashReporter;
     }
 
     @Provides

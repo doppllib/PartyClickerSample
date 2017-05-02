@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		633D9AD41EB81CDF00CF6686 /* PPAppModule_ProvidesCrashReporterFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 633D9ACE1EB81CDF00CF6686 /* PPAppModule_ProvidesCrashReporterFactory.h */; };
+		633D9AD51EB81CDF00CF6686 /* PPAppModule_ProvidesCrashReporterFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 633D9ACF1EB81CDF00CF6686 /* PPAppModule_ProvidesCrashReporterFactory.m */; };
+		633D9AD61EB81CDF00CF6686 /* PPCrashReporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 633D9AD01EB81CDF00CF6686 /* PPCrashReporter.h */; };
+		633D9AD71EB81CDF00CF6686 /* PPCrashReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 633D9AD11EB81CDF00CF6686 /* PPCrashReporter.m */; };
+		633D9AD81EB81CDF00CF6686 /* PPLogCrashReporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 633D9AD21EB81CDF00CF6686 /* PPLogCrashReporter.h */; };
+		633D9AD91EB81CDF00CF6686 /* PPLogCrashReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 633D9AD31EB81CDF00CF6686 /* PPLogCrashReporter.m */; };
 		638BAE0E1EB645B5007A671B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638BAE0D1EB645B5007A671B /* AppDelegate.swift */; };
 		638BAE101EB645B5007A671B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638BAE0F1EB645B5007A671B /* ViewController.swift */; };
 		638BAE131EB645B5007A671B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 638BAE111EB645B5007A671B /* Main.storyboard */; };
@@ -1293,6 +1299,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		633D9ACE1EB81CDF00CF6686 /* PPAppModule_ProvidesCrashReporterFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPAppModule_ProvidesCrashReporterFactory.h; sourceTree = "<group>"; };
+		633D9ACF1EB81CDF00CF6686 /* PPAppModule_ProvidesCrashReporterFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPAppModule_ProvidesCrashReporterFactory.m; sourceTree = "<group>"; };
+		633D9AD01EB81CDF00CF6686 /* PPCrashReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCrashReporter.h; sourceTree = "<group>"; };
+		633D9AD11EB81CDF00CF6686 /* PPCrashReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPCrashReporter.m; sourceTree = "<group>"; };
+		633D9AD21EB81CDF00CF6686 /* PPLogCrashReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPLogCrashReporter.h; sourceTree = "<group>"; };
+		633D9AD31EB81CDF00CF6686 /* PPLogCrashReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPLogCrashReporter.m; sourceTree = "<group>"; };
+		633D9AE91EB823C300CF6686 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		638BAE0A1EB645B5007A671B /* ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		638BAE0D1EB645B5007A671B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		638BAE0F1EB645B5007A671B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -2651,6 +2664,12 @@
 		63CAAF031EB684B70082A725 /* main */ = {
 			isa = PBXGroup;
 			children = (
+				633D9ACE1EB81CDF00CF6686 /* PPAppModule_ProvidesCrashReporterFactory.h */,
+				633D9ACF1EB81CDF00CF6686 /* PPAppModule_ProvidesCrashReporterFactory.m */,
+				633D9AD01EB81CDF00CF6686 /* PPCrashReporter.h */,
+				633D9AD11EB81CDF00CF6686 /* PPCrashReporter.m */,
+				633D9AD21EB81CDF00CF6686 /* PPLogCrashReporter.h */,
+				633D9AD31EB81CDF00CF6686 /* PPLogCrashReporter.m */,
 				63CAAF041EB684B70082A725 /* androidbase */,
 				63CAAFF31EB684B70082A725 /* dagger */,
 				63CAB0361EB684B70082A725 /* PAppManager.h */,
@@ -3925,6 +3944,7 @@
 		63CAB8901EB685CD0082A725 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				633D9AE91EB823C300CF6686 /* libc++.tbd */,
 				63CAB89B1EB688220082A725 /* UIKit.framework */,
 				63CAB8991EB687DF0082A725 /* libiconv.tbd */,
 				63CAB8971EB687650082A725 /* JavaxInject.framework */,
@@ -4019,6 +4039,7 @@
 				63CAB4BB1EB684BA0082A725 /* DaggerBinds.h in Headers */,
 				63CAB7681EB684BB0082A725 /* RxObservablesSyncOnSubscribe.h in Headers */,
 				63CAB8401EB684BC0082A725 /* CoTouchlabSqueakyFieldTypesLongObjectType.h in Headers */,
+				633D9AD41EB81CDF00CF6686 /* PPAppModule_ProvidesCrashReporterFactory.h in Headers */,
 				63CAB7A41EB684BB0082A725 /* RxSchedulersTimeInterval.h in Headers */,
 				63CAB4951EB684BA0082A725 /* AndroidUtilJsonToken.h in Headers */,
 				63CAB78A1EB684BB0082A725 /* RxPluginsRxJavaObservableExecutionHook.h in Headers */,
@@ -4436,6 +4457,7 @@
 				63CAB7D21EB684BB0082A725 /* RxSubscriptionsRefCountSubscription.h in Headers */,
 				63CAB8641EB684BC0082A725 /* CoTouchlabSqueakyTableDatabaseTable.h in Headers */,
 				63CAB5721EB684BB0082A725 /* RxFunctionsActionN.h in Headers */,
+				633D9AD61EB81CDF00CF6686 /* PPCrashReporter.h in Headers */,
 				63CAB8341EB684BC0082A725 /* CoTouchlabSqueakyFieldTypesEnumIntegerType.h in Headers */,
 				63CAB6FC1EB684BB0082A725 /* RxInternalSubscriptionsSequentialSubscription.h in Headers */,
 				63CAB8041EB684BC0082A725 /* CoTouchlabSqueakyFieldForeignCollectionField.h in Headers */,
@@ -4447,6 +4469,7 @@
 				63CAB5F81EB684BB0082A725 /* RxInternalOperatorsOnSubscribeRange.h in Headers */,
 				63CAB72A1EB684BB0082A725 /* RxInternalUtilPlatformDependent.h in Headers */,
 				63CAB7281EB684BB0082A725 /* RxInternalUtilOpenHashSet.h in Headers */,
+				633D9AD81EB81CDF00CF6686 /* PPLogCrashReporter.h in Headers */,
 				63CAB7321EB684BB0082A725 /* RxInternalUtilScalarSynchronousSingle.h in Headers */,
 				63CAB59C1EB684BB0082A725 /* RxInternalOperatorsBlockingOperatorToFuture.h in Headers */,
 				63CAB44B1EB684BA0082A725 /* AndroidDatabaseSqliteSQLiteStatement.h in Headers */,
@@ -4644,6 +4667,7 @@
 				TargetAttributes = {
 					638BAE091EB645B5007A671B = {
 						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = 2UER9BPG44;
 						ProvisioningStyle = Automatic;
 					};
 					638BAE1D1EB645B5007A671B = {
@@ -4743,6 +4767,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63CAB87F1EB684BC0082A725 /* CoTouchlabSqueakyStmtQueryIsNull.m in Sources */,
+				633D9AD91EB81CDF00CF6686 /* PPLogCrashReporter.m in Sources */,
 				63CAB8691EB684BC0082A725 /* CoTouchlabSqueakyTableGeneratedTableMapper.m in Sources */,
 				63CAB71F1EB684BB0082A725 /* RxInternalUtilIndexedRingBuffer.m in Sources */,
 				63CAB7ED1EB684BC0082A725 /* CoTouchlabSqueakyDbSQLiteOpenHelper.m in Sources */,
@@ -4763,6 +4788,7 @@
 				63CAB4081EB684BA0082A725 /* AndroidDatabaseSQLException.m in Sources */,
 				63CAB4D81EB684BA0082A725 /* DaggerInternalSingleCheck.m in Sources */,
 				63CAB7191EB684BB0082A725 /* RxInternalUtilBackpressureDrainManager.m in Sources */,
+				633D9AD51EB81CDF00CF6686 /* PPAppModule_ProvidesCrashReporterFactory.m in Sources */,
 				63CAB5951EB684BB0082A725 /* RxInternalOperatorsBackpressureUtils.m in Sources */,
 				63CAB4FC1EB684BA0082A725 /* DaggerSubcomponent.m in Sources */,
 				63CAB6F31EB684BB0082A725 /* RxInternalSchedulersScheduledAction.m in Sources */,
@@ -5081,6 +5107,7 @@
 				63CAB7B31EB684BB0082A725 /* RxSubjectsAsyncSubject.m in Sources */,
 				63CAB5F71EB684BB0082A725 /* RxInternalOperatorsOnSubscribePublishMulticast.m in Sources */,
 				63CAB7011EB684BB0082A725 /* RxInternalUtilActionNotificationObserver.m in Sources */,
+				633D9AD71EB81CDF00CF6686 /* PPCrashReporter.m in Sources */,
 				63CAB50E1EB684BA0082A725 /* PPAppModule.m in Sources */,
 				63CAB78F1EB684BB0082A725 /* RxPluginsRxJavaPlugins.m in Sources */,
 				63CAB5EB1EB684BB0082A725 /* RxInternalOperatorsOnSubscribeJoin.m in Sources */,
@@ -5504,6 +5531,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 2UER9BPG44;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ios",
+					"$(PROJECT_DIR)",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(J2OBJC_LOCAL_PATH)/frameworks/JRE.framework/Headers",
 					"$(J2OBJC_LOCAL_PATH)/frameworks/JavaxInject.framework/Headers",
@@ -5512,7 +5545,12 @@
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.ios;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lz",
+					"-lsqlite3",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.partyclicker.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ios/ios-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
@@ -5523,6 +5561,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 2UER9BPG44;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ios",
+					"$(PROJECT_DIR)",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(J2OBJC_LOCAL_PATH)/frameworks/JRE.framework/Headers",
 					"$(J2OBJC_LOCAL_PATH)/frameworks/JavaxInject.framework/Headers",
@@ -5531,7 +5575,12 @@
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.ios;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lz",
+					"-lsqlite3",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.partyclicker.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ios/ios-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
@@ -5695,6 +5744,7 @@
 				63CAAEFE1EB684370082A725 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		63CAAF001EB684370082A725 /* Build configuration list for PBXNativeTarget "partyclickerframeworkTests" */ = {
 			isa = XCConfigurationList;
@@ -5703,6 +5753,7 @@
 				63CAAF021EB684370082A725 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
