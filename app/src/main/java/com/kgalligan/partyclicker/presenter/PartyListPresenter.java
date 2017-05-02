@@ -84,6 +84,7 @@ public class PartyListPresenter
      */
     public void createParty(String name)
     {
+        crashReporter.log("Creating: "+ name);
         Observable.<Party>create(subscriber -> {
             subscriber.onNext(databaseHelper.createParty(name));
             subscriber.onCompleted();

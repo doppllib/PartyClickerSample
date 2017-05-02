@@ -42,6 +42,7 @@ public class MemoryDataProvider implements DataProvider
     @Override
     public Party createParty(String name)
     {
+
         Party party = new MemParty();
         party.created = new Date();
         party.name = name;

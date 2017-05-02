@@ -1,8 +1,6 @@
 package com.kgalligan.partyclicker.presenter;
 import com.kgalligan.partyclicker.data.DataProvider;
 import com.kgalligan.partyclicker.data.Party;
-import com.kgalligan.partyclicker.presenter.PartyListPresenter;
-import com.kgalligan.partyclicker.presenter.PartyPresenter;
 import com.kgalligan.partyclicker.test.DaggerTestNoContextComponent;
 import com.kgalligan.partyclicker.test.TestNoContextComponent;
 import com.kgalligan.partyclicker.test.TestNoContextModule;
@@ -17,7 +15,6 @@ import javax.inject.Inject;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 /**
