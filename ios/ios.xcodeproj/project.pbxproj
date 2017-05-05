@@ -14,7 +14,7 @@
 		633D9AD81EB81CDF00CF6686 /* PPLogCrashReporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 633D9AD21EB81CDF00CF6686 /* PPLogCrashReporter.h */; };
 		633D9AD91EB81CDF00CF6686 /* PPLogCrashReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 633D9AD31EB81CDF00CF6686 /* PPLogCrashReporter.m */; };
 		638BAE0E1EB645B5007A671B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638BAE0D1EB645B5007A671B /* AppDelegate.swift */; };
-		638BAE101EB645B5007A671B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638BAE0F1EB645B5007A671B /* ViewController.swift */; };
+		638BAE101EB645B5007A671B /* PartyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638BAE0F1EB645B5007A671B /* PartyListViewController.swift */; };
 		638BAE131EB645B5007A671B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 638BAE111EB645B5007A671B /* Main.storyboard */; };
 		638BAE151EB645B5007A671B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 638BAE141EB645B5007A671B /* Assets.xcassets */; };
 		638BAE181EB645B5007A671B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 638BAE161EB645B5007A671B /* LaunchScreen.storyboard */; };
@@ -1308,7 +1308,7 @@
 		633D9AE91EB823C300CF6686 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		638BAE0A1EB645B5007A671B /* ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		638BAE0D1EB645B5007A671B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		638BAE0F1EB645B5007A671B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		638BAE0F1EB645B5007A671B /* PartyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyListViewController.swift; sourceTree = "<group>"; };
 		638BAE121EB645B5007A671B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		638BAE141EB645B5007A671B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		638BAE171EB645B5007A671B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -2550,7 +2550,6 @@
 		63CAB89B1EB688220082A725 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		63CAB8A01EB689D10082A725 /* ios-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ios-Bridging-Header.h"; sourceTree = "<group>"; };
 		63CAB8A11EB68A100082A725 /* Main-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Main-Bridging-Header.h"; sourceTree = "<group>"; };
-		63CAB8A21EB68A100082A725 /* Test-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Test-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2620,9 +2619,8 @@
 			isa = PBXGroup;
 			children = (
 				63CAB8A11EB68A100082A725 /* Main-Bridging-Header.h */,
-				63CAB8A21EB68A100082A725 /* Test-Bridging-Header.h */,
 				638BAE0D1EB645B5007A671B /* AppDelegate.swift */,
-				638BAE0F1EB645B5007A671B /* ViewController.swift */,
+				638BAE0F1EB645B5007A671B /* PartyListViewController.swift */,
 				638BAE111EB645B5007A671B /* Main.storyboard */,
 				638BAE141EB645B5007A671B /* Assets.xcassets */,
 				638BAE161EB645B5007A671B /* LaunchScreen.storyboard */,
@@ -4748,7 +4746,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				638BAE101EB645B5007A671B /* ViewController.swift in Sources */,
+				638BAE101EB645B5007A671B /* PartyListViewController.swift in Sources */,
 				63CAAEDF1EB67DD20082A725 /* PartyViewController.swift in Sources */,
 				638BAE0E1EB645B5007A671B /* AppDelegate.swift in Sources */,
 			);

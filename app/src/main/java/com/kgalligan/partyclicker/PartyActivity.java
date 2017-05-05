@@ -48,6 +48,13 @@ public class PartyActivity extends AppCompatActivity implements PartyPresenter.U
     }
 
     @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        partyPresenter.clearUiInterface();
+    }
+
+    @Override
     public void processing(boolean b)
     {
         findViewById(R.id.viewControls).setVisibility(b ? View.GONE : View.VISIBLE);

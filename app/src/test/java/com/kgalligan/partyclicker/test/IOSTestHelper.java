@@ -1,6 +1,7 @@
 package com.kgalligan.partyclicker.test;
 import com.kgalligan.partyclicker.data.DatabaseHelperTest;
 import com.kgalligan.partyclicker.data.ModPersonTaskTest;
+import com.kgalligan.partyclicker.presenter.CrashReporterTest;
 import com.kgalligan.partyclicker.presenter.PartyPresenterTest;
 import com.kgalligan.partyclicker.presenter.PartyListPresenterTest;
 
@@ -15,7 +16,8 @@ public class IOSTestHelper
     public static int runTests()
     {
         return DopplJunitTestHelper.run(new Class[]{
-                DatabaseHelperTest.class, ModPersonTaskTest.class, PartyListPresenterTest.class,
+                DatabaseHelperTest.class, ModPersonTaskTest.class,
+                CrashReporterTest.class, PartyListPresenterTest.class,
                 PartyPresenterTest.class
         });
     }

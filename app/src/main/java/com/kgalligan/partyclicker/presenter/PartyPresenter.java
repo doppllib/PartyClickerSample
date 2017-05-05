@@ -42,6 +42,7 @@ public class PartyPresenter
 
     public PartyPresenter(int partyId)
     {
+        clearUiInterface();
         this.partyId = partyId;
     }
 
@@ -52,7 +53,7 @@ public class PartyPresenter
 
     public void clearUiInterface()
     {
-        uiInterface = null;
+        uiInterface = new EmptyUiInterface();
     }
 
     public void init()
@@ -118,5 +119,16 @@ public class PartyPresenter
     public boolean isRemoveActive()
     {
         return partyCount > 0;
+    }
+
+    static class EmptyUiInterface implements UiInterface
+    {
+        @Override
+        public void processing(boolean b)
+        {}
+
+        @Override
+        public void updateUi()
+        {}
     }
 }

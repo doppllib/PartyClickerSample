@@ -41,14 +41,6 @@ public class DatabaseHelper extends SqueakyOpenHelper implements DataProvider
     {
         try
         {
-            /*Observable.just("Hello").subscribe(new Action1<String>()
-            {
-                @Override
-                public void call(String s)
-                {
-                    System.out.println(s);
-                }
-            });*/
             TableUtils.createTables(new SQLiteDatabaseImpl(db), tableClasses);
         }
         catch(SQLException e)
@@ -179,17 +171,13 @@ public class DatabaseHelper extends SqueakyOpenHelper implements DataProvider
 
     public void deleteParty(final Party party)
     {
-        performTransactionOrThrowRuntime(new Callable<Void>()
+        performTransactionOrThrowRuntime(() ->
         {
-            @Override
-            public Void call() throws Exception
-            {
-                Where<Person> where = new Where<>(getPersonDao());
-                where.eq("party", party);
-                getPersonDao().delete(where);
-                getPartyDao().delete(party);
-                return null;
-            }
+            Where<Person> where = new Where<>(getPersonDao());
+            where.eq("party", party);
+            getPersonDao().delete(where);
+            getPartyDao().delete(party);
+            return null;
         });
     }
 
