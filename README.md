@@ -16,7 +16,7 @@ You need to be on a Mac, and be able to install Xcode from the App Store.
 ## Install j2objc runtime
 
 Doppl uses a slightly modified j2objc runtime. This will likely be merged over time to keep the standard
-j2objc runtime, but for now, grab ours. Its about 2 gigs compressed and 9 gigs total.
+j2objc runtime, but for now, grab ours. Its about 1 gig compressed and 9 gigs total.
 
 [j2objc runtime](http://dopplmaven.s3-website-us-east-1.amazonaws.com/dist.zip)
 
