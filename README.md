@@ -55,3 +55,10 @@ to [dist directory] (no trailing slash).
 ![xcode paths](https://s3.amazonaws.com/dopplmaven/xcodepath.png)
 
 You should now be able to run the app without any modifications.
+
+**You might need to restart Xcode after setting the custom path!!!**
+
+Also, when trying to run the app, make sure you have the ios target selected and are trying to run it on
+an appropriate device or simulator.
+
+![xcode target](https://s3.amazonaws.com/dopplmaven/iostarget.png)
