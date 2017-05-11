@@ -56,30 +56,32 @@ public class PartyPresenter
         uiInterface = new EmptyUiInterface();
     }
 
+    static class PartyInfo
+    {
+        final Party party;
+        final int       partyCount;
+
+        public PartyInfo(Party party, int partyCount)
+        {
+            this.party = party;
+            this.partyCount = partyCount;
+        }
+    }
     public void init()
     {
         uiInterface.processing(true);
 
-        Observable<Party> partyObservable = Observable.<Party> create(subscriber ->
+        //Created a wrapper object. Originally had a zip operation, but we have a memory leak in rxjava/j2objc with zip. Working...
+        Observable<PartyInfo> partyObservable = Observable.<PartyInfo> create(subscriber ->
         {
-            subscriber.onNext(databaseHelper.loadParty(partyId));
+            subscriber.onNext(new PartyInfo(databaseHelper.loadParty(partyId), databaseHelper.countCurrentParty(partyId)));
             subscriber.onCompleted();
         })
-                .compose(schedulerTransformer);
+                .compose((Observable.Transformer<PartyInfo, PartyInfo>)schedulerTransformer);
 
-
-        Observable<Integer> integerObservable = Observable.<Integer> create(subscriber ->
-        {
-            subscriber.onNext(databaseHelper.countCurrentParty(partyId));
-            subscriber.onCompleted();
-        }).compose(schedulerTransformer);
-
-        Observable.zip(partyObservable, integerObservable, (party1, integer) -> {
-           party = party1;
-           partyCount = integer;
-           return integer;
-        })
-        .subscribe(integer -> {
+        partyObservable.subscribe(partyInfo -> {
+            party = partyInfo.party;
+            partyCount = partyInfo.partyCount;
             uiInterface.processing(false);
             uiInterface.updateUi();
         }, throwable -> crashReporter.report(throwable))

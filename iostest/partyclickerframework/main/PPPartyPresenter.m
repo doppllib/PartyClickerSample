@@ -11,11 +11,9 @@
 #include "PPCrashReporter.h"
 #include "PPPartyPresenter.h"
 #include "RxFunctionsAction1.h"
-#include "RxFunctionsFunc2.h"
 #include "RxObservable.h"
 #include "RxSubscriber.h"
 #include "RxSubscription.h"
-#include "java/lang/Integer.h"
 #include "java/lang/annotation/Annotation.h"
 #include "java/util/concurrent/ExecutorService.h"
 #include "java/util/concurrent/Executors.h"
@@ -64,12 +62,12 @@ __attribute__((unused)) static PPPartyPresenter_$Lambda$1 *new_PPPartyPresenter_
 
 __attribute__((unused)) static PPPartyPresenter_$Lambda$1 *create_PPPartyPresenter_$Lambda$1_initWithPPPartyPresenter_(PPPartyPresenter *outer$);
 
-@interface PPPartyPresenter_$Lambda$2 : NSObject < RxObservable_OnSubscribe > {
+@interface PPPartyPresenter_$Lambda$2 : NSObject < RxFunctionsAction1 > {
  @public
   PPPartyPresenter *this$0_;
 }
 
-- (void)callWithId:(RxSubscriber *)subscriber;
+- (void)callWithId:(PPPartyPresenter_PartyInfo *)partyInfo;
 
 @end
 
@@ -81,13 +79,12 @@ __attribute__((unused)) static PPPartyPresenter_$Lambda$2 *new_PPPartyPresenter_
 
 __attribute__((unused)) static PPPartyPresenter_$Lambda$2 *create_PPPartyPresenter_$Lambda$2_initWithPPPartyPresenter_(PPPartyPresenter *outer$);
 
-@interface PPPartyPresenter_$Lambda$3 : NSObject < RxFunctionsFunc2 > {
+@interface PPPartyPresenter_$Lambda$3 : NSObject < RxFunctionsAction1 > {
  @public
   PPPartyPresenter *this$0_;
 }
 
-- (id)callWithId:(PDParty *)party1
-          withId:(JavaLangInteger *)integer;
+- (void)callWithId:(NSException *)throwable;
 
 @end
 
@@ -98,40 +95,6 @@ __attribute__((unused)) static void PPPartyPresenter_$Lambda$3_initWithPPPartyPr
 __attribute__((unused)) static PPPartyPresenter_$Lambda$3 *new_PPPartyPresenter_$Lambda$3_initWithPPPartyPresenter_(PPPartyPresenter *outer$) NS_RETURNS_RETAINED;
 
 __attribute__((unused)) static PPPartyPresenter_$Lambda$3 *create_PPPartyPresenter_$Lambda$3_initWithPPPartyPresenter_(PPPartyPresenter *outer$);
-
-@interface PPPartyPresenter_$Lambda$4 : NSObject < RxFunctionsAction1 > {
- @public
-  PPPartyPresenter *this$0_;
-}
-
-- (void)callWithId:(JavaLangInteger *)integer;
-
-@end
-
-J2OBJC_EMPTY_STATIC_INIT(PPPartyPresenter_$Lambda$4)
-
-__attribute__((unused)) static void PPPartyPresenter_$Lambda$4_initWithPPPartyPresenter_(PPPartyPresenter_$Lambda$4 *self, PPPartyPresenter *outer$);
-
-__attribute__((unused)) static PPPartyPresenter_$Lambda$4 *new_PPPartyPresenter_$Lambda$4_initWithPPPartyPresenter_(PPPartyPresenter *outer$) NS_RETURNS_RETAINED;
-
-__attribute__((unused)) static PPPartyPresenter_$Lambda$4 *create_PPPartyPresenter_$Lambda$4_initWithPPPartyPresenter_(PPPartyPresenter *outer$);
-
-@interface PPPartyPresenter_$Lambda$5 : NSObject < RxFunctionsAction1 > {
- @public
-  PPPartyPresenter *this$0_;
-}
-
-- (void)callWithId:(NSException *)throwable;
-
-@end
-
-J2OBJC_EMPTY_STATIC_INIT(PPPartyPresenter_$Lambda$5)
-
-__attribute__((unused)) static void PPPartyPresenter_$Lambda$5_initWithPPPartyPresenter_(PPPartyPresenter_$Lambda$5 *self, PPPartyPresenter *outer$);
-
-__attribute__((unused)) static PPPartyPresenter_$Lambda$5 *new_PPPartyPresenter_$Lambda$5_initWithPPPartyPresenter_(PPPartyPresenter *outer$) NS_RETURNS_RETAINED;
-
-__attribute__((unused)) static PPPartyPresenter_$Lambda$5 *create_PPPartyPresenter_$Lambda$5_initWithPPPartyPresenter_(PPPartyPresenter *outer$);
 
 @implementation PPPartyPresenter
 
@@ -151,8 +114,7 @@ __attribute__((unused)) static PPPartyPresenter_$Lambda$5 *create_PPPartyPresent
 - (void)init__ {
   [((id<PPPartyPresenter_UiInterface>) nil_chk(uiInterface_)) processingWithBoolean:true];
   RxObservable *partyObservable = [((RxObservable *) nil_chk(RxObservable_createWithRxObservable_OnSubscribe_(create_PPPartyPresenter_$Lambda$1_initWithPPPartyPresenter_(self)))) composeWithRxObservable_Transformer:schedulerTransformer_];
-  RxObservable *integerObservable = [((RxObservable *) nil_chk(RxObservable_createWithRxObservable_OnSubscribe_(create_PPPartyPresenter_$Lambda$2_initWithPPPartyPresenter_(self)))) composeWithRxObservable_Transformer:schedulerTransformer_];
-  [((RxObservable *) nil_chk(RxObservable_zipWithRxObservable_withRxObservable_withRxFunctionsFunc2_(partyObservable, integerObservable, create_PPPartyPresenter_$Lambda$3_initWithPPPartyPresenter_(self)))) subscribeWithRxFunctionsAction1:create_PPPartyPresenter_$Lambda$4_initWithPPPartyPresenter_(self) withRxFunctionsAction1:create_PPPartyPresenter_$Lambda$5_initWithPPPartyPresenter_(self)];
+  [((RxObservable *) nil_chk(partyObservable)) subscribeWithRxFunctionsAction1:create_PPPartyPresenter_$Lambda$2_initWithPPPartyPresenter_(self) withRxFunctionsAction1:create_PPPartyPresenter_$Lambda$3_initWithPPPartyPresenter_(self)];
   JreStrongAssign(&party_, [((id<PDDataProvider>) nil_chk(databaseHelper_)) loadPartyWithInt:partyId_]);
   partyCount_ = [((id<PDDataProvider>) nil_chk(databaseHelper_)) countCurrentPartyWithInt:partyId_];
 }
@@ -231,7 +193,7 @@ __attribute__((unused)) static PPPartyPresenter_$Lambda$5 *create_PPPartyPresent
     { "schedulerTransformer_", "LRxObservable_Transformer;", .constantValue.asLong = 0, 0x0, -1, -1, -1, 6 },
     { "uiInterface_", "LPPPartyPresenter_UiInterface;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "I", "applyUiInterface", "LPPPartyPresenter_UiInterface;", "init", (void *)&PPPartyPresenter__Annotations$0, (void *)&PPPartyPresenter__Annotations$1, (void *)&PPPartyPresenter__Annotations$2, "LPPPartyPresenter_UiInterface;LPPPartyPresenter_EmptyUiInterface;" };
+  static const void *ptrTable[] = { "I", "applyUiInterface", "LPPPartyPresenter_UiInterface;", "init", (void *)&PPPartyPresenter__Annotations$0, (void *)&PPPartyPresenter__Annotations$1, (void *)&PPPartyPresenter__Annotations$2, "LPPPartyPresenter_UiInterface;LPPPartyPresenter_PartyInfo;LPPPartyPresenter_EmptyUiInterface;" };
   static const J2ObjcClassInfo _PPPartyPresenter = { "PartyPresenter", "com.kgalligan.partyclicker.presenter", ptrTable, methods, fields, 7, 0x1, 9, 8, -1, 7, -1, -1, -1 };
   return &_PPPartyPresenter;
 }
@@ -288,6 +250,54 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(PPPartyPresenter)
 
 J2OBJC_INTERFACE_TYPE_LITERAL_SOURCE(PPPartyPresenter_UiInterface)
 
+@implementation PPPartyPresenter_PartyInfo
+
+- (instancetype)initWithPDParty:(PDParty *)party
+                        withInt:(jint)partyCount {
+  PPPartyPresenter_PartyInfo_initWithPDParty_withInt_(self, party, partyCount);
+  return self;
+}
+
+- (void)dealloc {
+  RELEASE_(party_);
+  [super dealloc];
+}
+
++ (const J2ObjcClassInfo *)__metadata {
+  static J2ObjcMethodInfo methods[] = {
+    { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
+  };
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
+  methods[0].selector = @selector(initWithPDParty:withInt:);
+  #pragma clang diagnostic pop
+  static const J2ObjcFieldInfo fields[] = {
+    { "party_", "LPDParty;", .constantValue.asLong = 0, 0x10, -1, -1, -1, -1 },
+    { "partyCount_", "I", .constantValue.asLong = 0, 0x10, -1, -1, -1, -1 },
+  };
+  static const void *ptrTable[] = { "LPDParty;I", "LPPPartyPresenter;" };
+  static const J2ObjcClassInfo _PPPartyPresenter_PartyInfo = { "PartyInfo", "com.kgalligan.partyclicker.presenter", ptrTable, methods, fields, 7, 0x8, 1, 2, 1, -1, -1, -1, -1 };
+  return &_PPPartyPresenter_PartyInfo;
+}
+
+@end
+
+void PPPartyPresenter_PartyInfo_initWithPDParty_withInt_(PPPartyPresenter_PartyInfo *self, PDParty *party, jint partyCount) {
+  NSObject_init(self);
+  JreStrongAssign(&self->party_, party);
+  self->partyCount_ = partyCount;
+}
+
+PPPartyPresenter_PartyInfo *new_PPPartyPresenter_PartyInfo_initWithPDParty_withInt_(PDParty *party, jint partyCount) {
+  J2OBJC_NEW_IMPL(PPPartyPresenter_PartyInfo, initWithPDParty_withInt_, party, partyCount)
+}
+
+PPPartyPresenter_PartyInfo *create_PPPartyPresenter_PartyInfo_initWithPDParty_withInt_(PDParty *party, jint partyCount) {
+  J2OBJC_CREATE_IMPL(PPPartyPresenter_PartyInfo, initWithPDParty_withInt_, party, partyCount)
+}
+
+J2OBJC_CLASS_TYPE_LITERAL_SOURCE(PPPartyPresenter_PartyInfo)
+
 @implementation PPPartyPresenter_EmptyUiInterface
 
 J2OBJC_IGNORE_DESIGNATED_BEGIN
@@ -339,7 +349,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(PPPartyPresenter_EmptyUiInterface)
 @implementation PPPartyPresenter_$Lambda$1
 
 - (void)callWithId:(RxSubscriber *)subscriber {
-  [((RxSubscriber *) nil_chk(subscriber)) onNextWithId:[((id<PDDataProvider>) nil_chk(this$0_->databaseHelper_)) loadPartyWithInt:this$0_->partyId_]];
+  [((RxSubscriber *) nil_chk(subscriber)) onNextWithId:create_PPPartyPresenter_PartyInfo_initWithPDParty_withInt_([((id<PDDataProvider>) nil_chk(this$0_->databaseHelper_)) loadPartyWithInt:this$0_->partyId_], [((id<PDDataProvider>) nil_chk(this$0_->databaseHelper_)) countCurrentPartyWithInt:this$0_->partyId_])];
   [subscriber onCompleted];
 }
 
@@ -365,9 +375,11 @@ PPPartyPresenter_$Lambda$1 *create_PPPartyPresenter_$Lambda$1_initWithPPPartyPre
 
 @implementation PPPartyPresenter_$Lambda$2
 
-- (void)callWithId:(RxSubscriber *)subscriber {
-  [((RxSubscriber *) nil_chk(subscriber)) onNextWithId:JavaLangInteger_valueOfWithInt_([((id<PDDataProvider>) nil_chk(this$0_->databaseHelper_)) countCurrentPartyWithInt:this$0_->partyId_])];
-  [subscriber onCompleted];
+- (void)callWithId:(PPPartyPresenter_PartyInfo *)partyInfo {
+  JreStrongAssign(&this$0_->party_, ((PPPartyPresenter_PartyInfo *) nil_chk(partyInfo))->party_);
+  this$0_->partyCount_ = partyInfo->partyCount_;
+  [((id<PPPartyPresenter_UiInterface>) nil_chk(this$0_->uiInterface_)) processingWithBoolean:false];
+  [((id<PPPartyPresenter_UiInterface>) nil_chk(this$0_->uiInterface_)) updateUi];
 }
 
 - (void)dealloc {
@@ -392,11 +404,8 @@ PPPartyPresenter_$Lambda$2 *create_PPPartyPresenter_$Lambda$2_initWithPPPartyPre
 
 @implementation PPPartyPresenter_$Lambda$3
 
-- (id)callWithId:(PDParty *)party1
-          withId:(JavaLangInteger *)integer {
-  JreStrongAssign(&this$0_->party_, party1);
-  this$0_->partyCount_ = [((JavaLangInteger *) nil_chk(integer)) intValue];
-  return integer;
+- (void)callWithId:(NSException *)throwable {
+  [((id<PPCrashReporter>) nil_chk(this$0_->crashReporter_)) reportWithNSException:throwable];
 }
 
 - (void)dealloc {
@@ -417,57 +426,4 @@ PPPartyPresenter_$Lambda$3 *new_PPPartyPresenter_$Lambda$3_initWithPPPartyPresen
 
 PPPartyPresenter_$Lambda$3 *create_PPPartyPresenter_$Lambda$3_initWithPPPartyPresenter_(PPPartyPresenter *outer$) {
   J2OBJC_CREATE_IMPL(PPPartyPresenter_$Lambda$3, initWithPPPartyPresenter_, outer$)
-}
-
-@implementation PPPartyPresenter_$Lambda$4
-
-- (void)callWithId:(JavaLangInteger *)integer {
-  [((id<PPPartyPresenter_UiInterface>) nil_chk(this$0_->uiInterface_)) processingWithBoolean:false];
-  [((id<PPPartyPresenter_UiInterface>) nil_chk(this$0_->uiInterface_)) updateUi];
-}
-
-- (void)dealloc {
-  RELEASE_(this$0_);
-  [super dealloc];
-}
-
-@end
-
-void PPPartyPresenter_$Lambda$4_initWithPPPartyPresenter_(PPPartyPresenter_$Lambda$4 *self, PPPartyPresenter *outer$) {
-  JreStrongAssign(&self->this$0_, outer$);
-  NSObject_init(self);
-}
-
-PPPartyPresenter_$Lambda$4 *new_PPPartyPresenter_$Lambda$4_initWithPPPartyPresenter_(PPPartyPresenter *outer$) {
-  J2OBJC_NEW_IMPL(PPPartyPresenter_$Lambda$4, initWithPPPartyPresenter_, outer$)
-}
-
-PPPartyPresenter_$Lambda$4 *create_PPPartyPresenter_$Lambda$4_initWithPPPartyPresenter_(PPPartyPresenter *outer$) {
-  J2OBJC_CREATE_IMPL(PPPartyPresenter_$Lambda$4, initWithPPPartyPresenter_, outer$)
-}
-
-@implementation PPPartyPresenter_$Lambda$5
-
-- (void)callWithId:(NSException *)throwable {
-  [((id<PPCrashReporter>) nil_chk(this$0_->crashReporter_)) reportWithNSException:throwable];
-}
-
-- (void)dealloc {
-  RELEASE_(this$0_);
-  [super dealloc];
-}
-
-@end
-
-void PPPartyPresenter_$Lambda$5_initWithPPPartyPresenter_(PPPartyPresenter_$Lambda$5 *self, PPPartyPresenter *outer$) {
-  JreStrongAssign(&self->this$0_, outer$);
-  NSObject_init(self);
-}
-
-PPPartyPresenter_$Lambda$5 *new_PPPartyPresenter_$Lambda$5_initWithPPPartyPresenter_(PPPartyPresenter *outer$) {
-  J2OBJC_NEW_IMPL(PPPartyPresenter_$Lambda$5, initWithPPPartyPresenter_, outer$)
-}
-
-PPPartyPresenter_$Lambda$5 *create_PPPartyPresenter_$Lambda$5_initWithPPPartyPresenter_(PPPartyPresenter *outer$) {
-  J2OBJC_CREATE_IMPL(PPPartyPresenter_$Lambda$5, initWithPPPartyPresenter_, outer$)
 }

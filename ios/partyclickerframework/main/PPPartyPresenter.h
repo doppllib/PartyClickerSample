@@ -88,6 +88,38 @@ J2OBJC_TYPE_LITERAL_HEADER(PPPartyPresenter_UiInterface)
 
 #endif
 
+#if !defined (PPPartyPresenter_PartyInfo_) && (INCLUDE_ALL_PPPartyPresenter || defined(INCLUDE_PPPartyPresenter_PartyInfo))
+#define PPPartyPresenter_PartyInfo_
+
+@class PDParty;
+
+@interface PPPartyPresenter_PartyInfo : NSObject {
+ @public
+  PDParty *party_;
+  jint partyCount_;
+}
+
+#pragma mark Public
+
+- (instancetype)initWithPDParty:(PDParty *)party
+                        withInt:(jint)partyCount;
+
+@end
+
+J2OBJC_EMPTY_STATIC_INIT(PPPartyPresenter_PartyInfo)
+
+J2OBJC_FIELD_SETTER(PPPartyPresenter_PartyInfo, party_, PDParty *)
+
+FOUNDATION_EXPORT void PPPartyPresenter_PartyInfo_initWithPDParty_withInt_(PPPartyPresenter_PartyInfo *self, PDParty *party, jint partyCount);
+
+FOUNDATION_EXPORT PPPartyPresenter_PartyInfo *new_PPPartyPresenter_PartyInfo_initWithPDParty_withInt_(PDParty *party, jint partyCount) NS_RETURNS_RETAINED;
+
+FOUNDATION_EXPORT PPPartyPresenter_PartyInfo *create_PPPartyPresenter_PartyInfo_initWithPDParty_withInt_(PDParty *party, jint partyCount);
+
+J2OBJC_TYPE_LITERAL_HEADER(PPPartyPresenter_PartyInfo)
+
+#endif
+
 #if !defined (PPPartyPresenter_EmptyUiInterface_) && (INCLUDE_ALL_PPPartyPresenter || defined(INCLUDE_PPPartyPresenter_EmptyUiInterface))
 #define PPPartyPresenter_EmptyUiInterface_
 
