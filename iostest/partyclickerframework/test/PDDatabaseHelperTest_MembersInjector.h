@@ -26,28 +26,28 @@
 
 #pragma mark Public
 
-- (instancetype)initWithJavaxInjectProvider:(id<JavaxInjectProvider>)applicationProvider;
+- (instancetype)initWithJavaxInjectProvider:(id<JavaxInjectProvider>)partyDatabaseProvider;
 
-+ (id<DaggerMembersInjector>)createWithJavaxInjectProvider:(id<JavaxInjectProvider>)applicationProvider;
-
-+ (void)injectApplicationWithPDDatabaseHelperTest:(PDDatabaseHelperTest *)instance
-                          withJavaxInjectProvider:(id<JavaxInjectProvider>)applicationProvider;
++ (id<DaggerMembersInjector>)createWithJavaxInjectProvider:(id<JavaxInjectProvider>)partyDatabaseProvider;
 
 - (void)injectMembersWithId:(PDDatabaseHelperTest *)instance;
+
++ (void)injectPartyDatabaseWithPDDatabaseHelperTest:(PDDatabaseHelperTest *)instance
+                            withJavaxInjectProvider:(id<JavaxInjectProvider>)partyDatabaseProvider;
 
 @end
 
 J2OBJC_EMPTY_STATIC_INIT(PDDatabaseHelperTest_MembersInjector)
 
-FOUNDATION_EXPORT void PDDatabaseHelperTest_MembersInjector_initWithJavaxInjectProvider_(PDDatabaseHelperTest_MembersInjector *self, id<JavaxInjectProvider> applicationProvider);
+FOUNDATION_EXPORT void PDDatabaseHelperTest_MembersInjector_initWithJavaxInjectProvider_(PDDatabaseHelperTest_MembersInjector *self, id<JavaxInjectProvider> partyDatabaseProvider);
 
-FOUNDATION_EXPORT PDDatabaseHelperTest_MembersInjector *new_PDDatabaseHelperTest_MembersInjector_initWithJavaxInjectProvider_(id<JavaxInjectProvider> applicationProvider) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT PDDatabaseHelperTest_MembersInjector *new_PDDatabaseHelperTest_MembersInjector_initWithJavaxInjectProvider_(id<JavaxInjectProvider> partyDatabaseProvider) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT PDDatabaseHelperTest_MembersInjector *create_PDDatabaseHelperTest_MembersInjector_initWithJavaxInjectProvider_(id<JavaxInjectProvider> applicationProvider);
+FOUNDATION_EXPORT PDDatabaseHelperTest_MembersInjector *create_PDDatabaseHelperTest_MembersInjector_initWithJavaxInjectProvider_(id<JavaxInjectProvider> partyDatabaseProvider);
 
-FOUNDATION_EXPORT id<DaggerMembersInjector> PDDatabaseHelperTest_MembersInjector_createWithJavaxInjectProvider_(id<JavaxInjectProvider> applicationProvider);
+FOUNDATION_EXPORT id<DaggerMembersInjector> PDDatabaseHelperTest_MembersInjector_createWithJavaxInjectProvider_(id<JavaxInjectProvider> partyDatabaseProvider);
 
-FOUNDATION_EXPORT void PDDatabaseHelperTest_MembersInjector_injectApplicationWithPDDatabaseHelperTest_withJavaxInjectProvider_(PDDatabaseHelperTest *instance, id<JavaxInjectProvider> applicationProvider);
+FOUNDATION_EXPORT void PDDatabaseHelperTest_MembersInjector_injectPartyDatabaseWithPDDatabaseHelperTest_withJavaxInjectProvider_(PDDatabaseHelperTest *instance, id<JavaxInjectProvider> partyDatabaseProvider);
 
 J2OBJC_TYPE_LITERAL_HEADER(PDDatabaseHelperTest_MembersInjector)
 

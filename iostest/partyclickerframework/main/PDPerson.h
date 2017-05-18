@@ -16,28 +16,34 @@
 #define PDPerson_
 
 @class JavaUtilDate;
-@class PDParty;
 
-@interface PDPerson : NSObject {
- @public
-  jint id__;
-  JavaUtilDate *recorded_;
-  jshort val_;
-  PDParty *party_;
-}
+@interface PDPerson : NSObject
 
 #pragma mark Public
 
 - (instancetype)init;
 
+- (jint)getId;
+
+- (jint)getPartyId;
+
+- (JavaUtilDate *)getRecorded;
+
+- (jshort)getVal;
+
 - (NSString *)recordedString;
+
+- (void)setIdWithInt:(jint)id_;
+
+- (void)setPartyIdWithInt:(jint)partyId;
+
+- (void)setRecordedWithJavaUtilDate:(JavaUtilDate *)recorded;
+
+- (void)setValWithShort:(jshort)val;
 
 @end
 
 J2OBJC_STATIC_INIT(PDPerson)
-
-J2OBJC_FIELD_SETTER(PDPerson, recorded_, JavaUtilDate *)
-J2OBJC_FIELD_SETTER(PDPerson, party_, PDParty *)
 
 FOUNDATION_EXPORT void PDPerson_init(PDPerson *self);
 

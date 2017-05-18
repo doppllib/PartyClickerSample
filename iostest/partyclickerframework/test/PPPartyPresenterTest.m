@@ -69,7 +69,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   id<PTTestNoContextComponent> testComponent = [((PTDaggerTestNoContextComponent_Builder *) nil_chk([((PTDaggerTestNoContextComponent_Builder *) nil_chk(PTDaggerTestNoContextComponent_builder())) testNoContextModuleWithPTTestNoContextModule:create_PTTestNoContextModule_init()])) build];
   [((id<PTTestNoContextComponent>) nil_chk(testComponent)) injectWithPPPartyPresenterTest:self];
   JreStrongAssign(&party_, [((id<PDDataProvider>) nil_chk(dataProvider_)) createPartyWithNSString:@"marty"]);
-  JreStrongAssignAndConsume(&partyPresenter_, new_PPPartyPresenter_initWithInt_(((PDParty *) nil_chk(party_))->id__));
+  JreStrongAssignAndConsume(&partyPresenter_, new_PPPartyPresenter_initWithInt_([((PDParty *) nil_chk(party_)) getId]));
   [testComponent injectWithPPPartyPresenter:partyPresenter_];
   JreStrongAssign(&uiInterface_, OrgMockitoMockito_mockWithIOSClass_(PPPartyPresenter_UiInterface_class_()));
   [((PPPartyPresenter *) nil_chk(partyPresenter_)) applyUiInterfaceWithPPPartyPresenter_UiInterface:uiInterface_];
@@ -77,7 +77,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)init__ {
   PPPartyPresenterTest_initMultiParty(self);
-  OrgJunitAssert_assertEqualsWithLong_withLong_(((PDParty *) nil_chk(party_))->id__, ((PDParty *) nil_chk([((PPPartyPresenter *) nil_chk(partyPresenter_)) getParty]))->id__);
+  OrgJunitAssert_assertEqualsWithId_withId_([((PDParty *) nil_chk(party_)) getName], [((PDParty *) nil_chk([((PPPartyPresenter *) nil_chk(partyPresenter_)) getParty])) getName]);
   [((id<PPPartyPresenter_UiInterface>) nil_chk(OrgMockitoMockito_verifyWithId_(uiInterface_))) updateUi];
   [((id<PPPartyPresenter_UiInterface>) nil_chk(OrgMockitoMockito_verifyWithId_(uiInterface_))) processingWithBoolean:false];
   [((id<PPPartyPresenter_UiInterface>) nil_chk(OrgMockitoMockito_verifyWithId_(uiInterface_))) processingWithBoolean:true];
@@ -94,7 +94,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   [((PPPartyPresenter *) nil_chk(partyPresenter_)) addPerson];
   JavaLangThread_sleepWithLong_(1000);
   OrgJunitAssert_assertEqualsWithLong_withLong_(3, [((PPPartyPresenter *) nil_chk(partyPresenter_)) getPartyCount]);
-  OrgJunitAssert_assertEqualsWithLong_withLong_(3, [((id<PDDataProvider>) nil_chk(dataProvider_)) countCurrentPartyWithInt:((PDParty *) nil_chk(party_))->id__]);
+  OrgJunitAssert_assertEqualsWithLong_withLong_(3, [((id<PDDataProvider>) nil_chk(dataProvider_)) countCurrentPartyWithInt:[((PDParty *) nil_chk(party_)) getId]]);
   [((id<PPPartyPresenter_UiInterface>) nil_chk(OrgMockitoMockito_verifyWithId_withOrgMockitoVerificationVerificationMode_(uiInterface_, OrgMockitoMockito_atLeastOnce()))) updateUi];
 }
 
@@ -102,7 +102,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   PPPartyPresenterTest_initPartyPeople(self);
   JavaLangThread_sleepWithLong_(1000);
   OrgJunitAssert_assertEqualsWithLong_withLong_(2, [((PPPartyPresenter *) nil_chk(partyPresenter_)) getPartyCount]);
-  OrgJunitAssert_assertEqualsWithLong_withLong_(2, [((id<PDDataProvider>) nil_chk(dataProvider_)) countCurrentPartyWithInt:((PDParty *) nil_chk(party_))->id__]);
+  OrgJunitAssert_assertEqualsWithLong_withLong_(2, [((id<PDDataProvider>) nil_chk(dataProvider_)) countCurrentPartyWithInt:[((PDParty *) nil_chk(party_)) getId]]);
   [((id<PPPartyPresenter_UiInterface>) nil_chk(OrgMockitoMockito_verifyWithId_withOrgMockitoVerificationVerificationMode_(uiInterface_, OrgMockitoMockito_atLeastOnce()))) updateUi];
 }
 
@@ -118,7 +118,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)getParty {
   PPPartyPresenterTest_initMultiParty(self);
-  OrgJunitAssert_assertEqualsWithLong_withLong_(((PDParty *) nil_chk(party_))->id__, ((PDParty *) nil_chk([((PPPartyPresenter *) nil_chk(partyPresenter_)) getParty]))->id__);
+  OrgJunitAssert_assertEqualsWithLong_withLong_([((PDParty *) nil_chk(party_)) getId], [((PDParty *) nil_chk([((PPPartyPresenter *) nil_chk(partyPresenter_)) getParty])) getId]);
 }
 
 - (void)dealloc {

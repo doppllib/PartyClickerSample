@@ -15,26 +15,19 @@
 #if !defined (PDDatabaseHelper_) && (INCLUDE_ALL_PDDatabaseHelper || defined(INCLUDE_PDDatabaseHelper))
 #define PDDatabaseHelper_
 
-#define RESTRICT_CoTouchlabSqueakyDbSqliteSqueakyOpenHelper 1
-#define INCLUDE_CoTouchlabSqueakyDbSqliteSqueakyOpenHelper 1
-#include "CoTouchlabSqueakyDbSqliteSqueakyOpenHelper.h"
-
 #define RESTRICT_PDDataProvider 1
 #define INCLUDE_PDDataProvider 1
 #include "PDDataProvider.h"
 
-@class AndroidContentContext;
-@class AndroidDatabaseSqliteSQLiteDatabase;
 @class PDParty;
-@protocol CoTouchlabSqueakyDaoDao;
-@protocol JavaUtilConcurrentCallable;
+@class PDPartyDatabase;
 @protocol JavaUtilList;
 
-@interface PDDatabaseHelper : CoTouchlabSqueakyDbSqliteSqueakyOpenHelper < PDDataProvider >
+@interface PDDatabaseHelper : NSObject < PDDataProvider >
 
 #pragma mark Public
 
-- (instancetype)initWithAndroidContentContext:(AndroidContentContext *)context;
+- (instancetype)initWithPDPartyDatabase:(PDPartyDatabase *)partyDatabase;
 
 - (void)addPersonWithPDParty:(PDParty *)party
                  withBoolean:(jboolean)coming;
@@ -49,31 +42,17 @@
 
 - (void)deletePartyWithPDParty:(PDParty *)party;
 
-- (id<CoTouchlabSqueakyDaoDao>)getPartyDao;
-
-- (id<CoTouchlabSqueakyDaoDao>)getPersonDao;
-
 - (PDParty *)loadPartyWithInt:(jint)id_;
-
-- (void)onCreateWithAndroidDatabaseSqliteSQLiteDatabase:(AndroidDatabaseSqliteSQLiteDatabase *)db;
-
-- (void)onOpenWithAndroidDatabaseSqliteSQLiteDatabase:(AndroidDatabaseSqliteSQLiteDatabase *)db;
-
-- (void)onUpgradeWithAndroidDatabaseSqliteSQLiteDatabase:(AndroidDatabaseSqliteSQLiteDatabase *)db
-                                                 withInt:(jint)oldVersion
-                                                 withInt:(jint)newVersion;
-
-- (void)performTransactionOrThrowRuntimeWithJavaUtilConcurrentCallable:(id<JavaUtilConcurrentCallable>)transaction;
 
 @end
 
 J2OBJC_EMPTY_STATIC_INIT(PDDatabaseHelper)
 
-FOUNDATION_EXPORT void PDDatabaseHelper_initWithAndroidContentContext_(PDDatabaseHelper *self, AndroidContentContext *context);
+FOUNDATION_EXPORT void PDDatabaseHelper_initWithPDPartyDatabase_(PDDatabaseHelper *self, PDPartyDatabase *partyDatabase);
 
-FOUNDATION_EXPORT PDDatabaseHelper *new_PDDatabaseHelper_initWithAndroidContentContext_(AndroidContentContext *context) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT PDDatabaseHelper *new_PDDatabaseHelper_initWithPDPartyDatabase_(PDPartyDatabase *partyDatabase) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT PDDatabaseHelper *create_PDDatabaseHelper_initWithAndroidContentContext_(AndroidContentContext *context);
+FOUNDATION_EXPORT PDDatabaseHelper *create_PDDatabaseHelper_initWithPDPartyDatabase_(PDPartyDatabase *partyDatabase);
 
 J2OBJC_TYPE_LITERAL_HEADER(PDDatabaseHelper)
 

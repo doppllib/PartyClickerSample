@@ -12,6 +12,7 @@
 #include "PPAppModule_ProvidesApplicationFactory.h"
 #include "PPAppModule_ProvidesCrashReporterFactory.h"
 #include "PPAppModule_ProvidesDataProviderFactory.h"
+#include "PPAppModule_ProvidesPartyDatabaseFactory.h"
 #include "PPAppModule_ProvidesSchedulerTransformerFactory.h"
 #include "PPDaggerComponent.h"
 #include "PPDaggerDaggerComponent.h"
@@ -25,6 +26,7 @@
 @interface PPDaggerDaggerComponent () {
  @public
   id<JavaxInjectProvider> providesApplicationProvider_;
+  id<JavaxInjectProvider> providesPartyDatabaseProvider_;
   id<JavaxInjectProvider> providesDataProvider_;
   id<JavaxInjectProvider> providesCrashReporterProvider_;
   id<JavaxInjectProvider> providesSchedulerTransformerProvider_;
@@ -39,6 +41,7 @@
 @end
 
 J2OBJC_FIELD_SETTER(PPDaggerDaggerComponent, providesApplicationProvider_, id<JavaxInjectProvider>)
+J2OBJC_FIELD_SETTER(PPDaggerDaggerComponent, providesPartyDatabaseProvider_, id<JavaxInjectProvider>)
 J2OBJC_FIELD_SETTER(PPDaggerDaggerComponent, providesDataProvider_, id<JavaxInjectProvider>)
 J2OBJC_FIELD_SETTER(PPDaggerDaggerComponent, providesCrashReporterProvider_, id<JavaxInjectProvider>)
 J2OBJC_FIELD_SETTER(PPDaggerDaggerComponent, providesSchedulerTransformerProvider_, id<JavaxInjectProvider>)
@@ -95,6 +98,7 @@ __attribute__((unused)) static PPDaggerDaggerComponent_Builder *create_PPDaggerD
 
 - (void)dealloc {
   RELEASE_(providesApplicationProvider_);
+  RELEASE_(providesPartyDatabaseProvider_);
   RELEASE_(providesDataProvider_);
   RELEASE_(providesCrashReporterProvider_);
   RELEASE_(providesSchedulerTransformerProvider_);
@@ -121,14 +125,15 @@ __attribute__((unused)) static PPDaggerDaggerComponent_Builder *create_PPDaggerD
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "providesApplicationProvider_", "LJavaxInjectProvider;", .constantValue.asLong = 0, 0x2, -1, -1, 5, -1 },
-    { "providesDataProvider_", "LJavaxInjectProvider;", .constantValue.asLong = 0, 0x2, -1, -1, 6, -1 },
-    { "providesCrashReporterProvider_", "LJavaxInjectProvider;", .constantValue.asLong = 0, 0x2, -1, -1, 7, -1 },
-    { "providesSchedulerTransformerProvider_", "LJavaxInjectProvider;", .constantValue.asLong = 0, 0x2, -1, -1, 8, -1 },
-    { "partyListPresenterMembersInjector_", "LDaggerMembersInjector;", .constantValue.asLong = 0, 0x2, -1, -1, 9, -1 },
-    { "partyPresenterMembersInjector_", "LDaggerMembersInjector;", .constantValue.asLong = 0, 0x2, -1, -1, 10, -1 },
+    { "providesPartyDatabaseProvider_", "LJavaxInjectProvider;", .constantValue.asLong = 0, 0x2, -1, -1, 6, -1 },
+    { "providesDataProvider_", "LJavaxInjectProvider;", .constantValue.asLong = 0, 0x2, -1, -1, 7, -1 },
+    { "providesCrashReporterProvider_", "LJavaxInjectProvider;", .constantValue.asLong = 0, 0x2, -1, -1, 8, -1 },
+    { "providesSchedulerTransformerProvider_", "LJavaxInjectProvider;", .constantValue.asLong = 0, 0x2, -1, -1, 9, -1 },
+    { "partyListPresenterMembersInjector_", "LDaggerMembersInjector;", .constantValue.asLong = 0, 0x2, -1, -1, 10, -1 },
+    { "partyPresenterMembersInjector_", "LDaggerMembersInjector;", .constantValue.asLong = 0, 0x2, -1, -1, 11, -1 },
   };
-  static const void *ptrTable[] = { "LPPDaggerDaggerComponent_Builder;", "initialize", "inject", "LPPPartyListPresenter;", "LPPPartyPresenter;", "Ljavax/inject/Provider<Landroid/app/Application;>;", "Ljavax/inject/Provider<Lcom/kgalligan/partyclicker/data/DataProvider;>;", "Ljavax/inject/Provider<Lcom/kgalligan/partyclicker/presenter/CrashReporter;>;", "Ljavax/inject/Provider<Lrx/Observable$Transformer;>;", "Ldagger/MembersInjector<Lcom/kgalligan/partyclicker/presenter/PartyListPresenter;>;", "Ldagger/MembersInjector<Lcom/kgalligan/partyclicker/presenter/PartyPresenter;>;" };
-  static const J2ObjcClassInfo _PPDaggerDaggerComponent = { "DaggerDaggerComponent", "com.kgalligan.partyclicker.presenter", ptrTable, methods, fields, 7, 0x11, 5, 6, -1, 0, -1, -1, -1 };
+  static const void *ptrTable[] = { "LPPDaggerDaggerComponent_Builder;", "initialize", "inject", "LPPPartyListPresenter;", "LPPPartyPresenter;", "Ljavax/inject/Provider<Landroid/app/Application;>;", "Ljavax/inject/Provider<Lcom/kgalligan/partyclicker/data/PartyDatabase;>;", "Ljavax/inject/Provider<Lcom/kgalligan/partyclicker/data/DataProvider;>;", "Ljavax/inject/Provider<Lcom/kgalligan/partyclicker/presenter/CrashReporter;>;", "Ljavax/inject/Provider<Lrx/Observable$Transformer;>;", "Ldagger/MembersInjector<Lcom/kgalligan/partyclicker/presenter/PartyListPresenter;>;", "Ldagger/MembersInjector<Lcom/kgalligan/partyclicker/presenter/PartyPresenter;>;" };
+  static const J2ObjcClassInfo _PPDaggerDaggerComponent = { "DaggerDaggerComponent", "com.kgalligan.partyclicker.presenter", ptrTable, methods, fields, 7, 0x11, 5, 7, -1, 0, -1, -1, -1 };
   return &_PPDaggerDaggerComponent;
 }
 
@@ -136,7 +141,7 @@ __attribute__((unused)) static PPDaggerDaggerComponent_Builder *create_PPDaggerD
 
 void PPDaggerDaggerComponent_initWithPPDaggerDaggerComponent_Builder_(PPDaggerDaggerComponent *self, PPDaggerDaggerComponent_Builder *builder) {
   NSObject_init(self);
-  JreAssert((builder != nil), (@"com/kgalligan/partyclicker/presenter/DaggerDaggerComponent.java:30 condition failed: assert builder != null;"));
+  JreAssert((builder != nil), (@"com/kgalligan/partyclicker/presenter/DaggerDaggerComponent.java:33 condition failed: assert builder != null;"));
   PPDaggerDaggerComponent_initialize__WithPPDaggerDaggerComponent_Builder_(self, builder);
 }
 
@@ -155,7 +160,8 @@ PPDaggerDaggerComponent_Builder *PPDaggerDaggerComponent_builder() {
 
 void PPDaggerDaggerComponent_initialize__WithPPDaggerDaggerComponent_Builder_(PPDaggerDaggerComponent *self, PPDaggerDaggerComponent_Builder *builder) {
   JreStrongAssign(&self->providesApplicationProvider_, DaggerInternalDoubleCheck_providerWithJavaxInjectProvider_(PPAppModule_ProvidesApplicationFactory_createWithPPAppModule_(((PPDaggerDaggerComponent_Builder *) nil_chk(builder))->appModule_)));
-  JreStrongAssign(&self->providesDataProvider_, DaggerInternalDoubleCheck_providerWithJavaxInjectProvider_(PPAppModule_ProvidesDataProviderFactory_createWithPPAppModule_withJavaxInjectProvider_(builder->appModule_, self->providesApplicationProvider_)));
+  JreStrongAssign(&self->providesPartyDatabaseProvider_, DaggerInternalDoubleCheck_providerWithJavaxInjectProvider_(PPAppModule_ProvidesPartyDatabaseFactory_createWithPPAppModule_withJavaxInjectProvider_(builder->appModule_, self->providesApplicationProvider_)));
+  JreStrongAssign(&self->providesDataProvider_, DaggerInternalDoubleCheck_providerWithJavaxInjectProvider_(PPAppModule_ProvidesDataProviderFactory_createWithPPAppModule_withJavaxInjectProvider_(builder->appModule_, self->providesPartyDatabaseProvider_)));
   JreStrongAssign(&self->providesCrashReporterProvider_, DaggerInternalDoubleCheck_providerWithJavaxInjectProvider_(PPAppModule_ProvidesCrashReporterFactory_createWithPPAppModule_(builder->appModule_)));
   JreStrongAssign(&self->providesSchedulerTransformerProvider_, DaggerInternalDoubleCheck_providerWithJavaxInjectProvider_(PPAppModule_ProvidesSchedulerTransformerFactory_createWithPPAppModule_(builder->appModule_)));
   JreStrongAssign(&self->partyListPresenterMembersInjector_, PPPartyListPresenter_MembersInjector_createWithJavaxInjectProvider_withJavaxInjectProvider_withJavaxInjectProvider_(self->providesDataProvider_, self->providesCrashReporterProvider_, self->providesSchedulerTransformerProvider_));

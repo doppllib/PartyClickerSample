@@ -16,6 +16,7 @@
 #define PPAppModule_
 
 @class AndroidAppApplication;
+@class PDPartyDatabase;
 @protocol PDDataProvider;
 @protocol PPCrashReporter;
 @protocol RxObservable_Transformer;
@@ -33,7 +34,9 @@
 
 - (id<PPCrashReporter>)providesCrashReporter;
 
-- (id<PDDataProvider>)providesDataProviderWithAndroidAppApplication:(AndroidAppApplication *)application;
+- (id<PDDataProvider>)providesDataProviderWithPDPartyDatabase:(PDPartyDatabase *)partyDatabase;
+
+- (PDPartyDatabase *)providesPartyDatabaseWithAndroidAppApplication:(AndroidAppApplication *)application;
 
 - (id<RxObservable_Transformer>)providesSchedulerTransformer;
 

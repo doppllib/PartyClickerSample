@@ -28,10 +28,10 @@
 #pragma mark Public
 
 - (instancetype)initWithPPAppModule:(PPAppModule *)module
-            withJavaxInjectProvider:(id<JavaxInjectProvider>)applicationProvider;
+            withJavaxInjectProvider:(id<JavaxInjectProvider>)partyDatabaseProvider;
 
 + (id<DaggerInternalFactory>)createWithPPAppModule:(PPAppModule *)module
-                           withJavaxInjectProvider:(id<JavaxInjectProvider>)applicationProvider;
+                           withJavaxInjectProvider:(id<JavaxInjectProvider>)partyDatabaseProvider;
 
 - (id<PDDataProvider>)get;
 
@@ -39,13 +39,13 @@
 
 J2OBJC_EMPTY_STATIC_INIT(PPAppModule_ProvidesDataProviderFactory)
 
-FOUNDATION_EXPORT void PPAppModule_ProvidesDataProviderFactory_initWithPPAppModule_withJavaxInjectProvider_(PPAppModule_ProvidesDataProviderFactory *self, PPAppModule *module, id<JavaxInjectProvider> applicationProvider);
+FOUNDATION_EXPORT void PPAppModule_ProvidesDataProviderFactory_initWithPPAppModule_withJavaxInjectProvider_(PPAppModule_ProvidesDataProviderFactory *self, PPAppModule *module, id<JavaxInjectProvider> partyDatabaseProvider);
 
-FOUNDATION_EXPORT PPAppModule_ProvidesDataProviderFactory *new_PPAppModule_ProvidesDataProviderFactory_initWithPPAppModule_withJavaxInjectProvider_(PPAppModule *module, id<JavaxInjectProvider> applicationProvider) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT PPAppModule_ProvidesDataProviderFactory *new_PPAppModule_ProvidesDataProviderFactory_initWithPPAppModule_withJavaxInjectProvider_(PPAppModule *module, id<JavaxInjectProvider> partyDatabaseProvider) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT PPAppModule_ProvidesDataProviderFactory *create_PPAppModule_ProvidesDataProviderFactory_initWithPPAppModule_withJavaxInjectProvider_(PPAppModule *module, id<JavaxInjectProvider> applicationProvider);
+FOUNDATION_EXPORT PPAppModule_ProvidesDataProviderFactory *create_PPAppModule_ProvidesDataProviderFactory_initWithPPAppModule_withJavaxInjectProvider_(PPAppModule *module, id<JavaxInjectProvider> partyDatabaseProvider);
 
-FOUNDATION_EXPORT id<DaggerInternalFactory> PPAppModule_ProvidesDataProviderFactory_createWithPPAppModule_withJavaxInjectProvider_(PPAppModule *module, id<JavaxInjectProvider> applicationProvider);
+FOUNDATION_EXPORT id<DaggerInternalFactory> PPAppModule_ProvidesDataProviderFactory_createWithPPAppModule_withJavaxInjectProvider_(PPAppModule *module, id<JavaxInjectProvider> partyDatabaseProvider);
 
 J2OBJC_TYPE_LITERAL_HEADER(PPAppModule_ProvidesDataProviderFactory)
 

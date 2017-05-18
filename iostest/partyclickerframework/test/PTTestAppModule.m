@@ -3,6 +3,8 @@
 //
 
 #include "AndroidAppApplication.h"
+#include "AndroidArchPersistenceRoomRoom.h"
+#include "AndroidArchPersistenceRoomRoomDatabase.h"
 #include "CoTouchlabDopplTestingDopplRuntimeEnvironment.h"
 #include "DaggerModule.h"
 #include "DaggerProvides.h"
@@ -11,6 +13,7 @@
 #include "J2ObjC_source.h"
 #include "PDDataProvider.h"
 #include "PDDatabaseHelper.h"
+#include "PDPartyDatabase.h"
 #include "PPCrashReporter.h"
 #include "PPLogCrashReporter.h"
 #include "PTTestAppModule.h"
@@ -32,6 +35,8 @@ __attribute__((unused)) static IOSObjectArray *PTTestAppModule__Annotations$2();
 __attribute__((unused)) static IOSObjectArray *PTTestAppModule__Annotations$3();
 
 __attribute__((unused)) static IOSObjectArray *PTTestAppModule__Annotations$4();
+
+__attribute__((unused)) static IOSObjectArray *PTTestAppModule__Annotations$5();
 
 @interface PTTestAppModule_$Lambda$1 : NSObject < RxObservable_Transformer >
 
@@ -64,8 +69,12 @@ J2OBJC_IGNORE_DESIGNATED_END
   return CoTouchlabDopplTestingDopplRuntimeEnvironment_getApplication();
 }
 
-- (id<PDDataProvider>)providesDataProviderWithAndroidAppApplication:(AndroidAppApplication *)application {
-  return create_PDDatabaseHelper_initWithAndroidContentContext_(application);
+- (id<PDDataProvider>)providesDataProviderWithPDPartyDatabase:(PDPartyDatabase *)partyDatabase {
+  return create_PDDatabaseHelper_initWithPDPartyDatabase_(partyDatabase);
+}
+
+- (PDPartyDatabase *)providesPartyDatabaseWithAndroidAppApplication:(AndroidAppApplication *)application {
+  return ((PDPartyDatabase *) [((AndroidArchPersistenceRoomRoomDatabase_Builder *) nil_chk([((AndroidArchPersistenceRoomRoomDatabase_Builder *) nil_chk(AndroidArchPersistenceRoomRoom_databaseBuilderWithAndroidContentContext_withIOSClass_withNSString_(application, PDPartyDatabase_class_(), @"hmm"))) allowMainThreadQueries])) build]);
 }
 
 - (id<PPCrashReporter>)providesCrashReporter {
@@ -81,19 +90,21 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LAndroidAppApplication;", 0x0, -1, -1, -1, -1, 0, -1 },
     { NULL, "LPDDataProvider;", 0x0, 1, 2, -1, -1, 3, -1 },
-    { NULL, "LPPCrashReporter;", 0x0, -1, -1, -1, -1, 4, -1 },
-    { NULL, "LRxObservable_Transformer;", 0x0, -1, -1, -1, -1, 5, -1 },
+    { NULL, "LPDPartyDatabase;", 0x0, 4, 5, -1, -1, 6, -1 },
+    { NULL, "LPPCrashReporter;", 0x0, -1, -1, -1, -1, 7, -1 },
+    { NULL, "LRxObservable_Transformer;", 0x0, -1, -1, -1, -1, 8, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(providesApplication);
-  methods[2].selector = @selector(providesDataProviderWithAndroidAppApplication:);
-  methods[3].selector = @selector(providesCrashReporter);
-  methods[4].selector = @selector(providesSchedulerTransformer);
+  methods[2].selector = @selector(providesDataProviderWithPDPartyDatabase:);
+  methods[3].selector = @selector(providesPartyDatabaseWithAndroidAppApplication:);
+  methods[4].selector = @selector(providesCrashReporter);
+  methods[5].selector = @selector(providesSchedulerTransformer);
   #pragma clang diagnostic pop
-  static const void *ptrTable[] = { (void *)&PTTestAppModule__Annotations$0, "providesDataProvider", "LAndroidAppApplication;", (void *)&PTTestAppModule__Annotations$1, (void *)&PTTestAppModule__Annotations$2, (void *)&PTTestAppModule__Annotations$3, (void *)&PTTestAppModule__Annotations$4 };
-  static const J2ObjcClassInfo _PTTestAppModule = { "TestAppModule", "com.kgalligan.partyclicker.test", ptrTable, methods, NULL, 7, 0x1, 5, 0, -1, -1, -1, -1, 6 };
+  static const void *ptrTable[] = { (void *)&PTTestAppModule__Annotations$0, "providesDataProvider", "LPDPartyDatabase;", (void *)&PTTestAppModule__Annotations$1, "providesPartyDatabase", "LAndroidAppApplication;", (void *)&PTTestAppModule__Annotations$2, (void *)&PTTestAppModule__Annotations$3, (void *)&PTTestAppModule__Annotations$4, (void *)&PTTestAppModule__Annotations$5 };
+  static const J2ObjcClassInfo _PTTestAppModule = { "TestAppModule", "com.kgalligan.partyclicker.test", ptrTable, methods, NULL, 7, 0x1, 6, 0, -1, -1, -1, -1, 9 };
   return &_PTTestAppModule;
 }
 
@@ -128,6 +139,10 @@ IOSObjectArray *PTTestAppModule__Annotations$3() {
 }
 
 IOSObjectArray *PTTestAppModule__Annotations$4() {
+  return [IOSObjectArray arrayWithObjects:(id[]){ create_DaggerProvides(JreLoadEnum(DaggerProvides_Type, UNIQUE)), create_JavaxInjectSingleton() } count:2 type:JavaLangAnnotationAnnotation_class_()];
+}
+
+IOSObjectArray *PTTestAppModule__Annotations$5() {
   return [IOSObjectArray arrayWithObjects:(id[]){ create_DaggerModule([IOSObjectArray arrayWithLength:0 type:IOSClass_class_()]) } count:1 type:JavaLangAnnotationAnnotation_class_()];
 }
 

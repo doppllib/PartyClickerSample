@@ -279,7 +279,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (jint)countPeopleWithPDParty:(PDParty *)party {
-  return [((id<PDDataProvider>) nil_chk(databaseHelper_)) countCurrentPartyWithInt:((PDParty *) nil_chk(party))->id__];
+  return [((id<PDDataProvider>) nil_chk(databaseHelper_)) countCurrentPartyWithInt:[((PDParty *) nil_chk(party)) getId]];
 }
 
 - (id<JavaUtilList>)allPeopleWithPDParty:(PDParty *)party {

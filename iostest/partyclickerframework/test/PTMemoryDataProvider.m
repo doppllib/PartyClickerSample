@@ -27,16 +27,16 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (PDParty *)loadPartyWithInt:(jint)id_ {
   for (PDParty * __strong party in nil_chk(parties_)) {
-    if (((PDParty *) nil_chk(party))->id__ == id_) return party;
+    if ([((PDParty *) nil_chk(party)) getId] == id_) return party;
   }
   return nil;
 }
 
 - (PDParty *)createPartyWithNSString:(NSString *)name {
   PDParty *party = create_PTMemoryDataProvider_MemParty_init();
-  JreStrongAssignAndConsume(&party->created_, new_JavaUtilDate_init());
-  JreStrongAssign(&party->name_, name);
-  party->id__ = idCounter_++;
+  [party setCreatedWithJavaUtilDate:create_JavaUtilDate_init()];
+  [party setNameWithNSString:name];
+  [party setIdWithInt:idCounter_++];
   [((id<JavaUtilList>) nil_chk(parties_)) addWithId:party];
   return party;
 }
@@ -45,19 +45,19 @@ J2OBJC_IGNORE_DESIGNATED_END
   id<JavaUtilIterator> iterator = [((id<JavaUtilList>) nil_chk(parties_)) iterator];
   while ([((id<JavaUtilIterator>) nil_chk(iterator)) hasNext]) {
     PDParty *next = [iterator next];
-    if (((PDParty *) nil_chk(party))->id__ == ((PDParty *) nil_chk(next))->id__) {
+    if ([((PDParty *) nil_chk(party)) getId] == [((PDParty *) nil_chk(next)) getId]) {
       [iterator remove];
       return;
     }
   }
-  @throw create_JavaLangRuntimeException_initWithNSString_(JreStrcat("$I$", @"Party ", ((PDParty *) nil_chk(party))->id__, @" not found"));
+  @throw create_JavaLangRuntimeException_initWithNSString_(JreStrcat("$I$", @"Party ", [((PDParty *) nil_chk(party)) getId], @" not found"));
 }
 
 - (jint)countCurrentPartyWithInt:(jint)id_ {
   PTMemoryDataProvider_MemParty *party = (PTMemoryDataProvider_MemParty *) cast_chk([self loadPartyWithInt:id_], [PTMemoryDataProvider_MemParty class]);
   jint sum = 0;
   for (PDPerson * __strong person in nil_chk(((PTMemoryDataProvider_MemParty *) nil_chk(party))->people_)) {
-    sum += ((PDPerson *) nil_chk(person))->val_;
+    sum += [((PDPerson *) nil_chk(person)) getVal];
   }
   return sum;
 }
@@ -69,9 +69,9 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)addPersonWithPDParty:(PDParty *)party
                  withBoolean:(jboolean)coming {
   PDPerson *person = create_PDPerson_init();
-  person->val_ = (jshort) (coming ? 1 : -1);
-  JreStrongAssignAndConsume(&person->recorded_, new_JavaUtilDate_init());
-  person->id__ = idCounter_++;
+  [person setValWithShort:(jshort) (coming ? 1 : -1)];
+  [person setRecordedWithJavaUtilDate:create_JavaUtilDate_init()];
+  [person setIdWithInt:idCounter_++];
   [((id<JavaUtilList>) nil_chk(((PTMemoryDataProvider_MemParty *) nil_chk(((PTMemoryDataProvider_MemParty *) cast_chk(party, [PTMemoryDataProvider_MemParty class]))))->people_)) addWithId:person];
 }
 

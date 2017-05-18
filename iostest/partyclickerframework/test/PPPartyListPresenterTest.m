@@ -75,7 +75,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)callParty {
   PDParty *hello = [((id<PDDataProvider>) nil_chk(dataProvider_)) createPartyWithNSString:@"hello"];
-  [((PPPartyListPresenter *) nil_chk(partyListPresenter_)) callPartyWithInt:((PDParty *) nil_chk(hello))->id__];
+  [((PPPartyListPresenter *) nil_chk(partyListPresenter_)) callPartyWithInt:[((PDParty *) nil_chk(hello)) getId]];
   [((id<PPPartyListPresenter_UiInterface>) nil_chk(OrgMockitoMockito_verifyWithId_(uiInterface_))) showPartyWithPDParty:hello];
 }
 
@@ -84,7 +84,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   [((id<PDDataProvider>) nil_chk(dataProvider_)) createPartyWithNSString:@"not a stone groove"];
   [((PPPartyListPresenter *) nil_chk(partyListPresenter_)) createPartyWithNSString:@"a stone groove"];
   [((id<PPPartyListPresenter_UiInterface>) nil_chk(OrgMockitoMockito_verifyWithId_(uiInterface_))) showPartyWithPDParty:[((OrgMockitoArgumentCaptor *) nil_chk(captor)) capture]];
-  OrgJunitAssert_assertEqualsWithId_withId_(((PDParty *) nil_chk([captor getValue]))->name_, @"a stone groove");
+  OrgJunitAssert_assertEqualsWithId_withId_([((PDParty *) nil_chk([captor getValue])) getName], @"a stone groove");
 }
 
 - (void)deleteParty {
@@ -92,7 +92,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   [((id<PDDataProvider>) nil_chk(dataProvider_)) createPartyWithNSString:@"b"];
   PDParty *party = [((id<PDDataProvider>) nil_chk(dataProvider_)) createPartyWithNSString:@"c"];
   [((id<PDDataProvider>) nil_chk(dataProvider_)) createPartyWithNSString:@"d"];
-  [((PPPartyListPresenter *) nil_chk(partyListPresenter_)) deletePartyWithInt:((PDParty *) nil_chk(party))->id__];
+  [((PPPartyListPresenter *) nil_chk(partyListPresenter_)) deletePartyWithInt:[((PDParty *) nil_chk(party)) getId]];
   OrgJunitAssert_assertEqualsWithLong_withLong_(3, [((id<JavaUtilList>) nil_chk([((id<PDDataProvider>) nil_chk(dataProvider_)) allParties])) size]);
 }
 
@@ -122,7 +122,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   for (PDPerson * __strong person in nil_chk(personList)) {
     jboolean found = true;
     for (PDPerson * __strong memPerson in nil_chk(memPersonLIst)) {
-      if (((PDPerson *) nil_chk(person))->id__ == ((PDPerson *) nil_chk(memPerson))->id__) {
+      if ([((PDPerson *) nil_chk(person)) getId] == [((PDPerson *) nil_chk(memPerson)) getId]) {
         found = true;
         break;
       }

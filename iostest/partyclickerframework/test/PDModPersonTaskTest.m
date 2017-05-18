@@ -45,7 +45,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   [create_PDModPersonTask_initWithPDParty_withBoolean_withPDDataProvider_(party, true, dataProvider_) run];
   [create_PDModPersonTask_initWithPDParty_withBoolean_withPDDataProvider_(party, false, dataProvider_) run];
   [create_PDModPersonTask_initWithPDParty_withBoolean_withPDDataProvider_(party, true, dataProvider_) run];
-  OrgJunitAssert_assertEqualsWithLong_withLong_([((id<PDDataProvider>) nil_chk(dataProvider_)) countCurrentPartyWithInt:((PDParty *) nil_chk(party))->id__], 3);
+  OrgJunitAssert_assertEqualsWithLong_withLong_([((id<PDDataProvider>) nil_chk(dataProvider_)) countCurrentPartyWithInt:[((PDParty *) nil_chk(party)) getId]], 3);
 }
 
 - (void)dealloc {

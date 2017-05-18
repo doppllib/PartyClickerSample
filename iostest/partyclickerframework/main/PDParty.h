@@ -20,8 +20,6 @@
 @interface PDParty : NSObject {
  @public
   jint id__;
-  NSString *name_;
-  JavaUtilDate *created_;
 }
 
 #pragma mark Public
@@ -36,14 +34,17 @@
 
 - (NSString *)getName;
 
+- (void)setCreatedWithJavaUtilDate:(JavaUtilDate *)created;
+
+- (void)setIdWithInt:(jint)id_;
+
+- (void)setNameWithNSString:(NSString *)name;
+
 - (NSString *)description;
 
 @end
 
 J2OBJC_STATIC_INIT(PDParty)
-
-J2OBJC_FIELD_SETTER(PDParty, name_, NSString *)
-J2OBJC_FIELD_SETTER(PDParty, created_, JavaUtilDate *)
 
 FOUNDATION_EXPORT void PDParty_init(PDParty *self);
 

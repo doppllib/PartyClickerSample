@@ -15,12 +15,12 @@
 #if !defined (PDDatabaseHelperTest_) && (INCLUDE_ALL_PDDatabaseHelperTest || defined(INCLUDE_PDDatabaseHelperTest))
 #define PDDatabaseHelperTest_
 
-@class AndroidAppApplication;
 @class PDDatabaseHelper;
+@class PDPartyDatabase;
 
 @interface PDDatabaseHelperTest : NSObject {
  @public
-  AndroidAppApplication *application_;
+  PDPartyDatabase *partyDatabase_;
   PDDatabaseHelper *databaseHelper_;
 }
 
@@ -48,7 +48,7 @@
 
 J2OBJC_EMPTY_STATIC_INIT(PDDatabaseHelperTest)
 
-J2OBJC_FIELD_SETTER(PDDatabaseHelperTest, application_, AndroidAppApplication *)
+J2OBJC_FIELD_SETTER(PDDatabaseHelperTest, partyDatabase_, PDPartyDatabase *)
 J2OBJC_FIELD_SETTER(PDDatabaseHelperTest, databaseHelper_, PDDatabaseHelper *)
 
 FOUNDATION_EXPORT void PDDatabaseHelperTest_init(PDDatabaseHelperTest *self);
