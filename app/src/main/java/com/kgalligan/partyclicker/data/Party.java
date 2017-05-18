@@ -1,30 +1,27 @@
 package com.kgalligan.partyclicker.data;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import co.touchlab.squeaky.field.DataType;
-import co.touchlab.squeaky.field.DatabaseField;
-import co.touchlab.squeaky.table.DatabaseTable;
-
 /**
  * Created by kgalligan on 1/5/17.
  */
-@DatabaseTable
+@Entity
 public class Party
 {
     private static final SimpleDateFormat timeFormat = new SimpleDateFormat("MM/dd/yyyy hh:MM a");
     private static final DateFormat       standardDateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
     private static final DateFormat       standardTimeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
 
-    @DatabaseField(generatedId = true)
+    @PrimaryKey(autoGenerate = true)
     public int id;
 
-    @DatabaseField
-    public String name;
+    private String name;
 
-    @DatabaseField(dataType = DataType.DATE_LONG)
-    public Date created;
+    private Date created;
 
     public String dateString()
     {
@@ -50,5 +47,20 @@ public class Party
     public Date getCreated()
     {
         return created;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public void setCreated(Date created)
+    {
+        this.created = created;
     }
 }

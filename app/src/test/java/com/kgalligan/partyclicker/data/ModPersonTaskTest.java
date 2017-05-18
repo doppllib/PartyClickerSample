@@ -40,6 +40,6 @@ public class ModPersonTaskTest
         new ModPersonTask(party, false, dataProvider).run();
         new ModPersonTask(party, true, dataProvider).run();
 
-        assertEquals(dataProvider.countCurrentParty(party.id), 3);
+        assertEquals(dataProvider.countCurrentParty(party.getId()), 3);
     }
 }

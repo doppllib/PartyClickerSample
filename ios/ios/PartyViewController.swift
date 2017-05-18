@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import JRE
 
 class PartyViewController: UIViewController, PPPartyPresenter_UiInterface{
     

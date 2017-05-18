@@ -33,7 +33,7 @@ public class MemoryDataProvider implements DataProvider
     {
         for(Party party : parties)
         {
-            if(party.id == id)
+            if(party.getId() == id)
                 return party;
         }
         return null;
@@ -44,10 +44,10 @@ public class MemoryDataProvider implements DataProvider
     {
 
         Party party = new MemParty();
-        party.created = new Date();
-        party.name = name;
+        party.setCreated(new Date());
+        party.setName(name);
 
-        party.id = idCounter++;
+        party.setId(idCounter++);
 
         parties.add(party);
 
@@ -61,14 +61,14 @@ public class MemoryDataProvider implements DataProvider
         while(iterator.hasNext())
         {
             Party next = iterator.next();
-            if(party.id == next.id)
+            if(party.getId() == next.getId())
             {
                 iterator.remove();
                 return;
             }
         }
 
-        throw new RuntimeException("Party "+ party.id +" not found");
+        throw new RuntimeException("Party "+ party.getId() +" not found");
     }
 
     @Override
@@ -78,7 +78,7 @@ public class MemoryDataProvider implements DataProvider
         int sum = 0;
         for(Person person : party.people)
         {
-            sum += person.val;
+            sum += person.getVal();
         }
         return sum;
     }
@@ -93,9 +93,9 @@ public class MemoryDataProvider implements DataProvider
     public void addPerson(Party party, boolean coming)
     {
         Person person = new Person();
-        person.val = (short)(coming ? 1 : -1);
-        person.recorded = new Date();
-        person.id = idCounter++;
+        person.setVal((short)(coming ? 1 : -1));
+        person.setRecorded(new Date());
+        person.setId(idCounter++);
         ((MemParty)party).people.add(person);
     }
 }

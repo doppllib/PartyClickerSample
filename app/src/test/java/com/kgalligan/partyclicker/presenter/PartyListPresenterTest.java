@@ -57,7 +57,7 @@ public class PartyListPresenterTest
     public void callParty() throws Exception
     {
         Party hello = dataProvider.createParty("hello");
-        partyListPresenter.callParty(hello.id);
+        partyListPresenter.callParty(hello.getId());
         verify(uiInterface).showParty(hello);
     }
 
@@ -69,7 +69,7 @@ public class PartyListPresenterTest
         partyListPresenter.createParty("a stone groove");
         verify(uiInterface).showParty(captor.capture());
 
-        assertEquals(captor.getValue().name, "a stone groove");
+        assertEquals(captor.getValue().getName(), "a stone groove");
     }
 
     @Test
@@ -80,7 +80,7 @@ public class PartyListPresenterTest
         Party party = dataProvider.createParty("c");
         dataProvider.createParty("d");
 
-        partyListPresenter.deleteParty(party.id);
+        partyListPresenter.deleteParty(party.getId());
 
         assertEquals(3, dataProvider.allParties().size());
     }
@@ -124,7 +124,7 @@ public class PartyListPresenterTest
             boolean found = true;
             for(Person memPerson : memPersonLIst)
             {
-                if(person.id == memPerson.id)
+                if(person.getId() == memPerson.getId())
                 {
                     found = true;
                     break;

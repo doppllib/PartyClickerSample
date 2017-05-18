@@ -44,7 +44,7 @@ public class PartyListActivity extends AppCompatActivity implements PartyListPre
         partyListView.setOnItemClickListener((parent, view, position, id) ->
         {
             Party party = (Party) partyListView.getAdapter().getItem(position);
-            presenter.callParty(party.id);
+            presenter.callParty(party.getId());
         });
     }
 
@@ -85,6 +85,6 @@ public class PartyListActivity extends AppCompatActivity implements PartyListPre
     @Override
     public void showParty(Party party)
     {
-        PartyActivity.callMe(PartyListActivity.this, party.id);
+        PartyActivity.callMe(PartyListActivity.this, party.getId());
     }
 }

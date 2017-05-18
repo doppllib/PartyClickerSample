@@ -1,8 +1,10 @@
 package com.kgalligan.partyclicker.test;
 import android.app.Application;
+import android.arch.persistence.room.Room;
 
 import com.kgalligan.partyclicker.data.DataProvider;
 import com.kgalligan.partyclicker.data.DatabaseHelper;
+import com.kgalligan.partyclicker.data.PartyDatabase;
 import com.kgalligan.partyclicker.presenter.CrashReporter;
 import com.kgalligan.partyclicker.presenter.LogCrashReporter;
 
@@ -30,9 +32,16 @@ public class TestAppModule
 
     @Provides
     @Singleton
-    DataProvider providesDataProvider(Application application)
+    DataProvider providesDataProvider(PartyDatabase partyDatabase)
     {
-        return new DatabaseHelper(application);
+        return new DatabaseHelper(partyDatabase);
+    }
+
+    @Provides
+    @Singleton
+    PartyDatabase providesPartyDatabase(Application application)
+    {
+        return Room.databaseBuilder(application, PartyDatabase.class, "hmm").allowMainThreadQueries().build();
     }
 
     @Provides

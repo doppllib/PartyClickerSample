@@ -115,7 +115,7 @@ public class PartyListPresenter
 
     public int countPeople(Party party)
     {
-        return databaseHelper.countCurrentParty(party.id);
+        return databaseHelper.countCurrentParty(party.getId());
     }
 
     public List<Person> allPeople(Party party)
