@@ -34,7 +34,7 @@ dependencies {
     apt 'co.touchlab.squeaky:squeaky-processor:0.5.0'
     testApt 'co.touchlab.squeaky:squeaky-processor:0.5.0'
 
-    doppl 'co.touchlab.doppl:androidbase:0.6.1-SNAPSHOT:doppl'
+    doppl 'co.touchlab.doppl:androidbase:0.7.0-SNAPSHOT:doppl'
     doppl 'co.touchlab.squeaky:squeaky-core:0.5.0.7:doppl'
     doppl 'co.touchlab.squeaky:squeaky-query:0.5.0.7:doppl'
 
