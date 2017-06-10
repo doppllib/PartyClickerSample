@@ -377,6 +377,14 @@ id RxInternalOperatorsOnSubscribeCombineLatest_LatestCoordinator_MISSING;
   }
 }
 
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
+}
+
 - (void)dealloc {
   RELEASE_(actual_);
   RELEASE_(combiner_);

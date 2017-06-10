@@ -67,6 +67,10 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeFromIterable)
 
 #pragma mark Public
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 - (void)requestWithLong:(jlong)n;
 
 #pragma mark Package-Private

@@ -9,6 +9,7 @@
 #include "AndroidDatabaseSqliteSQLiteSession.h"
 #include "AndroidDatabaseSqliteSQLiteStatementInfo.h"
 #include "AndroidDatabaseSqliteSQLiteTransactionListener.h"
+#include "AndroidOsCancellationSignal.h"
 #include "IOSObjectArray.h"
 #include "J2ObjC_source.h"
 #include "java/lang/IllegalArgumentException.h"
@@ -31,18 +32,23 @@
 
 - (void)beginTransactionUncheckedWithInt:(jint)transactionMode
 withAndroidDatabaseSqliteSQLiteTransactionListener:(id<AndroidDatabaseSqliteSQLiteTransactionListener>)transactionListener
-                                 withInt:(jint)connectionFlags;
+                                 withInt:(jint)connectionFlags
+         withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal;
 
-- (void)endTransactionUncheckedWithBoolean:(jboolean)yielding;
+- (void)endTransactionUncheckedWithAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal
+                                                   withBoolean:(jboolean)yielding;
 
-- (jboolean)yieldTransactionUncheckedWithLong:(jlong)sleepAfterYieldDelayMillis;
+- (jboolean)yieldTransactionUncheckedWithLong:(jlong)sleepAfterYieldDelayMillis
+              withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal;
 
 - (jboolean)executeSpecialWithNSString:(NSString *)sql
                      withNSObjectArray:(IOSObjectArray *)bindArgs
-                               withInt:(jint)connectionFlags;
+                               withInt:(jint)connectionFlags
+       withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal;
 
 - (void)acquireConnectionWithNSString:(NSString *)sql
-                              withInt:(jint)connectionFlags;
+                              withInt:(jint)connectionFlags
+      withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal;
 
 - (void)releaseConnection;
 
@@ -64,15 +70,15 @@ J2OBJC_FIELD_SETTER(AndroidDatabaseSqliteSQLiteSession, mConnection_, AndroidDat
 J2OBJC_FIELD_SETTER(AndroidDatabaseSqliteSQLiteSession, mTransactionPool_, AndroidDatabaseSqliteSQLiteSession_Transaction *)
 J2OBJC_FIELD_SETTER(AndroidDatabaseSqliteSQLiteSession, mTransactionStack_, AndroidDatabaseSqliteSQLiteSession_Transaction *)
 
-__attribute__((unused)) static void AndroidDatabaseSqliteSQLiteSession_beginTransactionUncheckedWithInt_withAndroidDatabaseSqliteSQLiteTransactionListener_withInt_(AndroidDatabaseSqliteSQLiteSession *self, jint transactionMode, id<AndroidDatabaseSqliteSQLiteTransactionListener> transactionListener, jint connectionFlags);
+__attribute__((unused)) static void AndroidDatabaseSqliteSQLiteSession_beginTransactionUncheckedWithInt_withAndroidDatabaseSqliteSQLiteTransactionListener_withInt_withAndroidOsCancellationSignal_(AndroidDatabaseSqliteSQLiteSession *self, jint transactionMode, id<AndroidDatabaseSqliteSQLiteTransactionListener> transactionListener, jint connectionFlags, AndroidOsCancellationSignal *cancellationSignal);
 
-__attribute__((unused)) static void AndroidDatabaseSqliteSQLiteSession_endTransactionUncheckedWithBoolean_(AndroidDatabaseSqliteSQLiteSession *self, jboolean yielding);
+__attribute__((unused)) static void AndroidDatabaseSqliteSQLiteSession_endTransactionUncheckedWithAndroidOsCancellationSignal_withBoolean_(AndroidDatabaseSqliteSQLiteSession *self, AndroidOsCancellationSignal *cancellationSignal, jboolean yielding);
 
-__attribute__((unused)) static jboolean AndroidDatabaseSqliteSQLiteSession_yieldTransactionUncheckedWithLong_(AndroidDatabaseSqliteSQLiteSession *self, jlong sleepAfterYieldDelayMillis);
+__attribute__((unused)) static jboolean AndroidDatabaseSqliteSQLiteSession_yieldTransactionUncheckedWithLong_withAndroidOsCancellationSignal_(AndroidDatabaseSqliteSQLiteSession *self, jlong sleepAfterYieldDelayMillis, AndroidOsCancellationSignal *cancellationSignal);
 
-__attribute__((unused)) static jboolean AndroidDatabaseSqliteSQLiteSession_executeSpecialWithNSString_withNSObjectArray_withInt_(AndroidDatabaseSqliteSQLiteSession *self, NSString *sql, IOSObjectArray *bindArgs, jint connectionFlags);
+__attribute__((unused)) static jboolean AndroidDatabaseSqliteSQLiteSession_executeSpecialWithNSString_withNSObjectArray_withInt_withAndroidOsCancellationSignal_(AndroidDatabaseSqliteSQLiteSession *self, NSString *sql, IOSObjectArray *bindArgs, jint connectionFlags, AndroidOsCancellationSignal *cancellationSignal);
 
-__attribute__((unused)) static void AndroidDatabaseSqliteSQLiteSession_acquireConnectionWithNSString_withInt_(AndroidDatabaseSqliteSQLiteSession *self, NSString *sql, jint connectionFlags);
+__attribute__((unused)) static void AndroidDatabaseSqliteSQLiteSession_acquireConnectionWithNSString_withInt_withAndroidOsCancellationSignal_(AndroidDatabaseSqliteSQLiteSession *self, NSString *sql, jint connectionFlags, AndroidOsCancellationSignal *cancellationSignal);
 
 __attribute__((unused)) static void AndroidDatabaseSqliteSQLiteSession_releaseConnection(AndroidDatabaseSqliteSQLiteSession *self);
 
@@ -133,15 +139,17 @@ J2OBJC_TYPE_LITERAL_HEADER(AndroidDatabaseSqliteSQLiteSession_Transaction)
 
 - (void)beginTransactionWithInt:(jint)transactionMode
 withAndroidDatabaseSqliteSQLiteTransactionListener:(id<AndroidDatabaseSqliteSQLiteTransactionListener>)transactionListener
-                        withInt:(jint)connectionFlags {
+                        withInt:(jint)connectionFlags
+withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
   AndroidDatabaseSqliteSQLiteSession_throwIfTransactionMarkedSuccessful(self);
-  AndroidDatabaseSqliteSQLiteSession_beginTransactionUncheckedWithInt_withAndroidDatabaseSqliteSQLiteTransactionListener_withInt_(self, transactionMode, transactionListener, connectionFlags);
+  AndroidDatabaseSqliteSQLiteSession_beginTransactionUncheckedWithInt_withAndroidDatabaseSqliteSQLiteTransactionListener_withInt_withAndroidOsCancellationSignal_(self, transactionMode, transactionListener, connectionFlags, cancellationSignal);
 }
 
 - (void)beginTransactionUncheckedWithInt:(jint)transactionMode
 withAndroidDatabaseSqliteSQLiteTransactionListener:(id<AndroidDatabaseSqliteSQLiteTransactionListener>)transactionListener
-                                 withInt:(jint)connectionFlags {
-  AndroidDatabaseSqliteSQLiteSession_beginTransactionUncheckedWithInt_withAndroidDatabaseSqliteSQLiteTransactionListener_withInt_(self, transactionMode, transactionListener, connectionFlags);
+                                 withInt:(jint)connectionFlags
+         withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
+  AndroidDatabaseSqliteSQLiteSession_beginTransactionUncheckedWithInt_withAndroidDatabaseSqliteSQLiteTransactionListener_withInt_withAndroidOsCancellationSignal_(self, transactionMode, transactionListener, connectionFlags, cancellationSignal);
 }
 
 - (void)setTransactionSuccessful {
@@ -150,18 +158,20 @@ withAndroidDatabaseSqliteSQLiteTransactionListener:(id<AndroidDatabaseSqliteSQLi
   ((AndroidDatabaseSqliteSQLiteSession_Transaction *) nil_chk(mTransactionStack_))->mMarkedSuccessful_ = true;
 }
 
-- (void)endTransaction {
+- (void)endTransactionWithAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
   AndroidDatabaseSqliteSQLiteSession_throwIfNoTransaction(self);
-  JreAssert((mConnection_ != nil), (@"android/database/sqlite/SQLiteSession.java:383 condition failed: assert mConnection != null;"));
-  AndroidDatabaseSqliteSQLiteSession_endTransactionUncheckedWithBoolean_(self, false);
+  JreAssert((mConnection_ != nil), (@"android/database/sqlite/SQLiteSession.java:399 condition failed: assert mConnection != null;"));
+  AndroidDatabaseSqliteSQLiteSession_endTransactionUncheckedWithAndroidOsCancellationSignal_withBoolean_(self, cancellationSignal, false);
 }
 
-- (void)endTransactionUncheckedWithBoolean:(jboolean)yielding {
-  AndroidDatabaseSqliteSQLiteSession_endTransactionUncheckedWithBoolean_(self, yielding);
+- (void)endTransactionUncheckedWithAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal
+                                                   withBoolean:(jboolean)yielding {
+  AndroidDatabaseSqliteSQLiteSession_endTransactionUncheckedWithAndroidOsCancellationSignal_withBoolean_(self, cancellationSignal, yielding);
 }
 
 - (jboolean)yieldTransactionWithLong:(jlong)sleepAfterYieldDelayMillis
-                         withBoolean:(jboolean)throwIfUnsafe {
+                         withBoolean:(jboolean)throwIfUnsafe
+     withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
   if (throwIfUnsafe) {
     AndroidDatabaseSqliteSQLiteSession_throwIfNoTransaction(self);
     AndroidDatabaseSqliteSQLiteSession_throwIfTransactionMarkedSuccessful(self);
@@ -172,24 +182,29 @@ withAndroidDatabaseSqliteSQLiteTransactionListener:(id<AndroidDatabaseSqliteSQLi
       return false;
     }
   }
-  JreAssert((mConnection_ != nil), (@"android/database/sqlite/SQLiteSession.java:491 condition failed: assert mConnection != null;"));
+  JreAssert((mConnection_ != nil), (@"android/database/sqlite/SQLiteSession.java:514 condition failed: assert mConnection != null;"));
   if (((AndroidDatabaseSqliteSQLiteSession_Transaction *) nil_chk(mTransactionStack_))->mChildFailed_) {
     return false;
   }
-  return AndroidDatabaseSqliteSQLiteSession_yieldTransactionUncheckedWithLong_(self, sleepAfterYieldDelayMillis);
+  return AndroidDatabaseSqliteSQLiteSession_yieldTransactionUncheckedWithLong_withAndroidOsCancellationSignal_(self, sleepAfterYieldDelayMillis, cancellationSignal);
 }
 
-- (jboolean)yieldTransactionUncheckedWithLong:(jlong)sleepAfterYieldDelayMillis {
-  return AndroidDatabaseSqliteSQLiteSession_yieldTransactionUncheckedWithLong_(self, sleepAfterYieldDelayMillis);
+- (jboolean)yieldTransactionUncheckedWithLong:(jlong)sleepAfterYieldDelayMillis
+              withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
+  return AndroidDatabaseSqliteSQLiteSession_yieldTransactionUncheckedWithLong_withAndroidOsCancellationSignal_(self, sleepAfterYieldDelayMillis, cancellationSignal);
 }
 
 - (void)prepareWithNSString:(NSString *)sql
                     withInt:(jint)connectionFlags
+withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal
 withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStatementInfo *)outStatementInfo {
   if (sql == nil) {
     @throw create_JavaLangIllegalArgumentException_initWithNSString_(@"sql must not be null.");
   }
-  AndroidDatabaseSqliteSQLiteSession_acquireConnectionWithNSString_withInt_(self, sql, connectionFlags);
+  if (cancellationSignal != nil) {
+    [cancellationSignal throwIfCanceled];
+  }
+  AndroidDatabaseSqliteSQLiteSession_acquireConnectionWithNSString_withInt_withAndroidOsCancellationSignal_(self, sql, connectionFlags, cancellationSignal);
   @try {
     [((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(mConnection_)) prepareWithNSString:sql withAndroidDatabaseSqliteSQLiteStatementInfo:outStatementInfo];
   }
@@ -200,16 +215,17 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
 
 - (void)executeWithNSString:(NSString *)sql
           withNSObjectArray:(IOSObjectArray *)bindArgs
-                    withInt:(jint)connectionFlags {
+                    withInt:(jint)connectionFlags
+withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
   if (sql == nil) {
     @throw create_JavaLangIllegalArgumentException_initWithNSString_(@"sql must not be null.");
   }
-  if (AndroidDatabaseSqliteSQLiteSession_executeSpecialWithNSString_withNSObjectArray_withInt_(self, sql, bindArgs, connectionFlags)) {
+  if (AndroidDatabaseSqliteSQLiteSession_executeSpecialWithNSString_withNSObjectArray_withInt_withAndroidOsCancellationSignal_(self, sql, bindArgs, connectionFlags, cancellationSignal)) {
     return;
   }
-  AndroidDatabaseSqliteSQLiteSession_acquireConnectionWithNSString_withInt_(self, sql, connectionFlags);
+  AndroidDatabaseSqliteSQLiteSession_acquireConnectionWithNSString_withInt_withAndroidOsCancellationSignal_(self, sql, connectionFlags, cancellationSignal);
   @try {
-    [((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(mConnection_)) executeWithNSString:sql withNSObjectArray:bindArgs];
+    [((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(mConnection_)) executeWithNSString:sql withNSObjectArray:bindArgs withAndroidOsCancellationSignal:cancellationSignal];
   }
   @finally {
     AndroidDatabaseSqliteSQLiteSession_releaseConnection(self);
@@ -218,16 +234,17 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
 
 - (jlong)executeForLongWithNSString:(NSString *)sql
                   withNSObjectArray:(IOSObjectArray *)bindArgs
-                            withInt:(jint)connectionFlags {
+                            withInt:(jint)connectionFlags
+    withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
   if (sql == nil) {
     @throw create_JavaLangIllegalArgumentException_initWithNSString_(@"sql must not be null.");
   }
-  if (AndroidDatabaseSqliteSQLiteSession_executeSpecialWithNSString_withNSObjectArray_withInt_(self, sql, bindArgs, connectionFlags)) {
+  if (AndroidDatabaseSqliteSQLiteSession_executeSpecialWithNSString_withNSObjectArray_withInt_withAndroidOsCancellationSignal_(self, sql, bindArgs, connectionFlags, cancellationSignal)) {
     return 0;
   }
-  AndroidDatabaseSqliteSQLiteSession_acquireConnectionWithNSString_withInt_(self, sql, connectionFlags);
+  AndroidDatabaseSqliteSQLiteSession_acquireConnectionWithNSString_withInt_withAndroidOsCancellationSignal_(self, sql, connectionFlags, cancellationSignal);
   @try {
-    return [((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(mConnection_)) executeForLongWithNSString:sql withNSObjectArray:bindArgs];
+    return [((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(mConnection_)) executeForLongWithNSString:sql withNSObjectArray:bindArgs withAndroidOsCancellationSignal:cancellationSignal];
   }
   @finally {
     AndroidDatabaseSqliteSQLiteSession_releaseConnection(self);
@@ -236,16 +253,17 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
 
 - (NSString *)executeForStringWithNSString:(NSString *)sql
                          withNSObjectArray:(IOSObjectArray *)bindArgs
-                                   withInt:(jint)connectionFlags {
+                                   withInt:(jint)connectionFlags
+           withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
   if (sql == nil) {
     @throw create_JavaLangIllegalArgumentException_initWithNSString_(@"sql must not be null.");
   }
-  if (AndroidDatabaseSqliteSQLiteSession_executeSpecialWithNSString_withNSObjectArray_withInt_(self, sql, bindArgs, connectionFlags)) {
+  if (AndroidDatabaseSqliteSQLiteSession_executeSpecialWithNSString_withNSObjectArray_withInt_withAndroidOsCancellationSignal_(self, sql, bindArgs, connectionFlags, cancellationSignal)) {
     return nil;
   }
-  AndroidDatabaseSqliteSQLiteSession_acquireConnectionWithNSString_withInt_(self, sql, connectionFlags);
+  AndroidDatabaseSqliteSQLiteSession_acquireConnectionWithNSString_withInt_withAndroidOsCancellationSignal_(self, sql, connectionFlags, cancellationSignal);
   @try {
-    return [((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(mConnection_)) executeForStringWithNSString:sql withNSObjectArray:bindArgs];
+    return [((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(mConnection_)) executeForStringWithNSString:sql withNSObjectArray:bindArgs withAndroidOsCancellationSignal:cancellationSignal];
   }
   @finally {
     AndroidDatabaseSqliteSQLiteSession_releaseConnection(self);
@@ -254,16 +272,17 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
 
 - (jint)executeForChangedRowCountWithNSString:(NSString *)sql
                             withNSObjectArray:(IOSObjectArray *)bindArgs
-                                      withInt:(jint)connectionFlags {
+                                      withInt:(jint)connectionFlags
+              withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
   if (sql == nil) {
     @throw create_JavaLangIllegalArgumentException_initWithNSString_(@"sql must not be null.");
   }
-  if (AndroidDatabaseSqliteSQLiteSession_executeSpecialWithNSString_withNSObjectArray_withInt_(self, sql, bindArgs, connectionFlags)) {
+  if (AndroidDatabaseSqliteSQLiteSession_executeSpecialWithNSString_withNSObjectArray_withInt_withAndroidOsCancellationSignal_(self, sql, bindArgs, connectionFlags, cancellationSignal)) {
     return 0;
   }
-  AndroidDatabaseSqliteSQLiteSession_acquireConnectionWithNSString_withInt_(self, sql, connectionFlags);
+  AndroidDatabaseSqliteSQLiteSession_acquireConnectionWithNSString_withInt_withAndroidOsCancellationSignal_(self, sql, connectionFlags, cancellationSignal);
   @try {
-    return [((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(mConnection_)) executeForChangedRowCountWithNSString:sql withNSObjectArray:bindArgs];
+    return [((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(mConnection_)) executeForChangedRowCountWithNSString:sql withNSObjectArray:bindArgs withAndroidOsCancellationSignal:cancellationSignal];
   }
   @finally {
     AndroidDatabaseSqliteSQLiteSession_releaseConnection(self);
@@ -272,16 +291,17 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
 
 - (jlong)executeForLastInsertedRowIdWithNSString:(NSString *)sql
                                withNSObjectArray:(IOSObjectArray *)bindArgs
-                                         withInt:(jint)connectionFlags {
+                                         withInt:(jint)connectionFlags
+                 withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
   if (sql == nil) {
     @throw create_JavaLangIllegalArgumentException_initWithNSString_(@"sql must not be null.");
   }
-  if (AndroidDatabaseSqliteSQLiteSession_executeSpecialWithNSString_withNSObjectArray_withInt_(self, sql, bindArgs, connectionFlags)) {
+  if (AndroidDatabaseSqliteSQLiteSession_executeSpecialWithNSString_withNSObjectArray_withInt_withAndroidOsCancellationSignal_(self, sql, bindArgs, connectionFlags, cancellationSignal)) {
     return 0;
   }
-  AndroidDatabaseSqliteSQLiteSession_acquireConnectionWithNSString_withInt_(self, sql, connectionFlags);
+  AndroidDatabaseSqliteSQLiteSession_acquireConnectionWithNSString_withInt_withAndroidOsCancellationSignal_(self, sql, connectionFlags, cancellationSignal);
   @try {
-    return [((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(mConnection_)) executeForLastInsertedRowIdWithNSString:sql withNSObjectArray:bindArgs];
+    return [((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(mConnection_)) executeForLastInsertedRowIdWithNSString:sql withNSObjectArray:bindArgs withAndroidOsCancellationSignal:cancellationSignal];
   }
   @finally {
     AndroidDatabaseSqliteSQLiteSession_releaseConnection(self);
@@ -294,20 +314,21 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
                                    withInt:(jint)startPos
                                    withInt:(jint)requiredPos
                                withBoolean:(jboolean)countAllRows
-                                   withInt:(jint)connectionFlags {
+                                   withInt:(jint)connectionFlags
+           withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
   if (sql == nil) {
     @throw create_JavaLangIllegalArgumentException_initWithNSString_(@"sql must not be null.");
   }
   if (window == nil) {
     @throw create_JavaLangIllegalArgumentException_initWithNSString_(@"window must not be null.");
   }
-  if (AndroidDatabaseSqliteSQLiteSession_executeSpecialWithNSString_withNSObjectArray_withInt_(self, sql, bindArgs, connectionFlags)) {
+  if (AndroidDatabaseSqliteSQLiteSession_executeSpecialWithNSString_withNSObjectArray_withInt_withAndroidOsCancellationSignal_(self, sql, bindArgs, connectionFlags, cancellationSignal)) {
     [window clear];
     return 0;
   }
-  AndroidDatabaseSqliteSQLiteSession_acquireConnectionWithNSString_withInt_(self, sql, connectionFlags);
+  AndroidDatabaseSqliteSQLiteSession_acquireConnectionWithNSString_withInt_withAndroidOsCancellationSignal_(self, sql, connectionFlags, cancellationSignal);
   @try {
-    return [((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(mConnection_)) executeForCursorWindowWithNSString:sql withNSObjectArray:bindArgs withAndroidDatabaseCursorWindow:window withInt:startPos withInt:requiredPos withBoolean:countAllRows];
+    return [((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(mConnection_)) executeForCursorWindowWithNSString:sql withNSObjectArray:bindArgs withAndroidDatabaseCursorWindow:window withInt:startPos withInt:requiredPos withBoolean:countAllRows withAndroidOsCancellationSignal:cancellationSignal];
   }
   @finally {
     AndroidDatabaseSqliteSQLiteSession_releaseConnection(self);
@@ -316,13 +337,15 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
 
 - (jboolean)executeSpecialWithNSString:(NSString *)sql
                      withNSObjectArray:(IOSObjectArray *)bindArgs
-                               withInt:(jint)connectionFlags {
-  return AndroidDatabaseSqliteSQLiteSession_executeSpecialWithNSString_withNSObjectArray_withInt_(self, sql, bindArgs, connectionFlags);
+                               withInt:(jint)connectionFlags
+       withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
+  return AndroidDatabaseSqliteSQLiteSession_executeSpecialWithNSString_withNSObjectArray_withInt_withAndroidOsCancellationSignal_(self, sql, bindArgs, connectionFlags, cancellationSignal);
 }
 
 - (void)acquireConnectionWithNSString:(NSString *)sql
-                              withInt:(jint)connectionFlags {
-  AndroidDatabaseSqliteSQLiteSession_acquireConnectionWithNSString_withInt_(self, sql, connectionFlags);
+                              withInt:(jint)connectionFlags
+      withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
+  AndroidDatabaseSqliteSQLiteSession_acquireConnectionWithNSString_withInt_withAndroidOsCancellationSignal_(self, sql, connectionFlags, cancellationSignal);
 }
 
 - (void)releaseConnection {
@@ -367,25 +390,25 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
     { NULL, "V", 0x1, 1, 2, -1, -1, -1, -1 },
     { NULL, "V", 0x2, 3, 2, -1, -1, -1, -1 },
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 4, 5, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 6, 7, -1, -1, -1, -1 },
-    { NULL, "Z", 0x2, 8, 9, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 10, 11, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 4, 5, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 6, 7, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, 8, 9, -1, -1, -1, -1 },
+    { NULL, "Z", 0x2, 10, 11, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 12, 13, -1, -1, -1, -1 },
-    { NULL, "J", 0x1, 14, 13, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x1, 15, 13, -1, -1, -1, -1 },
-    { NULL, "I", 0x1, 16, 13, -1, -1, -1, -1 },
-    { NULL, "J", 0x1, 17, 13, -1, -1, -1, -1 },
-    { NULL, "I", 0x1, 18, 19, -1, -1, -1, -1 },
-    { NULL, "Z", 0x2, 20, 13, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 21, 22, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 14, 15, -1, -1, -1, -1 },
+    { NULL, "J", 0x1, 16, 15, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x1, 17, 15, -1, -1, -1, -1 },
+    { NULL, "I", 0x1, 18, 15, -1, -1, -1, -1 },
+    { NULL, "J", 0x1, 19, 15, -1, -1, -1, -1 },
+    { NULL, "I", 0x1, 20, 21, -1, -1, -1, -1 },
+    { NULL, "Z", 0x2, 22, 15, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 23, 24, -1, -1, -1, -1 },
     { NULL, "V", 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x2, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LAndroidDatabaseSqliteSQLiteSession_Transaction;", 0x2, 23, 24, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 25, 26, -1, -1, -1, -1 },
+    { NULL, "LAndroidDatabaseSqliteSQLiteSession_Transaction;", 0x2, 25, 26, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 27, 28, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -393,22 +416,22 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
   methods[1].selector = @selector(hasTransaction);
   methods[2].selector = @selector(hasNestedTransaction);
   methods[3].selector = @selector(hasConnection);
-  methods[4].selector = @selector(beginTransactionWithInt:withAndroidDatabaseSqliteSQLiteTransactionListener:withInt:);
-  methods[5].selector = @selector(beginTransactionUncheckedWithInt:withAndroidDatabaseSqliteSQLiteTransactionListener:withInt:);
+  methods[4].selector = @selector(beginTransactionWithInt:withAndroidDatabaseSqliteSQLiteTransactionListener:withInt:withAndroidOsCancellationSignal:);
+  methods[5].selector = @selector(beginTransactionUncheckedWithInt:withAndroidDatabaseSqliteSQLiteTransactionListener:withInt:withAndroidOsCancellationSignal:);
   methods[6].selector = @selector(setTransactionSuccessful);
-  methods[7].selector = @selector(endTransaction);
-  methods[8].selector = @selector(endTransactionUncheckedWithBoolean:);
-  methods[9].selector = @selector(yieldTransactionWithLong:withBoolean:);
-  methods[10].selector = @selector(yieldTransactionUncheckedWithLong:);
-  methods[11].selector = @selector(prepareWithNSString:withInt:withAndroidDatabaseSqliteSQLiteStatementInfo:);
-  methods[12].selector = @selector(executeWithNSString:withNSObjectArray:withInt:);
-  methods[13].selector = @selector(executeForLongWithNSString:withNSObjectArray:withInt:);
-  methods[14].selector = @selector(executeForStringWithNSString:withNSObjectArray:withInt:);
-  methods[15].selector = @selector(executeForChangedRowCountWithNSString:withNSObjectArray:withInt:);
-  methods[16].selector = @selector(executeForLastInsertedRowIdWithNSString:withNSObjectArray:withInt:);
-  methods[17].selector = @selector(executeForCursorWindowWithNSString:withNSObjectArray:withAndroidDatabaseCursorWindow:withInt:withInt:withBoolean:withInt:);
-  methods[18].selector = @selector(executeSpecialWithNSString:withNSObjectArray:withInt:);
-  methods[19].selector = @selector(acquireConnectionWithNSString:withInt:);
+  methods[7].selector = @selector(endTransactionWithAndroidOsCancellationSignal:);
+  methods[8].selector = @selector(endTransactionUncheckedWithAndroidOsCancellationSignal:withBoolean:);
+  methods[9].selector = @selector(yieldTransactionWithLong:withBoolean:withAndroidOsCancellationSignal:);
+  methods[10].selector = @selector(yieldTransactionUncheckedWithLong:withAndroidOsCancellationSignal:);
+  methods[11].selector = @selector(prepareWithNSString:withInt:withAndroidOsCancellationSignal:withAndroidDatabaseSqliteSQLiteStatementInfo:);
+  methods[12].selector = @selector(executeWithNSString:withNSObjectArray:withInt:withAndroidOsCancellationSignal:);
+  methods[13].selector = @selector(executeForLongWithNSString:withNSObjectArray:withInt:withAndroidOsCancellationSignal:);
+  methods[14].selector = @selector(executeForStringWithNSString:withNSObjectArray:withInt:withAndroidOsCancellationSignal:);
+  methods[15].selector = @selector(executeForChangedRowCountWithNSString:withNSObjectArray:withInt:withAndroidOsCancellationSignal:);
+  methods[16].selector = @selector(executeForLastInsertedRowIdWithNSString:withNSObjectArray:withInt:withAndroidOsCancellationSignal:);
+  methods[17].selector = @selector(executeForCursorWindowWithNSString:withNSObjectArray:withAndroidDatabaseCursorWindow:withInt:withInt:withBoolean:withInt:withAndroidOsCancellationSignal:);
+  methods[18].selector = @selector(executeSpecialWithNSString:withNSObjectArray:withInt:withAndroidOsCancellationSignal:);
+  methods[19].selector = @selector(acquireConnectionWithNSString:withInt:withAndroidOsCancellationSignal:);
   methods[20].selector = @selector(releaseConnection);
   methods[21].selector = @selector(throwIfNoTransaction);
   methods[22].selector = @selector(throwIfTransactionMarkedSuccessful);
@@ -427,8 +450,8 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
     { "TRANSACTION_MODE_IMMEDIATE", "I", .constantValue.asInt = AndroidDatabaseSqliteSQLiteSession_TRANSACTION_MODE_IMMEDIATE, 0x19, -1, -1, -1, -1 },
     { "TRANSACTION_MODE_EXCLUSIVE", "I", .constantValue.asInt = AndroidDatabaseSqliteSQLiteSession_TRANSACTION_MODE_EXCLUSIVE, 0x19, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LAndroidDatabaseSqliteSQLiteConnectionPool;", "beginTransaction", "ILAndroidDatabaseSqliteSQLiteTransactionListener;I", "beginTransactionUnchecked", "endTransactionUnchecked", "Z", "yieldTransaction", "JZ", "yieldTransactionUnchecked", "J", "prepare", "LNSString;ILAndroidDatabaseSqliteSQLiteStatementInfo;", "execute", "LNSString;[LNSObject;I", "executeForLong", "executeForString", "executeForChangedRowCount", "executeForLastInsertedRowId", "executeForCursorWindow", "LNSString;[LNSObject;LAndroidDatabaseCursorWindow;IIZI", "executeSpecial", "acquireConnection", "LNSString;I", "obtainTransaction", "ILAndroidDatabaseSqliteSQLiteTransactionListener;", "recycleTransaction", "LAndroidDatabaseSqliteSQLiteSession_Transaction;" };
-  static const J2ObjcClassInfo _AndroidDatabaseSqliteSQLiteSession = { "SQLiteSession", "android.database.sqlite", ptrTable, methods, fields, 7, 0x11, 26, 9, -1, 26, -1, -1, -1 };
+  static const void *ptrTable[] = { "LAndroidDatabaseSqliteSQLiteConnectionPool;", "beginTransaction", "ILAndroidDatabaseSqliteSQLiteTransactionListener;ILAndroidOsCancellationSignal;", "beginTransactionUnchecked", "endTransaction", "LAndroidOsCancellationSignal;", "endTransactionUnchecked", "LAndroidOsCancellationSignal;Z", "yieldTransaction", "JZLAndroidOsCancellationSignal;", "yieldTransactionUnchecked", "JLAndroidOsCancellationSignal;", "prepare", "LNSString;ILAndroidOsCancellationSignal;LAndroidDatabaseSqliteSQLiteStatementInfo;", "execute", "LNSString;[LNSObject;ILAndroidOsCancellationSignal;", "executeForLong", "executeForString", "executeForChangedRowCount", "executeForLastInsertedRowId", "executeForCursorWindow", "LNSString;[LNSObject;LAndroidDatabaseCursorWindow;IIZILAndroidOsCancellationSignal;", "executeSpecial", "acquireConnection", "LNSString;ILAndroidOsCancellationSignal;", "obtainTransaction", "ILAndroidDatabaseSqliteSQLiteTransactionListener;", "recycleTransaction", "LAndroidDatabaseSqliteSQLiteSession_Transaction;" };
+  static const J2ObjcClassInfo _AndroidDatabaseSqliteSQLiteSession = { "SQLiteSession", "android.database.sqlite", ptrTable, methods, fields, 7, 0x11, 26, 9, -1, 28, -1, -1, -1 };
   return &_AndroidDatabaseSqliteSQLiteSession;
 }
 
@@ -450,21 +473,24 @@ AndroidDatabaseSqliteSQLiteSession *create_AndroidDatabaseSqliteSQLiteSession_in
   J2OBJC_CREATE_IMPL(AndroidDatabaseSqliteSQLiteSession, initWithAndroidDatabaseSqliteSQLiteConnectionPool_, connectionPool)
 }
 
-void AndroidDatabaseSqliteSQLiteSession_beginTransactionUncheckedWithInt_withAndroidDatabaseSqliteSQLiteTransactionListener_withInt_(AndroidDatabaseSqliteSQLiteSession *self, jint transactionMode, id<AndroidDatabaseSqliteSQLiteTransactionListener> transactionListener, jint connectionFlags) {
+void AndroidDatabaseSqliteSQLiteSession_beginTransactionUncheckedWithInt_withAndroidDatabaseSqliteSQLiteTransactionListener_withInt_withAndroidOsCancellationSignal_(AndroidDatabaseSqliteSQLiteSession *self, jint transactionMode, id<AndroidDatabaseSqliteSQLiteTransactionListener> transactionListener, jint connectionFlags, AndroidOsCancellationSignal *cancellationSignal) {
+  if (cancellationSignal != nil) {
+    [cancellationSignal throwIfCanceled];
+  }
   if (self->mTransactionStack_ == nil) {
-    AndroidDatabaseSqliteSQLiteSession_acquireConnectionWithNSString_withInt_(self, nil, connectionFlags);
+    AndroidDatabaseSqliteSQLiteSession_acquireConnectionWithNSString_withInt_withAndroidOsCancellationSignal_(self, nil, connectionFlags, cancellationSignal);
   }
   @try {
     if (self->mTransactionStack_ == nil) {
       switch (transactionMode) {
         case AndroidDatabaseSqliteSQLiteSession_TRANSACTION_MODE_IMMEDIATE:
-        [((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(self->mConnection_)) executeWithNSString:@"BEGIN IMMEDIATE;" withNSObjectArray:nil];
+        [((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(self->mConnection_)) executeWithNSString:@"BEGIN IMMEDIATE;" withNSObjectArray:nil withAndroidOsCancellationSignal:cancellationSignal];
         break;
         case AndroidDatabaseSqliteSQLiteSession_TRANSACTION_MODE_EXCLUSIVE:
-        [((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(self->mConnection_)) executeWithNSString:@"BEGIN EXCLUSIVE;" withNSObjectArray:nil];
+        [((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(self->mConnection_)) executeWithNSString:@"BEGIN EXCLUSIVE;" withNSObjectArray:nil withAndroidOsCancellationSignal:cancellationSignal];
         break;
         default:
-        [((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(self->mConnection_)) executeWithNSString:@"BEGIN;" withNSObjectArray:nil];
+        [((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(self->mConnection_)) executeWithNSString:@"BEGIN;" withNSObjectArray:nil withAndroidOsCancellationSignal:cancellationSignal];
         break;
       }
     }
@@ -474,7 +500,7 @@ void AndroidDatabaseSqliteSQLiteSession_beginTransactionUncheckedWithInt_withAnd
       }
       @catch (JavaLangRuntimeException *ex) {
         if (self->mTransactionStack_ == nil) {
-          [((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(self->mConnection_)) executeWithNSString:@"ROLLBACK;" withNSObjectArray:nil];
+          [((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(self->mConnection_)) executeWithNSString:@"ROLLBACK;" withNSObjectArray:nil withAndroidOsCancellationSignal:cancellationSignal];
         }
         @throw ex;
       }
@@ -490,7 +516,10 @@ void AndroidDatabaseSqliteSQLiteSession_beginTransactionUncheckedWithInt_withAnd
   }
 }
 
-void AndroidDatabaseSqliteSQLiteSession_endTransactionUncheckedWithBoolean_(AndroidDatabaseSqliteSQLiteSession *self, jboolean yielding) {
+void AndroidDatabaseSqliteSQLiteSession_endTransactionUncheckedWithAndroidOsCancellationSignal_withBoolean_(AndroidDatabaseSqliteSQLiteSession *self, AndroidOsCancellationSignal *cancellationSignal, jboolean yielding) {
+  if (cancellationSignal != nil) {
+    [cancellationSignal throwIfCanceled];
+  }
   AndroidDatabaseSqliteSQLiteSession_Transaction *top = self->mTransactionStack_;
   jboolean successful = (((AndroidDatabaseSqliteSQLiteSession_Transaction *) nil_chk(top))->mMarkedSuccessful_ || yielding) && !top->mChildFailed_;
   JavaLangRuntimeException *listenerException = nil;
@@ -519,10 +548,10 @@ void AndroidDatabaseSqliteSQLiteSession_endTransactionUncheckedWithBoolean_(Andr
   else {
     @try {
       if (successful) {
-        [((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(self->mConnection_)) executeWithNSString:@"COMMIT;" withNSObjectArray:nil];
+        [((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(self->mConnection_)) executeWithNSString:@"COMMIT;" withNSObjectArray:nil withAndroidOsCancellationSignal:cancellationSignal];
       }
       else {
-        [((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(self->mConnection_)) executeWithNSString:@"ROLLBACK;" withNSObjectArray:nil];
+        [((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(self->mConnection_)) executeWithNSString:@"ROLLBACK;" withNSObjectArray:nil withAndroidOsCancellationSignal:cancellationSignal];
       }
     }
     @finally {
@@ -534,14 +563,17 @@ void AndroidDatabaseSqliteSQLiteSession_endTransactionUncheckedWithBoolean_(Andr
   }
 }
 
-jboolean AndroidDatabaseSqliteSQLiteSession_yieldTransactionUncheckedWithLong_(AndroidDatabaseSqliteSQLiteSession *self, jlong sleepAfterYieldDelayMillis) {
+jboolean AndroidDatabaseSqliteSQLiteSession_yieldTransactionUncheckedWithLong_withAndroidOsCancellationSignal_(AndroidDatabaseSqliteSQLiteSession *self, jlong sleepAfterYieldDelayMillis, AndroidOsCancellationSignal *cancellationSignal) {
+  if (cancellationSignal != nil) {
+    [cancellationSignal throwIfCanceled];
+  }
   if (![((AndroidDatabaseSqliteSQLiteConnectionPool *) nil_chk(self->mConnectionPool_)) shouldYieldConnectionWithAndroidDatabaseSqliteSQLiteConnection:self->mConnection_ withInt:self->mConnectionFlags_]) {
     return false;
   }
   jint transactionMode = ((AndroidDatabaseSqliteSQLiteSession_Transaction *) nil_chk(self->mTransactionStack_))->mMode_;
   id<AndroidDatabaseSqliteSQLiteTransactionListener> listener = self->mTransactionStack_->mListener_;
   jint connectionFlags = self->mConnectionFlags_;
-  AndroidDatabaseSqliteSQLiteSession_endTransactionUncheckedWithBoolean_(self, true);
+  AndroidDatabaseSqliteSQLiteSession_endTransactionUncheckedWithAndroidOsCancellationSignal_withBoolean_(self, cancellationSignal, true);
   if (sleepAfterYieldDelayMillis > 0) {
     @try {
       JavaLangThread_sleepWithLong_(sleepAfterYieldDelayMillis);
@@ -549,39 +581,42 @@ jboolean AndroidDatabaseSqliteSQLiteSession_yieldTransactionUncheckedWithLong_(A
     @catch (JavaLangInterruptedException *ex) {
     }
   }
-  AndroidDatabaseSqliteSQLiteSession_beginTransactionUncheckedWithInt_withAndroidDatabaseSqliteSQLiteTransactionListener_withInt_(self, transactionMode, listener, connectionFlags);
+  AndroidDatabaseSqliteSQLiteSession_beginTransactionUncheckedWithInt_withAndroidDatabaseSqliteSQLiteTransactionListener_withInt_withAndroidOsCancellationSignal_(self, transactionMode, listener, connectionFlags, cancellationSignal);
   return true;
 }
 
-jboolean AndroidDatabaseSqliteSQLiteSession_executeSpecialWithNSString_withNSObjectArray_withInt_(AndroidDatabaseSqliteSQLiteSession *self, NSString *sql, IOSObjectArray *bindArgs, jint connectionFlags) {
+jboolean AndroidDatabaseSqliteSQLiteSession_executeSpecialWithNSString_withNSObjectArray_withInt_withAndroidOsCancellationSignal_(AndroidDatabaseSqliteSQLiteSession *self, NSString *sql, IOSObjectArray *bindArgs, jint connectionFlags, AndroidOsCancellationSignal *cancellationSignal) {
+  if (cancellationSignal != nil) {
+    [cancellationSignal throwIfCanceled];
+  }
   jint type = AndroidDatabaseDatabaseUtils_getSqlStatementTypeWithNSString_(sql);
   switch (type) {
     case AndroidDatabaseDatabaseUtils_STATEMENT_BEGIN:
-    [self beginTransactionWithInt:AndroidDatabaseSqliteSQLiteSession_TRANSACTION_MODE_EXCLUSIVE withAndroidDatabaseSqliteSQLiteTransactionListener:nil withInt:connectionFlags];
+    [self beginTransactionWithInt:AndroidDatabaseSqliteSQLiteSession_TRANSACTION_MODE_EXCLUSIVE withAndroidDatabaseSqliteSQLiteTransactionListener:nil withInt:connectionFlags withAndroidOsCancellationSignal:cancellationSignal];
     return true;
     case AndroidDatabaseDatabaseUtils_STATEMENT_COMMIT:
     [self setTransactionSuccessful];
-    [self endTransaction];
+    [self endTransactionWithAndroidOsCancellationSignal:cancellationSignal];
     return true;
     case AndroidDatabaseDatabaseUtils_STATEMENT_ABORT:
-    [self endTransaction];
+    [self endTransactionWithAndroidOsCancellationSignal:cancellationSignal];
     return true;
   }
   return false;
 }
 
-void AndroidDatabaseSqliteSQLiteSession_acquireConnectionWithNSString_withInt_(AndroidDatabaseSqliteSQLiteSession *self, NSString *sql, jint connectionFlags) {
+void AndroidDatabaseSqliteSQLiteSession_acquireConnectionWithNSString_withInt_withAndroidOsCancellationSignal_(AndroidDatabaseSqliteSQLiteSession *self, NSString *sql, jint connectionFlags, AndroidOsCancellationSignal *cancellationSignal) {
   if (self->mConnection_ == nil) {
-    JreAssert((self->mConnectionUseCount_ == 0), (@"android/database/sqlite/SQLiteSession.java:793 condition failed: assert mConnectionUseCount == 0;"));
-    JreStrongAssign(&self->mConnection_, [((AndroidDatabaseSqliteSQLiteConnectionPool *) nil_chk(self->mConnectionPool_)) acquireConnectionWithNSString:sql withInt:connectionFlags]);
+    JreAssert((self->mConnectionUseCount_ == 0), (@"android/database/sqlite/SQLiteSession.java:858 condition failed: assert mConnectionUseCount == 0;"));
+    JreStrongAssign(&self->mConnection_, [((AndroidDatabaseSqliteSQLiteConnectionPool *) nil_chk(self->mConnectionPool_)) acquireConnectionWithNSString:sql withInt:connectionFlags withAndroidOsCancellationSignal:cancellationSignal]);
     self->mConnectionFlags_ = connectionFlags;
   }
   self->mConnectionUseCount_ += 1;
 }
 
 void AndroidDatabaseSqliteSQLiteSession_releaseConnection(AndroidDatabaseSqliteSQLiteSession *self) {
-  JreAssert((self->mConnection_ != nil), (@"android/database/sqlite/SQLiteSession.java:801 condition failed: assert mConnection != null;"));
-  JreAssert((self->mConnectionUseCount_ > 0), (@"android/database/sqlite/SQLiteSession.java:802 condition failed: assert mConnectionUseCount > 0;"));
+  JreAssert((self->mConnection_ != nil), (@"android/database/sqlite/SQLiteSession.java:867 condition failed: assert mConnection != null;"));
+  JreAssert((self->mConnectionUseCount_ > 0), (@"android/database/sqlite/SQLiteSession.java:868 condition failed: assert mConnectionUseCount > 0;"));
   if (--self->mConnectionUseCount_ == 0) {
     @try {
       [((AndroidDatabaseSqliteSQLiteConnectionPool *) nil_chk(self->mConnectionPool_)) releaseConnectionWithAndroidDatabaseSqliteSQLiteConnection:self->mConnection_];

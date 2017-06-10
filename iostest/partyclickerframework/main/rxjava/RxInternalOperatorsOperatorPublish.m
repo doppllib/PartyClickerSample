@@ -907,6 +907,14 @@ RxInternalOperatorsOperatorPublish_PublishSubscriber_1 *create_RxInternalOperato
   }
 }
 
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
+}
+
 - (void)__javaClone:(RxInternalOperatorsOperatorPublish_InnerProducer *)original {
   [super __javaClone:original];
   [child_ release];

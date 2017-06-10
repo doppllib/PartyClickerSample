@@ -191,6 +191,10 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsCachedObservable_CachedSubscribe)
 - (instancetype)initWithRxSubscriber:(RxSubscriber *)child
 withRxInternalOperatorsCachedObservable_CacheState:(RxInternalOperatorsCachedObservable_CacheState *)state;
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 - (jboolean)isUnsubscribed;
 
 - (jlong)producedWithLong:(jlong)n;

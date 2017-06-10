@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'co.touchlab.doppl.gradle'
-apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'co.doppl.gradle'
 
 android {
     compileSdkVersion 25
@@ -26,31 +25,33 @@ android {
     }
 }
 
+def javaCoreVersion = '0.7.5'
+def dopplCoreVersion = '0.7.5.0'
+
 dependencies {
     compile 'com.android.support:appcompat-v7:25.1.0'
-    testCompile 'junit:junit:4.12'
+    testCompile 'junit:junit:4.11'
 
-    compile 'co.touchlab.squeaky:squeaky-query:0.5.0.0'
-    apt 'co.touchlab.squeaky:squeaky-processor:0.5.0'
-    testApt 'co.touchlab.squeaky:squeaky-processor:0.5.0'
+    compile 'co.touchlab.squeaky:squeaky-query:0.5.1'
+    doppl 'co.touchlab.squeaky:squeaky-query:0.5.1.0'
 
-    doppl 'co.touchlab.doppl:androidbase:0.7.0-SNAPSHOT:doppl'
-    doppl 'co.touchlab.squeaky:squeaky-core:0.5.0.7:doppl'
-    doppl 'co.touchlab.squeaky:squeaky-query:0.5.0.7:doppl'
+    annotationProcessor 'co.touchlab.squeaky:squeaky-processor:0.5.1'
+    testAnnotationProcessor 'co.touchlab.squeaky:squeaky-processor:0.5.1'
 
-    doppl 'com.google.dagger:dagger:2.5.3:doppl'
+    doppl "co.doppl.lib:androidbase:$dopplCoreVersion:doppl"
+
+    doppl 'co.doppl.com.google.dagger:dagger:2.5.2'
     compile 'com.google.dagger:dagger:2.5'
-    apt 'com.google.dagger:dagger-compiler:2.5'
-    testApt 'com.google.dagger:dagger-compiler:2.5'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.5'
+    testAnnotationProcessor 'com.google.dagger:dagger-compiler:2.5'
 
-    compile 'io.reactivex:rxjava:1.2.1'
     compile 'io.reactivex:rxandroid:1.2.1'
 
-    doppl 'io.reactivex:rxjava:1.2.1.5:doppl'
-    doppl 'io.reactivex:rxandroid:1.2.1.4:doppl'
+    doppl 'co.doppl.io.reactivex:rxjava:1.2.1.2'
+    doppl 'co.doppl.io.reactivex:rxandroid:1.2.1.2'
 
-    testCompile "co.touchlab.doppl:androidbasetest:0.6.1-SNAPSHOT"
-    testDoppl "co.touchlab.doppl:androidbasetest:0.6.1-SNAPSHOT:doppl"
+    testCompile "co.doppl.lib:androidbasetest:$javaCoreVersion"
+    testDoppl "co.doppl.lib:androidbasetest:$dopplCoreVersion"
 
     testCompile "org.robolectric:robolectric:3.3.2"
     testCompile 'org.mockito:mockito-core:1.9.5'
@@ -59,10 +60,9 @@ dependencies {
 dopplConfig {
 
     copyMainOutput "../ios/partyclickerframework/main", "../iostest/partyclickerframework/main"
-    copyTestOutput "../iostest/partyclickerframework/test"
+    copyTestOutput "../iostest/iostestTests/test"
 
     mainBridgingHeaderOutput "../ios/ios/Main-Bridging-Header.h"
-//    testBridgingHeaderOutput "../ios/ios/Test-Bridging-Header.h"
 
     copyDependencies true
 
@@ -79,4 +79,11 @@ dopplConfig {
         include '**/test/**'
         include '**/AppManager.java'
     }
+}
+
+task runIOSTests(type:Exec, dependsOn: 'dopplDeploy') {
+    workingDir '../iostest'
+
+    //on windows:
+    commandLine 'xcodebuild', 'test', '-project', 'iostest.xcodeproj', '-scheme', 'iostest', '-destination', 'platform=iOS Simulator,name=iPhone 7,OS=10.3'
 }

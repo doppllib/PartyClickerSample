@@ -266,6 +266,14 @@ id RxInternalOperatorsOperatorOnBackpressureLatest_LatestEmitter_EMPTY;
   }
 }
 
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
+}
+
 - (void)dealloc {
   RELEASE_(child_);
   RELEASE_(parent_);

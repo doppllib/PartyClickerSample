@@ -16,6 +16,7 @@
 #define AndroidDatabaseSqliteSQLiteQueryBuilder_
 
 @class AndroidDatabaseSqliteSQLiteDatabase;
+@class AndroidOsCancellationSignal;
 @class IOSObjectArray;
 @class JavaLangStringBuilder;
 @protocol AndroidDatabaseCursor;
@@ -102,6 +103,16 @@
                                                              withNSString:(NSString *)having
                                                              withNSString:(NSString *)sortOrder
                                                              withNSString:(NSString *)limit;
+
+- (id<AndroidDatabaseCursor>)queryWithAndroidDatabaseSqliteSQLiteDatabase:(AndroidDatabaseSqliteSQLiteDatabase *)db
+                                                        withNSStringArray:(IOSObjectArray *)projectionIn
+                                                             withNSString:(NSString *)selection
+                                                        withNSStringArray:(IOSObjectArray *)selectionArgs
+                                                             withNSString:(NSString *)groupBy
+                                                             withNSString:(NSString *)having
+                                                             withNSString:(NSString *)sortOrder
+                                                             withNSString:(NSString *)limit
+                                          withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal;
 
 - (void)setCursorFactoryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:(id<AndroidDatabaseSqliteSQLiteDatabase_CursorFactory>)factory;
 

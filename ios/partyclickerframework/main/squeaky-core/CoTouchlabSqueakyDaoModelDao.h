@@ -151,6 +151,86 @@ J2OBJC_TYPE_LITERAL_HEADER(CoTouchlabSqueakyDaoModelDao)
 
 #endif
 
+#if !defined (CoTouchlabSqueakyDaoModelDao_CreateThreadLocal_) && (INCLUDE_ALL_CoTouchlabSqueakyDaoModelDao || defined(INCLUDE_CoTouchlabSqueakyDaoModelDao_CreateThreadLocal))
+#define CoTouchlabSqueakyDaoModelDao_CreateThreadLocal_
+
+#define RESTRICT_JavaLangThreadLocal 1
+#define INCLUDE_JavaLangThreadLocal 1
+#include "java/lang/ThreadLocal.h"
+
+@class CoTouchlabSqueakyDaoModelDao;
+@protocol CoTouchlabSqueakyDbSQLiteStatement;
+
+@interface CoTouchlabSqueakyDaoModelDao_CreateThreadLocal : JavaLangThreadLocal
+
+#pragma mark Public
+
+- (id<CoTouchlabSqueakyDbSQLiteStatement>)get;
+
+#pragma mark Protected
+
+- (id<CoTouchlabSqueakyDbSQLiteStatement>)initialValue OBJC_METHOD_FAMILY_NONE;
+
+#pragma mark Package-Private
+
+- (instancetype)initWithCoTouchlabSqueakyDaoModelDao:(CoTouchlabSqueakyDaoModelDao *)outer$;
+
+- (id<CoTouchlabSqueakyDbSQLiteStatement>)childValueWithId:(id<CoTouchlabSqueakyDbSQLiteStatement>)arg0;
+
+@end
+
+J2OBJC_EMPTY_STATIC_INIT(CoTouchlabSqueakyDaoModelDao_CreateThreadLocal)
+
+FOUNDATION_EXPORT void CoTouchlabSqueakyDaoModelDao_CreateThreadLocal_initWithCoTouchlabSqueakyDaoModelDao_(CoTouchlabSqueakyDaoModelDao_CreateThreadLocal *self, CoTouchlabSqueakyDaoModelDao *outer$);
+
+FOUNDATION_EXPORT CoTouchlabSqueakyDaoModelDao_CreateThreadLocal *new_CoTouchlabSqueakyDaoModelDao_CreateThreadLocal_initWithCoTouchlabSqueakyDaoModelDao_(CoTouchlabSqueakyDaoModelDao *outer$) NS_RETURNS_RETAINED;
+
+FOUNDATION_EXPORT CoTouchlabSqueakyDaoModelDao_CreateThreadLocal *create_CoTouchlabSqueakyDaoModelDao_CreateThreadLocal_initWithCoTouchlabSqueakyDaoModelDao_(CoTouchlabSqueakyDaoModelDao *outer$);
+
+J2OBJC_TYPE_LITERAL_HEADER(CoTouchlabSqueakyDaoModelDao_CreateThreadLocal)
+
+#endif
+
+#if !defined (CoTouchlabSqueakyDaoModelDao_UpdateThreadLocal_) && (INCLUDE_ALL_CoTouchlabSqueakyDaoModelDao || defined(INCLUDE_CoTouchlabSqueakyDaoModelDao_UpdateThreadLocal))
+#define CoTouchlabSqueakyDaoModelDao_UpdateThreadLocal_
+
+#define RESTRICT_JavaLangThreadLocal 1
+#define INCLUDE_JavaLangThreadLocal 1
+#include "java/lang/ThreadLocal.h"
+
+@class CoTouchlabSqueakyDaoModelDao;
+@protocol CoTouchlabSqueakyDbSQLiteStatement;
+
+@interface CoTouchlabSqueakyDaoModelDao_UpdateThreadLocal : JavaLangThreadLocal
+
+#pragma mark Public
+
+- (id<CoTouchlabSqueakyDbSQLiteStatement>)get;
+
+#pragma mark Protected
+
+- (id<CoTouchlabSqueakyDbSQLiteStatement>)initialValue OBJC_METHOD_FAMILY_NONE;
+
+#pragma mark Package-Private
+
+- (instancetype)initWithCoTouchlabSqueakyDaoModelDao:(CoTouchlabSqueakyDaoModelDao *)outer$;
+
+- (id<CoTouchlabSqueakyDbSQLiteStatement>)childValueWithId:(id<CoTouchlabSqueakyDbSQLiteStatement>)arg0;
+
+@end
+
+J2OBJC_EMPTY_STATIC_INIT(CoTouchlabSqueakyDaoModelDao_UpdateThreadLocal)
+
+FOUNDATION_EXPORT void CoTouchlabSqueakyDaoModelDao_UpdateThreadLocal_initWithCoTouchlabSqueakyDaoModelDao_(CoTouchlabSqueakyDaoModelDao_UpdateThreadLocal *self, CoTouchlabSqueakyDaoModelDao *outer$);
+
+FOUNDATION_EXPORT CoTouchlabSqueakyDaoModelDao_UpdateThreadLocal *new_CoTouchlabSqueakyDaoModelDao_UpdateThreadLocal_initWithCoTouchlabSqueakyDaoModelDao_(CoTouchlabSqueakyDaoModelDao *outer$) NS_RETURNS_RETAINED;
+
+FOUNDATION_EXPORT CoTouchlabSqueakyDaoModelDao_UpdateThreadLocal *create_CoTouchlabSqueakyDaoModelDao_UpdateThreadLocal_initWithCoTouchlabSqueakyDaoModelDao_(CoTouchlabSqueakyDaoModelDao *outer$);
+
+J2OBJC_TYPE_LITERAL_HEADER(CoTouchlabSqueakyDaoModelDao_UpdateThreadLocal)
+
+#endif
+
 #if !defined (CoTouchlabSqueakyDaoModelDao_QueryModifiersImpl_) && (INCLUDE_ALL_CoTouchlabSqueakyDaoModelDao || defined(INCLUDE_CoTouchlabSqueakyDaoModelDao_QueryModifiersImpl))
 #define CoTouchlabSqueakyDaoModelDao_QueryModifiersImpl_
 

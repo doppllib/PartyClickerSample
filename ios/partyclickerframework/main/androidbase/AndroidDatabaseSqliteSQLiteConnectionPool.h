@@ -26,6 +26,7 @@
 
 @class AndroidDatabaseSqliteSQLiteConnection;
 @class AndroidDatabaseSqliteSQLiteDatabaseConfiguration;
+@class AndroidOsCancellationSignal;
 @class JavaUtilArrayList;
 @protocol AndroidUtilPrinter;
 
@@ -34,7 +35,8 @@
 #pragma mark Public
 
 - (AndroidDatabaseSqliteSQLiteConnection *)acquireConnectionWithNSString:(NSString *)sql
-                                                                 withInt:(jint)connectionFlags;
+                                                                 withInt:(jint)connectionFlags
+                                         withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal;
 
 - (void)close;
 

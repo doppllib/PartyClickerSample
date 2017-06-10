@@ -145,6 +145,10 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeFromAsyncEmitter_Cancel
 
 - (instancetype)initWithRxSubscriber:(RxSubscriber *)actual;
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 - (jboolean)isUnsubscribed;
 
 - (void)onCompleted;
@@ -191,6 +195,10 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeFromAsyncEmitter_BaseAs
 
 - (instancetype)initWithRxSubscriber:(RxSubscriber *)actual;
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 - (void)onNextWithId:(id)t;
 
 @end
@@ -218,6 +226,10 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeFromAsyncEmitter_NoneAs
 
 - (instancetype)initWithRxSubscriber:(RxSubscriber *)actual;
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 - (void)onNextWithId:(id)t;
 
 #pragma mark Package-Private
@@ -244,6 +256,10 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeFromAsyncEmitter_NoOver
 #pragma mark Public
 
 - (instancetype)initWithRxSubscriber:(RxSubscriber *)actual;
+
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
 
 #pragma mark Package-Private
 
@@ -273,6 +289,10 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeFromAsyncEmitter_DropAs
 #pragma mark Public
 
 - (instancetype)initWithRxSubscriber:(RxSubscriber *)actual;
+
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
 
 - (void)onCompleted;
 
@@ -317,6 +337,10 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeFromAsyncEmitter_ErrorA
 
 - (instancetype)initWithRxSubscriber:(RxSubscriber *)actual
                              withInt:(jint)capacityHint;
+
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
 
 - (void)onCompleted;
 
@@ -368,6 +392,10 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeFromAsyncEmitter_Buffer
 #pragma mark Public
 
 - (instancetype)initWithRxSubscriber:(RxSubscriber *)actual;
+
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
 
 - (void)onCompleted;
 

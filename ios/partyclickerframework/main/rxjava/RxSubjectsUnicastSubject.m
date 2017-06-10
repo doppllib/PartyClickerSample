@@ -346,6 +346,14 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(RxSubjectsUnicastSubject)
   }
 }
 
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
+}
+
 - (void)dealloc {
   RELEASE_(subscriber_);
   RELEASE_(queue_);

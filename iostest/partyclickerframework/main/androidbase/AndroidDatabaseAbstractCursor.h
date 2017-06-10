@@ -20,8 +20,10 @@
 #include "AndroidDatabaseCrossProcessCursor.h"
 
 @class AndroidDatabaseCharArrayBuffer;
+@class AndroidDatabaseContentObserver;
 @class AndroidDatabaseCursorWindow;
 @class AndroidDatabaseDataSetObserver;
+@class AndroidNetUri;
 @class AndroidOsBundle;
 @class IOSByteArray;
 @class IOSObjectArray;
@@ -75,6 +77,8 @@ withAndroidDatabaseCursorWindow:(AndroidDatabaseCursorWindow *)window;
 
 - (jlong)getLongWithInt:(jint)column;
 
+- (AndroidNetUri *)getNotificationUri;
+
 - (jint)getPosition;
 
 - (jshort)getShortWithInt:(jint)column;
@@ -114,6 +118,8 @@ withAndroidDatabaseCursorWindow:(AndroidDatabaseCursorWindow *)window;
 - (jboolean)onMoveWithInt:(jint)oldPosition
                   withInt:(jint)newPosition;
 
+- (void)registerContentObserverWithAndroidDatabaseContentObserver:(AndroidDatabaseContentObserver *)observer;
+
 - (void)registerDataSetObserverWithAndroidDatabaseDataSetObserver:(AndroidDatabaseDataSetObserver *)observer;
 
 - (jboolean)requery;
@@ -121,6 +127,8 @@ withAndroidDatabaseCursorWindow:(AndroidDatabaseCursorWindow *)window;
 - (AndroidOsBundle *)respondWithAndroidOsBundle:(AndroidOsBundle *)extras;
 
 - (void)setExtrasWithAndroidOsBundle:(AndroidOsBundle *)extras;
+
+- (void)unregisterContentObserverWithAndroidDatabaseContentObserver:(AndroidDatabaseContentObserver *)observer;
 
 - (void)unregisterDataSetObserverWithAndroidDatabaseDataSetObserver:(AndroidDatabaseDataSetObserver *)observer;
 
@@ -134,6 +142,8 @@ withAndroidDatabaseCursorWindow:(AndroidDatabaseCursorWindow *)window;
 
 - (jboolean)isFieldUpdatedWithInt:(jint)columnIndex;
 
+- (void)onChangeWithBoolean:(jboolean)selfChange;
+
 - (void)onDeactivateOrClose;
 
 @end
@@ -146,6 +156,45 @@ J2OBJC_FIELD_SETTER(AndroidDatabaseAbstractCursor, mCurrentRowID_, JavaLangLong 
 FOUNDATION_EXPORT void AndroidDatabaseAbstractCursor_init(AndroidDatabaseAbstractCursor *self);
 
 J2OBJC_TYPE_LITERAL_HEADER(AndroidDatabaseAbstractCursor)
+
+#endif
+
+#if !defined (AndroidDatabaseAbstractCursor_SelfContentObserver_) && (INCLUDE_ALL_AndroidDatabaseAbstractCursor || defined(INCLUDE_AndroidDatabaseAbstractCursor_SelfContentObserver))
+#define AndroidDatabaseAbstractCursor_SelfContentObserver_
+
+#define RESTRICT_AndroidDatabaseContentObserver 1
+#define INCLUDE_AndroidDatabaseContentObserver 1
+#include "AndroidDatabaseContentObserver.h"
+
+@class AndroidDatabaseAbstractCursor;
+@class JavaLangRefWeakReference;
+
+@interface AndroidDatabaseAbstractCursor_SelfContentObserver : AndroidDatabaseContentObserver {
+ @public
+  JavaLangRefWeakReference *mCursor_;
+}
+
+#pragma mark Public
+
+- (instancetype)initWithAndroidDatabaseAbstractCursor:(AndroidDatabaseAbstractCursor *)cursor;
+
+- (jboolean)deliverSelfNotifications;
+
+- (void)onChangeWithBoolean:(jboolean)selfChange;
+
+@end
+
+J2OBJC_EMPTY_STATIC_INIT(AndroidDatabaseAbstractCursor_SelfContentObserver)
+
+J2OBJC_FIELD_SETTER(AndroidDatabaseAbstractCursor_SelfContentObserver, mCursor_, JavaLangRefWeakReference *)
+
+FOUNDATION_EXPORT void AndroidDatabaseAbstractCursor_SelfContentObserver_initWithAndroidDatabaseAbstractCursor_(AndroidDatabaseAbstractCursor_SelfContentObserver *self, AndroidDatabaseAbstractCursor *cursor);
+
+FOUNDATION_EXPORT AndroidDatabaseAbstractCursor_SelfContentObserver *new_AndroidDatabaseAbstractCursor_SelfContentObserver_initWithAndroidDatabaseAbstractCursor_(AndroidDatabaseAbstractCursor *cursor) NS_RETURNS_RETAINED;
+
+FOUNDATION_EXPORT AndroidDatabaseAbstractCursor_SelfContentObserver *create_AndroidDatabaseAbstractCursor_SelfContentObserver_initWithAndroidDatabaseAbstractCursor_(AndroidDatabaseAbstractCursor *cursor);
+
+J2OBJC_TYPE_LITERAL_HEADER(AndroidDatabaseAbstractCursor_SelfContentObserver)
 
 #endif
 

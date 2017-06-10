@@ -16,6 +16,7 @@
 #include "AndroidDatabaseSqliteSQLiteException.h"
 #include "AndroidDatabaseSqliteSQLiteGlobal.h"
 #include "AndroidDatabaseSqliteSQLiteStatementInfo.h"
+#include "AndroidOsCancellationSignal.h"
 #include "IOSClass.h"
 #include "IOSObjectArray.h"
 #include "IOSPrimitiveArray.h"
@@ -28,6 +29,7 @@
 #include "java/lang/Boolean.h"
 #include "java/lang/Exception.h"
 #include "java/lang/IllegalArgumentException.h"
+#include "java/lang/Long.h"
 #include "java/lang/RuntimeException.h"
 #include "java/lang/StringBuilder.h"
 #include "java/lang/System.h"
@@ -39,9 +41,6 @@
 #include "java/util/Set.h"
 #include "java/util/regex/Matcher.h"
 #include "java/util/regex/Pattern.h"
-
-#import "SQLiteConnectionNative.h"
-#import "java/lang/UnsupportedOperationException.h"
 
 @class AndroidDatabaseSqliteSQLiteConnection_Operation;
 @class AndroidDatabaseSqliteSQLiteConnection_OperationLog;
@@ -61,94 +60,99 @@
   AndroidDatabaseSqliteSQLiteConnection_PreparedStatementCache *mPreparedStatementCache_;
   AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *mPreparedStatementPool_;
   AndroidDatabaseSqliteSQLiteConnection_OperationLog *mRecentOperations_;
-  id mConnectionPtr_;
+  jlong mConnectionPtr_;
   jboolean mOnlyAllowReadOnlyOperations_;
   jint mCancellationSignalAttachCount_;
 }
 
-+ (id)nativeOpenWithNSString:(NSString *)path
-                     withInt:(jint)openFlags
-                withNSString:(NSString *)label
-                 withBoolean:(jboolean)enableTrace
-                 withBoolean:(jboolean)enableProfile;
++ (jlong)nativeOpenWithNSString:(NSString *)path
+                        withInt:(jint)openFlags
+                   withNSString:(NSString *)label
+                    withBoolean:(jboolean)enableTrace
+                    withBoolean:(jboolean)enableProfile;
 
-+ (void)nativeCloseWithId:(id)connectionPtr;
++ (void)nativeCloseWithLong:(jlong)connectionPtr;
 
-+ (void)nativeRegisterCustomFunctionWithId:(id)connectionPtr
++ (void)nativeRegisterCustomFunctionWithLong:(jlong)connectionPtr
 withAndroidDatabaseSqliteSQLiteCustomFunction:(AndroidDatabaseSqliteSQLiteCustomFunction *)function;
 
-+ (void)nativeRegisterLocalizedCollatorsWithId:(id)connectionPtr
-                                  withNSString:(NSString *)locale;
++ (void)nativeRegisterLocalizedCollatorsWithLong:(jlong)connectionPtr
+                                    withNSString:(NSString *)locale;
 
-+ (id)nativePrepareStatementWithId:(id)connectionPtr
-                      withNSString:(NSString *)sql;
++ (jlong)nativePrepareStatementWithLong:(jlong)connectionPtr
+                           withNSString:(NSString *)sql;
 
-+ (void)nativeFinalizeStatementWithId:(id)connectionPtr
-                               withId:(id)statementPtr;
++ (void)nativeFinalizeStatementWithLong:(jlong)connectionPtr
+                               withLong:(jlong)statementPtr;
 
-+ (jint)nativeGetParameterCountWithId:(id)connectionPtr
-                               withId:(id)statementPtr;
++ (jint)nativeGetParameterCountWithLong:(jlong)connectionPtr
+                               withLong:(jlong)statementPtr;
 
-+ (jboolean)nativeIsReadOnlyWithId:(id)connectionPtr
-                            withId:(id)statementPtr;
++ (jboolean)nativeIsReadOnlyWithLong:(jlong)connectionPtr
+                            withLong:(jlong)statementPtr;
 
-+ (jint)nativeGetColumnCountWithId:(id)connectionPtr
-                            withId:(id)statementPtr;
++ (jint)nativeGetColumnCountWithLong:(jlong)connectionPtr
+                            withLong:(jlong)statementPtr;
 
-+ (NSString *)nativeGetColumnNameWithId:(id)connectionPtr
-                                 withId:(id)statementPtr
-                                withInt:(jint)index;
++ (NSString *)nativeGetColumnNameWithLong:(jlong)connectionPtr
+                                 withLong:(jlong)statementPtr
+                                  withInt:(jint)index;
 
-+ (void)nativeBindNullWithId:(id)connectionPtr
-                      withId:(id)statementPtr
-                     withInt:(jint)index;
++ (void)nativeBindNullWithLong:(jlong)connectionPtr
+                      withLong:(jlong)statementPtr
+                       withInt:(jint)index;
 
-+ (void)nativeBindLongWithId:(id)connectionPtr
-                      withId:(id)statementPtr
-                     withInt:(jint)index
-                    withLong:(jlong)value;
-
-+ (void)nativeBindDoubleWithId:(id)connectionPtr
-                        withId:(id)statementPtr
++ (void)nativeBindLongWithLong:(jlong)connectionPtr
+                      withLong:(jlong)statementPtr
                        withInt:(jint)index
-                    withDouble:(jdouble)value;
+                      withLong:(jlong)value;
 
-+ (void)nativeBindStringWithId:(id)connectionPtr
-                        withId:(id)statementPtr
++ (void)nativeBindDoubleWithLong:(jlong)connectionPtr
+                        withLong:(jlong)statementPtr
+                         withInt:(jint)index
+                      withDouble:(jdouble)value;
+
++ (void)nativeBindStringWithLong:(jlong)connectionPtr
+                        withLong:(jlong)statementPtr
+                         withInt:(jint)index
+                    withNSString:(NSString *)value;
+
++ (void)nativeBindBlobWithLong:(jlong)connectionPtr
+                      withLong:(jlong)statementPtr
                        withInt:(jint)index
-                  withNSString:(NSString *)value;
+                 withByteArray:(IOSByteArray *)value;
 
-+ (void)nativeBindBlobWithId:(id)connectionPtr
-                      withId:(id)statementPtr
-                     withInt:(jint)index
-               withByteArray:(IOSByteArray *)value;
++ (void)nativeResetStatementAndClearBindingsWithLong:(jlong)connectionPtr
+                                            withLong:(jlong)statementPtr;
 
-+ (void)nativeResetStatementAndClearBindingsWithId:(id)connectionPtr
-                                            withId:(id)statementPtr;
++ (void)nativeExecuteWithLong:(jlong)connectionPtr
+                     withLong:(jlong)statementPtr;
 
-+ (void)nativeExecuteWithId:(id)connectionPtr
-                     withId:(id)statementPtr;
++ (jlong)nativeExecuteForLongWithLong:(jlong)connectionPtr
+                             withLong:(jlong)statementPtr;
 
-+ (jlong)nativeExecuteForLongWithId:(id)connectionPtr
-                             withId:(id)statementPtr;
++ (NSString *)nativeExecuteForStringWithLong:(jlong)connectionPtr
+                                    withLong:(jlong)statementPtr;
 
-+ (NSString *)nativeExecuteForStringWithId:(id)connectionPtr
-                                    withId:(id)statementPtr;
++ (jint)nativeExecuteForChangedRowCountWithLong:(jlong)connectionPtr
+                                       withLong:(jlong)statementPtr;
 
-+ (jint)nativeExecuteForChangedRowCountWithId:(id)connectionPtr
-                                       withId:(id)statementPtr;
++ (jlong)nativeExecuteForLastInsertedRowIdWithLong:(jlong)connectionPtr
+                                          withLong:(jlong)statementPtr;
 
-+ (jlong)nativeExecuteForLastInsertedRowIdWithId:(id)connectionPtr
-                                          withId:(id)statementPtr;
++ (jlong)nativeExecuteForCursorWindowWithLong:(jlong)connectionPtr
+                                     withLong:(jlong)statementPtr
+                                     withLong:(jlong)windowPtr
+                                      withInt:(jint)startPos
+                                      withInt:(jint)requiredPos
+                                  withBoolean:(jboolean)countAllRows;
 
-+ (jlong)nativeExecuteForCursorWindowWithId:(id)connectionPtr
-                                     withId:(id)statementPtr
-                                     withId:(id)windowPtr
-                                    withInt:(jint)startPos
-                                    withInt:(jint)requiredPos
-                                withBoolean:(jboolean)countAllRows;
++ (jint)nativeGetDbLookasideWithLong:(jlong)connectionPtr;
 
-+ (jint)nativeGetDbLookasideWithId:(id)connectionPtr;
++ (void)nativeCancelWithLong:(jlong)connectionPtr;
+
++ (void)nativeResetCancelWithLong:(jlong)connectionPtr
+                      withBoolean:(jboolean)cancelable;
 
 - (instancetype)initWithAndroidDatabaseSqliteSQLiteConnectionPool:(AndroidDatabaseSqliteSQLiteConnectionPool *)pool
              withAndroidDatabaseSqliteSQLiteDatabaseConfiguration:(AndroidDatabaseSqliteSQLiteDatabaseConfiguration *)configuration
@@ -183,6 +187,10 @@ withAndroidDatabaseSqliteSQLiteCustomFunction:(AndroidDatabaseSqliteSQLiteCustom
 
 - (void)finalizePreparedStatementWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement:(AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *)statement;
 
+- (void)attachCancellationSignalWithAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal;
+
+- (void)detachCancellationSignalWithAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal;
+
 - (void)bindArgumentsWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement:(AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *)statement
                                                                withNSObjectArray:(IOSObjectArray *)bindArgs;
 
@@ -197,7 +205,7 @@ withAndroidDatabaseSqliteSQLiteCustomFunction:(AndroidDatabaseSqliteSQLiteCustom
                                                                  withLong:(jlong)pageSize;
 
 - (AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *)obtainPreparedStatementWithNSString:(NSString *)sql
-                                                                                          withId:(id)statementPtr
+                                                                                        withLong:(jlong)statementPtr
                                                                                          withInt:(jint)numParameters
                                                                                          withInt:(jint)type
                                                                                      withBoolean:(jboolean)readOnly;
@@ -214,7 +222,6 @@ J2OBJC_FIELD_SETTER(AndroidDatabaseSqliteSQLiteConnection, mConfiguration_, Andr
 J2OBJC_FIELD_SETTER(AndroidDatabaseSqliteSQLiteConnection, mPreparedStatementCache_, AndroidDatabaseSqliteSQLiteConnection_PreparedStatementCache *)
 J2OBJC_FIELD_SETTER(AndroidDatabaseSqliteSQLiteConnection, mPreparedStatementPool_, AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *)
 J2OBJC_FIELD_SETTER(AndroidDatabaseSqliteSQLiteConnection, mRecentOperations_, AndroidDatabaseSqliteSQLiteConnection_OperationLog *)
-J2OBJC_FIELD_SETTER(AndroidDatabaseSqliteSQLiteConnection, mConnectionPtr_, id)
 
 inline NSString *AndroidDatabaseSqliteSQLiteConnection_get_TAG();
 static NSString *AndroidDatabaseSqliteSQLiteConnection_TAG = @"SQLiteConnection";
@@ -236,51 +243,55 @@ inline JavaUtilRegexPattern *AndroidDatabaseSqliteSQLiteConnection_get_TRIM_SQL_
 static JavaUtilRegexPattern *AndroidDatabaseSqliteSQLiteConnection_TRIM_SQL_PATTERN;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(AndroidDatabaseSqliteSQLiteConnection, TRIM_SQL_PATTERN, JavaUtilRegexPattern *)
 
-__attribute__((unused)) static id AndroidDatabaseSqliteSQLiteConnection_nativeOpenWithNSString_withInt_withNSString_withBoolean_withBoolean_(NSString *path, jint openFlags, NSString *label, jboolean enableTrace, jboolean enableProfile);
+jlong AndroidDatabaseSqliteSQLiteConnection_nativeOpenWithNSString_withInt_withNSString_withBoolean_withBoolean_(NSString *path, jint openFlags, NSString *label, jboolean enableTrace, jboolean enableProfile);
 
-__attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnection_nativeCloseWithId_(id connectionPtr);
+void AndroidDatabaseSqliteSQLiteConnection_nativeCloseWithLong_(jlong connectionPtr);
 
-__attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnection_nativeRegisterCustomFunctionWithId_withAndroidDatabaseSqliteSQLiteCustomFunction_(id connectionPtr, AndroidDatabaseSqliteSQLiteCustomFunction *function);
+void AndroidDatabaseSqliteSQLiteConnection_nativeRegisterCustomFunctionWithLong_withAndroidDatabaseSqliteSQLiteCustomFunction_(jlong connectionPtr, AndroidDatabaseSqliteSQLiteCustomFunction *function);
 
-__attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnection_nativeRegisterLocalizedCollatorsWithId_withNSString_(id connectionPtr, NSString *locale);
+void AndroidDatabaseSqliteSQLiteConnection_nativeRegisterLocalizedCollatorsWithLong_withNSString_(jlong connectionPtr, NSString *locale);
 
-__attribute__((unused)) static id AndroidDatabaseSqliteSQLiteConnection_nativePrepareStatementWithId_withNSString_(id connectionPtr, NSString *sql);
+jlong AndroidDatabaseSqliteSQLiteConnection_nativePrepareStatementWithLong_withNSString_(jlong connectionPtr, NSString *sql);
 
-__attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnection_nativeFinalizeStatementWithId_withId_(id connectionPtr, id statementPtr);
+void AndroidDatabaseSqliteSQLiteConnection_nativeFinalizeStatementWithLong_withLong_(jlong connectionPtr, jlong statementPtr);
 
-__attribute__((unused)) static jint AndroidDatabaseSqliteSQLiteConnection_nativeGetParameterCountWithId_withId_(id connectionPtr, id statementPtr);
+jint AndroidDatabaseSqliteSQLiteConnection_nativeGetParameterCountWithLong_withLong_(jlong connectionPtr, jlong statementPtr);
 
-__attribute__((unused)) static jboolean AndroidDatabaseSqliteSQLiteConnection_nativeIsReadOnlyWithId_withId_(id connectionPtr, id statementPtr);
+jboolean AndroidDatabaseSqliteSQLiteConnection_nativeIsReadOnlyWithLong_withLong_(jlong connectionPtr, jlong statementPtr);
 
-__attribute__((unused)) static jint AndroidDatabaseSqliteSQLiteConnection_nativeGetColumnCountWithId_withId_(id connectionPtr, id statementPtr);
+jint AndroidDatabaseSqliteSQLiteConnection_nativeGetColumnCountWithLong_withLong_(jlong connectionPtr, jlong statementPtr);
 
-__attribute__((unused)) static NSString *AndroidDatabaseSqliteSQLiteConnection_nativeGetColumnNameWithId_withId_withInt_(id connectionPtr, id statementPtr, jint index);
+NSString *AndroidDatabaseSqliteSQLiteConnection_nativeGetColumnNameWithLong_withLong_withInt_(jlong connectionPtr, jlong statementPtr, jint index);
 
-__attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnection_nativeBindNullWithId_withId_withInt_(id connectionPtr, id statementPtr, jint index);
+void AndroidDatabaseSqliteSQLiteConnection_nativeBindNullWithLong_withLong_withInt_(jlong connectionPtr, jlong statementPtr, jint index);
 
-__attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnection_nativeBindLongWithId_withId_withInt_withLong_(id connectionPtr, id statementPtr, jint index, jlong value);
+void AndroidDatabaseSqliteSQLiteConnection_nativeBindLongWithLong_withLong_withInt_withLong_(jlong connectionPtr, jlong statementPtr, jint index, jlong value);
 
-__attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnection_nativeBindDoubleWithId_withId_withInt_withDouble_(id connectionPtr, id statementPtr, jint index, jdouble value);
+void AndroidDatabaseSqliteSQLiteConnection_nativeBindDoubleWithLong_withLong_withInt_withDouble_(jlong connectionPtr, jlong statementPtr, jint index, jdouble value);
 
-__attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnection_nativeBindStringWithId_withId_withInt_withNSString_(id connectionPtr, id statementPtr, jint index, NSString *value);
+void AndroidDatabaseSqliteSQLiteConnection_nativeBindStringWithLong_withLong_withInt_withNSString_(jlong connectionPtr, jlong statementPtr, jint index, NSString *value);
 
-__attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnection_nativeBindBlobWithId_withId_withInt_withByteArray_(id connectionPtr, id statementPtr, jint index, IOSByteArray *value);
+void AndroidDatabaseSqliteSQLiteConnection_nativeBindBlobWithLong_withLong_withInt_withByteArray_(jlong connectionPtr, jlong statementPtr, jint index, IOSByteArray *value);
 
-__attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnection_nativeResetStatementAndClearBindingsWithId_withId_(id connectionPtr, id statementPtr);
+void AndroidDatabaseSqliteSQLiteConnection_nativeResetStatementAndClearBindingsWithLong_withLong_(jlong connectionPtr, jlong statementPtr);
 
-__attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnection_nativeExecuteWithId_withId_(id connectionPtr, id statementPtr);
+void AndroidDatabaseSqliteSQLiteConnection_nativeExecuteWithLong_withLong_(jlong connectionPtr, jlong statementPtr);
 
-__attribute__((unused)) static jlong AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForLongWithId_withId_(id connectionPtr, id statementPtr);
+jlong AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForLongWithLong_withLong_(jlong connectionPtr, jlong statementPtr);
 
-__attribute__((unused)) static NSString *AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForStringWithId_withId_(id connectionPtr, id statementPtr);
+NSString *AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForStringWithLong_withLong_(jlong connectionPtr, jlong statementPtr);
 
-__attribute__((unused)) static jint AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForChangedRowCountWithId_withId_(id connectionPtr, id statementPtr);
+jint AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForChangedRowCountWithLong_withLong_(jlong connectionPtr, jlong statementPtr);
 
-__attribute__((unused)) static jlong AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForLastInsertedRowIdWithId_withId_(id connectionPtr, id statementPtr);
+jlong AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForLastInsertedRowIdWithLong_withLong_(jlong connectionPtr, jlong statementPtr);
 
-__attribute__((unused)) static jlong AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForCursorWindowWithId_withId_withId_withInt_withInt_withBoolean_(id connectionPtr, id statementPtr, id windowPtr, jint startPos, jint requiredPos, jboolean countAllRows);
+jlong AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForCursorWindowWithLong_withLong_withLong_withInt_withInt_withBoolean_(jlong connectionPtr, jlong statementPtr, jlong windowPtr, jint startPos, jint requiredPos, jboolean countAllRows);
 
-__attribute__((unused)) static jint AndroidDatabaseSqliteSQLiteConnection_nativeGetDbLookasideWithId_(id connectionPtr);
+jint AndroidDatabaseSqliteSQLiteConnection_nativeGetDbLookasideWithLong_(jlong connectionPtr);
+
+void AndroidDatabaseSqliteSQLiteConnection_nativeCancelWithLong_(jlong connectionPtr);
+
+void AndroidDatabaseSqliteSQLiteConnection_nativeResetCancelWithLong_withBoolean_(jlong connectionPtr, jboolean cancelable);
 
 __attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnection_initWithAndroidDatabaseSqliteSQLiteConnectionPool_withAndroidDatabaseSqliteSQLiteDatabaseConfiguration_withInt_withBoolean_(AndroidDatabaseSqliteSQLiteConnection *self, AndroidDatabaseSqliteSQLiteConnectionPool *pool, AndroidDatabaseSqliteSQLiteDatabaseConfiguration *configuration, jint connectionId, jboolean primaryConnection);
 
@@ -316,6 +327,10 @@ __attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnection_releas
 
 __attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnection_finalizePreparedStatementWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_(AndroidDatabaseSqliteSQLiteConnection *self, AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *statement);
 
+__attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnection_attachCancellationSignalWithAndroidOsCancellationSignal_(AndroidDatabaseSqliteSQLiteConnection *self, AndroidOsCancellationSignal *cancellationSignal);
+
+__attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnection_detachCancellationSignalWithAndroidOsCancellationSignal_(AndroidDatabaseSqliteSQLiteConnection *self, AndroidOsCancellationSignal *cancellationSignal);
+
 __attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnection_bindArgumentsWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_withNSObjectArray_(AndroidDatabaseSqliteSQLiteConnection *self, AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *statement, IOSObjectArray *bindArgs);
 
 __attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnection_throwIfStatementForbiddenWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_(AndroidDatabaseSqliteSQLiteConnection *self, AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *statement);
@@ -326,7 +341,7 @@ __attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnection_applyB
 
 __attribute__((unused)) static AndroidDatabaseSqliteSQLiteDebug_DbStats *AndroidDatabaseSqliteSQLiteConnection_getMainDbStatsUnsafeWithInt_withLong_withLong_(AndroidDatabaseSqliteSQLiteConnection *self, jint lookaside, jlong pageCount, jlong pageSize);
 
-__attribute__((unused)) static AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *AndroidDatabaseSqliteSQLiteConnection_obtainPreparedStatementWithNSString_withId_withInt_withInt_withBoolean_(AndroidDatabaseSqliteSQLiteConnection *self, NSString *sql, id statementPtr, jint numParameters, jint type, jboolean readOnly);
+__attribute__((unused)) static AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *AndroidDatabaseSqliteSQLiteConnection_obtainPreparedStatementWithNSString_withLong_withInt_withInt_withBoolean_(AndroidDatabaseSqliteSQLiteConnection *self, NSString *sql, jlong statementPtr, jint numParameters, jint type, jboolean readOnly);
 
 __attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnection_recyclePreparedStatementWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_(AndroidDatabaseSqliteSQLiteConnection *self, AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *statement);
 
@@ -336,7 +351,7 @@ __attribute__((unused)) static NSString *AndroidDatabaseSqliteSQLiteConnection_t
  @public
   AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *mPoolNext_;
   NSString *mSql_;
-  id mStatementPtr_;
+  jlong mStatementPtr_;
   jint mNumParameters_;
   jint mType_;
   jboolean mReadOnly_;
@@ -352,7 +367,6 @@ J2OBJC_EMPTY_STATIC_INIT(AndroidDatabaseSqliteSQLiteConnection_PreparedStatement
 
 J2OBJC_FIELD_SETTER(AndroidDatabaseSqliteSQLiteConnection_PreparedStatement, mPoolNext_, AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *)
 J2OBJC_FIELD_SETTER(AndroidDatabaseSqliteSQLiteConnection_PreparedStatement, mSql_, NSString *)
-J2OBJC_FIELD_SETTER(AndroidDatabaseSqliteSQLiteConnection_PreparedStatement, mStatementPtr_, id)
 
 __attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnection_PreparedStatement_init(AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *self);
 
@@ -519,134 +533,143 @@ J2OBJC_INITIALIZED_DEFN(AndroidDatabaseSqliteSQLiteConnection)
 
 @implementation AndroidDatabaseSqliteSQLiteConnection
 
-+ (id)nativeOpenWithNSString:(NSString *)path
-                     withInt:(jint)openFlags
-                withNSString:(NSString *)label
-                 withBoolean:(jboolean)enableTrace
-                 withBoolean:(jboolean)enableProfile {
++ (jlong)nativeOpenWithNSString:(NSString *)path
+                        withInt:(jint)openFlags
+                   withNSString:(NSString *)label
+                    withBoolean:(jboolean)enableTrace
+                    withBoolean:(jboolean)enableProfile {
   return AndroidDatabaseSqliteSQLiteConnection_nativeOpenWithNSString_withInt_withNSString_withBoolean_withBoolean_(path, openFlags, label, enableTrace, enableProfile);
 }
 
-+ (void)nativeCloseWithId:(id)connectionPtr {
-  AndroidDatabaseSqliteSQLiteConnection_nativeCloseWithId_(connectionPtr);
++ (void)nativeCloseWithLong:(jlong)connectionPtr {
+  AndroidDatabaseSqliteSQLiteConnection_nativeCloseWithLong_(connectionPtr);
 }
 
-+ (void)nativeRegisterCustomFunctionWithId:(id)connectionPtr
++ (void)nativeRegisterCustomFunctionWithLong:(jlong)connectionPtr
 withAndroidDatabaseSqliteSQLiteCustomFunction:(AndroidDatabaseSqliteSQLiteCustomFunction *)function {
-  AndroidDatabaseSqliteSQLiteConnection_nativeRegisterCustomFunctionWithId_withAndroidDatabaseSqliteSQLiteCustomFunction_(connectionPtr, function);
+  AndroidDatabaseSqliteSQLiteConnection_nativeRegisterCustomFunctionWithLong_withAndroidDatabaseSqliteSQLiteCustomFunction_(connectionPtr, function);
 }
 
-+ (void)nativeRegisterLocalizedCollatorsWithId:(id)connectionPtr
-                                  withNSString:(NSString *)locale {
-  AndroidDatabaseSqliteSQLiteConnection_nativeRegisterLocalizedCollatorsWithId_withNSString_(connectionPtr, locale);
++ (void)nativeRegisterLocalizedCollatorsWithLong:(jlong)connectionPtr
+                                    withNSString:(NSString *)locale {
+  AndroidDatabaseSqliteSQLiteConnection_nativeRegisterLocalizedCollatorsWithLong_withNSString_(connectionPtr, locale);
 }
 
-+ (id)nativePrepareStatementWithId:(id)connectionPtr
-                      withNSString:(NSString *)sql {
-  return AndroidDatabaseSqliteSQLiteConnection_nativePrepareStatementWithId_withNSString_(connectionPtr, sql);
++ (jlong)nativePrepareStatementWithLong:(jlong)connectionPtr
+                           withNSString:(NSString *)sql {
+  return AndroidDatabaseSqliteSQLiteConnection_nativePrepareStatementWithLong_withNSString_(connectionPtr, sql);
 }
 
-+ (void)nativeFinalizeStatementWithId:(id)connectionPtr
-                               withId:(id)statementPtr {
-  AndroidDatabaseSqliteSQLiteConnection_nativeFinalizeStatementWithId_withId_(connectionPtr, statementPtr);
++ (void)nativeFinalizeStatementWithLong:(jlong)connectionPtr
+                               withLong:(jlong)statementPtr {
+  AndroidDatabaseSqliteSQLiteConnection_nativeFinalizeStatementWithLong_withLong_(connectionPtr, statementPtr);
 }
 
-+ (jint)nativeGetParameterCountWithId:(id)connectionPtr
-                               withId:(id)statementPtr {
-  return AndroidDatabaseSqliteSQLiteConnection_nativeGetParameterCountWithId_withId_(connectionPtr, statementPtr);
++ (jint)nativeGetParameterCountWithLong:(jlong)connectionPtr
+                               withLong:(jlong)statementPtr {
+  return AndroidDatabaseSqliteSQLiteConnection_nativeGetParameterCountWithLong_withLong_(connectionPtr, statementPtr);
 }
 
-+ (jboolean)nativeIsReadOnlyWithId:(id)connectionPtr
-                            withId:(id)statementPtr {
-  return AndroidDatabaseSqliteSQLiteConnection_nativeIsReadOnlyWithId_withId_(connectionPtr, statementPtr);
++ (jboolean)nativeIsReadOnlyWithLong:(jlong)connectionPtr
+                            withLong:(jlong)statementPtr {
+  return AndroidDatabaseSqliteSQLiteConnection_nativeIsReadOnlyWithLong_withLong_(connectionPtr, statementPtr);
 }
 
-+ (jint)nativeGetColumnCountWithId:(id)connectionPtr
-                            withId:(id)statementPtr {
-  return AndroidDatabaseSqliteSQLiteConnection_nativeGetColumnCountWithId_withId_(connectionPtr, statementPtr);
++ (jint)nativeGetColumnCountWithLong:(jlong)connectionPtr
+                            withLong:(jlong)statementPtr {
+  return AndroidDatabaseSqliteSQLiteConnection_nativeGetColumnCountWithLong_withLong_(connectionPtr, statementPtr);
 }
 
-+ (NSString *)nativeGetColumnNameWithId:(id)connectionPtr
-                                 withId:(id)statementPtr
-                                withInt:(jint)index {
-  return AndroidDatabaseSqliteSQLiteConnection_nativeGetColumnNameWithId_withId_withInt_(connectionPtr, statementPtr, index);
++ (NSString *)nativeGetColumnNameWithLong:(jlong)connectionPtr
+                                 withLong:(jlong)statementPtr
+                                  withInt:(jint)index {
+  return AndroidDatabaseSqliteSQLiteConnection_nativeGetColumnNameWithLong_withLong_withInt_(connectionPtr, statementPtr, index);
 }
 
-+ (void)nativeBindNullWithId:(id)connectionPtr
-                      withId:(id)statementPtr
-                     withInt:(jint)index {
-  AndroidDatabaseSqliteSQLiteConnection_nativeBindNullWithId_withId_withInt_(connectionPtr, statementPtr, index);
++ (void)nativeBindNullWithLong:(jlong)connectionPtr
+                      withLong:(jlong)statementPtr
+                       withInt:(jint)index {
+  AndroidDatabaseSqliteSQLiteConnection_nativeBindNullWithLong_withLong_withInt_(connectionPtr, statementPtr, index);
 }
 
-+ (void)nativeBindLongWithId:(id)connectionPtr
-                      withId:(id)statementPtr
-                     withInt:(jint)index
-                    withLong:(jlong)value {
-  AndroidDatabaseSqliteSQLiteConnection_nativeBindLongWithId_withId_withInt_withLong_(connectionPtr, statementPtr, index, value);
-}
-
-+ (void)nativeBindDoubleWithId:(id)connectionPtr
-                        withId:(id)statementPtr
++ (void)nativeBindLongWithLong:(jlong)connectionPtr
+                      withLong:(jlong)statementPtr
                        withInt:(jint)index
-                    withDouble:(jdouble)value {
-  AndroidDatabaseSqliteSQLiteConnection_nativeBindDoubleWithId_withId_withInt_withDouble_(connectionPtr, statementPtr, index, value);
+                      withLong:(jlong)value {
+  AndroidDatabaseSqliteSQLiteConnection_nativeBindLongWithLong_withLong_withInt_withLong_(connectionPtr, statementPtr, index, value);
 }
 
-+ (void)nativeBindStringWithId:(id)connectionPtr
-                        withId:(id)statementPtr
++ (void)nativeBindDoubleWithLong:(jlong)connectionPtr
+                        withLong:(jlong)statementPtr
+                         withInt:(jint)index
+                      withDouble:(jdouble)value {
+  AndroidDatabaseSqliteSQLiteConnection_nativeBindDoubleWithLong_withLong_withInt_withDouble_(connectionPtr, statementPtr, index, value);
+}
+
++ (void)nativeBindStringWithLong:(jlong)connectionPtr
+                        withLong:(jlong)statementPtr
+                         withInt:(jint)index
+                    withNSString:(NSString *)value {
+  AndroidDatabaseSqliteSQLiteConnection_nativeBindStringWithLong_withLong_withInt_withNSString_(connectionPtr, statementPtr, index, value);
+}
+
++ (void)nativeBindBlobWithLong:(jlong)connectionPtr
+                      withLong:(jlong)statementPtr
                        withInt:(jint)index
-                  withNSString:(NSString *)value {
-  AndroidDatabaseSqliteSQLiteConnection_nativeBindStringWithId_withId_withInt_withNSString_(connectionPtr, statementPtr, index, value);
+                 withByteArray:(IOSByteArray *)value {
+  AndroidDatabaseSqliteSQLiteConnection_nativeBindBlobWithLong_withLong_withInt_withByteArray_(connectionPtr, statementPtr, index, value);
 }
 
-+ (void)nativeBindBlobWithId:(id)connectionPtr
-                      withId:(id)statementPtr
-                     withInt:(jint)index
-               withByteArray:(IOSByteArray *)value {
-  AndroidDatabaseSqliteSQLiteConnection_nativeBindBlobWithId_withId_withInt_withByteArray_(connectionPtr, statementPtr, index, value);
++ (void)nativeResetStatementAndClearBindingsWithLong:(jlong)connectionPtr
+                                            withLong:(jlong)statementPtr {
+  AndroidDatabaseSqliteSQLiteConnection_nativeResetStatementAndClearBindingsWithLong_withLong_(connectionPtr, statementPtr);
 }
 
-+ (void)nativeResetStatementAndClearBindingsWithId:(id)connectionPtr
-                                            withId:(id)statementPtr {
-  AndroidDatabaseSqliteSQLiteConnection_nativeResetStatementAndClearBindingsWithId_withId_(connectionPtr, statementPtr);
++ (void)nativeExecuteWithLong:(jlong)connectionPtr
+                     withLong:(jlong)statementPtr {
+  AndroidDatabaseSqliteSQLiteConnection_nativeExecuteWithLong_withLong_(connectionPtr, statementPtr);
 }
 
-+ (void)nativeExecuteWithId:(id)connectionPtr
-                     withId:(id)statementPtr {
-  AndroidDatabaseSqliteSQLiteConnection_nativeExecuteWithId_withId_(connectionPtr, statementPtr);
++ (jlong)nativeExecuteForLongWithLong:(jlong)connectionPtr
+                             withLong:(jlong)statementPtr {
+  return AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForLongWithLong_withLong_(connectionPtr, statementPtr);
 }
 
-+ (jlong)nativeExecuteForLongWithId:(id)connectionPtr
-                             withId:(id)statementPtr {
-  return AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForLongWithId_withId_(connectionPtr, statementPtr);
++ (NSString *)nativeExecuteForStringWithLong:(jlong)connectionPtr
+                                    withLong:(jlong)statementPtr {
+  return AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForStringWithLong_withLong_(connectionPtr, statementPtr);
 }
 
-+ (NSString *)nativeExecuteForStringWithId:(id)connectionPtr
-                                    withId:(id)statementPtr {
-  return AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForStringWithId_withId_(connectionPtr, statementPtr);
++ (jint)nativeExecuteForChangedRowCountWithLong:(jlong)connectionPtr
+                                       withLong:(jlong)statementPtr {
+  return AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForChangedRowCountWithLong_withLong_(connectionPtr, statementPtr);
 }
 
-+ (jint)nativeExecuteForChangedRowCountWithId:(id)connectionPtr
-                                       withId:(id)statementPtr {
-  return AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForChangedRowCountWithId_withId_(connectionPtr, statementPtr);
++ (jlong)nativeExecuteForLastInsertedRowIdWithLong:(jlong)connectionPtr
+                                          withLong:(jlong)statementPtr {
+  return AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForLastInsertedRowIdWithLong_withLong_(connectionPtr, statementPtr);
 }
 
-+ (jlong)nativeExecuteForLastInsertedRowIdWithId:(id)connectionPtr
-                                          withId:(id)statementPtr {
-  return AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForLastInsertedRowIdWithId_withId_(connectionPtr, statementPtr);
++ (jlong)nativeExecuteForCursorWindowWithLong:(jlong)connectionPtr
+                                     withLong:(jlong)statementPtr
+                                     withLong:(jlong)windowPtr
+                                      withInt:(jint)startPos
+                                      withInt:(jint)requiredPos
+                                  withBoolean:(jboolean)countAllRows {
+  return AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForCursorWindowWithLong_withLong_withLong_withInt_withInt_withBoolean_(connectionPtr, statementPtr, windowPtr, startPos, requiredPos, countAllRows);
 }
 
-+ (jlong)nativeExecuteForCursorWindowWithId:(id)connectionPtr
-                                     withId:(id)statementPtr
-                                     withId:(id)windowPtr
-                                    withInt:(jint)startPos
-                                    withInt:(jint)requiredPos
-                                withBoolean:(jboolean)countAllRows {
-  return AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForCursorWindowWithId_withId_withId_withInt_withInt_withBoolean_(connectionPtr, statementPtr, windowPtr, startPos, requiredPos, countAllRows);
++ (jint)nativeGetDbLookasideWithLong:(jlong)connectionPtr {
+  return AndroidDatabaseSqliteSQLiteConnection_nativeGetDbLookasideWithLong_(connectionPtr);
 }
 
-+ (jint)nativeGetDbLookasideWithId:(id)connectionPtr {
-  return AndroidDatabaseSqliteSQLiteConnection_nativeGetDbLookasideWithId_(connectionPtr);
++ (void)nativeCancelWithLong:(jlong)connectionPtr {
+  AndroidDatabaseSqliteSQLiteConnection_nativeCancelWithLong_(connectionPtr);
+}
+
++ (void)nativeResetCancelWithLong:(jlong)connectionPtr
+                      withBoolean:(jboolean)cancelable {
+  AndroidDatabaseSqliteSQLiteConnection_nativeResetCancelWithLong_withBoolean_(connectionPtr, cancelable);
 }
 
 - (instancetype)initWithAndroidDatabaseSqliteSQLiteConnectionPool:(AndroidDatabaseSqliteSQLiteConnectionPool *)pool
@@ -659,7 +682,7 @@ withAndroidDatabaseSqliteSQLiteCustomFunction:(AndroidDatabaseSqliteSQLiteCustom
 
 - (void)java_finalize {
   @try {
-    if (mPool_ != nil && mConnectionPtr_ != nil) {
+    if (mPool_ != nil && mConnectionPtr_ != 0) {
       [mPool_ onConnectionLeaked];
     }
     AndroidDatabaseSqliteSQLiteConnection_disposeWithBoolean_(self, true);
@@ -730,7 +753,7 @@ withAndroidDatabaseSqliteSQLiteCustomFunction:(AndroidDatabaseSqliteSQLiteCustom
   for (jint i = 0; i < functionCount; i++) {
     AndroidDatabaseSqliteSQLiteCustomFunction *function = [configuration->customFunctions_ getWithInt:i];
     if (![((AndroidDatabaseSqliteSQLiteDatabaseConfiguration *) nil_chk(mConfiguration_))->customFunctions_ containsWithId:function]) {
-      AndroidDatabaseSqliteSQLiteConnection_nativeRegisterCustomFunctionWithId_withAndroidDatabaseSqliteSQLiteCustomFunction_(mConnectionPtr_, function);
+      AndroidDatabaseSqliteSQLiteConnection_nativeRegisterCustomFunctionWithLong_withAndroidDatabaseSqliteSQLiteCustomFunction_(mConnectionPtr_, function);
     }
   }
   jboolean foreignKeyModeChanged = configuration->foreignKeyConstraintsEnabled_ != ((AndroidDatabaseSqliteSQLiteDatabaseConfiguration *) nil_chk(mConfiguration_))->foreignKeyConstraintsEnabled_;
@@ -777,14 +800,14 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
       if (outStatementInfo != nil) {
         outStatementInfo->numParameters_ = ((AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *) nil_chk(statement))->mNumParameters_;
         outStatementInfo->readOnly_ = statement->mReadOnly_;
-        jint columnCount = AndroidDatabaseSqliteSQLiteConnection_nativeGetColumnCountWithId_withId_(mConnectionPtr_, statement->mStatementPtr_);
+        jint columnCount = AndroidDatabaseSqliteSQLiteConnection_nativeGetColumnCountWithLong_withLong_(mConnectionPtr_, statement->mStatementPtr_);
         if (columnCount == 0) {
           JreStrongAssign(&outStatementInfo->columnNames_, AndroidDatabaseSqliteSQLiteConnection_EMPTY_STRING_ARRAY);
         }
         else {
           JreStrongAssignAndConsume(&outStatementInfo->columnNames_, [IOSObjectArray newArrayWithLength:columnCount type:NSString_class_()]);
           for (jint i = 0; i < columnCount; i++) {
-            IOSObjectArray_Set(nil_chk(outStatementInfo->columnNames_), i, AndroidDatabaseSqliteSQLiteConnection_nativeGetColumnNameWithId_withId_withInt_(mConnectionPtr_, statement->mStatementPtr_, i));
+            IOSObjectArray_Set(nil_chk(outStatementInfo->columnNames_), i, AndroidDatabaseSqliteSQLiteConnection_nativeGetColumnNameWithLong_withLong_withInt_(mConnectionPtr_, statement->mStatementPtr_, i));
           }
         }
       }
@@ -803,7 +826,8 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
 }
 
 - (void)executeWithNSString:(NSString *)sql
-          withNSObjectArray:(IOSObjectArray *)bindArgs {
+          withNSObjectArray:(IOSObjectArray *)bindArgs
+withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
   if (sql == nil) {
     @throw create_JavaLangIllegalArgumentException_initWithNSString_(@"sql must not be null.");
   }
@@ -814,10 +838,12 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
       AndroidDatabaseSqliteSQLiteConnection_throwIfStatementForbiddenWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_(self, statement);
       AndroidDatabaseSqliteSQLiteConnection_bindArgumentsWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_withNSObjectArray_(self, statement, bindArgs);
       AndroidDatabaseSqliteSQLiteConnection_applyBlockGuardPolicyWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_(self, statement);
+      AndroidDatabaseSqliteSQLiteConnection_attachCancellationSignalWithAndroidOsCancellationSignal_(self, cancellationSignal);
       @try {
-        AndroidDatabaseSqliteSQLiteConnection_nativeExecuteWithId_withId_(mConnectionPtr_, ((AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *) nil_chk(statement))->mStatementPtr_);
+        AndroidDatabaseSqliteSQLiteConnection_nativeExecuteWithLong_withLong_(mConnectionPtr_, ((AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *) nil_chk(statement))->mStatementPtr_);
       }
       @finally {
+        AndroidDatabaseSqliteSQLiteConnection_detachCancellationSignalWithAndroidOsCancellationSignal_(self, cancellationSignal);
       }
     }
     @finally {
@@ -834,7 +860,8 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
 }
 
 - (jlong)executeForLongWithNSString:(NSString *)sql
-                  withNSObjectArray:(IOSObjectArray *)bindArgs {
+                  withNSObjectArray:(IOSObjectArray *)bindArgs
+    withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
   if (sql == nil) {
     @throw create_JavaLangIllegalArgumentException_initWithNSString_(@"sql must not be null.");
   }
@@ -845,10 +872,12 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
       AndroidDatabaseSqliteSQLiteConnection_throwIfStatementForbiddenWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_(self, statement);
       AndroidDatabaseSqliteSQLiteConnection_bindArgumentsWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_withNSObjectArray_(self, statement, bindArgs);
       AndroidDatabaseSqliteSQLiteConnection_applyBlockGuardPolicyWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_(self, statement);
+      AndroidDatabaseSqliteSQLiteConnection_attachCancellationSignalWithAndroidOsCancellationSignal_(self, cancellationSignal);
       @try {
-        return AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForLongWithId_withId_(mConnectionPtr_, ((AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *) nil_chk(statement))->mStatementPtr_);
+        return AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForLongWithLong_withLong_(mConnectionPtr_, ((AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *) nil_chk(statement))->mStatementPtr_);
       }
       @finally {
+        AndroidDatabaseSqliteSQLiteConnection_detachCancellationSignalWithAndroidOsCancellationSignal_(self, cancellationSignal);
       }
     }
     @finally {
@@ -865,7 +894,8 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
 }
 
 - (NSString *)executeForStringWithNSString:(NSString *)sql
-                         withNSObjectArray:(IOSObjectArray *)bindArgs {
+                         withNSObjectArray:(IOSObjectArray *)bindArgs
+           withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
   if (sql == nil) {
     @throw create_JavaLangIllegalArgumentException_initWithNSString_(@"sql must not be null.");
   }
@@ -876,10 +906,12 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
       AndroidDatabaseSqliteSQLiteConnection_throwIfStatementForbiddenWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_(self, statement);
       AndroidDatabaseSqliteSQLiteConnection_bindArgumentsWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_withNSObjectArray_(self, statement, bindArgs);
       AndroidDatabaseSqliteSQLiteConnection_applyBlockGuardPolicyWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_(self, statement);
+      AndroidDatabaseSqliteSQLiteConnection_attachCancellationSignalWithAndroidOsCancellationSignal_(self, cancellationSignal);
       @try {
-        return AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForStringWithId_withId_(mConnectionPtr_, ((AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *) nil_chk(statement))->mStatementPtr_);
+        return AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForStringWithLong_withLong_(mConnectionPtr_, ((AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *) nil_chk(statement))->mStatementPtr_);
       }
       @finally {
+        AndroidDatabaseSqliteSQLiteConnection_detachCancellationSignalWithAndroidOsCancellationSignal_(self, cancellationSignal);
       }
     }
     @finally {
@@ -896,7 +928,8 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
 }
 
 - (jint)executeForChangedRowCountWithNSString:(NSString *)sql
-                            withNSObjectArray:(IOSObjectArray *)bindArgs {
+                            withNSObjectArray:(IOSObjectArray *)bindArgs
+              withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
   if (sql == nil) {
     @throw create_JavaLangIllegalArgumentException_initWithNSString_(@"sql must not be null.");
   }
@@ -908,11 +941,13 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
       AndroidDatabaseSqliteSQLiteConnection_throwIfStatementForbiddenWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_(self, statement);
       AndroidDatabaseSqliteSQLiteConnection_bindArgumentsWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_withNSObjectArray_(self, statement, bindArgs);
       AndroidDatabaseSqliteSQLiteConnection_applyBlockGuardPolicyWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_(self, statement);
+      AndroidDatabaseSqliteSQLiteConnection_attachCancellationSignalWithAndroidOsCancellationSignal_(self, cancellationSignal);
       @try {
-        changedRows = AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForChangedRowCountWithId_withId_(mConnectionPtr_, ((AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *) nil_chk(statement))->mStatementPtr_);
+        changedRows = AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForChangedRowCountWithLong_withLong_(mConnectionPtr_, ((AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *) nil_chk(statement))->mStatementPtr_);
         return changedRows;
       }
       @finally {
+        AndroidDatabaseSqliteSQLiteConnection_detachCancellationSignalWithAndroidOsCancellationSignal_(self, cancellationSignal);
       }
     }
     @finally {
@@ -931,7 +966,8 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
 }
 
 - (jlong)executeForLastInsertedRowIdWithNSString:(NSString *)sql
-                               withNSObjectArray:(IOSObjectArray *)bindArgs {
+                               withNSObjectArray:(IOSObjectArray *)bindArgs
+                 withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
   if (sql == nil) {
     @throw create_JavaLangIllegalArgumentException_initWithNSString_(@"sql must not be null.");
   }
@@ -942,10 +978,12 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
       AndroidDatabaseSqliteSQLiteConnection_throwIfStatementForbiddenWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_(self, statement);
       AndroidDatabaseSqliteSQLiteConnection_bindArgumentsWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_withNSObjectArray_(self, statement, bindArgs);
       AndroidDatabaseSqliteSQLiteConnection_applyBlockGuardPolicyWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_(self, statement);
+      AndroidDatabaseSqliteSQLiteConnection_attachCancellationSignalWithAndroidOsCancellationSignal_(self, cancellationSignal);
       @try {
-        return AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForLastInsertedRowIdWithId_withId_(mConnectionPtr_, ((AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *) nil_chk(statement))->mStatementPtr_);
+        return AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForLastInsertedRowIdWithLong_withLong_(mConnectionPtr_, ((AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *) nil_chk(statement))->mStatementPtr_);
       }
       @finally {
+        AndroidDatabaseSqliteSQLiteConnection_detachCancellationSignalWithAndroidOsCancellationSignal_(self, cancellationSignal);
       }
     }
     @finally {
@@ -966,7 +1004,8 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
            withAndroidDatabaseCursorWindow:(AndroidDatabaseCursorWindow *)window
                                    withInt:(jint)startPos
                                    withInt:(jint)requiredPos
-                               withBoolean:(jboolean)countAllRows {
+                               withBoolean:(jboolean)countAllRows
+           withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
   if (sql == nil) {
     @throw create_JavaLangIllegalArgumentException_initWithNSString_(@"sql must not be null.");
   }
@@ -985,8 +1024,9 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
         AndroidDatabaseSqliteSQLiteConnection_throwIfStatementForbiddenWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_(self, statement);
         AndroidDatabaseSqliteSQLiteConnection_bindArgumentsWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_withNSObjectArray_(self, statement, bindArgs);
         AndroidDatabaseSqliteSQLiteConnection_applyBlockGuardPolicyWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_(self, statement);
+        AndroidDatabaseSqliteSQLiteConnection_attachCancellationSignalWithAndroidOsCancellationSignal_(self, cancellationSignal);
         @try {
-          jlong result = AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForCursorWindowWithId_withId_withId_withInt_withInt_withBoolean_(mConnectionPtr_, ((AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *) nil_chk(statement))->mStatementPtr_, window->mWindowPtr_, startPos, requiredPos, countAllRows);
+          jlong result = AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForCursorWindowWithLong_withLong_withLong_withInt_withInt_withBoolean_(mConnectionPtr_, ((AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *) nil_chk(statement))->mStatementPtr_, window->mWindowPtr_, startPos, requiredPos, countAllRows);
           actualPos = (jint) (JreRShift64(result, 32));
           countedRows = (jint) result;
           filledRows = [window getNumRows];
@@ -994,6 +1034,7 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
           return countedRows;
         }
         @finally {
+          AndroidDatabaseSqliteSQLiteConnection_detachCancellationSignalWithAndroidOsCancellationSignal_(self, cancellationSignal);
         }
       }
       @finally {
@@ -1027,6 +1068,18 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
   AndroidDatabaseSqliteSQLiteConnection_finalizePreparedStatementWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_(self, statement);
 }
 
+- (void)attachCancellationSignalWithAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
+  AndroidDatabaseSqliteSQLiteConnection_attachCancellationSignalWithAndroidOsCancellationSignal_(self, cancellationSignal);
+}
+
+- (void)detachCancellationSignalWithAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
+  AndroidDatabaseSqliteSQLiteConnection_detachCancellationSignalWithAndroidOsCancellationSignal_(self, cancellationSignal);
+}
+
+- (void)onCancel {
+  AndroidDatabaseSqliteSQLiteConnection_nativeCancelWithLong_(mConnectionPtr_);
+}
+
 - (void)bindArgumentsWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement:(AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *)statement
                                                                withNSObjectArray:(IOSObjectArray *)bindArgs {
   AndroidDatabaseSqliteSQLiteConnection_bindArgumentsWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_withNSObjectArray_(self, statement, bindArgs);
@@ -1053,7 +1106,7 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
                              withBoolean:(jboolean)verbose {
   [((id<AndroidUtilPrinter>) nil_chk(printer)) printlnWithNSString:JreStrcat("$IC", @"Connection #", mConnectionId_, ':')];
   if (verbose) {
-    [printer printlnWithNSString:JreStrcat("$@", @"  connectionPtr: 0x", mConnectionPtr_)];
+    [printer printlnWithNSString:JreStrcat("$$", @"  connectionPtr: 0x", JavaLangLong_toHexStringWithLong_(mConnectionPtr_))];
   }
   [printer printlnWithNSString:JreStrcat("$Z", @"  isPrimaryConnection: ", mIsPrimaryConnection_)];
   [printer printlnWithNSString:JreStrcat("$Z", @"  onlyAllowReadOnlyOperations: ", mOnlyAllowReadOnlyOperations_)];
@@ -1068,27 +1121,27 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
 }
 
 - (void)collectDbStatsWithJavaUtilArrayList:(JavaUtilArrayList *)dbStatsList {
-  jint lookaside = AndroidDatabaseSqliteSQLiteConnection_nativeGetDbLookasideWithId_(mConnectionPtr_);
+  jint lookaside = AndroidDatabaseSqliteSQLiteConnection_nativeGetDbLookasideWithLong_(mConnectionPtr_);
   jlong pageCount = 0;
   jlong pageSize = 0;
   @try {
-    pageCount = [self executeForLongWithNSString:@"PRAGMA page_count;" withNSObjectArray:nil];
-    pageSize = [self executeForLongWithNSString:@"PRAGMA page_size;" withNSObjectArray:nil];
+    pageCount = [self executeForLongWithNSString:@"PRAGMA page_count;" withNSObjectArray:nil withAndroidOsCancellationSignal:nil];
+    pageSize = [self executeForLongWithNSString:@"PRAGMA page_size;" withNSObjectArray:nil withAndroidOsCancellationSignal:nil];
   }
   @catch (AndroidDatabaseSqliteSQLiteException *ex) {
   }
   [((JavaUtilArrayList *) nil_chk(dbStatsList)) addWithId:AndroidDatabaseSqliteSQLiteConnection_getMainDbStatsUnsafeWithInt_withLong_withLong_(self, lookaside, pageCount, pageSize)];
   AndroidDatabaseCursorWindow *window = create_AndroidDatabaseCursorWindow_initWithNSString_(@"collectDbStats");
   @try {
-    [self executeForCursorWindowWithNSString:@"PRAGMA database_list;" withNSObjectArray:nil withAndroidDatabaseCursorWindow:window withInt:0 withInt:0 withBoolean:false];
+    [self executeForCursorWindowWithNSString:@"PRAGMA database_list;" withNSObjectArray:nil withAndroidDatabaseCursorWindow:window withInt:0 withInt:0 withBoolean:false withAndroidOsCancellationSignal:nil];
     for (jint i = 1; i < [window getNumRows]; i++) {
       NSString *name = [window getStringWithInt:i withInt:1];
       NSString *path = [window getStringWithInt:i withInt:2];
       pageCount = 0;
       pageSize = 0;
       @try {
-        pageCount = [self executeForLongWithNSString:JreStrcat("$$$", @"PRAGMA ", name, @".page_count;") withNSObjectArray:nil];
-        pageSize = [self executeForLongWithNSString:JreStrcat("$$$", @"PRAGMA ", name, @".page_size;") withNSObjectArray:nil];
+        pageCount = [self executeForLongWithNSString:JreStrcat("$$$", @"PRAGMA ", name, @".page_count;") withNSObjectArray:nil withAndroidOsCancellationSignal:nil];
+        pageSize = [self executeForLongWithNSString:JreStrcat("$$$", @"PRAGMA ", name, @".page_size;") withNSObjectArray:nil withAndroidOsCancellationSignal:nil];
       }
       @catch (AndroidDatabaseSqliteSQLiteException *ex) {
       }
@@ -1121,11 +1174,11 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
 }
 
 - (AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *)obtainPreparedStatementWithNSString:(NSString *)sql
-                                                                                          withId:(id)statementPtr
+                                                                                        withLong:(jlong)statementPtr
                                                                                          withInt:(jint)numParameters
                                                                                          withInt:(jint)type
                                                                                      withBoolean:(jboolean)readOnly {
-  return AndroidDatabaseSqliteSQLiteConnection_obtainPreparedStatementWithNSString_withId_withInt_withInt_withBoolean_(self, sql, statementPtr, numParameters, type, readOnly);
+  return AndroidDatabaseSqliteSQLiteConnection_obtainPreparedStatementWithNSString_withLong_withInt_withInt_withBoolean_(self, sql, statementPtr, numParameters, type, readOnly);
 }
 
 - (void)recyclePreparedStatementWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement:(AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *)statement {
@@ -1144,17 +1197,16 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
   RELEASE_(mPreparedStatementCache_);
   RELEASE_(mPreparedStatementPool_);
   RELEASE_(mRecentOperations_);
-  RELEASE_(mConnectionPtr_);
   [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
-    { NULL, "LNSObject;", 0x10a, 0, 1, -1, -1, -1, -1 },
+    { NULL, "J", 0x10a, 0, 1, -1, -1, -1, -1 },
     { NULL, "V", 0x10a, 2, 3, -1, -1, -1, -1 },
     { NULL, "V", 0x10a, 4, 5, -1, -1, -1, -1 },
     { NULL, "V", 0x10a, 6, 7, -1, -1, -1, -1 },
-    { NULL, "LNSObject;", 0x10a, 8, 7, -1, -1, -1, -1 },
+    { NULL, "J", 0x10a, 8, 7, -1, -1, -1, -1 },
     { NULL, "V", 0x10a, 9, 10, -1, -1, -1, -1 },
     { NULL, "I", 0x10a, 11, 10, -1, -1, -1, -1 },
     { NULL, "Z", 0x10a, 12, 10, -1, -1, -1, -1 },
@@ -1173,127 +1225,137 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
     { NULL, "J", 0x10a, 30, 10, -1, -1, -1, -1 },
     { NULL, "J", 0x10a, 31, 32, -1, -1, -1, -1 },
     { NULL, "I", 0x10a, 33, 3, -1, -1, -1, -1 },
-    { NULL, NULL, 0x2, -1, 34, -1, -1, -1, -1 },
-    { NULL, "V", 0x4, 35, -1, 36, -1, -1, -1 },
-    { NULL, "LAndroidDatabaseSqliteSQLiteConnection;", 0x8, 37, 34, -1, -1, -1, -1 },
+    { NULL, "V", 0x10a, 34, 3, -1, -1, -1, -1 },
+    { NULL, "V", 0x10a, 35, 36, -1, -1, -1, -1 },
+    { NULL, NULL, 0x2, -1, 37, -1, -1, -1, -1 },
+    { NULL, "V", 0x4, 38, -1, 39, -1, -1, -1 },
+    { NULL, "LAndroidDatabaseSqliteSQLiteConnection;", 0x8, 40, 37, -1, -1, -1, -1 },
     { NULL, "V", 0x0, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x2, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 38, 39, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 41, 42, -1, -1, -1, -1 },
     { NULL, "V", 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x2, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 40, 41, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0xa, 42, 41, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 43, 41, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 43, 44, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0xa, 45, 44, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 46, 44, -1, -1, -1, -1 },
     { NULL, "V", 0x2, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x0, 44, 45, -1, -1, -1, -1 },
-    { NULL, "V", 0x0, 46, 39, -1, -1, -1, -1 },
-    { NULL, "Z", 0x0, 47, 41, -1, -1, -1, -1 },
+    { NULL, "V", 0x0, 47, 48, -1, -1, -1, -1 },
+    { NULL, "V", 0x0, 49, 42, -1, -1, -1, -1 },
+    { NULL, "Z", 0x0, 50, 44, -1, -1, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 48, 49, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 50, 51, -1, -1, -1, -1 },
-    { NULL, "J", 0x1, 52, 51, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x1, 53, 51, -1, -1, -1, -1 },
-    { NULL, "I", 0x1, 54, 51, -1, -1, -1, -1 },
-    { NULL, "J", 0x1, 55, 51, -1, -1, -1, -1 },
-    { NULL, "I", 0x1, 56, 57, -1, -1, -1, -1 },
-    { NULL, "LAndroidDatabaseSqliteSQLiteConnection_PreparedStatement;", 0x2, 58, 41, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 59, 60, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 61, 60, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 51, 52, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 53, 54, -1, -1, -1, -1 },
+    { NULL, "J", 0x1, 55, 54, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x1, 56, 54, -1, -1, -1, -1 },
+    { NULL, "I", 0x1, 57, 54, -1, -1, -1, -1 },
+    { NULL, "J", 0x1, 58, 54, -1, -1, -1, -1 },
+    { NULL, "I", 0x1, 59, 60, -1, -1, -1, -1 },
+    { NULL, "LAndroidDatabaseSqliteSQLiteConnection_PreparedStatement;", 0x2, 61, 44, -1, -1, -1, -1 },
     { NULL, "V", 0x2, 62, 63, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 64, 60, -1, -1, -1, -1 },
-    { NULL, "Z", 0xa, 65, 66, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 67, 60, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 68, 69, -1, -1, -1, -1 },
-    { NULL, "V", 0x0, 70, 69, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 64, 63, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 65, 66, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 67, 66, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 68, 69, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 70, 63, -1, -1, -1, -1 },
+    { NULL, "Z", 0xa, 71, 72, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 73, 63, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 74, 75, -1, -1, -1, -1 },
+    { NULL, "V", 0x0, 76, 75, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x0, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x0, 71, 72, -1, 73, -1, -1 },
-    { NULL, "V", 0x0, 74, 72, -1, 73, -1, -1 },
-    { NULL, "LAndroidDatabaseSqliteSQLiteDebug_DbStats;", 0x2, 75, 76, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x1, 77, -1, -1, -1, -1, -1 },
-    { NULL, "LAndroidDatabaseSqliteSQLiteConnection_PreparedStatement;", 0x2, 78, 79, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 80, 60, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0xa, 81, 41, -1, -1, -1, -1 },
+    { NULL, "V", 0x0, 77, 78, -1, 79, -1, -1 },
+    { NULL, "V", 0x0, 80, 78, -1, 79, -1, -1 },
+    { NULL, "LAndroidDatabaseSqliteSQLiteDebug_DbStats;", 0x2, 81, 82, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x1, 83, -1, -1, -1, -1, -1 },
+    { NULL, "LAndroidDatabaseSqliteSQLiteConnection_PreparedStatement;", 0x2, 84, 85, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 86, 63, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0xa, 87, 44, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   methods[0].selector = @selector(nativeOpenWithNSString:withInt:withNSString:withBoolean:withBoolean:);
-  methods[1].selector = @selector(nativeCloseWithId:);
-  methods[2].selector = @selector(nativeRegisterCustomFunctionWithId:withAndroidDatabaseSqliteSQLiteCustomFunction:);
-  methods[3].selector = @selector(nativeRegisterLocalizedCollatorsWithId:withNSString:);
-  methods[4].selector = @selector(nativePrepareStatementWithId:withNSString:);
-  methods[5].selector = @selector(nativeFinalizeStatementWithId:withId:);
-  methods[6].selector = @selector(nativeGetParameterCountWithId:withId:);
-  methods[7].selector = @selector(nativeIsReadOnlyWithId:withId:);
-  methods[8].selector = @selector(nativeGetColumnCountWithId:withId:);
-  methods[9].selector = @selector(nativeGetColumnNameWithId:withId:withInt:);
-  methods[10].selector = @selector(nativeBindNullWithId:withId:withInt:);
-  methods[11].selector = @selector(nativeBindLongWithId:withId:withInt:withLong:);
-  methods[12].selector = @selector(nativeBindDoubleWithId:withId:withInt:withDouble:);
-  methods[13].selector = @selector(nativeBindStringWithId:withId:withInt:withNSString:);
-  methods[14].selector = @selector(nativeBindBlobWithId:withId:withInt:withByteArray:);
-  methods[15].selector = @selector(nativeResetStatementAndClearBindingsWithId:withId:);
-  methods[16].selector = @selector(nativeExecuteWithId:withId:);
-  methods[17].selector = @selector(nativeExecuteForLongWithId:withId:);
-  methods[18].selector = @selector(nativeExecuteForStringWithId:withId:);
-  methods[19].selector = @selector(nativeExecuteForChangedRowCountWithId:withId:);
-  methods[20].selector = @selector(nativeExecuteForLastInsertedRowIdWithId:withId:);
-  methods[21].selector = @selector(nativeExecuteForCursorWindowWithId:withId:withId:withInt:withInt:withBoolean:);
-  methods[22].selector = @selector(nativeGetDbLookasideWithId:);
-  methods[23].selector = @selector(initWithAndroidDatabaseSqliteSQLiteConnectionPool:withAndroidDatabaseSqliteSQLiteDatabaseConfiguration:withInt:withBoolean:);
-  methods[24].selector = @selector(java_finalize);
-  methods[25].selector = @selector(openWithAndroidDatabaseSqliteSQLiteConnectionPool:withAndroidDatabaseSqliteSQLiteDatabaseConfiguration:withInt:withBoolean:);
-  methods[26].selector = @selector(close);
-  methods[27].selector = @selector(open);
-  methods[28].selector = @selector(disposeWithBoolean:);
-  methods[29].selector = @selector(setPageSize);
-  methods[30].selector = @selector(setAutoCheckpointInterval);
-  methods[31].selector = @selector(setJournalSizeLimit);
-  methods[32].selector = @selector(setForeignKeyModeFromConfiguration);
-  methods[33].selector = @selector(setWalModeFromConfiguration);
-  methods[34].selector = @selector(setSyncModeWithNSString:);
-  methods[35].selector = @selector(canonicalizeSyncModeWithNSString:);
-  methods[36].selector = @selector(setJournalModeWithNSString:);
-  methods[37].selector = @selector(setLocaleFromConfiguration);
-  methods[38].selector = @selector(reconfigureWithAndroidDatabaseSqliteSQLiteDatabaseConfiguration:);
-  methods[39].selector = @selector(setOnlyAllowReadOnlyOperationsWithBoolean:);
-  methods[40].selector = @selector(isPreparedStatementInCacheWithNSString:);
-  methods[41].selector = @selector(getConnectionId);
-  methods[42].selector = @selector(isPrimaryConnection);
-  methods[43].selector = @selector(prepareWithNSString:withAndroidDatabaseSqliteSQLiteStatementInfo:);
-  methods[44].selector = @selector(executeWithNSString:withNSObjectArray:);
-  methods[45].selector = @selector(executeForLongWithNSString:withNSObjectArray:);
-  methods[46].selector = @selector(executeForStringWithNSString:withNSObjectArray:);
-  methods[47].selector = @selector(executeForChangedRowCountWithNSString:withNSObjectArray:);
-  methods[48].selector = @selector(executeForLastInsertedRowIdWithNSString:withNSObjectArray:);
-  methods[49].selector = @selector(executeForCursorWindowWithNSString:withNSObjectArray:withAndroidDatabaseCursorWindow:withInt:withInt:withBoolean:);
-  methods[50].selector = @selector(acquirePreparedStatementWithNSString:);
-  methods[51].selector = @selector(releasePreparedStatementWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement:);
-  methods[52].selector = @selector(finalizePreparedStatementWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement:);
-  methods[53].selector = @selector(bindArgumentsWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement:withNSObjectArray:);
-  methods[54].selector = @selector(throwIfStatementForbiddenWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement:);
-  methods[55].selector = @selector(isCacheableWithInt:);
-  methods[56].selector = @selector(applyBlockGuardPolicyWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement:);
-  methods[57].selector = @selector(dumpWithAndroidUtilPrinter:withBoolean:);
-  methods[58].selector = @selector(dumpUnsafeWithAndroidUtilPrinter:withBoolean:);
-  methods[59].selector = @selector(describeCurrentOperationUnsafe);
-  methods[60].selector = @selector(collectDbStatsWithJavaUtilArrayList:);
-  methods[61].selector = @selector(collectDbStatsUnsafeWithJavaUtilArrayList:);
-  methods[62].selector = @selector(getMainDbStatsUnsafeWithInt:withLong:withLong:);
-  methods[63].selector = @selector(description);
-  methods[64].selector = @selector(obtainPreparedStatementWithNSString:withId:withInt:withInt:withBoolean:);
-  methods[65].selector = @selector(recyclePreparedStatementWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement:);
-  methods[66].selector = @selector(trimSqlForDisplayWithNSString:);
+  methods[1].selector = @selector(nativeCloseWithLong:);
+  methods[2].selector = @selector(nativeRegisterCustomFunctionWithLong:withAndroidDatabaseSqliteSQLiteCustomFunction:);
+  methods[3].selector = @selector(nativeRegisterLocalizedCollatorsWithLong:withNSString:);
+  methods[4].selector = @selector(nativePrepareStatementWithLong:withNSString:);
+  methods[5].selector = @selector(nativeFinalizeStatementWithLong:withLong:);
+  methods[6].selector = @selector(nativeGetParameterCountWithLong:withLong:);
+  methods[7].selector = @selector(nativeIsReadOnlyWithLong:withLong:);
+  methods[8].selector = @selector(nativeGetColumnCountWithLong:withLong:);
+  methods[9].selector = @selector(nativeGetColumnNameWithLong:withLong:withInt:);
+  methods[10].selector = @selector(nativeBindNullWithLong:withLong:withInt:);
+  methods[11].selector = @selector(nativeBindLongWithLong:withLong:withInt:withLong:);
+  methods[12].selector = @selector(nativeBindDoubleWithLong:withLong:withInt:withDouble:);
+  methods[13].selector = @selector(nativeBindStringWithLong:withLong:withInt:withNSString:);
+  methods[14].selector = @selector(nativeBindBlobWithLong:withLong:withInt:withByteArray:);
+  methods[15].selector = @selector(nativeResetStatementAndClearBindingsWithLong:withLong:);
+  methods[16].selector = @selector(nativeExecuteWithLong:withLong:);
+  methods[17].selector = @selector(nativeExecuteForLongWithLong:withLong:);
+  methods[18].selector = @selector(nativeExecuteForStringWithLong:withLong:);
+  methods[19].selector = @selector(nativeExecuteForChangedRowCountWithLong:withLong:);
+  methods[20].selector = @selector(nativeExecuteForLastInsertedRowIdWithLong:withLong:);
+  methods[21].selector = @selector(nativeExecuteForCursorWindowWithLong:withLong:withLong:withInt:withInt:withBoolean:);
+  methods[22].selector = @selector(nativeGetDbLookasideWithLong:);
+  methods[23].selector = @selector(nativeCancelWithLong:);
+  methods[24].selector = @selector(nativeResetCancelWithLong:withBoolean:);
+  methods[25].selector = @selector(initWithAndroidDatabaseSqliteSQLiteConnectionPool:withAndroidDatabaseSqliteSQLiteDatabaseConfiguration:withInt:withBoolean:);
+  methods[26].selector = @selector(java_finalize);
+  methods[27].selector = @selector(openWithAndroidDatabaseSqliteSQLiteConnectionPool:withAndroidDatabaseSqliteSQLiteDatabaseConfiguration:withInt:withBoolean:);
+  methods[28].selector = @selector(close);
+  methods[29].selector = @selector(open);
+  methods[30].selector = @selector(disposeWithBoolean:);
+  methods[31].selector = @selector(setPageSize);
+  methods[32].selector = @selector(setAutoCheckpointInterval);
+  methods[33].selector = @selector(setJournalSizeLimit);
+  methods[34].selector = @selector(setForeignKeyModeFromConfiguration);
+  methods[35].selector = @selector(setWalModeFromConfiguration);
+  methods[36].selector = @selector(setSyncModeWithNSString:);
+  methods[37].selector = @selector(canonicalizeSyncModeWithNSString:);
+  methods[38].selector = @selector(setJournalModeWithNSString:);
+  methods[39].selector = @selector(setLocaleFromConfiguration);
+  methods[40].selector = @selector(reconfigureWithAndroidDatabaseSqliteSQLiteDatabaseConfiguration:);
+  methods[41].selector = @selector(setOnlyAllowReadOnlyOperationsWithBoolean:);
+  methods[42].selector = @selector(isPreparedStatementInCacheWithNSString:);
+  methods[43].selector = @selector(getConnectionId);
+  methods[44].selector = @selector(isPrimaryConnection);
+  methods[45].selector = @selector(prepareWithNSString:withAndroidDatabaseSqliteSQLiteStatementInfo:);
+  methods[46].selector = @selector(executeWithNSString:withNSObjectArray:withAndroidOsCancellationSignal:);
+  methods[47].selector = @selector(executeForLongWithNSString:withNSObjectArray:withAndroidOsCancellationSignal:);
+  methods[48].selector = @selector(executeForStringWithNSString:withNSObjectArray:withAndroidOsCancellationSignal:);
+  methods[49].selector = @selector(executeForChangedRowCountWithNSString:withNSObjectArray:withAndroidOsCancellationSignal:);
+  methods[50].selector = @selector(executeForLastInsertedRowIdWithNSString:withNSObjectArray:withAndroidOsCancellationSignal:);
+  methods[51].selector = @selector(executeForCursorWindowWithNSString:withNSObjectArray:withAndroidDatabaseCursorWindow:withInt:withInt:withBoolean:withAndroidOsCancellationSignal:);
+  methods[52].selector = @selector(acquirePreparedStatementWithNSString:);
+  methods[53].selector = @selector(releasePreparedStatementWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement:);
+  methods[54].selector = @selector(finalizePreparedStatementWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement:);
+  methods[55].selector = @selector(attachCancellationSignalWithAndroidOsCancellationSignal:);
+  methods[56].selector = @selector(detachCancellationSignalWithAndroidOsCancellationSignal:);
+  methods[57].selector = @selector(onCancel);
+  methods[58].selector = @selector(bindArgumentsWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement:withNSObjectArray:);
+  methods[59].selector = @selector(throwIfStatementForbiddenWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement:);
+  methods[60].selector = @selector(isCacheableWithInt:);
+  methods[61].selector = @selector(applyBlockGuardPolicyWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement:);
+  methods[62].selector = @selector(dumpWithAndroidUtilPrinter:withBoolean:);
+  methods[63].selector = @selector(dumpUnsafeWithAndroidUtilPrinter:withBoolean:);
+  methods[64].selector = @selector(describeCurrentOperationUnsafe);
+  methods[65].selector = @selector(collectDbStatsWithJavaUtilArrayList:);
+  methods[66].selector = @selector(collectDbStatsUnsafeWithJavaUtilArrayList:);
+  methods[67].selector = @selector(getMainDbStatsUnsafeWithInt:withLong:withLong:);
+  methods[68].selector = @selector(description);
+  methods[69].selector = @selector(obtainPreparedStatementWithNSString:withLong:withInt:withInt:withBoolean:);
+  methods[70].selector = @selector(recyclePreparedStatementWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement:);
+  methods[71].selector = @selector(trimSqlForDisplayWithNSString:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "TAG", "LNSString;", .constantValue.asLong = 0, 0x1a, -1, 82, -1, -1 },
+    { "TAG", "LNSString;", .constantValue.asLong = 0, 0x1a, -1, 88, -1, -1 },
     { "DEBUG", "Z", .constantValue.asBOOL = AndroidDatabaseSqliteSQLiteConnection_DEBUG, 0x1a, -1, -1, -1, -1 },
-    { "EMPTY_STRING_ARRAY", "[LNSString;", .constantValue.asLong = 0, 0x1a, -1, 83, -1, -1 },
-    { "EMPTY_BYTE_ARRAY", "[B", .constantValue.asLong = 0, 0x1a, -1, 84, -1, -1 },
-    { "TRIM_SQL_PATTERN", "LJavaUtilRegexPattern;", .constantValue.asLong = 0, 0x1a, -1, 85, -1, -1 },
+    { "EMPTY_STRING_ARRAY", "[LNSString;", .constantValue.asLong = 0, 0x1a, -1, 89, -1, -1 },
+    { "EMPTY_BYTE_ARRAY", "[B", .constantValue.asLong = 0, 0x1a, -1, 90, -1, -1 },
+    { "TRIM_SQL_PATTERN", "LJavaUtilRegexPattern;", .constantValue.asLong = 0, 0x1a, -1, 91, -1, -1 },
     { "mCloseGuard_", "LDalvikSystemCloseGuard;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
     { "mPool_", "LAndroidDatabaseSqliteSQLiteConnectionPool;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
     { "mConfiguration_", "LAndroidDatabaseSqliteSQLiteDatabaseConfiguration;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
@@ -1303,12 +1365,12 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
     { "mPreparedStatementCache_", "LAndroidDatabaseSqliteSQLiteConnection_PreparedStatementCache;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
     { "mPreparedStatementPool_", "LAndroidDatabaseSqliteSQLiteConnection_PreparedStatement;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mRecentOperations_", "LAndroidDatabaseSqliteSQLiteConnection_OperationLog;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
-    { "mConnectionPtr_", "LNSObject;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
+    { "mConnectionPtr_", "J", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mOnlyAllowReadOnlyOperations_", "Z", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mCancellationSignalAttachCount_", "I", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "nativeOpen", "LNSString;ILNSString;ZZ", "nativeClose", "LNSObject;", "nativeRegisterCustomFunction", "LNSObject;LAndroidDatabaseSqliteSQLiteCustomFunction;", "nativeRegisterLocalizedCollators", "LNSObject;LNSString;", "nativePrepareStatement", "nativeFinalizeStatement", "LNSObject;LNSObject;", "nativeGetParameterCount", "nativeIsReadOnly", "nativeGetColumnCount", "nativeGetColumnName", "LNSObject;LNSObject;I", "nativeBindNull", "nativeBindLong", "LNSObject;LNSObject;IJ", "nativeBindDouble", "LNSObject;LNSObject;ID", "nativeBindString", "LNSObject;LNSObject;ILNSString;", "nativeBindBlob", "LNSObject;LNSObject;I[B", "nativeResetStatementAndClearBindings", "nativeExecute", "nativeExecuteForLong", "nativeExecuteForString", "nativeExecuteForChangedRowCount", "nativeExecuteForLastInsertedRowId", "nativeExecuteForCursorWindow", "LNSObject;LNSObject;LNSObject;IIZ", "nativeGetDbLookaside", "LAndroidDatabaseSqliteSQLiteConnectionPool;LAndroidDatabaseSqliteSQLiteDatabaseConfiguration;IZ", "finalize", "LNSException;", "open", "dispose", "Z", "setSyncMode", "LNSString;", "canonicalizeSyncMode", "setJournalMode", "reconfigure", "LAndroidDatabaseSqliteSQLiteDatabaseConfiguration;", "setOnlyAllowReadOnlyOperations", "isPreparedStatementInCache", "prepare", "LNSString;LAndroidDatabaseSqliteSQLiteStatementInfo;", "execute", "LNSString;[LNSObject;", "executeForLong", "executeForString", "executeForChangedRowCount", "executeForLastInsertedRowId", "executeForCursorWindow", "LNSString;[LNSObject;LAndroidDatabaseCursorWindow;IIZ", "acquirePreparedStatement", "releasePreparedStatement", "LAndroidDatabaseSqliteSQLiteConnection_PreparedStatement;", "finalizePreparedStatement", "bindArguments", "LAndroidDatabaseSqliteSQLiteConnection_PreparedStatement;[LNSObject;", "throwIfStatementForbidden", "isCacheable", "I", "applyBlockGuardPolicy", "dump", "LAndroidUtilPrinter;Z", "dumpUnsafe", "collectDbStats", "LJavaUtilArrayList;", "(Ljava/util/ArrayList<Landroid/database/sqlite/SQLiteDebug$DbStats;>;)V", "collectDbStatsUnsafe", "getMainDbStatsUnsafe", "IJJ", "toString", "obtainPreparedStatement", "LNSString;LNSObject;IIZ", "recyclePreparedStatement", "trimSqlForDisplay", &AndroidDatabaseSqliteSQLiteConnection_TAG, &AndroidDatabaseSqliteSQLiteConnection_EMPTY_STRING_ARRAY, &AndroidDatabaseSqliteSQLiteConnection_EMPTY_BYTE_ARRAY, &AndroidDatabaseSqliteSQLiteConnection_TRIM_SQL_PATTERN, "LAndroidDatabaseSqliteSQLiteConnection_PreparedStatement;LAndroidDatabaseSqliteSQLiteConnection_PreparedStatementCache;LAndroidDatabaseSqliteSQLiteConnection_OperationLog;LAndroidDatabaseSqliteSQLiteConnection_Operation;" };
-  static const J2ObjcClassInfo _AndroidDatabaseSqliteSQLiteConnection = { "SQLiteConnection", "android.database.sqlite", ptrTable, methods, fields, 7, 0x11, 67, 17, -1, 86, -1, -1, -1 };
+  static const void *ptrTable[] = { "nativeOpen", "LNSString;ILNSString;ZZ", "nativeClose", "J", "nativeRegisterCustomFunction", "JLAndroidDatabaseSqliteSQLiteCustomFunction;", "nativeRegisterLocalizedCollators", "JLNSString;", "nativePrepareStatement", "nativeFinalizeStatement", "JJ", "nativeGetParameterCount", "nativeIsReadOnly", "nativeGetColumnCount", "nativeGetColumnName", "JJI", "nativeBindNull", "nativeBindLong", "JJIJ", "nativeBindDouble", "JJID", "nativeBindString", "JJILNSString;", "nativeBindBlob", "JJI[B", "nativeResetStatementAndClearBindings", "nativeExecute", "nativeExecuteForLong", "nativeExecuteForString", "nativeExecuteForChangedRowCount", "nativeExecuteForLastInsertedRowId", "nativeExecuteForCursorWindow", "JJJIIZ", "nativeGetDbLookaside", "nativeCancel", "nativeResetCancel", "JZ", "LAndroidDatabaseSqliteSQLiteConnectionPool;LAndroidDatabaseSqliteSQLiteDatabaseConfiguration;IZ", "finalize", "LNSException;", "open", "dispose", "Z", "setSyncMode", "LNSString;", "canonicalizeSyncMode", "setJournalMode", "reconfigure", "LAndroidDatabaseSqliteSQLiteDatabaseConfiguration;", "setOnlyAllowReadOnlyOperations", "isPreparedStatementInCache", "prepare", "LNSString;LAndroidDatabaseSqliteSQLiteStatementInfo;", "execute", "LNSString;[LNSObject;LAndroidOsCancellationSignal;", "executeForLong", "executeForString", "executeForChangedRowCount", "executeForLastInsertedRowId", "executeForCursorWindow", "LNSString;[LNSObject;LAndroidDatabaseCursorWindow;IIZLAndroidOsCancellationSignal;", "acquirePreparedStatement", "releasePreparedStatement", "LAndroidDatabaseSqliteSQLiteConnection_PreparedStatement;", "finalizePreparedStatement", "attachCancellationSignal", "LAndroidOsCancellationSignal;", "detachCancellationSignal", "bindArguments", "LAndroidDatabaseSqliteSQLiteConnection_PreparedStatement;[LNSObject;", "throwIfStatementForbidden", "isCacheable", "I", "applyBlockGuardPolicy", "dump", "LAndroidUtilPrinter;Z", "dumpUnsafe", "collectDbStats", "LJavaUtilArrayList;", "(Ljava/util/ArrayList<Landroid/database/sqlite/SQLiteDebug$DbStats;>;)V", "collectDbStatsUnsafe", "getMainDbStatsUnsafe", "IJJ", "toString", "obtainPreparedStatement", "LNSString;JIIZ", "recyclePreparedStatement", "trimSqlForDisplay", &AndroidDatabaseSqliteSQLiteConnection_TAG, &AndroidDatabaseSqliteSQLiteConnection_EMPTY_STRING_ARRAY, &AndroidDatabaseSqliteSQLiteConnection_EMPTY_BYTE_ARRAY, &AndroidDatabaseSqliteSQLiteConnection_TRIM_SQL_PATTERN, "LAndroidDatabaseSqliteSQLiteConnection_PreparedStatement;LAndroidDatabaseSqliteSQLiteConnection_PreparedStatementCache;LAndroidDatabaseSqliteSQLiteConnection_OperationLog;LAndroidDatabaseSqliteSQLiteConnection_Operation;" };
+  static const J2ObjcClassInfo _AndroidDatabaseSqliteSQLiteConnection = { "SQLiteConnection", "android.database.sqlite", ptrTable, methods, fields, 7, 0x11, 72, 17, -1, 92, -1, -1, -1 };
   return &_AndroidDatabaseSqliteSQLiteConnection;
 }
 
@@ -1323,124 +1385,154 @@ withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStateme
 
 @end
 
-id AndroidDatabaseSqliteSQLiteConnection_nativeOpenWithNSString_withInt_withNSString_withBoolean_withBoolean_(NSString *path, jint openFlags, NSString *label, jboolean enableTrace, jboolean enableProfile) {
-  AndroidDatabaseSqliteSQLiteConnection_initialize();
-  return [SQLiteConnectionNative nativeOpen:path openFlags:openFlags labelStr:label
-  enableTrace:enableTrace enableProfile:enableProfile];
+JNIEXPORT jlong Java_android_database_sqlite_SQLiteConnection_nativeOpen(JNIEnv *_env_, jclass _cls_, jstring path, jint openFlags, jstring label, jboolean enableTrace, jboolean enableProfile);
+
+jlong AndroidDatabaseSqliteSQLiteConnection_nativeOpenWithNSString_withInt_withNSString_withBoolean_withBoolean_(NSString *path, jint openFlags, NSString *label, jboolean enableTrace, jboolean enableProfile) {
+  return Java_android_database_sqlite_SQLiteConnection_nativeOpen(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteConnection_class_(), path, openFlags, label, enableTrace, enableProfile);
 }
 
-void AndroidDatabaseSqliteSQLiteConnection_nativeCloseWithId_(id connectionPtr) {
-  AndroidDatabaseSqliteSQLiteConnection_initialize();
-  [SQLiteConnectionNative nativeClose:connectionPtr];
+JNIEXPORT void Java_android_database_sqlite_SQLiteConnection_nativeClose(JNIEnv *_env_, jclass _cls_, jlong connectionPtr);
+
+void AndroidDatabaseSqliteSQLiteConnection_nativeCloseWithLong_(jlong connectionPtr) {
+  Java_android_database_sqlite_SQLiteConnection_nativeClose(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteConnection_class_(), connectionPtr);
 }
 
-void AndroidDatabaseSqliteSQLiteConnection_nativeRegisterCustomFunctionWithId_withAndroidDatabaseSqliteSQLiteCustomFunction_(id connectionPtr, AndroidDatabaseSqliteSQLiteCustomFunction *function) {
-  AndroidDatabaseSqliteSQLiteConnection_initialize();
-  @throw [[JavaLangUnsupportedOperationException alloc] initWithNSString:@"Registering native custom functions is not yet supported."];
+JNIEXPORT void Java_android_database_sqlite_SQLiteConnection_nativeRegisterCustomFunction(JNIEnv *_env_, jclass _cls_, jlong connectionPtr, jobject function);
+
+void AndroidDatabaseSqliteSQLiteConnection_nativeRegisterCustomFunctionWithLong_withAndroidDatabaseSqliteSQLiteCustomFunction_(jlong connectionPtr, AndroidDatabaseSqliteSQLiteCustomFunction *function) {
+  Java_android_database_sqlite_SQLiteConnection_nativeRegisterCustomFunction(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteConnection_class_(), connectionPtr, function);
 }
 
-void AndroidDatabaseSqliteSQLiteConnection_nativeRegisterLocalizedCollatorsWithId_withNSString_(id connectionPtr, NSString *locale) {
-  AndroidDatabaseSqliteSQLiteConnection_initialize();
-  @throw [[JavaLangUnsupportedOperationException alloc] initWithNSString:@"What's a Localized Collator?."];
+JNIEXPORT void Java_android_database_sqlite_SQLiteConnection_nativeRegisterLocalizedCollators(JNIEnv *_env_, jclass _cls_, jlong connectionPtr, jstring locale);
+
+void AndroidDatabaseSqliteSQLiteConnection_nativeRegisterLocalizedCollatorsWithLong_withNSString_(jlong connectionPtr, NSString *locale) {
+  Java_android_database_sqlite_SQLiteConnection_nativeRegisterLocalizedCollators(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteConnection_class_(), connectionPtr, locale);
 }
 
-id AndroidDatabaseSqliteSQLiteConnection_nativePrepareStatementWithId_withNSString_(id connectionPtr, NSString *sql) {
-  AndroidDatabaseSqliteSQLiteConnection_initialize();
-  return [SQLiteConnectionNative nativePrepareStatement:connectionPtr withSql:sql];
+JNIEXPORT jlong Java_android_database_sqlite_SQLiteConnection_nativePrepareStatement(JNIEnv *_env_, jclass _cls_, jlong connectionPtr, jstring sql);
+
+jlong AndroidDatabaseSqliteSQLiteConnection_nativePrepareStatementWithLong_withNSString_(jlong connectionPtr, NSString *sql) {
+  return Java_android_database_sqlite_SQLiteConnection_nativePrepareStatement(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteConnection_class_(), connectionPtr, sql);
 }
 
-void AndroidDatabaseSqliteSQLiteConnection_nativeFinalizeStatementWithId_withId_(id connectionPtr, id statementPtr) {
-  AndroidDatabaseSqliteSQLiteConnection_initialize();
-  [SQLiteConnectionNative nativeFinalizeStatement:connectionPtr statement:statementPtr];
-  #if ! __has_feature(objc_arc)
-  [(NSObject *)statementPtr release];
-  #endif
+JNIEXPORT void Java_android_database_sqlite_SQLiteConnection_nativeFinalizeStatement(JNIEnv *_env_, jclass _cls_, jlong connectionPtr, jlong statementPtr);
+
+void AndroidDatabaseSqliteSQLiteConnection_nativeFinalizeStatementWithLong_withLong_(jlong connectionPtr, jlong statementPtr) {
+  Java_android_database_sqlite_SQLiteConnection_nativeFinalizeStatement(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteConnection_class_(), connectionPtr, statementPtr);
 }
 
-jint AndroidDatabaseSqliteSQLiteConnection_nativeGetParameterCountWithId_withId_(id connectionPtr, id statementPtr) {
-  AndroidDatabaseSqliteSQLiteConnection_initialize();
-  return [SQLiteConnectionNative nativeGetParameterCount:connectionPtr statement:statementPtr];
+JNIEXPORT jint Java_android_database_sqlite_SQLiteConnection_nativeGetParameterCount(JNIEnv *_env_, jclass _cls_, jlong connectionPtr, jlong statementPtr);
+
+jint AndroidDatabaseSqliteSQLiteConnection_nativeGetParameterCountWithLong_withLong_(jlong connectionPtr, jlong statementPtr) {
+  return Java_android_database_sqlite_SQLiteConnection_nativeGetParameterCount(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteConnection_class_(), connectionPtr, statementPtr);
 }
 
-jboolean AndroidDatabaseSqliteSQLiteConnection_nativeIsReadOnlyWithId_withId_(id connectionPtr, id statementPtr) {
-  AndroidDatabaseSqliteSQLiteConnection_initialize();
-  return [SQLiteConnectionNative nativeIsReadOnly:connectionPtr statement:statementPtr];
+JNIEXPORT jboolean Java_android_database_sqlite_SQLiteConnection_nativeIsReadOnly(JNIEnv *_env_, jclass _cls_, jlong connectionPtr, jlong statementPtr);
+
+jboolean AndroidDatabaseSqliteSQLiteConnection_nativeIsReadOnlyWithLong_withLong_(jlong connectionPtr, jlong statementPtr) {
+  return Java_android_database_sqlite_SQLiteConnection_nativeIsReadOnly(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteConnection_class_(), connectionPtr, statementPtr);
 }
 
-jint AndroidDatabaseSqliteSQLiteConnection_nativeGetColumnCountWithId_withId_(id connectionPtr, id statementPtr) {
-  AndroidDatabaseSqliteSQLiteConnection_initialize();
-  return [SQLiteConnectionNative nativeGetColumnCount:connectionPtr statement:statementPtr];
+JNIEXPORT jint Java_android_database_sqlite_SQLiteConnection_nativeGetColumnCount(JNIEnv *_env_, jclass _cls_, jlong connectionPtr, jlong statementPtr);
+
+jint AndroidDatabaseSqliteSQLiteConnection_nativeGetColumnCountWithLong_withLong_(jlong connectionPtr, jlong statementPtr) {
+  return Java_android_database_sqlite_SQLiteConnection_nativeGetColumnCount(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteConnection_class_(), connectionPtr, statementPtr);
 }
 
-NSString *AndroidDatabaseSqliteSQLiteConnection_nativeGetColumnNameWithId_withId_withInt_(id connectionPtr, id statementPtr, jint index) {
-  AndroidDatabaseSqliteSQLiteConnection_initialize();
-  return [SQLiteConnectionNative nativeGetColumnName:connectionPtr statement:statementPtr index:index];
+JNIEXPORT jstring Java_android_database_sqlite_SQLiteConnection_nativeGetColumnName(JNIEnv *_env_, jclass _cls_, jlong connectionPtr, jlong statementPtr, jint index);
+
+NSString *AndroidDatabaseSqliteSQLiteConnection_nativeGetColumnNameWithLong_withLong_withInt_(jlong connectionPtr, jlong statementPtr, jint index) {
+  return (NSString *) Java_android_database_sqlite_SQLiteConnection_nativeGetColumnName(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteConnection_class_(), connectionPtr, statementPtr, index);
 }
 
-void AndroidDatabaseSqliteSQLiteConnection_nativeBindNullWithId_withId_withInt_(id connectionPtr, id statementPtr, jint index) {
-  AndroidDatabaseSqliteSQLiteConnection_initialize();
-  [SQLiteConnectionNative nativeBindNull:connectionPtr statement:statementPtr index:index];
+JNIEXPORT void Java_android_database_sqlite_SQLiteConnection_nativeBindNull(JNIEnv *_env_, jclass _cls_, jlong connectionPtr, jlong statementPtr, jint index);
+
+void AndroidDatabaseSqliteSQLiteConnection_nativeBindNullWithLong_withLong_withInt_(jlong connectionPtr, jlong statementPtr, jint index) {
+  Java_android_database_sqlite_SQLiteConnection_nativeBindNull(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteConnection_class_(), connectionPtr, statementPtr, index);
 }
 
-void AndroidDatabaseSqliteSQLiteConnection_nativeBindLongWithId_withId_withInt_withLong_(id connectionPtr, id statementPtr, jint index, jlong value) {
-  AndroidDatabaseSqliteSQLiteConnection_initialize();
-  [SQLiteConnectionNative nativeBindLong:connectionPtr statement:statementPtr index:index value:value];
+JNIEXPORT void Java_android_database_sqlite_SQLiteConnection_nativeBindLong(JNIEnv *_env_, jclass _cls_, jlong connectionPtr, jlong statementPtr, jint index, jlong value);
+
+void AndroidDatabaseSqliteSQLiteConnection_nativeBindLongWithLong_withLong_withInt_withLong_(jlong connectionPtr, jlong statementPtr, jint index, jlong value) {
+  Java_android_database_sqlite_SQLiteConnection_nativeBindLong(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteConnection_class_(), connectionPtr, statementPtr, index, value);
 }
 
-void AndroidDatabaseSqliteSQLiteConnection_nativeBindDoubleWithId_withId_withInt_withDouble_(id connectionPtr, id statementPtr, jint index, jdouble value) {
-  AndroidDatabaseSqliteSQLiteConnection_initialize();
-  [SQLiteConnectionNative nativeBindDouble:connectionPtr statement:statementPtr index:index value:value];
+JNIEXPORT void Java_android_database_sqlite_SQLiteConnection_nativeBindDouble(JNIEnv *_env_, jclass _cls_, jlong connectionPtr, jlong statementPtr, jint index, jdouble value);
+
+void AndroidDatabaseSqliteSQLiteConnection_nativeBindDoubleWithLong_withLong_withInt_withDouble_(jlong connectionPtr, jlong statementPtr, jint index, jdouble value) {
+  Java_android_database_sqlite_SQLiteConnection_nativeBindDouble(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteConnection_class_(), connectionPtr, statementPtr, index, value);
 }
 
-void AndroidDatabaseSqliteSQLiteConnection_nativeBindStringWithId_withId_withInt_withNSString_(id connectionPtr, id statementPtr, jint index, NSString *value) {
-  AndroidDatabaseSqliteSQLiteConnection_initialize();
-  [SQLiteConnectionNative nativeBindString:connectionPtr statement:statementPtr index:index value:value];
+JNIEXPORT void Java_android_database_sqlite_SQLiteConnection_nativeBindString(JNIEnv *_env_, jclass _cls_, jlong connectionPtr, jlong statementPtr, jint index, jstring value);
+
+void AndroidDatabaseSqliteSQLiteConnection_nativeBindStringWithLong_withLong_withInt_withNSString_(jlong connectionPtr, jlong statementPtr, jint index, NSString *value) {
+  Java_android_database_sqlite_SQLiteConnection_nativeBindString(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteConnection_class_(), connectionPtr, statementPtr, index, value);
 }
 
-void AndroidDatabaseSqliteSQLiteConnection_nativeBindBlobWithId_withId_withInt_withByteArray_(id connectionPtr, id statementPtr, jint index, IOSByteArray *value) {
-  AndroidDatabaseSqliteSQLiteConnection_initialize();
-  [SQLiteConnectionNative nativeBindBlob:connectionPtr statement:statementPtr index:index value:value];
+JNIEXPORT void Java_android_database_sqlite_SQLiteConnection_nativeBindBlob(JNIEnv *_env_, jclass _cls_, jlong connectionPtr, jlong statementPtr, jint index, jarray value);
+
+void AndroidDatabaseSqliteSQLiteConnection_nativeBindBlobWithLong_withLong_withInt_withByteArray_(jlong connectionPtr, jlong statementPtr, jint index, IOSByteArray *value) {
+  Java_android_database_sqlite_SQLiteConnection_nativeBindBlob(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteConnection_class_(), connectionPtr, statementPtr, index, value);
 }
 
-void AndroidDatabaseSqliteSQLiteConnection_nativeResetStatementAndClearBindingsWithId_withId_(id connectionPtr, id statementPtr) {
-  AndroidDatabaseSqliteSQLiteConnection_initialize();
-  [SQLiteConnectionNative nativeResetStatementAndClearBindings:connectionPtr statement:statementPtr];
+JNIEXPORT void Java_android_database_sqlite_SQLiteConnection_nativeResetStatementAndClearBindings(JNIEnv *_env_, jclass _cls_, jlong connectionPtr, jlong statementPtr);
+
+void AndroidDatabaseSqliteSQLiteConnection_nativeResetStatementAndClearBindingsWithLong_withLong_(jlong connectionPtr, jlong statementPtr) {
+  Java_android_database_sqlite_SQLiteConnection_nativeResetStatementAndClearBindings(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteConnection_class_(), connectionPtr, statementPtr);
 }
 
-void AndroidDatabaseSqliteSQLiteConnection_nativeExecuteWithId_withId_(id connectionPtr, id statementPtr) {
-  AndroidDatabaseSqliteSQLiteConnection_initialize();
-  [SQLiteConnectionNative nativeExecute:connectionPtr statement:statementPtr];
+JNIEXPORT void Java_android_database_sqlite_SQLiteConnection_nativeExecute(JNIEnv *_env_, jclass _cls_, jlong connectionPtr, jlong statementPtr);
+
+void AndroidDatabaseSqliteSQLiteConnection_nativeExecuteWithLong_withLong_(jlong connectionPtr, jlong statementPtr) {
+  Java_android_database_sqlite_SQLiteConnection_nativeExecute(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteConnection_class_(), connectionPtr, statementPtr);
 }
 
-jlong AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForLongWithId_withId_(id connectionPtr, id statementPtr) {
-  AndroidDatabaseSqliteSQLiteConnection_initialize();
-  return [SQLiteConnectionNative nativeExecuteForLong:connectionPtr statement:statementPtr];
+JNIEXPORT jlong Java_android_database_sqlite_SQLiteConnection_nativeExecuteForLong(JNIEnv *_env_, jclass _cls_, jlong connectionPtr, jlong statementPtr);
+
+jlong AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForLongWithLong_withLong_(jlong connectionPtr, jlong statementPtr) {
+  return Java_android_database_sqlite_SQLiteConnection_nativeExecuteForLong(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteConnection_class_(), connectionPtr, statementPtr);
 }
 
-NSString *AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForStringWithId_withId_(id connectionPtr, id statementPtr) {
-  AndroidDatabaseSqliteSQLiteConnection_initialize();
-  return [SQLiteConnectionNative nativeExecuteForString:connectionPtr statement:statementPtr];
+JNIEXPORT jstring Java_android_database_sqlite_SQLiteConnection_nativeExecuteForString(JNIEnv *_env_, jclass _cls_, jlong connectionPtr, jlong statementPtr);
+
+NSString *AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForStringWithLong_withLong_(jlong connectionPtr, jlong statementPtr) {
+  return (NSString *) Java_android_database_sqlite_SQLiteConnection_nativeExecuteForString(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteConnection_class_(), connectionPtr, statementPtr);
 }
 
-jint AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForChangedRowCountWithId_withId_(id connectionPtr, id statementPtr) {
-  AndroidDatabaseSqliteSQLiteConnection_initialize();
-  return [SQLiteConnectionNative nativeExecuteForChangedRowCount:connectionPtr statement:statementPtr];
+JNIEXPORT jint Java_android_database_sqlite_SQLiteConnection_nativeExecuteForChangedRowCount(JNIEnv *_env_, jclass _cls_, jlong connectionPtr, jlong statementPtr);
+
+jint AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForChangedRowCountWithLong_withLong_(jlong connectionPtr, jlong statementPtr) {
+  return Java_android_database_sqlite_SQLiteConnection_nativeExecuteForChangedRowCount(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteConnection_class_(), connectionPtr, statementPtr);
 }
 
-jlong AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForLastInsertedRowIdWithId_withId_(id connectionPtr, id statementPtr) {
-  AndroidDatabaseSqliteSQLiteConnection_initialize();
-  return [SQLiteConnectionNative nativeExecuteForLastInsertedRowId:connectionPtr statement:statementPtr];
+JNIEXPORT jlong Java_android_database_sqlite_SQLiteConnection_nativeExecuteForLastInsertedRowId(JNIEnv *_env_, jclass _cls_, jlong connectionPtr, jlong statementPtr);
+
+jlong AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForLastInsertedRowIdWithLong_withLong_(jlong connectionPtr, jlong statementPtr) {
+  return Java_android_database_sqlite_SQLiteConnection_nativeExecuteForLastInsertedRowId(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteConnection_class_(), connectionPtr, statementPtr);
 }
 
-jlong AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForCursorWindowWithId_withId_withId_withInt_withInt_withBoolean_(id connectionPtr, id statementPtr, id windowPtr, jint startPos, jint requiredPos, jboolean countAllRows) {
-  AndroidDatabaseSqliteSQLiteConnection_initialize();
-  return [SQLiteConnectionNative nativeExecuteForCursorWindow:connectionPtr statement:statementPtr window:windowPtr
-  startPos:startPos requiredPos:requiredPos countAllRows:countAllRows];
+JNIEXPORT jlong Java_android_database_sqlite_SQLiteConnection_nativeExecuteForCursorWindow(JNIEnv *_env_, jclass _cls_, jlong connectionPtr, jlong statementPtr, jlong windowPtr, jint startPos, jint requiredPos, jboolean countAllRows);
+
+jlong AndroidDatabaseSqliteSQLiteConnection_nativeExecuteForCursorWindowWithLong_withLong_withLong_withInt_withInt_withBoolean_(jlong connectionPtr, jlong statementPtr, jlong windowPtr, jint startPos, jint requiredPos, jboolean countAllRows) {
+  return Java_android_database_sqlite_SQLiteConnection_nativeExecuteForCursorWindow(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteConnection_class_(), connectionPtr, statementPtr, windowPtr, startPos, requiredPos, countAllRows);
 }
 
-jint AndroidDatabaseSqliteSQLiteConnection_nativeGetDbLookasideWithId_(id connectionPtr) {
-  AndroidDatabaseSqliteSQLiteConnection_initialize();
-  return [SQLiteConnectionNative nativeGetDbLookaside:connectionPtr];
+JNIEXPORT jint Java_android_database_sqlite_SQLiteConnection_nativeGetDbLookaside(JNIEnv *_env_, jclass _cls_, jlong connectionPtr);
+
+jint AndroidDatabaseSqliteSQLiteConnection_nativeGetDbLookasideWithLong_(jlong connectionPtr) {
+  return Java_android_database_sqlite_SQLiteConnection_nativeGetDbLookaside(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteConnection_class_(), connectionPtr);
+}
+
+JNIEXPORT void Java_android_database_sqlite_SQLiteConnection_nativeCancel(JNIEnv *_env_, jclass _cls_, jlong connectionPtr);
+
+void AndroidDatabaseSqliteSQLiteConnection_nativeCancelWithLong_(jlong connectionPtr) {
+  Java_android_database_sqlite_SQLiteConnection_nativeCancel(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteConnection_class_(), connectionPtr);
+}
+
+JNIEXPORT void Java_android_database_sqlite_SQLiteConnection_nativeResetCancel(JNIEnv *_env_, jclass _cls_, jlong connectionPtr, jboolean cancelable);
+
+void AndroidDatabaseSqliteSQLiteConnection_nativeResetCancelWithLong_withBoolean_(jlong connectionPtr, jboolean cancelable) {
+  Java_android_database_sqlite_SQLiteConnection_nativeResetCancel(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteConnection_class_(), connectionPtr, cancelable);
 }
 
 void AndroidDatabaseSqliteSQLiteConnection_initWithAndroidDatabaseSqliteSQLiteConnectionPool_withAndroidDatabaseSqliteSQLiteDatabaseConfiguration_withInt_withBoolean_(AndroidDatabaseSqliteSQLiteConnection *self, AndroidDatabaseSqliteSQLiteConnectionPool *pool, AndroidDatabaseSqliteSQLiteDatabaseConfiguration *configuration, jint connectionId, jboolean primaryConnection) {
@@ -1478,17 +1570,16 @@ AndroidDatabaseSqliteSQLiteConnection *AndroidDatabaseSqliteSQLiteConnection_ope
 }
 
 void AndroidDatabaseSqliteSQLiteConnection_open(AndroidDatabaseSqliteSQLiteConnection *self) {
-  JreStrongAssign(&self->mConnectionPtr_, AndroidDatabaseSqliteSQLiteConnection_nativeOpenWithNSString_withInt_withNSString_withBoolean_withBoolean_(((AndroidDatabaseSqliteSQLiteDatabaseConfiguration *) nil_chk(self->mConfiguration_))->path_, self->mConfiguration_->openFlags_, self->mConfiguration_->label_, JreLoadStatic(AndroidDatabaseSqliteSQLiteDebug, DEBUG_SQL_STATEMENTS), JreLoadStatic(AndroidDatabaseSqliteSQLiteDebug, DEBUG_SQL_TIME)));
+  self->mConnectionPtr_ = AndroidDatabaseSqliteSQLiteConnection_nativeOpenWithNSString_withInt_withNSString_withBoolean_withBoolean_(((AndroidDatabaseSqliteSQLiteDatabaseConfiguration *) nil_chk(self->mConfiguration_))->path_, self->mConfiguration_->openFlags_, self->mConfiguration_->label_, JreLoadStatic(AndroidDatabaseSqliteSQLiteDebug, DEBUG_SQL_STATEMENTS), JreLoadStatic(AndroidDatabaseSqliteSQLiteDebug, DEBUG_SQL_TIME));
   AndroidDatabaseSqliteSQLiteConnection_setPageSize(self);
   AndroidDatabaseSqliteSQLiteConnection_setForeignKeyModeFromConfiguration(self);
   AndroidDatabaseSqliteSQLiteConnection_setWalModeFromConfiguration(self);
   AndroidDatabaseSqliteSQLiteConnection_setJournalSizeLimit(self);
   AndroidDatabaseSqliteSQLiteConnection_setAutoCheckpointInterval(self);
-  AndroidDatabaseSqliteSQLiteConnection_setLocaleFromConfiguration(self);
   jint functionCount = [((JavaUtilArrayList *) nil_chk(self->mConfiguration_->customFunctions_)) size];
   for (jint i = 0; i < functionCount; i++) {
     AndroidDatabaseSqliteSQLiteCustomFunction *function = [self->mConfiguration_->customFunctions_ getWithInt:i];
-    AndroidDatabaseSqliteSQLiteConnection_nativeRegisterCustomFunctionWithId_withAndroidDatabaseSqliteSQLiteCustomFunction_(self->mConnectionPtr_, function);
+    AndroidDatabaseSqliteSQLiteConnection_nativeRegisterCustomFunctionWithLong_withAndroidDatabaseSqliteSQLiteCustomFunction_(self->mConnectionPtr_, function);
   }
 }
 
@@ -1499,12 +1590,12 @@ void AndroidDatabaseSqliteSQLiteConnection_disposeWithBoolean_(AndroidDatabaseSq
     }
     [self->mCloseGuard_ close];
   }
-  if (self->mConnectionPtr_ != nil) {
+  if (self->mConnectionPtr_ != 0) {
     jint cookie = [((AndroidDatabaseSqliteSQLiteConnection_OperationLog *) nil_chk(self->mRecentOperations_)) beginOperationWithNSString:@"close" withNSString:nil withNSObjectArray:nil];
     @try {
       [((AndroidDatabaseSqliteSQLiteConnection_PreparedStatementCache *) nil_chk(self->mPreparedStatementCache_)) evictAll];
-      AndroidDatabaseSqliteSQLiteConnection_nativeCloseWithId_(self->mConnectionPtr_);
-      JreStrongAssign(&self->mConnectionPtr_, nil);
+      AndroidDatabaseSqliteSQLiteConnection_nativeCloseWithLong_(self->mConnectionPtr_);
+      self->mConnectionPtr_ = 0;
     }
     @finally {
       [self->mRecentOperations_ endOperationWithInt:cookie];
@@ -1515,9 +1606,9 @@ void AndroidDatabaseSqliteSQLiteConnection_disposeWithBoolean_(AndroidDatabaseSq
 void AndroidDatabaseSqliteSQLiteConnection_setPageSize(AndroidDatabaseSqliteSQLiteConnection *self) {
   if (![((AndroidDatabaseSqliteSQLiteDatabaseConfiguration *) nil_chk(self->mConfiguration_)) isInMemoryDb] && !self->mIsReadOnlyConnection_) {
     jlong newValue = AndroidDatabaseSqliteSQLiteGlobal_getDefaultPageSize();
-    jlong value = [self executeForLongWithNSString:@"PRAGMA page_size" withNSObjectArray:nil];
+    jlong value = [self executeForLongWithNSString:@"PRAGMA page_size" withNSObjectArray:nil withAndroidOsCancellationSignal:nil];
     if (value != newValue) {
-      [self executeWithNSString:JreStrcat("$J", @"PRAGMA page_size=", newValue) withNSObjectArray:nil];
+      [self executeWithNSString:JreStrcat("$J", @"PRAGMA page_size=", newValue) withNSObjectArray:nil withAndroidOsCancellationSignal:nil];
     }
   }
 }
@@ -1525,9 +1616,9 @@ void AndroidDatabaseSqliteSQLiteConnection_setPageSize(AndroidDatabaseSqliteSQLi
 void AndroidDatabaseSqliteSQLiteConnection_setAutoCheckpointInterval(AndroidDatabaseSqliteSQLiteConnection *self) {
   if (![((AndroidDatabaseSqliteSQLiteDatabaseConfiguration *) nil_chk(self->mConfiguration_)) isInMemoryDb] && !self->mIsReadOnlyConnection_) {
     jlong newValue = AndroidDatabaseSqliteSQLiteGlobal_getWALAutoCheckpoint();
-    jlong value = [self executeForLongWithNSString:@"PRAGMA wal_autocheckpoint" withNSObjectArray:nil];
+    jlong value = [self executeForLongWithNSString:@"PRAGMA wal_autocheckpoint" withNSObjectArray:nil withAndroidOsCancellationSignal:nil];
     if (value != newValue) {
-      [self executeForLongWithNSString:JreStrcat("$J", @"PRAGMA wal_autocheckpoint=", newValue) withNSObjectArray:nil];
+      [self executeForLongWithNSString:JreStrcat("$J", @"PRAGMA wal_autocheckpoint=", newValue) withNSObjectArray:nil withAndroidOsCancellationSignal:nil];
     }
   }
 }
@@ -1535,9 +1626,9 @@ void AndroidDatabaseSqliteSQLiteConnection_setAutoCheckpointInterval(AndroidData
 void AndroidDatabaseSqliteSQLiteConnection_setJournalSizeLimit(AndroidDatabaseSqliteSQLiteConnection *self) {
   if (![((AndroidDatabaseSqliteSQLiteDatabaseConfiguration *) nil_chk(self->mConfiguration_)) isInMemoryDb] && !self->mIsReadOnlyConnection_) {
     jlong newValue = AndroidDatabaseSqliteSQLiteGlobal_getJournalSizeLimit();
-    jlong value = [self executeForLongWithNSString:@"PRAGMA journal_size_limit" withNSObjectArray:nil];
+    jlong value = [self executeForLongWithNSString:@"PRAGMA journal_size_limit" withNSObjectArray:nil withAndroidOsCancellationSignal:nil];
     if (value != newValue) {
-      [self executeForLongWithNSString:JreStrcat("$J", @"PRAGMA journal_size_limit=", newValue) withNSObjectArray:nil];
+      [self executeForLongWithNSString:JreStrcat("$J", @"PRAGMA journal_size_limit=", newValue) withNSObjectArray:nil withAndroidOsCancellationSignal:nil];
     }
   }
 }
@@ -1545,9 +1636,9 @@ void AndroidDatabaseSqliteSQLiteConnection_setJournalSizeLimit(AndroidDatabaseSq
 void AndroidDatabaseSqliteSQLiteConnection_setForeignKeyModeFromConfiguration(AndroidDatabaseSqliteSQLiteConnection *self) {
   if (!self->mIsReadOnlyConnection_) {
     jlong newValue = ((AndroidDatabaseSqliteSQLiteDatabaseConfiguration *) nil_chk(self->mConfiguration_))->foreignKeyConstraintsEnabled_ ? 1 : 0;
-    jlong value = [self executeForLongWithNSString:@"PRAGMA foreign_keys" withNSObjectArray:nil];
+    jlong value = [self executeForLongWithNSString:@"PRAGMA foreign_keys" withNSObjectArray:nil withAndroidOsCancellationSignal:nil];
     if (value != newValue) {
-      [self executeWithNSString:JreStrcat("$J", @"PRAGMA foreign_keys=", newValue) withNSObjectArray:nil];
+      [self executeWithNSString:JreStrcat("$J", @"PRAGMA foreign_keys=", newValue) withNSObjectArray:nil withAndroidOsCancellationSignal:nil];
     }
   }
 }
@@ -1566,9 +1657,9 @@ void AndroidDatabaseSqliteSQLiteConnection_setWalModeFromConfiguration(AndroidDa
 }
 
 void AndroidDatabaseSqliteSQLiteConnection_setSyncModeWithNSString_(AndroidDatabaseSqliteSQLiteConnection *self, NSString *newValue) {
-  NSString *value = [self executeForStringWithNSString:@"PRAGMA synchronous" withNSObjectArray:nil];
+  NSString *value = [self executeForStringWithNSString:@"PRAGMA synchronous" withNSObjectArray:nil withAndroidOsCancellationSignal:nil];
   if (![((NSString *) nil_chk(AndroidDatabaseSqliteSQLiteConnection_canonicalizeSyncModeWithNSString_(value))) java_equalsIgnoreCase:AndroidDatabaseSqliteSQLiteConnection_canonicalizeSyncModeWithNSString_(newValue)]) {
-    [self executeWithNSString:JreStrcat("$$", @"PRAGMA synchronous=", newValue) withNSObjectArray:nil];
+    [self executeWithNSString:JreStrcat("$$", @"PRAGMA synchronous=", newValue) withNSObjectArray:nil withAndroidOsCancellationSignal:nil];
   }
 }
 
@@ -1587,10 +1678,10 @@ NSString *AndroidDatabaseSqliteSQLiteConnection_canonicalizeSyncModeWithNSString
 }
 
 void AndroidDatabaseSqliteSQLiteConnection_setJournalModeWithNSString_(AndroidDatabaseSqliteSQLiteConnection *self, NSString *newValue) {
-  NSString *value = [self executeForStringWithNSString:@"PRAGMA journal_mode" withNSObjectArray:nil];
+  NSString *value = [self executeForStringWithNSString:@"PRAGMA journal_mode" withNSObjectArray:nil withAndroidOsCancellationSignal:nil];
   if (![((NSString *) nil_chk(value)) java_equalsIgnoreCase:newValue]) {
     @try {
-      NSString *result = [self executeForStringWithNSString:JreStrcat("$$", @"PRAGMA journal_mode=", newValue) withNSObjectArray:nil];
+      NSString *result = [self executeForStringWithNSString:JreStrcat("$$", @"PRAGMA journal_mode=", newValue) withNSObjectArray:nil withAndroidOsCancellationSignal:nil];
       if ([((NSString *) nil_chk(result)) java_equalsIgnoreCase:newValue]) {
         return;
       }
@@ -1606,25 +1697,26 @@ void AndroidDatabaseSqliteSQLiteConnection_setLocaleFromConfiguration(AndroidDat
     return;
   }
   NSString *newLocale = [((JavaUtilLocale *) nil_chk(self->mConfiguration_->locale_)) description];
+  AndroidDatabaseSqliteSQLiteConnection_nativeRegisterLocalizedCollatorsWithLong_withNSString_(self->mConnectionPtr_, newLocale);
   if (self->mIsReadOnlyConnection_) {
     return;
   }
   @try {
-    [self executeWithNSString:@"CREATE TABLE IF NOT EXISTS android_metadata (locale TEXT)" withNSObjectArray:nil];
-    NSString *oldLocale = [self executeForStringWithNSString:@"SELECT locale FROM android_metadata UNION SELECT NULL ORDER BY locale DESC LIMIT 1" withNSObjectArray:nil];
+    [self executeWithNSString:@"CREATE TABLE IF NOT EXISTS android_metadata (locale TEXT)" withNSObjectArray:nil withAndroidOsCancellationSignal:nil];
+    NSString *oldLocale = [self executeForStringWithNSString:@"SELECT locale FROM android_metadata UNION SELECT NULL ORDER BY locale DESC LIMIT 1" withNSObjectArray:nil withAndroidOsCancellationSignal:nil];
     if (oldLocale != nil && [oldLocale isEqual:newLocale]) {
       return;
     }
-    [self executeWithNSString:@"BEGIN" withNSObjectArray:nil];
+    [self executeWithNSString:@"BEGIN" withNSObjectArray:nil withAndroidOsCancellationSignal:nil];
     jboolean success = false;
     @try {
-      [self executeWithNSString:@"DELETE FROM android_metadata" withNSObjectArray:nil];
-      [self executeWithNSString:@"INSERT INTO android_metadata (locale) VALUES(?)" withNSObjectArray:[IOSObjectArray arrayWithObjects:(id[]){ newLocale } count:1 type:NSObject_class_()]];
-      [self executeWithNSString:@"REINDEX LOCALIZED" withNSObjectArray:nil];
+      [self executeWithNSString:@"DELETE FROM android_metadata" withNSObjectArray:nil withAndroidOsCancellationSignal:nil];
+      [self executeWithNSString:@"INSERT INTO android_metadata (locale) VALUES(?)" withNSObjectArray:[IOSObjectArray arrayWithObjects:(id[]){ newLocale } count:1 type:NSObject_class_()] withAndroidOsCancellationSignal:nil];
+      [self executeWithNSString:@"REINDEX LOCALIZED" withNSObjectArray:nil withAndroidOsCancellationSignal:nil];
       success = true;
     }
     @finally {
-      [self executeWithNSString:success ? @"COMMIT" : @"ROLLBACK" withNSObjectArray:nil];
+      [self executeWithNSString:success ? @"COMMIT" : @"ROLLBACK" withNSObjectArray:nil withAndroidOsCancellationSignal:nil];
     }
   }
   @catch (JavaLangRuntimeException *ex) {
@@ -1641,12 +1733,12 @@ AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *AndroidDatabaseSqliteSQ
     }
     skipCache = true;
   }
-  id statementPtr = AndroidDatabaseSqliteSQLiteConnection_nativePrepareStatementWithId_withNSString_(self->mConnectionPtr_, sql);
+  jlong statementPtr = AndroidDatabaseSqliteSQLiteConnection_nativePrepareStatementWithLong_withNSString_(self->mConnectionPtr_, sql);
   @try {
-    jint numParameters = AndroidDatabaseSqliteSQLiteConnection_nativeGetParameterCountWithId_withId_(self->mConnectionPtr_, statementPtr);
+    jint numParameters = AndroidDatabaseSqliteSQLiteConnection_nativeGetParameterCountWithLong_withLong_(self->mConnectionPtr_, statementPtr);
     jint type = AndroidDatabaseDatabaseUtils_getSqlStatementTypeWithNSString_(sql);
-    jboolean readOnly = AndroidDatabaseSqliteSQLiteConnection_nativeIsReadOnlyWithId_withId_(self->mConnectionPtr_, statementPtr);
-    statement = AndroidDatabaseSqliteSQLiteConnection_obtainPreparedStatementWithNSString_withId_withInt_withInt_withBoolean_(self, sql, statementPtr, numParameters, type, readOnly);
+    jboolean readOnly = AndroidDatabaseSqliteSQLiteConnection_nativeIsReadOnlyWithLong_withLong_(self->mConnectionPtr_, statementPtr);
+    statement = AndroidDatabaseSqliteSQLiteConnection_obtainPreparedStatementWithNSString_withLong_withInt_withInt_withBoolean_(self, sql, statementPtr, numParameters, type, readOnly);
     if (!skipCache && AndroidDatabaseSqliteSQLiteConnection_isCacheableWithInt_(type)) {
       [self->mPreparedStatementCache_ putWithId:sql withId:statement];
       ((AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *) nil_chk(statement))->mInCache_ = true;
@@ -1654,7 +1746,7 @@ AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *AndroidDatabaseSqliteSQ
   }
   @catch (JavaLangRuntimeException *ex) {
     if (statement == nil || !statement->mInCache_) {
-      AndroidDatabaseSqliteSQLiteConnection_nativeFinalizeStatementWithId_withId_(self->mConnectionPtr_, statementPtr);
+      AndroidDatabaseSqliteSQLiteConnection_nativeFinalizeStatementWithLong_withLong_(self->mConnectionPtr_, statementPtr);
     }
     @throw ex;
   }
@@ -1666,7 +1758,7 @@ void AndroidDatabaseSqliteSQLiteConnection_releasePreparedStatementWithAndroidDa
   ((AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *) nil_chk(statement))->mInUse_ = false;
   if (statement->mInCache_) {
     @try {
-      AndroidDatabaseSqliteSQLiteConnection_nativeResetStatementAndClearBindingsWithId_withId_(self->mConnectionPtr_, statement->mStatementPtr_);
+      AndroidDatabaseSqliteSQLiteConnection_nativeResetStatementAndClearBindingsWithLong_withLong_(self->mConnectionPtr_, statement->mStatementPtr_);
     }
     @catch (AndroidDatabaseSqliteSQLiteException *ex) {
       [((AndroidDatabaseSqliteSQLiteConnection_PreparedStatementCache *) nil_chk(self->mPreparedStatementCache_)) removeWithId:statement->mSql_];
@@ -1678,8 +1770,30 @@ void AndroidDatabaseSqliteSQLiteConnection_releasePreparedStatementWithAndroidDa
 }
 
 void AndroidDatabaseSqliteSQLiteConnection_finalizePreparedStatementWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_(AndroidDatabaseSqliteSQLiteConnection *self, AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *statement) {
-  AndroidDatabaseSqliteSQLiteConnection_nativeFinalizeStatementWithId_withId_(self->mConnectionPtr_, ((AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *) nil_chk(statement))->mStatementPtr_);
+  AndroidDatabaseSqliteSQLiteConnection_nativeFinalizeStatementWithLong_withLong_(self->mConnectionPtr_, ((AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *) nil_chk(statement))->mStatementPtr_);
   AndroidDatabaseSqliteSQLiteConnection_recyclePreparedStatementWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_(self, statement);
+}
+
+void AndroidDatabaseSqliteSQLiteConnection_attachCancellationSignalWithAndroidOsCancellationSignal_(AndroidDatabaseSqliteSQLiteConnection *self, AndroidOsCancellationSignal *cancellationSignal) {
+  if (cancellationSignal != nil) {
+    [cancellationSignal throwIfCanceled];
+    self->mCancellationSignalAttachCount_ += 1;
+    if (self->mCancellationSignalAttachCount_ == 1) {
+      AndroidDatabaseSqliteSQLiteConnection_nativeResetCancelWithLong_withBoolean_(self->mConnectionPtr_, true);
+      [cancellationSignal setOnCancelListenerWithAndroidOsCancellationSignal_OnCancelListener:self];
+    }
+  }
+}
+
+void AndroidDatabaseSqliteSQLiteConnection_detachCancellationSignalWithAndroidOsCancellationSignal_(AndroidDatabaseSqliteSQLiteConnection *self, AndroidOsCancellationSignal *cancellationSignal) {
+  if (cancellationSignal != nil) {
+    JreAssert((self->mCancellationSignalAttachCount_ > 0), (@"android/database/sqlite/SQLiteConnection.java:908 condition failed: assert mCancellationSignalAttachCount > 0;"));
+    self->mCancellationSignalAttachCount_ -= 1;
+    if (self->mCancellationSignalAttachCount_ == 0) {
+      [cancellationSignal setOnCancelListenerWithAndroidOsCancellationSignal_OnCancelListener:nil];
+      AndroidDatabaseSqliteSQLiteConnection_nativeResetCancelWithLong_withBoolean_(self->mConnectionPtr_, false);
+    }
+  }
 }
 
 void AndroidDatabaseSqliteSQLiteConnection_bindArgumentsWithAndroidDatabaseSqliteSQLiteConnection_PreparedStatement_withNSObjectArray_(AndroidDatabaseSqliteSQLiteConnection *self, AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *statement, IOSObjectArray *bindArgs) {
@@ -1690,29 +1804,29 @@ void AndroidDatabaseSqliteSQLiteConnection_bindArgumentsWithAndroidDatabaseSqlit
   if (count == 0) {
     return;
   }
-  id statementPtr = statement->mStatementPtr_;
+  jlong statementPtr = statement->mStatementPtr_;
   for (jint i = 0; i < count; i++) {
     id arg = IOSObjectArray_Get(nil_chk(bindArgs), i);
     switch (AndroidDatabaseDatabaseUtils_getTypeOfObjectWithId_(arg)) {
       case AndroidDatabaseCursor_FIELD_TYPE_NULL:
-      AndroidDatabaseSqliteSQLiteConnection_nativeBindNullWithId_withId_withInt_(self->mConnectionPtr_, statementPtr, i + 1);
+      AndroidDatabaseSqliteSQLiteConnection_nativeBindNullWithLong_withLong_withInt_(self->mConnectionPtr_, statementPtr, i + 1);
       break;
       case AndroidDatabaseCursor_FIELD_TYPE_INTEGER:
-      AndroidDatabaseSqliteSQLiteConnection_nativeBindLongWithId_withId_withInt_withLong_(self->mConnectionPtr_, statementPtr, i + 1, [((NSNumber *) nil_chk(((NSNumber *) cast_chk(arg, [NSNumber class])))) longLongValue]);
+      AndroidDatabaseSqliteSQLiteConnection_nativeBindLongWithLong_withLong_withInt_withLong_(self->mConnectionPtr_, statementPtr, i + 1, [((NSNumber *) nil_chk(((NSNumber *) cast_chk(arg, [NSNumber class])))) longLongValue]);
       break;
       case AndroidDatabaseCursor_FIELD_TYPE_FLOAT:
-      AndroidDatabaseSqliteSQLiteConnection_nativeBindDoubleWithId_withId_withInt_withDouble_(self->mConnectionPtr_, statementPtr, i + 1, [((NSNumber *) nil_chk(((NSNumber *) cast_chk(arg, [NSNumber class])))) doubleValue]);
+      AndroidDatabaseSqliteSQLiteConnection_nativeBindDoubleWithLong_withLong_withInt_withDouble_(self->mConnectionPtr_, statementPtr, i + 1, [((NSNumber *) nil_chk(((NSNumber *) cast_chk(arg, [NSNumber class])))) doubleValue]);
       break;
       case AndroidDatabaseCursor_FIELD_TYPE_BLOB:
-      AndroidDatabaseSqliteSQLiteConnection_nativeBindBlobWithId_withId_withInt_withByteArray_(self->mConnectionPtr_, statementPtr, i + 1, (IOSByteArray *) cast_chk(arg, [IOSByteArray class]));
+      AndroidDatabaseSqliteSQLiteConnection_nativeBindBlobWithLong_withLong_withInt_withByteArray_(self->mConnectionPtr_, statementPtr, i + 1, (IOSByteArray *) cast_chk(arg, [IOSByteArray class]));
       break;
       case AndroidDatabaseCursor_FIELD_TYPE_STRING:
       default:
       if ([arg isKindOfClass:[JavaLangBoolean class]]) {
-        AndroidDatabaseSqliteSQLiteConnection_nativeBindLongWithId_withId_withInt_withLong_(self->mConnectionPtr_, statementPtr, i + 1, [((JavaLangBoolean *) nil_chk(((JavaLangBoolean *) cast_chk(arg, [JavaLangBoolean class])))) booleanValue] ? 1 : 0);
+        AndroidDatabaseSqliteSQLiteConnection_nativeBindLongWithLong_withLong_withInt_withLong_(self->mConnectionPtr_, statementPtr, i + 1, [((JavaLangBoolean *) nil_chk(((JavaLangBoolean *) cast_chk(arg, [JavaLangBoolean class])))) booleanValue] ? 1 : 0);
       }
       else {
-        AndroidDatabaseSqliteSQLiteConnection_nativeBindStringWithId_withId_withInt_withNSString_(self->mConnectionPtr_, statementPtr, i + 1, [nil_chk(arg) description]);
+        AndroidDatabaseSqliteSQLiteConnection_nativeBindStringWithLong_withLong_withInt_withNSString_(self->mConnectionPtr_, statementPtr, i + 1, [nil_chk(arg) description]);
       }
       break;
     }
@@ -1752,7 +1866,7 @@ AndroidDatabaseSqliteSQLiteDebug_DbStats *AndroidDatabaseSqliteSQLiteConnection_
   return create_AndroidDatabaseSqliteSQLiteDebug_DbStats_initWithNSString_withLong_withLong_withInt_withInt_withInt_withInt_(label, pageCount, pageSize, lookaside, [((AndroidDatabaseSqliteSQLiteConnection_PreparedStatementCache *) nil_chk(self->mPreparedStatementCache_)) hitCount], [self->mPreparedStatementCache_ missCount], [self->mPreparedStatementCache_ size]);
 }
 
-AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *AndroidDatabaseSqliteSQLiteConnection_obtainPreparedStatementWithNSString_withId_withInt_withInt_withBoolean_(AndroidDatabaseSqliteSQLiteConnection *self, NSString *sql, id statementPtr, jint numParameters, jint type, jboolean readOnly) {
+AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *AndroidDatabaseSqliteSQLiteConnection_obtainPreparedStatementWithNSString_withLong_withInt_withInt_withBoolean_(AndroidDatabaseSqliteSQLiteConnection *self, NSString *sql, jlong statementPtr, jint numParameters, jint type, jboolean readOnly) {
   AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *statement = self->mPreparedStatementPool_;
   if (statement != nil) {
     JreStrongAssign(&self->mPreparedStatementPool_, statement->mPoolNext_);
@@ -1763,7 +1877,7 @@ AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *AndroidDatabaseSqliteSQ
     statement = create_AndroidDatabaseSqliteSQLiteConnection_PreparedStatement_init();
   }
   JreStrongAssign(&statement->mSql_, sql);
-  JreStrongAssign(&statement->mStatementPtr_, statementPtr);
+  statement->mStatementPtr_ = statementPtr;
   statement->mNumParameters_ = numParameters;
   statement->mType_ = type;
   statement->mReadOnly_ = readOnly;
@@ -1795,7 +1909,6 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)dealloc {
   RELEASE_(mPoolNext_);
   RELEASE_(mSql_);
-  RELEASE_(mStatementPtr_);
   [super dealloc];
 }
 
@@ -1810,7 +1923,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   static const J2ObjcFieldInfo fields[] = {
     { "mPoolNext_", "LAndroidDatabaseSqliteSQLiteConnection_PreparedStatement;", .constantValue.asLong = 0, 0x1, -1, -1, -1, -1 },
     { "mSql_", "LNSString;", .constantValue.asLong = 0, 0x1, -1, -1, -1, -1 },
-    { "mStatementPtr_", "LNSObject;", .constantValue.asLong = 0, 0x1, -1, -1, -1, -1 },
+    { "mStatementPtr_", "J", .constantValue.asLong = 0, 0x1, -1, -1, -1, -1 },
     { "mNumParameters_", "I", .constantValue.asLong = 0, 0x1, -1, -1, -1, -1 },
     { "mType_", "I", .constantValue.asLong = 0, 0x1, -1, -1, -1, -1 },
     { "mReadOnly_", "Z", .constantValue.asLong = 0, 0x1, -1, -1, -1, -1 },
@@ -1865,7 +1978,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(AndroidDatabaseSqliteSQLiteConnection_PreparedS
       AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *statement = [((id<JavaUtilMap_Entry>) nil_chk(entry_)) getValue];
       if (((AndroidDatabaseSqliteSQLiteConnection_PreparedStatement *) nil_chk(statement))->mInCache_) {
         NSString *sql = [entry_ getKey];
-        [printer printlnWithNSString:JreStrcat("$I$@$I$I$Z$$C", @"    ", i, @": statementPtr=0x", statement->mStatementPtr_, @", numParameters=", statement->mNumParameters_, @", type=", statement->mType_, @", readOnly=", statement->mReadOnly_, @", sql=\"", AndroidDatabaseSqliteSQLiteConnection_trimSqlForDisplayWithNSString_(sql), '"')];
+        [printer printlnWithNSString:JreStrcat("$I$$$I$I$Z$$C", @"    ", i, @": statementPtr=0x", JavaLangLong_toHexStringWithLong_(statement->mStatementPtr_), @", numParameters=", statement->mNumParameters_, @", type=", statement->mType_, @", readOnly=", statement->mReadOnly_, @", sql=\"", AndroidDatabaseSqliteSQLiteConnection_trimSqlForDisplayWithNSString_(sql), '"')];
       }
       i += 1;
     }

@@ -35,6 +35,10 @@
 
 - (instancetype)initWithNSString:(NSString *)prefix;
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 - (JavaLangThread *)newThreadWithJavaLangRunnable:(id<JavaLangRunnable>)r OBJC_METHOD_FAMILY_NONE;
 
 @end

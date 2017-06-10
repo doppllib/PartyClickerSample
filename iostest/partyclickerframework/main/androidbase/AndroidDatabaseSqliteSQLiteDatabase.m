@@ -22,6 +22,7 @@
 #include "AndroidDatabaseSqliteSQLiteSession.h"
 #include "AndroidDatabaseSqliteSQLiteStatement.h"
 #include "AndroidDatabaseSqliteSQLiteTransactionListener.h"
+#include "AndroidOsCancellationSignal.h"
 #include "AndroidOsLooper.h"
 #include "IOSClass.h"
 #include "IOSObjectArray.h"
@@ -316,7 +317,7 @@ withAndroidDatabaseDatabaseErrorHandler:(id<AndroidDatabaseDatabaseErrorHandler>
 - (void)endTransaction {
   [self acquireReference];
   @try {
-    [((AndroidDatabaseSqliteSQLiteSession *) nil_chk([self getThreadSession])) endTransaction];
+    [((AndroidDatabaseSqliteSQLiteSession *) nil_chk([self getThreadSession])) endTransactionWithAndroidOsCancellationSignal:nil];
   }
   @finally {
     [self releaseReference];
@@ -521,7 +522,20 @@ withAndroidDatabaseSqliteSQLiteDatabase_CustomFunction:(id<AndroidDatabaseSqlite
                                  withNSString:(NSString *)having
                                  withNSString:(NSString *)orderBy
                                  withNSString:(NSString *)limit {
-  return [self queryWithFactoryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:nil withBoolean:distinct withNSString:table withNSStringArray:columns withNSString:selection withNSStringArray:selectionArgs withNSString:groupBy withNSString:having withNSString:orderBy withNSString:limit];
+  return [self queryWithFactoryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:nil withBoolean:distinct withNSString:table withNSStringArray:columns withNSString:selection withNSStringArray:selectionArgs withNSString:groupBy withNSString:having withNSString:orderBy withNSString:limit withAndroidOsCancellationSignal:nil];
+}
+
+- (id<AndroidDatabaseCursor>)queryWithBoolean:(jboolean)distinct
+                                 withNSString:(NSString *)table
+                            withNSStringArray:(IOSObjectArray *)columns
+                                 withNSString:(NSString *)selection
+                            withNSStringArray:(IOSObjectArray *)selectionArgs
+                                 withNSString:(NSString *)groupBy
+                                 withNSString:(NSString *)having
+                                 withNSString:(NSString *)orderBy
+                                 withNSString:(NSString *)limit
+              withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
+  return [self queryWithFactoryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:nil withBoolean:distinct withNSString:table withNSStringArray:columns withNSString:selection withNSStringArray:selectionArgs withNSString:groupBy withNSString:having withNSString:orderBy withNSString:limit withAndroidOsCancellationSignal:cancellationSignal];
 }
 
 - (id<AndroidDatabaseCursor>)queryWithFactoryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:(id<AndroidDatabaseSqliteSQLiteDatabase_CursorFactory>)cursorFactory
@@ -534,10 +548,24 @@ withAndroidDatabaseSqliteSQLiteDatabase_CustomFunction:(id<AndroidDatabaseSqlite
                                                                                       withNSString:(NSString *)having
                                                                                       withNSString:(NSString *)orderBy
                                                                                       withNSString:(NSString *)limit {
+  return [self queryWithFactoryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:cursorFactory withBoolean:distinct withNSString:table withNSStringArray:columns withNSString:selection withNSStringArray:selectionArgs withNSString:groupBy withNSString:having withNSString:orderBy withNSString:limit withAndroidOsCancellationSignal:nil];
+}
+
+- (id<AndroidDatabaseCursor>)queryWithFactoryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:(id<AndroidDatabaseSqliteSQLiteDatabase_CursorFactory>)cursorFactory
+                                                                                       withBoolean:(jboolean)distinct
+                                                                                      withNSString:(NSString *)table
+                                                                                 withNSStringArray:(IOSObjectArray *)columns
+                                                                                      withNSString:(NSString *)selection
+                                                                                 withNSStringArray:(IOSObjectArray *)selectionArgs
+                                                                                      withNSString:(NSString *)groupBy
+                                                                                      withNSString:(NSString *)having
+                                                                                      withNSString:(NSString *)orderBy
+                                                                                      withNSString:(NSString *)limit
+                                                                   withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
   [self acquireReference];
   @try {
     NSString *sql = AndroidDatabaseSqliteSQLiteQueryBuilder_buildQueryStringWithBoolean_withNSString_withNSStringArray_withNSString_withNSString_withNSString_withNSString_withNSString_(distinct, table, columns, selection, groupBy, having, orderBy, limit);
-    return [self rawQueryWithFactoryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:cursorFactory withNSString:sql withNSStringArray:selectionArgs withNSString:AndroidDatabaseSqliteSQLiteDatabase_findEditTableWithNSString_(table)];
+    return [self rawQueryWithFactoryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:cursorFactory withNSString:sql withNSStringArray:selectionArgs withNSString:AndroidDatabaseSqliteSQLiteDatabase_findEditTableWithNSString_(table) withAndroidOsCancellationSignal:cancellationSignal];
   }
   @finally {
     [self releaseReference];
@@ -567,16 +595,30 @@ withAndroidDatabaseSqliteSQLiteDatabase_CustomFunction:(id<AndroidDatabaseSqlite
 
 - (id<AndroidDatabaseCursor>)rawQueryWithNSString:(NSString *)sql
                                 withNSStringArray:(IOSObjectArray *)selectionArgs {
-  return [self rawQueryWithFactoryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:nil withNSString:sql withNSStringArray:selectionArgs withNSString:nil];
+  return [self rawQueryWithFactoryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:nil withNSString:sql withNSStringArray:selectionArgs withNSString:nil withAndroidOsCancellationSignal:nil];
+}
+
+- (id<AndroidDatabaseCursor>)rawQueryWithNSString:(NSString *)sql
+                                withNSStringArray:(IOSObjectArray *)selectionArgs
+                  withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
+  return [self rawQueryWithFactoryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:nil withNSString:sql withNSStringArray:selectionArgs withNSString:nil withAndroidOsCancellationSignal:cancellationSignal];
 }
 
 - (id<AndroidDatabaseCursor>)rawQueryWithFactoryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:(id<AndroidDatabaseSqliteSQLiteDatabase_CursorFactory>)cursorFactory
                                                                                          withNSString:(NSString *)sql
                                                                                     withNSStringArray:(IOSObjectArray *)selectionArgs
                                                                                          withNSString:(NSString *)editTable {
+  return [self rawQueryWithFactoryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:cursorFactory withNSString:sql withNSStringArray:selectionArgs withNSString:editTable withAndroidOsCancellationSignal:nil];
+}
+
+- (id<AndroidDatabaseCursor>)rawQueryWithFactoryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:(id<AndroidDatabaseSqliteSQLiteDatabase_CursorFactory>)cursorFactory
+                                                                                         withNSString:(NSString *)sql
+                                                                                    withNSStringArray:(IOSObjectArray *)selectionArgs
+                                                                                         withNSString:(NSString *)editTable
+                                                                      withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
   [self acquireReference];
   @try {
-    id<AndroidDatabaseSqliteSQLiteCursorDriver> driver = create_AndroidDatabaseSqliteSQLiteDirectCursorDriver_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSString_(self, sql, editTable);
+    id<AndroidDatabaseSqliteSQLiteCursorDriver> driver = create_AndroidDatabaseSqliteSQLiteDirectCursorDriver_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSString_withAndroidOsCancellationSignal_(self, sql, editTable, cancellationSignal);
     return [driver queryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:cursorFactory != nil ? cursorFactory : mCursorFactory_ withNSStringArray:selectionArgs];
   }
   @finally {
@@ -1053,42 +1095,46 @@ withAndroidContentContentValues:(AndroidContentContentValues *)values
     { NULL, "LNSString;", 0x9, 43, 44, -1, -1, -1, -1 },
     { NULL, "LAndroidDatabaseSqliteSQLiteStatement;", 0x1, 45, 44, 46, -1, -1, -1 },
     { NULL, "LAndroidDatabaseCursor;", 0x1, 47, 48, -1, -1, -1, -1 },
-    { NULL, "LAndroidDatabaseCursor;", 0x1, 49, 50, -1, -1, -1, -1 },
-    { NULL, "LAndroidDatabaseCursor;", 0x1, 47, 51, -1, -1, -1, -1 },
-    { NULL, "LAndroidDatabaseCursor;", 0x1, 47, 52, -1, -1, -1, -1 },
-    { NULL, "LAndroidDatabaseCursor;", 0x1, 53, 54, -1, -1, -1, -1 },
+    { NULL, "LAndroidDatabaseCursor;", 0x1, 47, 49, -1, -1, -1, -1 },
+    { NULL, "LAndroidDatabaseCursor;", 0x1, 50, 51, -1, -1, -1, -1 },
+    { NULL, "LAndroidDatabaseCursor;", 0x1, 50, 52, -1, -1, -1, -1 },
+    { NULL, "LAndroidDatabaseCursor;", 0x1, 47, 53, -1, -1, -1, -1 },
+    { NULL, "LAndroidDatabaseCursor;", 0x1, 47, 54, -1, -1, -1, -1 },
     { NULL, "LAndroidDatabaseCursor;", 0x1, 55, 56, -1, -1, -1, -1 },
-    { NULL, "J", 0x1, 57, 58, -1, -1, -1, -1 },
-    { NULL, "J", 0x1, 59, 58, 46, -1, -1, -1 },
-    { NULL, "J", 0x1, 60, 58, -1, -1, -1, -1 },
-    { NULL, "J", 0x1, 61, 58, 46, -1, -1, -1 },
-    { NULL, "J", 0x1, 62, 63, -1, -1, -1, -1 },
-    { NULL, "I", 0x1, 64, 65, -1, -1, -1, -1 },
-    { NULL, "I", 0x1, 66, 67, -1, -1, -1, -1 },
+    { NULL, "LAndroidDatabaseCursor;", 0x1, 55, 57, -1, -1, -1, -1 },
+    { NULL, "LAndroidDatabaseCursor;", 0x1, 58, 59, -1, -1, -1, -1 },
+    { NULL, "LAndroidDatabaseCursor;", 0x1, 58, 60, -1, -1, -1, -1 },
+    { NULL, "J", 0x1, 61, 62, -1, -1, -1, -1 },
+    { NULL, "J", 0x1, 63, 62, 46, -1, -1, -1 },
+    { NULL, "J", 0x1, 64, 62, -1, -1, -1, -1 },
+    { NULL, "J", 0x1, 65, 62, 46, -1, -1, -1 },
+    { NULL, "J", 0x1, 66, 67, -1, -1, -1, -1 },
     { NULL, "I", 0x1, 68, 69, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 70, 44, 46, -1, -1, -1 },
-    { NULL, "V", 0x1, 70, 71, 46, -1, -1, -1 },
-    { NULL, "I", 0x2, 72, 71, 46, -1, -1, -1 },
+    { NULL, "I", 0x1, 70, 71, -1, -1, -1, -1 },
+    { NULL, "I", 0x1, 72, 73, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 74, 44, 46, -1, -1, -1 },
+    { NULL, "V", 0x1, 74, 75, 46, -1, -1, -1 },
+    { NULL, "I", 0x2, 76, 75, 46, -1, -1, -1 },
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "Z", 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 73, 35, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, 77, 35, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x11, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 74, 75, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 76, 35, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 77, 4, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 78, 79, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 80, 35, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 81, 4, -1, -1, -1, -1 },
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LJavaUtilArrayList;", 0x8, -1, -1, -1, 78, -1, -1 },
-    { NULL, "V", 0x2, 79, 80, -1, 81, -1, -1 },
-    { NULL, "LJavaUtilArrayList;", 0xa, -1, -1, -1, 82, -1, -1 },
-    { NULL, "V", 0x8, 83, 84, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 85, 84, -1, -1, -1, -1 },
-    { NULL, "LJavaUtilList;", 0x1, -1, -1, -1, 86, -1, -1 },
+    { NULL, "LJavaUtilArrayList;", 0x8, -1, -1, -1, 82, -1, -1 },
+    { NULL, "V", 0x2, 83, 84, -1, 85, -1, -1 },
+    { NULL, "LJavaUtilArrayList;", 0xa, -1, -1, -1, 86, -1, -1 },
+    { NULL, "V", 0x8, 87, 88, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 89, 88, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilList;", 0x1, -1, -1, -1, 90, -1, -1 },
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x1, 87, -1, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x1, 91, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x2, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
@@ -1142,49 +1188,53 @@ withAndroidContentContentValues:(AndroidContentContentValues *)values
   methods[46].selector = @selector(findEditTableWithNSString:);
   methods[47].selector = @selector(compileStatementWithNSString:);
   methods[48].selector = @selector(queryWithBoolean:withNSString:withNSStringArray:withNSString:withNSStringArray:withNSString:withNSString:withNSString:withNSString:);
-  methods[49].selector = @selector(queryWithFactoryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:withBoolean:withNSString:withNSStringArray:withNSString:withNSStringArray:withNSString:withNSString:withNSString:withNSString:);
-  methods[50].selector = @selector(queryWithNSString:withNSStringArray:withNSString:withNSStringArray:withNSString:withNSString:withNSString:);
-  methods[51].selector = @selector(queryWithNSString:withNSStringArray:withNSString:withNSStringArray:withNSString:withNSString:withNSString:withNSString:);
-  methods[52].selector = @selector(rawQueryWithNSString:withNSStringArray:);
-  methods[53].selector = @selector(rawQueryWithFactoryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:withNSString:withNSStringArray:withNSString:);
-  methods[54].selector = @selector(insertWithNSString:withNSString:withAndroidContentContentValues:);
-  methods[55].selector = @selector(insertOrThrowWithNSString:withNSString:withAndroidContentContentValues:);
-  methods[56].selector = @selector(replaceWithNSString:withNSString:withAndroidContentContentValues:);
-  methods[57].selector = @selector(replaceOrThrowWithNSString:withNSString:withAndroidContentContentValues:);
-  methods[58].selector = @selector(insertWithOnConflictWithNSString:withNSString:withAndroidContentContentValues:withInt:);
-  methods[59].selector = @selector(delete__WithNSString:withNSString:withNSStringArray:);
-  methods[60].selector = @selector(updateWithNSString:withAndroidContentContentValues:withNSString:withNSStringArray:);
-  methods[61].selector = @selector(updateWithOnConflictWithNSString:withAndroidContentContentValues:withNSString:withNSStringArray:withInt:);
-  methods[62].selector = @selector(execSQLWithNSString:);
-  methods[63].selector = @selector(execSQLWithNSString:withNSObjectArray:);
-  methods[64].selector = @selector(executeSqlWithNSString:withNSObjectArray:);
-  methods[65].selector = @selector(isReadOnly);
-  methods[66].selector = @selector(isReadOnlyLocked);
-  methods[67].selector = @selector(isInMemoryDatabase);
-  methods[68].selector = @selector(isOpen);
-  methods[69].selector = @selector(needUpgradeWithInt:);
-  methods[70].selector = @selector(getPath);
-  methods[71].selector = @selector(setLocaleWithJavaUtilLocale:);
-  methods[72].selector = @selector(setMaxSqlCacheSizeWithInt:);
-  methods[73].selector = @selector(setForeignKeyConstraintsEnabledWithBoolean:);
-  methods[74].selector = @selector(enableWriteAheadLogging);
-  methods[75].selector = @selector(disableWriteAheadLogging);
-  methods[76].selector = @selector(isWriteAheadLoggingEnabled);
-  methods[77].selector = @selector(getDbStats);
-  methods[78].selector = @selector(collectDbStatsWithJavaUtilArrayList:);
-  methods[79].selector = @selector(getActiveDatabases);
-  methods[80].selector = @selector(dumpAllWithAndroidUtilPrinter:withBoolean:);
-  methods[81].selector = @selector(dumpWithAndroidUtilPrinter:withBoolean:);
-  methods[82].selector = @selector(getAttachedDbs);
-  methods[83].selector = @selector(isDatabaseIntegrityOk);
-  methods[84].selector = @selector(description);
-  methods[85].selector = @selector(throwIfNotOpenLocked);
+  methods[49].selector = @selector(queryWithBoolean:withNSString:withNSStringArray:withNSString:withNSStringArray:withNSString:withNSString:withNSString:withNSString:withAndroidOsCancellationSignal:);
+  methods[50].selector = @selector(queryWithFactoryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:withBoolean:withNSString:withNSStringArray:withNSString:withNSStringArray:withNSString:withNSString:withNSString:withNSString:);
+  methods[51].selector = @selector(queryWithFactoryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:withBoolean:withNSString:withNSStringArray:withNSString:withNSStringArray:withNSString:withNSString:withNSString:withNSString:withAndroidOsCancellationSignal:);
+  methods[52].selector = @selector(queryWithNSString:withNSStringArray:withNSString:withNSStringArray:withNSString:withNSString:withNSString:);
+  methods[53].selector = @selector(queryWithNSString:withNSStringArray:withNSString:withNSStringArray:withNSString:withNSString:withNSString:withNSString:);
+  methods[54].selector = @selector(rawQueryWithNSString:withNSStringArray:);
+  methods[55].selector = @selector(rawQueryWithNSString:withNSStringArray:withAndroidOsCancellationSignal:);
+  methods[56].selector = @selector(rawQueryWithFactoryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:withNSString:withNSStringArray:withNSString:);
+  methods[57].selector = @selector(rawQueryWithFactoryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:withNSString:withNSStringArray:withNSString:withAndroidOsCancellationSignal:);
+  methods[58].selector = @selector(insertWithNSString:withNSString:withAndroidContentContentValues:);
+  methods[59].selector = @selector(insertOrThrowWithNSString:withNSString:withAndroidContentContentValues:);
+  methods[60].selector = @selector(replaceWithNSString:withNSString:withAndroidContentContentValues:);
+  methods[61].selector = @selector(replaceOrThrowWithNSString:withNSString:withAndroidContentContentValues:);
+  methods[62].selector = @selector(insertWithOnConflictWithNSString:withNSString:withAndroidContentContentValues:withInt:);
+  methods[63].selector = @selector(delete__WithNSString:withNSString:withNSStringArray:);
+  methods[64].selector = @selector(updateWithNSString:withAndroidContentContentValues:withNSString:withNSStringArray:);
+  methods[65].selector = @selector(updateWithOnConflictWithNSString:withAndroidContentContentValues:withNSString:withNSStringArray:withInt:);
+  methods[66].selector = @selector(execSQLWithNSString:);
+  methods[67].selector = @selector(execSQLWithNSString:withNSObjectArray:);
+  methods[68].selector = @selector(executeSqlWithNSString:withNSObjectArray:);
+  methods[69].selector = @selector(isReadOnly);
+  methods[70].selector = @selector(isReadOnlyLocked);
+  methods[71].selector = @selector(isInMemoryDatabase);
+  methods[72].selector = @selector(isOpen);
+  methods[73].selector = @selector(needUpgradeWithInt:);
+  methods[74].selector = @selector(getPath);
+  methods[75].selector = @selector(setLocaleWithJavaUtilLocale:);
+  methods[76].selector = @selector(setMaxSqlCacheSizeWithInt:);
+  methods[77].selector = @selector(setForeignKeyConstraintsEnabledWithBoolean:);
+  methods[78].selector = @selector(enableWriteAheadLogging);
+  methods[79].selector = @selector(disableWriteAheadLogging);
+  methods[80].selector = @selector(isWriteAheadLoggingEnabled);
+  methods[81].selector = @selector(getDbStats);
+  methods[82].selector = @selector(collectDbStatsWithJavaUtilArrayList:);
+  methods[83].selector = @selector(getActiveDatabases);
+  methods[84].selector = @selector(dumpAllWithAndroidUtilPrinter:withBoolean:);
+  methods[85].selector = @selector(dumpWithAndroidUtilPrinter:withBoolean:);
+  methods[86].selector = @selector(getAttachedDbs);
+  methods[87].selector = @selector(isDatabaseIntegrityOk);
+  methods[88].selector = @selector(description);
+  methods[89].selector = @selector(throwIfNotOpenLocked);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "TAG", "LNSString;", .constantValue.asLong = 0, 0x1a, -1, 88, -1, -1 },
+    { "TAG", "LNSString;", .constantValue.asLong = 0, 0x1a, -1, 92, -1, -1 },
     { "EVENT_DB_CORRUPT", "I", .constantValue.asInt = AndroidDatabaseSqliteSQLiteDatabase_EVENT_DB_CORRUPT, 0x1a, -1, -1, -1, -1 },
-    { "sActiveDatabases", "LJavaUtilWeakHashMap;", .constantValue.asLong = 0, 0xa, -1, 89, 90, -1 },
-    { "mThreadSession_", "LJavaLangThreadLocal;", .constantValue.asLong = 0, 0x12, -1, -1, 91, -1 },
+    { "sActiveDatabases", "LJavaUtilWeakHashMap;", .constantValue.asLong = 0, 0xa, -1, 93, 94, -1 },
+    { "mThreadSession_", "LJavaLangThreadLocal;", .constantValue.asLong = 0, 0x12, -1, -1, 95, -1 },
     { "mCursorFactory_", "LAndroidDatabaseSqliteSQLiteDatabase_CursorFactory;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
     { "mErrorHandler_", "LAndroidDatabaseDatabaseErrorHandler;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
     { "mLock_", "LNSObject;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
@@ -1198,7 +1248,7 @@ withAndroidContentContentValues:(AndroidContentContentValues *)values
     { "CONFLICT_IGNORE", "I", .constantValue.asInt = AndroidDatabaseSqliteSQLiteDatabase_CONFLICT_IGNORE, 0x19, -1, -1, -1, -1 },
     { "CONFLICT_REPLACE", "I", .constantValue.asInt = AndroidDatabaseSqliteSQLiteDatabase_CONFLICT_REPLACE, 0x19, -1, -1, -1, -1 },
     { "CONFLICT_NONE", "I", .constantValue.asInt = AndroidDatabaseSqliteSQLiteDatabase_CONFLICT_NONE, 0x19, -1, -1, -1, -1 },
-    { "CONFLICT_VALUES", "[LNSString;", .constantValue.asLong = 0, 0x1a, -1, 92, -1, -1 },
+    { "CONFLICT_VALUES", "[LNSString;", .constantValue.asLong = 0, 0x1a, -1, 96, -1, -1 },
     { "SQLITE_MAX_LIKE_PATTERN_LENGTH", "I", .constantValue.asInt = AndroidDatabaseSqliteSQLiteDatabase_SQLITE_MAX_LIKE_PATTERN_LENGTH, 0x19, -1, -1, -1, -1 },
     { "OPEN_READWRITE", "I", .constantValue.asInt = AndroidDatabaseSqliteSQLiteDatabase_OPEN_READWRITE, 0x19, -1, -1, -1, -1 },
     { "OPEN_READONLY", "I", .constantValue.asInt = AndroidDatabaseSqliteSQLiteDatabase_OPEN_READONLY, 0x19, -1, -1, -1, -1 },
@@ -1208,8 +1258,8 @@ withAndroidContentContentValues:(AndroidContentContentValues *)values
     { "ENABLE_WRITE_AHEAD_LOGGING", "I", .constantValue.asInt = AndroidDatabaseSqliteSQLiteDatabase_ENABLE_WRITE_AHEAD_LOGGING, 0x19, -1, -1, -1, -1 },
     { "MAX_SQL_CACHE_SIZE", "I", .constantValue.asInt = AndroidDatabaseSqliteSQLiteDatabase_MAX_SQL_CACHE_SIZE, 0x19, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LNSString;ILAndroidDatabaseSqliteSQLiteDatabase_CursorFactory;LAndroidDatabaseDatabaseErrorHandler;", "finalize", "LNSException;", "dispose", "Z", "setLockingEnabled", (void *)&AndroidDatabaseSqliteSQLiteDatabase__Annotations$0, "getThreadDefaultConnectionFlags", "beginTransactionWithListener", "LAndroidDatabaseSqliteSQLiteTransactionListener;", "beginTransactionWithListenerNonExclusive", "beginTransaction", "LAndroidDatabaseSqliteSQLiteTransactionListener;Z", (void *)&AndroidDatabaseSqliteSQLiteDatabase__Annotations$1, (void *)&AndroidDatabaseSqliteSQLiteDatabase__Annotations$2, "yieldIfContendedSafely", "J", "yieldIfContendedHelper", "ZJ", "()Ljava/util/Map<Ljava/lang/String;Ljava/lang/String;>;", (void *)&AndroidDatabaseSqliteSQLiteDatabase__Annotations$3, "openDatabase", "LNSString;LAndroidDatabaseSqliteSQLiteDatabase_CursorFactory;I", "LNSString;LAndroidDatabaseSqliteSQLiteDatabase_CursorFactory;ILAndroidDatabaseDatabaseErrorHandler;", "openOrCreateDatabase", "LJavaIoFile;LAndroidDatabaseSqliteSQLiteDatabase_CursorFactory;", "LNSString;LAndroidDatabaseSqliteSQLiteDatabase_CursorFactory;", "LNSString;LAndroidDatabaseSqliteSQLiteDatabase_CursorFactory;LAndroidDatabaseDatabaseErrorHandler;", "deleteDatabase", "LJavaIoFile;", "create", "LAndroidDatabaseSqliteSQLiteDatabase_CursorFactory;", "addCustomFunction", "LNSString;ILAndroidDatabaseSqliteSQLiteDatabase_CustomFunction;", "setVersion", "I", "setMaximumSize", "setPageSize", "markTableSyncable", "LNSString;LNSString;", (void *)&AndroidDatabaseSqliteSQLiteDatabase__Annotations$4, "LNSString;LNSString;LNSString;", (void *)&AndroidDatabaseSqliteSQLiteDatabase__Annotations$5, "findEditTable", "LNSString;", "compileStatement", "LAndroidDatabaseSQLException;", "query", "ZLNSString;[LNSString;LNSString;[LNSString;LNSString;LNSString;LNSString;LNSString;", "queryWithFactory", "LAndroidDatabaseSqliteSQLiteDatabase_CursorFactory;ZLNSString;[LNSString;LNSString;[LNSString;LNSString;LNSString;LNSString;LNSString;", "LNSString;[LNSString;LNSString;[LNSString;LNSString;LNSString;LNSString;", "LNSString;[LNSString;LNSString;[LNSString;LNSString;LNSString;LNSString;LNSString;", "rawQuery", "LNSString;[LNSString;", "rawQueryWithFactory", "LAndroidDatabaseSqliteSQLiteDatabase_CursorFactory;LNSString;[LNSString;LNSString;", "insert", "LNSString;LNSString;LAndroidContentContentValues;", "insertOrThrow", "replace", "replaceOrThrow", "insertWithOnConflict", "LNSString;LNSString;LAndroidContentContentValues;I", "delete", "LNSString;LNSString;[LNSString;", "update", "LNSString;LAndroidContentContentValues;LNSString;[LNSString;", "updateWithOnConflict", "LNSString;LAndroidContentContentValues;LNSString;[LNSString;I", "execSQL", "LNSString;[LNSObject;", "executeSql", "needUpgrade", "setLocale", "LJavaUtilLocale;", "setMaxSqlCacheSize", "setForeignKeyConstraintsEnabled", "()Ljava/util/ArrayList<Landroid/database/sqlite/SQLiteDebug$DbStats;>;", "collectDbStats", "LJavaUtilArrayList;", "(Ljava/util/ArrayList<Landroid/database/sqlite/SQLiteDebug$DbStats;>;)V", "()Ljava/util/ArrayList<Landroid/database/sqlite/SQLiteDatabase;>;", "dumpAll", "LAndroidUtilPrinter;Z", "dump", "()Ljava/util/List<Landroid/util/Pair<Ljava/lang/String;Ljava/lang/String;>;>;", "toString", &AndroidDatabaseSqliteSQLiteDatabase_TAG, &AndroidDatabaseSqliteSQLiteDatabase_sActiveDatabases, "Ljava/util/WeakHashMap<Landroid/database/sqlite/SQLiteDatabase;Ljava/lang/Object;>;", "Ljava/lang/ThreadLocal<Landroid/database/sqlite/SQLiteSession;>;", &AndroidDatabaseSqliteSQLiteDatabase_CONFLICT_VALUES, "LAndroidDatabaseSqliteSQLiteDatabase_CursorFactory;LAndroidDatabaseSqliteSQLiteDatabase_CustomFunction;" };
-  static const J2ObjcClassInfo _AndroidDatabaseSqliteSQLiteDatabase = { "SQLiteDatabase", "android.database.sqlite", ptrTable, methods, fields, 7, 0x11, 86, 26, -1, 93, -1, -1, -1 };
+  static const void *ptrTable[] = { "LNSString;ILAndroidDatabaseSqliteSQLiteDatabase_CursorFactory;LAndroidDatabaseDatabaseErrorHandler;", "finalize", "LNSException;", "dispose", "Z", "setLockingEnabled", (void *)&AndroidDatabaseSqliteSQLiteDatabase__Annotations$0, "getThreadDefaultConnectionFlags", "beginTransactionWithListener", "LAndroidDatabaseSqliteSQLiteTransactionListener;", "beginTransactionWithListenerNonExclusive", "beginTransaction", "LAndroidDatabaseSqliteSQLiteTransactionListener;Z", (void *)&AndroidDatabaseSqliteSQLiteDatabase__Annotations$1, (void *)&AndroidDatabaseSqliteSQLiteDatabase__Annotations$2, "yieldIfContendedSafely", "J", "yieldIfContendedHelper", "ZJ", "()Ljava/util/Map<Ljava/lang/String;Ljava/lang/String;>;", (void *)&AndroidDatabaseSqliteSQLiteDatabase__Annotations$3, "openDatabase", "LNSString;LAndroidDatabaseSqliteSQLiteDatabase_CursorFactory;I", "LNSString;LAndroidDatabaseSqliteSQLiteDatabase_CursorFactory;ILAndroidDatabaseDatabaseErrorHandler;", "openOrCreateDatabase", "LJavaIoFile;LAndroidDatabaseSqliteSQLiteDatabase_CursorFactory;", "LNSString;LAndroidDatabaseSqliteSQLiteDatabase_CursorFactory;", "LNSString;LAndroidDatabaseSqliteSQLiteDatabase_CursorFactory;LAndroidDatabaseDatabaseErrorHandler;", "deleteDatabase", "LJavaIoFile;", "create", "LAndroidDatabaseSqliteSQLiteDatabase_CursorFactory;", "addCustomFunction", "LNSString;ILAndroidDatabaseSqliteSQLiteDatabase_CustomFunction;", "setVersion", "I", "setMaximumSize", "setPageSize", "markTableSyncable", "LNSString;LNSString;", (void *)&AndroidDatabaseSqliteSQLiteDatabase__Annotations$4, "LNSString;LNSString;LNSString;", (void *)&AndroidDatabaseSqliteSQLiteDatabase__Annotations$5, "findEditTable", "LNSString;", "compileStatement", "LAndroidDatabaseSQLException;", "query", "ZLNSString;[LNSString;LNSString;[LNSString;LNSString;LNSString;LNSString;LNSString;", "ZLNSString;[LNSString;LNSString;[LNSString;LNSString;LNSString;LNSString;LNSString;LAndroidOsCancellationSignal;", "queryWithFactory", "LAndroidDatabaseSqliteSQLiteDatabase_CursorFactory;ZLNSString;[LNSString;LNSString;[LNSString;LNSString;LNSString;LNSString;LNSString;", "LAndroidDatabaseSqliteSQLiteDatabase_CursorFactory;ZLNSString;[LNSString;LNSString;[LNSString;LNSString;LNSString;LNSString;LNSString;LAndroidOsCancellationSignal;", "LNSString;[LNSString;LNSString;[LNSString;LNSString;LNSString;LNSString;", "LNSString;[LNSString;LNSString;[LNSString;LNSString;LNSString;LNSString;LNSString;", "rawQuery", "LNSString;[LNSString;", "LNSString;[LNSString;LAndroidOsCancellationSignal;", "rawQueryWithFactory", "LAndroidDatabaseSqliteSQLiteDatabase_CursorFactory;LNSString;[LNSString;LNSString;", "LAndroidDatabaseSqliteSQLiteDatabase_CursorFactory;LNSString;[LNSString;LNSString;LAndroidOsCancellationSignal;", "insert", "LNSString;LNSString;LAndroidContentContentValues;", "insertOrThrow", "replace", "replaceOrThrow", "insertWithOnConflict", "LNSString;LNSString;LAndroidContentContentValues;I", "delete", "LNSString;LNSString;[LNSString;", "update", "LNSString;LAndroidContentContentValues;LNSString;[LNSString;", "updateWithOnConflict", "LNSString;LAndroidContentContentValues;LNSString;[LNSString;I", "execSQL", "LNSString;[LNSObject;", "executeSql", "needUpgrade", "setLocale", "LJavaUtilLocale;", "setMaxSqlCacheSize", "setForeignKeyConstraintsEnabled", "()Ljava/util/ArrayList<Landroid/database/sqlite/SQLiteDebug$DbStats;>;", "collectDbStats", "LJavaUtilArrayList;", "(Ljava/util/ArrayList<Landroid/database/sqlite/SQLiteDebug$DbStats;>;)V", "()Ljava/util/ArrayList<Landroid/database/sqlite/SQLiteDatabase;>;", "dumpAll", "LAndroidUtilPrinter;Z", "dump", "()Ljava/util/List<Landroid/util/Pair<Ljava/lang/String;Ljava/lang/String;>;>;", "toString", &AndroidDatabaseSqliteSQLiteDatabase_TAG, &AndroidDatabaseSqliteSQLiteDatabase_sActiveDatabases, "Ljava/util/WeakHashMap<Landroid/database/sqlite/SQLiteDatabase;Ljava/lang/Object;>;", "Ljava/lang/ThreadLocal<Landroid/database/sqlite/SQLiteSession;>;", &AndroidDatabaseSqliteSQLiteDatabase_CONFLICT_VALUES, "LAndroidDatabaseSqliteSQLiteDatabase_CursorFactory;LAndroidDatabaseSqliteSQLiteDatabase_CustomFunction;" };
+  static const J2ObjcClassInfo _AndroidDatabaseSqliteSQLiteDatabase = { "SQLiteDatabase", "android.database.sqlite", ptrTable, methods, fields, 7, 0x11, 90, 26, -1, 97, -1, -1, -1 };
   return &_AndroidDatabaseSqliteSQLiteDatabase;
 }
 
@@ -1277,7 +1327,7 @@ jboolean AndroidDatabaseSqliteSQLiteDatabase_isMainThread() {
 void AndroidDatabaseSqliteSQLiteDatabase_beginTransactionWithAndroidDatabaseSqliteSQLiteTransactionListener_withBoolean_(AndroidDatabaseSqliteSQLiteDatabase *self, id<AndroidDatabaseSqliteSQLiteTransactionListener> transactionListener, jboolean exclusive) {
   [self acquireReference];
   @try {
-    [((AndroidDatabaseSqliteSQLiteSession *) nil_chk([self getThreadSession])) beginTransactionWithInt:exclusive ? AndroidDatabaseSqliteSQLiteSession_TRANSACTION_MODE_EXCLUSIVE : AndroidDatabaseSqliteSQLiteSession_TRANSACTION_MODE_IMMEDIATE withAndroidDatabaseSqliteSQLiteTransactionListener:transactionListener withInt:[self getThreadDefaultConnectionFlagsWithBoolean:false]];
+    [((AndroidDatabaseSqliteSQLiteSession *) nil_chk([self getThreadSession])) beginTransactionWithInt:exclusive ? AndroidDatabaseSqliteSQLiteSession_TRANSACTION_MODE_EXCLUSIVE : AndroidDatabaseSqliteSQLiteSession_TRANSACTION_MODE_IMMEDIATE withAndroidDatabaseSqliteSQLiteTransactionListener:transactionListener withInt:[self getThreadDefaultConnectionFlagsWithBoolean:false] withAndroidOsCancellationSignal:nil];
   }
   @finally {
     [self releaseReference];
@@ -1287,7 +1337,7 @@ void AndroidDatabaseSqliteSQLiteDatabase_beginTransactionWithAndroidDatabaseSqli
 jboolean AndroidDatabaseSqliteSQLiteDatabase_yieldIfContendedHelperWithBoolean_withLong_(AndroidDatabaseSqliteSQLiteDatabase *self, jboolean throwIfUnsafe, jlong sleepAfterYieldDelay) {
   [self acquireReference];
   @try {
-    return [((AndroidDatabaseSqliteSQLiteSession *) nil_chk([self getThreadSession])) yieldTransactionWithLong:sleepAfterYieldDelay withBoolean:throwIfUnsafe];
+    return [((AndroidDatabaseSqliteSQLiteSession *) nil_chk([self getThreadSession])) yieldTransactionWithLong:sleepAfterYieldDelay withBoolean:throwIfUnsafe withAndroidOsCancellationSignal:nil];
   }
   @finally {
     [self releaseReference];
@@ -1369,7 +1419,7 @@ void AndroidDatabaseSqliteSQLiteDatabase_open(AndroidDatabaseSqliteSQLiteDatabas
 
 void AndroidDatabaseSqliteSQLiteDatabase_openInner(AndroidDatabaseSqliteSQLiteDatabase *self) {
   @synchronized(self->mLock_) {
-    JreAssert((self->mConnectionPoolLocked_ == nil), (@"android/database/sqlite/SQLiteDatabase.java:802 condition failed: assert mConnectionPoolLocked == null;"));
+    JreAssert((self->mConnectionPoolLocked_ == nil), (@"android/database/sqlite/SQLiteDatabase.java:803 condition failed: assert mConnectionPoolLocked == null;"));
     JreStrongAssign(&self->mConnectionPoolLocked_, AndroidDatabaseSqliteSQLiteConnectionPool_openWithAndroidDatabaseSqliteSQLiteDatabaseConfiguration_(self->mConfigurationLocked_));
     [((DalvikSystemCloseGuard *) nil_chk(self->mCloseGuardLocked_)) openWithNSString:@"close"];
   }

@@ -16,7 +16,7 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
-import co.touchlab.doppl.testing.DopplRobolectricTestRunner;
+import co.touchlab.doppl.testing.DopplContextDelegateTestRunner;
 
 
 import static org.junit.Assert.*;
@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
 /**
  * Created by kgalligan on 4/27/17.
  */
-@RunWith(DopplRobolectricTestRunner.class)
+@RunWith(DopplContextDelegateTestRunner.class)
 public class DatabaseHelperTest
 {
     @Inject

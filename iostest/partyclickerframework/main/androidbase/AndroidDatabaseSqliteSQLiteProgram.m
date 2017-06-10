@@ -8,6 +8,7 @@
 #include "AndroidDatabaseSqliteSQLiteProgram.h"
 #include "AndroidDatabaseSqliteSQLiteSession.h"
 #include "AndroidDatabaseSqliteSQLiteStatementInfo.h"
+#include "AndroidOsCancellationSignal.h"
 #include "IOSClass.h"
 #include "IOSObjectArray.h"
 #include "IOSPrimitiveArray.h"
@@ -54,8 +55,9 @@ J2OBJC_INITIALIZED_DEFN(AndroidDatabaseSqliteSQLiteProgram)
 
 - (instancetype)initWithAndroidDatabaseSqliteSQLiteDatabase:(AndroidDatabaseSqliteSQLiteDatabase *)db
                                                withNSString:(NSString *)sql
-                                          withNSObjectArray:(IOSObjectArray *)bindArgs {
-  AndroidDatabaseSqliteSQLiteProgram_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSObjectArray_(self, db, sql, bindArgs);
+                                          withNSObjectArray:(IOSObjectArray *)bindArgs
+                            withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignalForPrepare {
+  AndroidDatabaseSqliteSQLiteProgram_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSObjectArray_withAndroidOsCancellationSignal_(self, db, sql, bindArgs, cancellationSignalForPrepare);
   return self;
 }
 
@@ -175,7 +177,7 @@ J2OBJC_INITIALIZED_DEFN(AndroidDatabaseSqliteSQLiteProgram)
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
-  methods[0].selector = @selector(initWithAndroidDatabaseSqliteSQLiteDatabase:withNSString:withNSObjectArray:);
+  methods[0].selector = @selector(initWithAndroidDatabaseSqliteSQLiteDatabase:withNSString:withNSObjectArray:withAndroidOsCancellationSignal:);
   methods[1].selector = @selector(getDatabase);
   methods[2].selector = @selector(getSql);
   methods[3].selector = @selector(getBindArgs);
@@ -203,7 +205,7 @@ J2OBJC_INITIALIZED_DEFN(AndroidDatabaseSqliteSQLiteProgram)
     { "mNumParameters_", "I", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
     { "mBindArgs_", "[LNSObject;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LAndroidDatabaseSqliteSQLiteDatabase;LNSString;[LNSObject;", (void *)&AndroidDatabaseSqliteSQLiteProgram__Annotations$0, "bindNull", "I", "bindLong", "IJ", "bindDouble", "ID", "bindString", "ILNSString;", "bindBlob", "I[B", "bindAllArgsAsStrings", "[LNSString;", "bind", "ILNSObject;", &AndroidDatabaseSqliteSQLiteProgram_EMPTY_STRING_ARRAY };
+  static const void *ptrTable[] = { "LAndroidDatabaseSqliteSQLiteDatabase;LNSString;[LNSObject;LAndroidOsCancellationSignal;", (void *)&AndroidDatabaseSqliteSQLiteProgram__Annotations$0, "bindNull", "I", "bindLong", "IJ", "bindDouble", "ID", "bindString", "ILNSString;", "bindBlob", "I[B", "bindAllArgsAsStrings", "[LNSString;", "bind", "ILNSObject;", &AndroidDatabaseSqliteSQLiteProgram_EMPTY_STRING_ARRAY };
   static const J2ObjcClassInfo _AndroidDatabaseSqliteSQLiteProgram = { "SQLiteProgram", "android.database.sqlite", ptrTable, methods, fields, 7, 0x401, 18, 7, -1, -1, -1, -1, -1 };
   return &_AndroidDatabaseSqliteSQLiteProgram;
 }
@@ -217,7 +219,7 @@ J2OBJC_INITIALIZED_DEFN(AndroidDatabaseSqliteSQLiteProgram)
 
 @end
 
-void AndroidDatabaseSqliteSQLiteProgram_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSObjectArray_(AndroidDatabaseSqliteSQLiteProgram *self, AndroidDatabaseSqliteSQLiteDatabase *db, NSString *sql, IOSObjectArray *bindArgs) {
+void AndroidDatabaseSqliteSQLiteProgram_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSObjectArray_withAndroidOsCancellationSignal_(AndroidDatabaseSqliteSQLiteProgram *self, AndroidDatabaseSqliteSQLiteDatabase *db, NSString *sql, IOSObjectArray *bindArgs, AndroidOsCancellationSignal *cancellationSignalForPrepare) {
   AndroidDatabaseSqliteSQLiteClosable_init(self);
   JreStrongAssign(&self->mDatabase_, db);
   JreStrongAssign(&self->mSql_, [((NSString *) nil_chk(sql)) java_trim]);
@@ -236,7 +238,7 @@ void AndroidDatabaseSqliteSQLiteProgram_initWithAndroidDatabaseSqliteSQLiteDatab
       default:
       assumeReadOnly = (n == AndroidDatabaseDatabaseUtils_STATEMENT_SELECT);
       info = create_AndroidDatabaseSqliteSQLiteStatementInfo_init();
-      [((AndroidDatabaseSqliteSQLiteSession *) nil_chk([((AndroidDatabaseSqliteSQLiteDatabase *) nil_chk(db)) getThreadSession])) prepareWithNSString:self->mSql_ withInt:[db getThreadDefaultConnectionFlagsWithBoolean:assumeReadOnly] withAndroidDatabaseSqliteSQLiteStatementInfo:info];
+      [((AndroidDatabaseSqliteSQLiteSession *) nil_chk([((AndroidDatabaseSqliteSQLiteDatabase *) nil_chk(db)) getThreadSession])) prepareWithNSString:self->mSql_ withInt:[db getThreadDefaultConnectionFlagsWithBoolean:assumeReadOnly] withAndroidOsCancellationSignal:cancellationSignalForPrepare withAndroidDatabaseSqliteSQLiteStatementInfo:info];
       self->mReadOnly_ = info->readOnly_;
       JreStrongAssign(&self->mColumnNames_, info->columnNames_);
       self->mNumParameters_ = info->numParameters_;

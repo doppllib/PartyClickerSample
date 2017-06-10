@@ -19,6 +19,7 @@
 #define INCLUDE_AndroidDatabaseAbstractCursor 1
 #include "AndroidDatabaseAbstractCursor.h"
 
+@class AndroidDatabaseContentObserver;
 @class AndroidDatabaseDataSetObserver;
 @class IOSByteArray;
 @class IOSObjectArray;
@@ -58,9 +59,13 @@
 - (jboolean)onMoveWithInt:(jint)oldPosition
                   withInt:(jint)newPosition;
 
+- (void)registerContentObserverWithAndroidDatabaseContentObserver:(AndroidDatabaseContentObserver *)observer;
+
 - (void)registerDataSetObserverWithAndroidDatabaseDataSetObserver:(AndroidDatabaseDataSetObserver *)observer;
 
 - (jboolean)requery;
+
+- (void)unregisterContentObserverWithAndroidDatabaseContentObserver:(AndroidDatabaseContentObserver *)observer;
 
 - (void)unregisterDataSetObserverWithAndroidDatabaseDataSetObserver:(AndroidDatabaseDataSetObserver *)observer;
 

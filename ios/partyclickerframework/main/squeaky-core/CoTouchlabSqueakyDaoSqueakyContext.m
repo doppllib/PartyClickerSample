@@ -22,14 +22,13 @@
 
 @interface CoTouchlabSqueakyDaoSqueakyContext () {
  @public
-  id<CoTouchlabSqueakyDbSQLiteOpenHelper> helper_;
+  __unsafe_unretained id<CoTouchlabSqueakyDbSQLiteOpenHelper> helper_;
   id<JavaUtilMap> daoMap_;
   id<JavaUtilMap> generatedTableMapperMap_;
 }
 
 @end
 
-J2OBJC_FIELD_SETTER(CoTouchlabSqueakyDaoSqueakyContext, helper_, id<CoTouchlabSqueakyDbSQLiteOpenHelper>)
 J2OBJC_FIELD_SETTER(CoTouchlabSqueakyDaoSqueakyContext, daoMap_, id<JavaUtilMap>)
 J2OBJC_FIELD_SETTER(CoTouchlabSqueakyDaoSqueakyContext, generatedTableMapperMap_, id<JavaUtilMap>)
 
@@ -97,8 +96,12 @@ J2OBJC_FIELD_SETTER(CoTouchlabSqueakyDaoSqueakyContext, generatedTableMapperMap_
   return CoTouchlabSqueakyDaoSqueakyContext_loadGeneratedTableMapperWithIOSClass_(clazz);
 }
 
+- (void)__javaClone:(CoTouchlabSqueakyDaoSqueakyContext *)original {
+  [super __javaClone:original];
+  [helper_ release];
+}
+
 - (void)dealloc {
-  RELEASE_(helper_);
   RELEASE_(daoMap_);
   RELEASE_(generatedTableMapperMap_);
   [super dealloc];
@@ -140,7 +143,7 @@ void CoTouchlabSqueakyDaoSqueakyContext_initWithCoTouchlabSqueakyDbSQLiteOpenHel
   NSObject_init(self);
   JreStrongAssignAndConsume(&self->daoMap_, new_JavaUtilHashMap_init());
   JreStrongAssignAndConsume(&self->generatedTableMapperMap_, new_JavaUtilHashMap_init());
-  JreStrongAssign(&self->helper_, helper);
+  self->helper_ = helper;
 }
 
 CoTouchlabSqueakyDaoSqueakyContext *new_CoTouchlabSqueakyDaoSqueakyContext_initWithCoTouchlabSqueakyDbSQLiteOpenHelper_(id<CoTouchlabSqueakyDbSQLiteOpenHelper> helper) {

@@ -305,6 +305,14 @@ IOSObjectArray *RxInternalOperatorsOnSubscribePublishMulticast_TERMINATED;
   return [((RxInternalOperatorsOnSubscribePublishMulticast_ParentSubscriber *) nil_chk(parent_)) isUnsubscribed];
 }
 
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
+}
+
 - (void)__javaClone:(RxInternalOperatorsOnSubscribePublishMulticast *)original {
   [super __javaClone:original];
   JreCloneVolatileStrong(&producer_, &original->producer_);
@@ -504,6 +512,14 @@ withRxInternalOperatorsOnSubscribePublishMulticast:(RxInternalOperatorsOnSubscri
   if ([((JavaUtilConcurrentAtomicAtomicBoolean *) nil_chk(once_)) compareAndSetWithBoolean:false withBoolean:true]) {
     [((RxInternalOperatorsOnSubscribePublishMulticast *) nil_chk(parent_)) removeWithRxInternalOperatorsOnSubscribePublishMulticast_PublishProducer:self];
   }
+}
+
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
 }
 
 - (void)dealloc {

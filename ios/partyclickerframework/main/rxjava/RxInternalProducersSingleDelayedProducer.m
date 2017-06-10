@@ -75,6 +75,14 @@ __attribute__((unused)) static void RxInternalProducersSingleDelayedProducer_emi
   RxInternalProducersSingleDelayedProducer_emitWithRxSubscriber_withId_(c, v);
 }
 
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
+}
+
 - (void)__javaClone:(RxInternalProducersSingleDelayedProducer *)original {
   [super __javaClone:original];
   [child_ release];

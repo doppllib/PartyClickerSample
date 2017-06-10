@@ -118,6 +118,10 @@ J2OBJC_TYPE_LITERAL_HEADER(RxSubscriptionsRefCountSubscription_State)
 
 - (instancetype)initWithRxSubscriptionsRefCountSubscription:(RxSubscriptionsRefCountSubscription *)parent;
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 - (jboolean)isUnsubscribed;
 
 - (void)unsubscribe;

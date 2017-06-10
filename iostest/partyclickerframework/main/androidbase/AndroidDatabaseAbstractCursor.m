@@ -4,12 +4,15 @@
 
 #include "AndroidDatabaseAbstractCursor.h"
 #include "AndroidDatabaseCharArrayBuffer.h"
+#include "AndroidDatabaseContentObservable.h"
+#include "AndroidDatabaseContentObserver.h"
 #include "AndroidDatabaseCursor.h"
 #include "AndroidDatabaseCursorIndexOutOfBoundsException.h"
 #include "AndroidDatabaseCursorWindow.h"
 #include "AndroidDatabaseDataSetObservable.h"
 #include "AndroidDatabaseDataSetObserver.h"
 #include "AndroidDatabaseDatabaseUtils.h"
+#include "AndroidNetUri.h"
 #include "AndroidOsBundle.h"
 #include "IOSClass.h"
 #include "IOSObjectArray.h"
@@ -22,19 +25,27 @@
 #include "java/lang/Long.h"
 #include "java/lang/UnsupportedOperationException.h"
 #include "java/lang/annotation/Annotation.h"
+#include "java/lang/ref/WeakReference.h"
 #include "java/util/HashMap.h"
 
 @interface AndroidDatabaseAbstractCursor () {
  @public
+  AndroidNetUri *mNotifyUri_;
   id mSelfObserverLock_;
+  AndroidDatabaseContentObserver *mSelfObserver_;
+  jboolean mSelfObserverRegistered_;
   AndroidDatabaseDataSetObservable *mDataSetObservable_;
+  AndroidDatabaseContentObservable *mContentObservable_;
   AndroidOsBundle *mExtras_;
 }
 
 @end
 
+J2OBJC_FIELD_SETTER(AndroidDatabaseAbstractCursor, mNotifyUri_, AndroidNetUri *)
 J2OBJC_FIELD_SETTER(AndroidDatabaseAbstractCursor, mSelfObserverLock_, id)
+J2OBJC_FIELD_SETTER(AndroidDatabaseAbstractCursor, mSelfObserver_, AndroidDatabaseContentObserver *)
 J2OBJC_FIELD_SETTER(AndroidDatabaseAbstractCursor, mDataSetObservable_, AndroidDatabaseDataSetObservable *)
+J2OBJC_FIELD_SETTER(AndroidDatabaseAbstractCursor, mContentObservable_, AndroidDatabaseContentObservable *)
 J2OBJC_FIELD_SETTER(AndroidDatabaseAbstractCursor, mExtras_, AndroidOsBundle *)
 
 inline NSString *AndroidDatabaseAbstractCursor_get_TAG();
@@ -130,10 +141,16 @@ __attribute__((unused)) static IOSObjectArray *AndroidDatabaseAbstractCursor__An
 }
 
 - (void)onDeactivateOrClose {
+  if (mSelfObserver_ != nil) {
+    mSelfObserverRegistered_ = false;
+  }
   [((AndroidDatabaseDataSetObservable *) nil_chk(mDataSetObservable_)) notifyInvalidated];
 }
 
 - (jboolean)requery {
+  if (mSelfObserver_ != nil && mSelfObserverRegistered_ == false) {
+    mSelfObserverRegistered_ = true;
+  }
   [((AndroidDatabaseDataSetObservable *) nil_chk(mDataSetObservable_)) notifyChanged];
   return true;
 }
@@ -144,6 +161,7 @@ __attribute__((unused)) static IOSObjectArray *AndroidDatabaseAbstractCursor__An
 
 - (void)close {
   mClosed_ = true;
+  [((AndroidDatabaseContentObservable *) nil_chk(mContentObservable_)) unregisterAll];
   [self onDeactivateOrClose];
 }
 
@@ -262,12 +280,36 @@ withAndroidDatabaseCursorWindow:(AndroidDatabaseCursorWindow *)window {
   return IOSObjectArray_Get(nil_chk([self getColumnNames]), columnIndex);
 }
 
+- (void)registerContentObserverWithAndroidDatabaseContentObserver:(AndroidDatabaseContentObserver *)observer {
+  [((AndroidDatabaseContentObservable *) nil_chk(mContentObservable_)) registerObserverWithId:observer];
+}
+
+- (void)unregisterContentObserverWithAndroidDatabaseContentObserver:(AndroidDatabaseContentObserver *)observer {
+  if (!mClosed_) {
+    [((AndroidDatabaseContentObservable *) nil_chk(mContentObservable_)) unregisterObserverWithId:observer];
+  }
+}
+
 - (void)registerDataSetObserverWithAndroidDatabaseDataSetObserver:(AndroidDatabaseDataSetObserver *)observer {
   [((AndroidDatabaseDataSetObservable *) nil_chk(mDataSetObservable_)) registerObserverWithId:observer];
 }
 
 - (void)unregisterDataSetObserverWithAndroidDatabaseDataSetObserver:(AndroidDatabaseDataSetObserver *)observer {
   [((AndroidDatabaseDataSetObservable *) nil_chk(mDataSetObservable_)) unregisterObserverWithId:observer];
+}
+
+- (void)onChangeWithBoolean:(jboolean)selfChange {
+  @synchronized(mSelfObserverLock_) {
+    [((AndroidDatabaseContentObservable *) nil_chk(mContentObservable_)) dispatchChangeWithBoolean:selfChange withAndroidNetUri:nil];
+    if (mNotifyUri_ != nil && selfChange) {
+    }
+  }
+}
+
+- (AndroidNetUri *)getNotificationUri {
+  @synchronized(mSelfObserverLock_) {
+    return mNotifyUri_;
+  }
 }
 
 - (jboolean)getWantsAllOnMoveCalls {
@@ -312,8 +354,11 @@ withAndroidDatabaseCursorWindow:(AndroidDatabaseCursorWindow *)window {
   JreCheckFinalize(self, [AndroidDatabaseAbstractCursor class]);
   RELEASE_(mUpdatedRows_);
   RELEASE_(mCurrentRowID_);
+  RELEASE_(mNotifyUri_);
   RELEASE_(mSelfObserverLock_);
+  RELEASE_(mSelfObserver_);
   RELEASE_(mDataSetObservable_);
+  RELEASE_(mContentObservable_);
   RELEASE_(mExtras_);
   [super dealloc];
 }
@@ -358,14 +403,18 @@ withAndroidDatabaseCursorWindow:(AndroidDatabaseCursorWindow *)window {
     { NULL, "LNSString;", 0x1, 21, 1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 22, 23, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 24, 23, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 25, 26, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 27, 26, -1, -1, -1, -1 },
+    { NULL, "V", 0x4, 28, 29, -1, -1, -1, -1 },
+    { NULL, "LAndroidNetUri;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 30, 31, -1, -1, -1, -1 },
     { NULL, "LAndroidOsBundle;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LAndroidOsBundle;", 0x1, 27, 26, -1, -1, -1, -1 },
-    { NULL, "Z", 0x4, 28, 1, -1, -1, 29, -1 },
-    { NULL, "LNSObject;", 0x4, 30, 1, -1, -1, 31, -1 },
+    { NULL, "LAndroidOsBundle;", 0x1, 32, 31, -1, -1, -1, -1 },
+    { NULL, "Z", 0x4, 33, 1, -1, -1, 34, -1 },
+    { NULL, "LNSObject;", 0x4, 35, 1, -1, -1, 36, -1 },
     { NULL, "V", 0x4, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x4, 32, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x4, 37, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -405,30 +454,38 @@ withAndroidDatabaseCursorWindow:(AndroidDatabaseCursorWindow *)window {
   methods[33].selector = @selector(getColumnIndexWithNSString:);
   methods[34].selector = @selector(getColumnIndexOrThrowWithNSString:);
   methods[35].selector = @selector(getColumnNameWithInt:);
-  methods[36].selector = @selector(registerDataSetObserverWithAndroidDatabaseDataSetObserver:);
-  methods[37].selector = @selector(unregisterDataSetObserverWithAndroidDatabaseDataSetObserver:);
-  methods[38].selector = @selector(getWantsAllOnMoveCalls);
-  methods[39].selector = @selector(setExtrasWithAndroidOsBundle:);
-  methods[40].selector = @selector(getExtras);
-  methods[41].selector = @selector(respondWithAndroidOsBundle:);
-  methods[42].selector = @selector(isFieldUpdatedWithInt:);
-  methods[43].selector = @selector(getUpdatedFieldWithInt:);
-  methods[44].selector = @selector(checkPosition);
-  methods[45].selector = @selector(java_finalize);
+  methods[36].selector = @selector(registerContentObserverWithAndroidDatabaseContentObserver:);
+  methods[37].selector = @selector(unregisterContentObserverWithAndroidDatabaseContentObserver:);
+  methods[38].selector = @selector(registerDataSetObserverWithAndroidDatabaseDataSetObserver:);
+  methods[39].selector = @selector(unregisterDataSetObserverWithAndroidDatabaseDataSetObserver:);
+  methods[40].selector = @selector(onChangeWithBoolean:);
+  methods[41].selector = @selector(getNotificationUri);
+  methods[42].selector = @selector(getWantsAllOnMoveCalls);
+  methods[43].selector = @selector(setExtrasWithAndroidOsBundle:);
+  methods[44].selector = @selector(getExtras);
+  methods[45].selector = @selector(respondWithAndroidOsBundle:);
+  methods[46].selector = @selector(isFieldUpdatedWithInt:);
+  methods[47].selector = @selector(getUpdatedFieldWithInt:);
+  methods[48].selector = @selector(checkPosition);
+  methods[49].selector = @selector(java_finalize);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "TAG", "LNSString;", .constantValue.asLong = 0, 0x1a, -1, 33, -1, -1 },
-    { "mUpdatedRows_", "LJavaUtilHashMap;", .constantValue.asLong = 0, 0x4, -1, -1, 34, 35 },
+    { "TAG", "LNSString;", .constantValue.asLong = 0, 0x1a, -1, 38, -1, -1 },
+    { "mUpdatedRows_", "LJavaUtilHashMap;", .constantValue.asLong = 0, 0x4, -1, -1, 39, 40 },
     { "mPos_", "I", .constantValue.asLong = 0, 0x4, -1, -1, -1, -1 },
-    { "mRowIdColumnIndex_", "I", .constantValue.asLong = 0, 0x4, -1, -1, -1, 36 },
-    { "mCurrentRowID_", "LJavaLangLong;", .constantValue.asLong = 0, 0x4, -1, -1, -1, 37 },
+    { "mRowIdColumnIndex_", "I", .constantValue.asLong = 0, 0x4, -1, -1, -1, 41 },
+    { "mCurrentRowID_", "LJavaLangLong;", .constantValue.asLong = 0, 0x4, -1, -1, -1, 42 },
     { "mClosed_", "Z", .constantValue.asLong = 0, 0x4, -1, -1, -1, -1 },
+    { "mNotifyUri_", "LAndroidNetUri;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mSelfObserverLock_", "LNSObject;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
+    { "mSelfObserver_", "LAndroidDatabaseContentObserver;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
+    { "mSelfObserverRegistered_", "Z", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mDataSetObservable_", "LAndroidDatabaseDataSetObservable;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
+    { "mContentObservable_", "LAndroidDatabaseContentObservable;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
     { "mExtras_", "LAndroidOsBundle;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "getString", "I", "getShort", "getInt", "getLong", "getFloat", "getDouble", "isNull", "getType", "getBlob", "onMove", "II", "copyStringToBuffer", "ILAndroidDatabaseCharArrayBuffer;", "moveToPosition", "fillWindow", "ILAndroidDatabaseCursorWindow;", "move", "getColumnIndex", "LNSString;", "getColumnIndexOrThrow", "getColumnName", "registerDataSetObserver", "LAndroidDatabaseDataSetObserver;", "unregisterDataSetObserver", "setExtras", "LAndroidOsBundle;", "respond", "isFieldUpdated", (void *)&AndroidDatabaseAbstractCursor__Annotations$0, "getUpdatedField", (void *)&AndroidDatabaseAbstractCursor__Annotations$1, "finalize", &AndroidDatabaseAbstractCursor_TAG, "Ljava/util/HashMap<Ljava/lang/Long;Ljava/util/Map<Ljava/lang/String;Ljava/lang/Object;>;>;", (void *)&AndroidDatabaseAbstractCursor__Annotations$2, (void *)&AndroidDatabaseAbstractCursor__Annotations$3, (void *)&AndroidDatabaseAbstractCursor__Annotations$4 };
-  static const J2ObjcClassInfo _AndroidDatabaseAbstractCursor = { "AbstractCursor", "android.database", ptrTable, methods, fields, 7, 0x401, 46, 9, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "getString", "I", "getShort", "getInt", "getLong", "getFloat", "getDouble", "isNull", "getType", "getBlob", "onMove", "II", "copyStringToBuffer", "ILAndroidDatabaseCharArrayBuffer;", "moveToPosition", "fillWindow", "ILAndroidDatabaseCursorWindow;", "move", "getColumnIndex", "LNSString;", "getColumnIndexOrThrow", "getColumnName", "registerContentObserver", "LAndroidDatabaseContentObserver;", "unregisterContentObserver", "registerDataSetObserver", "LAndroidDatabaseDataSetObserver;", "unregisterDataSetObserver", "onChange", "Z", "setExtras", "LAndroidOsBundle;", "respond", "isFieldUpdated", (void *)&AndroidDatabaseAbstractCursor__Annotations$0, "getUpdatedField", (void *)&AndroidDatabaseAbstractCursor__Annotations$1, "finalize", &AndroidDatabaseAbstractCursor_TAG, "Ljava/util/HashMap<Ljava/lang/Long;Ljava/util/Map<Ljava/lang/String;Ljava/lang/Object;>;>;", (void *)&AndroidDatabaseAbstractCursor__Annotations$2, (void *)&AndroidDatabaseAbstractCursor__Annotations$3, (void *)&AndroidDatabaseAbstractCursor__Annotations$4, "LAndroidDatabaseAbstractCursor_SelfContentObserver;" };
+  static const J2ObjcClassInfo _AndroidDatabaseAbstractCursor = { "AbstractCursor", "android.database", ptrTable, methods, fields, 7, 0x401, 50, 13, -1, 43, -1, -1, -1 };
   return &_AndroidDatabaseAbstractCursor;
 }
 
@@ -438,6 +495,7 @@ void AndroidDatabaseAbstractCursor_init(AndroidDatabaseAbstractCursor *self) {
   NSObject_init(self);
   JreStrongAssignAndConsume(&self->mSelfObserverLock_, new_NSObject_init());
   JreStrongAssignAndConsume(&self->mDataSetObservable_, new_AndroidDatabaseDataSetObservable_init());
+  JreStrongAssignAndConsume(&self->mContentObservable_, new_AndroidDatabaseContentObservable_init());
   JreStrongAssign(&self->mExtras_, JreLoadStatic(AndroidOsBundle, EMPTY));
   self->mPos_ = -1;
   self->mRowIdColumnIndex_ = -1;
@@ -492,3 +550,63 @@ IOSObjectArray *AndroidDatabaseAbstractCursor__Annotations$4() {
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(AndroidDatabaseAbstractCursor)
+
+@implementation AndroidDatabaseAbstractCursor_SelfContentObserver
+
+- (instancetype)initWithAndroidDatabaseAbstractCursor:(AndroidDatabaseAbstractCursor *)cursor {
+  AndroidDatabaseAbstractCursor_SelfContentObserver_initWithAndroidDatabaseAbstractCursor_(self, cursor);
+  return self;
+}
+
+- (jboolean)deliverSelfNotifications {
+  return false;
+}
+
+- (void)onChangeWithBoolean:(jboolean)selfChange {
+  AndroidDatabaseAbstractCursor *cursor = [((JavaLangRefWeakReference *) nil_chk(mCursor_)) get];
+  if (cursor != nil) {
+    [cursor onChangeWithBoolean:false];
+  }
+}
+
+- (void)dealloc {
+  RELEASE_(mCursor_);
+  [super dealloc];
+}
+
++ (const J2ObjcClassInfo *)__metadata {
+  static J2ObjcMethodInfo methods[] = {
+    { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 1, 2, -1, -1, -1, -1 },
+  };
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
+  methods[0].selector = @selector(initWithAndroidDatabaseAbstractCursor:);
+  methods[1].selector = @selector(deliverSelfNotifications);
+  methods[2].selector = @selector(onChangeWithBoolean:);
+  #pragma clang diagnostic pop
+  static const J2ObjcFieldInfo fields[] = {
+    { "mCursor_", "LJavaLangRefWeakReference;", .constantValue.asLong = 0, 0x0, -1, -1, 3, -1 },
+  };
+  static const void *ptrTable[] = { "LAndroidDatabaseAbstractCursor;", "onChange", "Z", "Ljava/lang/ref/WeakReference<Landroid/database/AbstractCursor;>;" };
+  static const J2ObjcClassInfo _AndroidDatabaseAbstractCursor_SelfContentObserver = { "SelfContentObserver", "android.database", ptrTable, methods, fields, 7, 0xc, 3, 1, 0, -1, -1, -1, -1 };
+  return &_AndroidDatabaseAbstractCursor_SelfContentObserver;
+}
+
+@end
+
+void AndroidDatabaseAbstractCursor_SelfContentObserver_initWithAndroidDatabaseAbstractCursor_(AndroidDatabaseAbstractCursor_SelfContentObserver *self, AndroidDatabaseAbstractCursor *cursor) {
+  AndroidDatabaseContentObserver_initWithAndroidOsHandler_(self, nil);
+  JreStrongAssignAndConsume(&self->mCursor_, new_JavaLangRefWeakReference_initWithId_(cursor));
+}
+
+AndroidDatabaseAbstractCursor_SelfContentObserver *new_AndroidDatabaseAbstractCursor_SelfContentObserver_initWithAndroidDatabaseAbstractCursor_(AndroidDatabaseAbstractCursor *cursor) {
+  J2OBJC_NEW_IMPL(AndroidDatabaseAbstractCursor_SelfContentObserver, initWithAndroidDatabaseAbstractCursor_, cursor)
+}
+
+AndroidDatabaseAbstractCursor_SelfContentObserver *create_AndroidDatabaseAbstractCursor_SelfContentObserver_initWithAndroidDatabaseAbstractCursor_(AndroidDatabaseAbstractCursor *cursor) {
+  J2OBJC_CREATE_IMPL(AndroidDatabaseAbstractCursor_SelfContentObserver, initWithAndroidDatabaseAbstractCursor_, cursor)
+}
+
+J2OBJC_CLASS_TYPE_LITERAL_SOURCE(AndroidDatabaseAbstractCursor_SelfContentObserver)

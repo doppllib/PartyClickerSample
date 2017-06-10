@@ -18,6 +18,7 @@
 @class AndroidDatabaseCursorWindow;
 @class AndroidDatabaseSqliteSQLiteConnectionPool;
 @class AndroidDatabaseSqliteSQLiteStatementInfo;
+@class AndroidOsCancellationSignal;
 @class IOSObjectArray;
 @protocol AndroidDatabaseSqliteSQLiteTransactionListener;
 
@@ -29,17 +30,20 @@
 
 - (void)beginTransactionWithInt:(jint)transactionMode
 withAndroidDatabaseSqliteSQLiteTransactionListener:(id<AndroidDatabaseSqliteSQLiteTransactionListener>)transactionListener
-                        withInt:(jint)connectionFlags;
+                        withInt:(jint)connectionFlags
+withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal;
 
-- (void)endTransaction;
+- (void)endTransactionWithAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal;
 
 - (void)executeWithNSString:(NSString *)sql
           withNSObjectArray:(IOSObjectArray *)bindArgs
-                    withInt:(jint)connectionFlags;
+                    withInt:(jint)connectionFlags
+withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal;
 
 - (jint)executeForChangedRowCountWithNSString:(NSString *)sql
                             withNSObjectArray:(IOSObjectArray *)bindArgs
-                                      withInt:(jint)connectionFlags;
+                                      withInt:(jint)connectionFlags
+              withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal;
 
 - (jint)executeForCursorWindowWithNSString:(NSString *)sql
                          withNSObjectArray:(IOSObjectArray *)bindArgs
@@ -47,19 +51,23 @@ withAndroidDatabaseSqliteSQLiteTransactionListener:(id<AndroidDatabaseSqliteSQLi
                                    withInt:(jint)startPos
                                    withInt:(jint)requiredPos
                                withBoolean:(jboolean)countAllRows
-                                   withInt:(jint)connectionFlags;
+                                   withInt:(jint)connectionFlags
+           withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal;
 
 - (jlong)executeForLastInsertedRowIdWithNSString:(NSString *)sql
                                withNSObjectArray:(IOSObjectArray *)bindArgs
-                                         withInt:(jint)connectionFlags;
+                                         withInt:(jint)connectionFlags
+                 withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal;
 
 - (jlong)executeForLongWithNSString:(NSString *)sql
                   withNSObjectArray:(IOSObjectArray *)bindArgs
-                            withInt:(jint)connectionFlags;
+                            withInt:(jint)connectionFlags
+    withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal;
 
 - (NSString *)executeForStringWithNSString:(NSString *)sql
                          withNSObjectArray:(IOSObjectArray *)bindArgs
-                                   withInt:(jint)connectionFlags;
+                                   withInt:(jint)connectionFlags
+           withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal;
 
 - (jboolean)hasConnection;
 
@@ -69,12 +77,14 @@ withAndroidDatabaseSqliteSQLiteTransactionListener:(id<AndroidDatabaseSqliteSQLi
 
 - (void)prepareWithNSString:(NSString *)sql
                     withInt:(jint)connectionFlags
+withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal
 withAndroidDatabaseSqliteSQLiteStatementInfo:(AndroidDatabaseSqliteSQLiteStatementInfo *)outStatementInfo;
 
 - (void)setTransactionSuccessful;
 
 - (jboolean)yieldTransactionWithLong:(jlong)sleepAfterYieldDelayMillis
-                         withBoolean:(jboolean)throwIfUnsafe;
+                         withBoolean:(jboolean)throwIfUnsafe
+     withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal;
 
 @end
 

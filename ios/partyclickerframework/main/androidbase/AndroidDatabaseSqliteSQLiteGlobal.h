@@ -33,15 +33,15 @@
 
 + (NSString *)getWALSyncMode;
 
-+ (jint)releaseMemory;
++ (void)initStatics OBJC_METHOD_FAMILY_NONE;
 
-+ (void)sqlite3_initialize;
++ (jint)releaseMemory;
 
 @end
 
 J2OBJC_STATIC_INIT(AndroidDatabaseSqliteSQLiteGlobal)
 
-FOUNDATION_EXPORT void AndroidDatabaseSqliteSQLiteGlobal_sqlite3_initialize();
+FOUNDATION_EXPORT void AndroidDatabaseSqliteSQLiteGlobal_initStatics();
 
 FOUNDATION_EXPORT jint AndroidDatabaseSqliteSQLiteGlobal_releaseMemory();
 

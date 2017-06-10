@@ -57,6 +57,10 @@
 
 - (void)callWithId:(RxSubscriber *)t;
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 - (jboolean)isUnsubscribed;
 
 - (void)onCompleted;
@@ -187,6 +191,10 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribePublishMulticast_Parent
 
 - (instancetype)initWithRxSubscriber:(RxSubscriber *)actual
 withRxInternalOperatorsOnSubscribePublishMulticast:(RxInternalOperatorsOnSubscribePublishMulticast *)parent;
+
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
 
 - (jboolean)isUnsubscribed;
 

@@ -115,6 +115,10 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorOnBackpressureLatest_Holde
 
 - (instancetype)initWithRxSubscriber:(RxSubscriber *)child;
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 - (jboolean)isUnsubscribed;
 
 - (void)onCompleted;

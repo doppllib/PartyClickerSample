@@ -181,6 +181,10 @@ J2OBJC_TYPE_LITERAL_HEADER(RxObservablesSyncOnSubscribe_SyncOnSubscribeImpl)
 
 #pragma mark Public
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 - (jboolean)isUnsubscribed;
 
 - (void)onCompleted;

@@ -75,6 +75,10 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeFromArray)
 - (instancetype)initWithRxSubscriber:(RxSubscriber *)child
                    withNSObjectArray:(IOSObjectArray *)array;
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 - (void)requestWithLong:(jlong)n;
 
 #pragma mark Package-Private

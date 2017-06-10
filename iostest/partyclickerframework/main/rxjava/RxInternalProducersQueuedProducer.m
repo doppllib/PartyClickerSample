@@ -102,6 +102,14 @@ id RxInternalProducersQueuedProducer_NULL_SENTINEL;
   RxInternalProducersQueuedProducer_drain(self);
 }
 
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
+}
+
 - (void)__javaClone:(RxInternalProducersQueuedProducer *)original {
   [super __javaClone:original];
   [child_ release];

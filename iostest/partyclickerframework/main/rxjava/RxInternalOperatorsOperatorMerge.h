@@ -141,6 +141,10 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorMerge_HolderDelayErrors)
 
 - (instancetype)initWithRxInternalOperatorsOperatorMerge_MergeSubscriber:(RxInternalOperatorsOperatorMerge_MergeSubscriber *)subscriber;
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 - (jlong)producedWithInt:(jint)n;
 
 - (void)requestWithLong:(jlong)n;

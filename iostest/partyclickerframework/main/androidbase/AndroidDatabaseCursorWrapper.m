@@ -3,6 +3,7 @@
 //
 
 #include "AndroidDatabaseCharArrayBuffer.h"
+#include "AndroidDatabaseContentObserver.h"
 #include "AndroidDatabaseCursor.h"
 #include "AndroidDatabaseCursorWrapper.h"
 #include "AndroidDatabaseDataSetObserver.h"
@@ -151,6 +152,10 @@ withAndroidDatabaseCharArrayBuffer:(AndroidDatabaseCharArrayBuffer *)buffer {
   return [((id<AndroidDatabaseCursor>) nil_chk(mCursor_)) moveToPrevious];
 }
 
+- (void)registerContentObserverWithAndroidDatabaseContentObserver:(AndroidDatabaseContentObserver *)observer {
+  [((id<AndroidDatabaseCursor>) nil_chk(mCursor_)) registerContentObserverWithAndroidDatabaseContentObserver:observer];
+}
+
 - (void)registerDataSetObserverWithAndroidDatabaseDataSetObserver:(AndroidDatabaseDataSetObserver *)observer {
   [((id<AndroidDatabaseCursor>) nil_chk(mCursor_)) registerDataSetObserverWithAndroidDatabaseDataSetObserver:observer];
 }
@@ -161,6 +166,10 @@ withAndroidDatabaseCharArrayBuffer:(AndroidDatabaseCharArrayBuffer *)buffer {
 
 - (AndroidOsBundle *)respondWithAndroidOsBundle:(AndroidOsBundle *)extras {
   return [((id<AndroidDatabaseCursor>) nil_chk(mCursor_)) respondWithAndroidOsBundle:extras];
+}
+
+- (void)unregisterContentObserverWithAndroidDatabaseContentObserver:(AndroidDatabaseContentObserver *)observer {
+  [((id<AndroidDatabaseCursor>) nil_chk(mCursor_)) unregisterContentObserverWithAndroidDatabaseContentObserver:observer];
 }
 
 - (void)unregisterDataSetObserverWithAndroidDatabaseDataSetObserver:(AndroidDatabaseDataSetObserver *)observer {
@@ -209,9 +218,11 @@ withAndroidDatabaseCharArrayBuffer:(AndroidDatabaseCharArrayBuffer *)buffer {
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 20, 21, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 22, 23, -1, -1, -1, -1 },
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LAndroidOsBundle;", 0x1, 22, 23, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 24, 21, -1, -1, -1, -1 },
+    { NULL, "LAndroidOsBundle;", 0x1, 24, 25, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 26, 21, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 27, 23, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -249,16 +260,18 @@ withAndroidDatabaseCharArrayBuffer:(AndroidDatabaseCharArrayBuffer *)buffer {
   methods[31].selector = @selector(moveToNext);
   methods[32].selector = @selector(getPosition);
   methods[33].selector = @selector(moveToPrevious);
-  methods[34].selector = @selector(registerDataSetObserverWithAndroidDatabaseDataSetObserver:);
-  methods[35].selector = @selector(requery);
-  methods[36].selector = @selector(respondWithAndroidOsBundle:);
-  methods[37].selector = @selector(unregisterDataSetObserverWithAndroidDatabaseDataSetObserver:);
+  methods[34].selector = @selector(registerContentObserverWithAndroidDatabaseContentObserver:);
+  methods[35].selector = @selector(registerDataSetObserverWithAndroidDatabaseDataSetObserver:);
+  methods[36].selector = @selector(requery);
+  methods[37].selector = @selector(respondWithAndroidOsBundle:);
+  methods[38].selector = @selector(unregisterContentObserverWithAndroidDatabaseContentObserver:);
+  methods[39].selector = @selector(unregisterDataSetObserverWithAndroidDatabaseDataSetObserver:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "mCursor_", "LAndroidDatabaseCursor;", .constantValue.asLong = 0, 0x14, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LAndroidDatabaseCursor;", "getColumnIndex", "LNSString;", "getColumnIndexOrThrow", "LJavaLangIllegalArgumentException;", "getColumnName", "I", "getDouble", "getFloat", "getInt", "getLong", "getShort", "getString", "copyStringToBuffer", "ILAndroidDatabaseCharArrayBuffer;", "getBlob", "getType", "isNull", "move", "moveToPosition", "registerDataSetObserver", "LAndroidDatabaseDataSetObserver;", "respond", "LAndroidOsBundle;", "unregisterDataSetObserver" };
-  static const J2ObjcClassInfo _AndroidDatabaseCursorWrapper = { "CursorWrapper", "android.database", ptrTable, methods, fields, 7, 0x1, 38, 1, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "LAndroidDatabaseCursor;", "getColumnIndex", "LNSString;", "getColumnIndexOrThrow", "LJavaLangIllegalArgumentException;", "getColumnName", "I", "getDouble", "getFloat", "getInt", "getLong", "getShort", "getString", "copyStringToBuffer", "ILAndroidDatabaseCharArrayBuffer;", "getBlob", "getType", "isNull", "move", "moveToPosition", "registerContentObserver", "LAndroidDatabaseContentObserver;", "registerDataSetObserver", "LAndroidDatabaseDataSetObserver;", "respond", "LAndroidOsBundle;", "unregisterContentObserver", "unregisterDataSetObserver" };
+  static const J2ObjcClassInfo _AndroidDatabaseCursorWrapper = { "CursorWrapper", "android.database", ptrTable, methods, fields, 7, 0x1, 40, 1, -1, -1, -1, -1, -1 };
   return &_AndroidDatabaseCursorWrapper;
 }
 

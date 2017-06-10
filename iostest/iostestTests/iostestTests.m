@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "PTIOSTestHelper.h"
+#import "CoTouchlabDopplTestingDopplJunitTestHelper.h"
 
 @interface iostestTests : XCTestCase
 
@@ -26,7 +26,7 @@
 }
 
 - (void)testSharedCode {
-    XCTAssertEqual([PTIOSTestHelper runTests], 0, "Junit tests failed");
+    XCTAssertEqual([CoTouchlabDopplTestingDopplJunitTestHelper runResourceWithNSString:@"dopplTests.txt"], 0, "Junit tests failed");
 }
 
 @end

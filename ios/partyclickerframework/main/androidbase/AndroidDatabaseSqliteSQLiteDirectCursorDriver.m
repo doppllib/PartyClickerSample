@@ -7,6 +7,7 @@
 #include "AndroidDatabaseSqliteSQLiteDatabase.h"
 #include "AndroidDatabaseSqliteSQLiteDirectCursorDriver.h"
 #include "AndroidDatabaseSqliteSQLiteQuery.h"
+#include "AndroidOsCancellationSignal.h"
 #include "IOSObjectArray.h"
 #include "J2ObjC_source.h"
 #include "java/lang/RuntimeException.h"
@@ -16,6 +17,7 @@
   AndroidDatabaseSqliteSQLiteDatabase *mDatabase_;
   NSString *mEditTable_;
   NSString *mSql_;
+  AndroidOsCancellationSignal *mCancellationSignal_;
   AndroidDatabaseSqliteSQLiteQuery *mQuery_;
 }
 
@@ -24,20 +26,22 @@
 J2OBJC_FIELD_SETTER(AndroidDatabaseSqliteSQLiteDirectCursorDriver, mDatabase_, AndroidDatabaseSqliteSQLiteDatabase *)
 J2OBJC_FIELD_SETTER(AndroidDatabaseSqliteSQLiteDirectCursorDriver, mEditTable_, NSString *)
 J2OBJC_FIELD_SETTER(AndroidDatabaseSqliteSQLiteDirectCursorDriver, mSql_, NSString *)
+J2OBJC_FIELD_SETTER(AndroidDatabaseSqliteSQLiteDirectCursorDriver, mCancellationSignal_, AndroidOsCancellationSignal *)
 J2OBJC_FIELD_SETTER(AndroidDatabaseSqliteSQLiteDirectCursorDriver, mQuery_, AndroidDatabaseSqliteSQLiteQuery *)
 
 @implementation AndroidDatabaseSqliteSQLiteDirectCursorDriver
 
 - (instancetype)initWithAndroidDatabaseSqliteSQLiteDatabase:(AndroidDatabaseSqliteSQLiteDatabase *)db
                                                withNSString:(NSString *)sql
-                                               withNSString:(NSString *)editTable {
-  AndroidDatabaseSqliteSQLiteDirectCursorDriver_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSString_(self, db, sql, editTable);
+                                               withNSString:(NSString *)editTable
+                            withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
+  AndroidDatabaseSqliteSQLiteDirectCursorDriver_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSString_withAndroidOsCancellationSignal_(self, db, sql, editTable, cancellationSignal);
   return self;
 }
 
 - (id<AndroidDatabaseCursor>)queryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:(id<AndroidDatabaseSqliteSQLiteDatabase_CursorFactory>)factory
                                                                       withNSStringArray:(IOSObjectArray *)selectionArgs {
-  AndroidDatabaseSqliteSQLiteQuery *query = create_AndroidDatabaseSqliteSQLiteQuery_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_(mDatabase_, mSql_);
+  AndroidDatabaseSqliteSQLiteQuery *query = create_AndroidDatabaseSqliteSQLiteQuery_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withAndroidOsCancellationSignal_(mDatabase_, mSql_, mCancellationSignal_);
   id<AndroidDatabaseCursor> cursor;
   @try {
     [query bindAllArgsAsStringsWithNSStringArray:selectionArgs];
@@ -77,6 +81,7 @@ J2OBJC_FIELD_SETTER(AndroidDatabaseSqliteSQLiteDirectCursorDriver, mQuery_, Andr
   RELEASE_(mDatabase_);
   RELEASE_(mEditTable_);
   RELEASE_(mSql_);
+  RELEASE_(mCancellationSignal_);
   RELEASE_(mQuery_);
   [super dealloc];
 }
@@ -93,7 +98,7 @@ J2OBJC_FIELD_SETTER(AndroidDatabaseSqliteSQLiteDirectCursorDriver, mQuery_, Andr
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
-  methods[0].selector = @selector(initWithAndroidDatabaseSqliteSQLiteDatabase:withNSString:withNSString:);
+  methods[0].selector = @selector(initWithAndroidDatabaseSqliteSQLiteDatabase:withNSString:withNSString:withAndroidOsCancellationSignal:);
   methods[1].selector = @selector(queryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:withNSStringArray:);
   methods[2].selector = @selector(cursorClosed);
   methods[3].selector = @selector(setBindArgumentsWithNSStringArray:);
@@ -105,28 +110,30 @@ J2OBJC_FIELD_SETTER(AndroidDatabaseSqliteSQLiteDirectCursorDriver, mQuery_, Andr
     { "mDatabase_", "LAndroidDatabaseSqliteSQLiteDatabase;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
     { "mEditTable_", "LNSString;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
     { "mSql_", "LNSString;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
+    { "mCancellationSignal_", "LAndroidOsCancellationSignal;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
     { "mQuery_", "LAndroidDatabaseSqliteSQLiteQuery;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LAndroidDatabaseSqliteSQLiteDatabase;LNSString;LNSString;", "query", "LAndroidDatabaseSqliteSQLiteDatabase_CursorFactory;[LNSString;", "setBindArguments", "[LNSString;", "cursorRequeried", "LAndroidDatabaseCursor;", "toString" };
-  static const J2ObjcClassInfo _AndroidDatabaseSqliteSQLiteDirectCursorDriver = { "SQLiteDirectCursorDriver", "android.database.sqlite", ptrTable, methods, fields, 7, 0x11, 7, 4, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "LAndroidDatabaseSqliteSQLiteDatabase;LNSString;LNSString;LAndroidOsCancellationSignal;", "query", "LAndroidDatabaseSqliteSQLiteDatabase_CursorFactory;[LNSString;", "setBindArguments", "[LNSString;", "cursorRequeried", "LAndroidDatabaseCursor;", "toString" };
+  static const J2ObjcClassInfo _AndroidDatabaseSqliteSQLiteDirectCursorDriver = { "SQLiteDirectCursorDriver", "android.database.sqlite", ptrTable, methods, fields, 7, 0x11, 7, 5, -1, -1, -1, -1, -1 };
   return &_AndroidDatabaseSqliteSQLiteDirectCursorDriver;
 }
 
 @end
 
-void AndroidDatabaseSqliteSQLiteDirectCursorDriver_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSString_(AndroidDatabaseSqliteSQLiteDirectCursorDriver *self, AndroidDatabaseSqliteSQLiteDatabase *db, NSString *sql, NSString *editTable) {
+void AndroidDatabaseSqliteSQLiteDirectCursorDriver_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSString_withAndroidOsCancellationSignal_(AndroidDatabaseSqliteSQLiteDirectCursorDriver *self, AndroidDatabaseSqliteSQLiteDatabase *db, NSString *sql, NSString *editTable, AndroidOsCancellationSignal *cancellationSignal) {
   NSObject_init(self);
   JreStrongAssign(&self->mDatabase_, db);
   JreStrongAssign(&self->mEditTable_, editTable);
   JreStrongAssign(&self->mSql_, sql);
+  JreStrongAssign(&self->mCancellationSignal_, cancellationSignal);
 }
 
-AndroidDatabaseSqliteSQLiteDirectCursorDriver *new_AndroidDatabaseSqliteSQLiteDirectCursorDriver_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSString_(AndroidDatabaseSqliteSQLiteDatabase *db, NSString *sql, NSString *editTable) {
-  J2OBJC_NEW_IMPL(AndroidDatabaseSqliteSQLiteDirectCursorDriver, initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSString_, db, sql, editTable)
+AndroidDatabaseSqliteSQLiteDirectCursorDriver *new_AndroidDatabaseSqliteSQLiteDirectCursorDriver_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSString_withAndroidOsCancellationSignal_(AndroidDatabaseSqliteSQLiteDatabase *db, NSString *sql, NSString *editTable, AndroidOsCancellationSignal *cancellationSignal) {
+  J2OBJC_NEW_IMPL(AndroidDatabaseSqliteSQLiteDirectCursorDriver, initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSString_withAndroidOsCancellationSignal_, db, sql, editTable, cancellationSignal)
 }
 
-AndroidDatabaseSqliteSQLiteDirectCursorDriver *create_AndroidDatabaseSqliteSQLiteDirectCursorDriver_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSString_(AndroidDatabaseSqliteSQLiteDatabase *db, NSString *sql, NSString *editTable) {
-  J2OBJC_CREATE_IMPL(AndroidDatabaseSqliteSQLiteDirectCursorDriver, initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSString_, db, sql, editTable)
+AndroidDatabaseSqliteSQLiteDirectCursorDriver *create_AndroidDatabaseSqliteSQLiteDirectCursorDriver_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSString_withAndroidOsCancellationSignal_(AndroidDatabaseSqliteSQLiteDatabase *db, NSString *sql, NSString *editTable, AndroidOsCancellationSignal *cancellationSignal) {
+  J2OBJC_CREATE_IMPL(AndroidDatabaseSqliteSQLiteDirectCursorDriver, initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSString_withAndroidOsCancellationSignal_, db, sql, editTable, cancellationSignal)
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(AndroidDatabaseSqliteSQLiteDirectCursorDriver)

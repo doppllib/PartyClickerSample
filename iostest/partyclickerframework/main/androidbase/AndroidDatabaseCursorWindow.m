@@ -11,13 +11,13 @@
 #include "IOSObjectArray.h"
 #include "IOSPrimitiveArray.h"
 #include "J2ObjC_source.h"
+#include "android/util/SparseIntArray.h"
 #include "dalvik/system/CloseGuard.h"
 #include "java/lang/Deprecated.h"
+#include "java/lang/IllegalArgumentException.h"
+#include "java/lang/Long.h"
 #include "java/lang/StringBuilder.h"
-#include "java/lang/UnsupportedOperationException.h"
 #include "java/lang/annotation/Annotation.h"
-
-#import "CursorWindowNative.h"
 
 @interface AndroidDatabaseCursorWindow () {
  @public
@@ -26,65 +26,72 @@
   DalvikSystemCloseGuard *mCloseGuard_;
 }
 
-+ (id)nativeCreateWithNSString:(NSString *)name
-                       withInt:(jint)cursorWindowSize;
++ (jlong)nativeCreateWithNSString:(NSString *)name
+                          withInt:(jint)cursorWindowSize;
 
-+ (void)nativeDisposeWithId:(id)windowPtr;
++ (void)nativeDisposeWithLong:(jlong)windowPtr;
 
-+ (void)nativeClearWithId:(id)windowPtr;
++ (void)nativeClearWithLong:(jlong)windowPtr;
 
-+ (jint)nativeGetNumRowsWithId:(id)windowPtr;
++ (jint)nativeGetNumRowsWithLong:(jlong)windowPtr;
 
-+ (jboolean)nativeSetNumColumnsWithId:(id)windowPtr
-                              withInt:(jint)columnNum;
++ (jboolean)nativeSetNumColumnsWithLong:(jlong)windowPtr
+                                withInt:(jint)columnNum;
 
-+ (jboolean)nativeAllocRowWithId:(id)windowPtr;
++ (jboolean)nativeAllocRowWithLong:(jlong)windowPtr;
 
-+ (void)nativeFreeLastRowWithId:(id)windowPtr;
++ (void)nativeFreeLastRowWithLong:(jlong)windowPtr;
 
-+ (jint)nativeGetTypeWithId:(id)windowPtr
-                    withInt:(jint)row
-                    withInt:(jint)column;
++ (jint)nativeGetTypeWithLong:(jlong)windowPtr
+                      withInt:(jint)row
+                      withInt:(jint)column;
 
-+ (IOSByteArray *)nativeGetBlobWithId:(id)windowPtr
++ (IOSByteArray *)nativeGetBlobWithLong:(jlong)windowPtr
+                                withInt:(jint)row
+                                withInt:(jint)column;
+
++ (NSString *)nativeGetStringWithLong:(jlong)windowPtr
                               withInt:(jint)row
                               withInt:(jint)column;
 
-+ (NSString *)nativeGetStringWithId:(id)windowPtr
++ (jlong)nativeGetLongWithLong:(jlong)windowPtr
+                       withInt:(jint)row
+                       withInt:(jint)column;
+
++ (jdouble)nativeGetDoubleWithLong:(jlong)windowPtr
+                           withInt:(jint)row
+                           withInt:(jint)column;
+
++ (void)nativeCopyStringToBufferWithLong:(jlong)windowPtr
+                                 withInt:(jint)row
+                                 withInt:(jint)column
+      withAndroidDatabaseCharArrayBuffer:(AndroidDatabaseCharArrayBuffer *)buffer;
+
++ (jboolean)nativePutBlobWithLong:(jlong)windowPtr
+                    withByteArray:(IOSByteArray *)value
+                          withInt:(jint)row
+                          withInt:(jint)column;
+
++ (jboolean)nativePutStringWithLong:(jlong)windowPtr
+                       withNSString:(NSString *)value
                             withInt:(jint)row
                             withInt:(jint)column;
 
-+ (jlong)nativeGetLongWithId:(id)windowPtr
-                     withInt:(jint)row
-                     withInt:(jint)column;
-
-+ (jdouble)nativeGetDoubleWithId:(id)windowPtr
-                         withInt:(jint)row
-                         withInt:(jint)column;
-
-+ (jboolean)nativePutBlobWithId:(id)windowPtr
-                  withByteArray:(IOSByteArray *)value
-                        withInt:(jint)row
-                        withInt:(jint)column;
-
-+ (jboolean)nativePutStringWithId:(id)windowPtr
-                     withNSString:(NSString *)value
++ (jboolean)nativePutLongWithLong:(jlong)windowPtr
+                         withLong:(jlong)value
                           withInt:(jint)row
                           withInt:(jint)column;
 
-+ (jboolean)nativePutLongWithId:(id)windowPtr
-                       withLong:(jlong)value
-                        withInt:(jint)row
-                        withInt:(jint)column;
++ (jboolean)nativePutDoubleWithLong:(jlong)windowPtr
+                         withDouble:(jdouble)value
+                            withInt:(jint)row
+                            withInt:(jint)column;
 
-+ (jboolean)nativePutDoubleWithId:(id)windowPtr
-                       withDouble:(jdouble)value
++ (jboolean)nativePutNullWithLong:(jlong)windowPtr
                           withInt:(jint)row
                           withInt:(jint)column;
 
-+ (jboolean)nativePutNullWithId:(id)windowPtr
-                        withInt:(jint)row
-                        withInt:(jint)column;
++ (NSString *)nativeGetNameWithLong:(jlong)windowPtr;
 
 - (void)dispose;
 
@@ -105,39 +112,43 @@ inline jint *AndroidDatabaseCursorWindow_getRef_sCursorWindowSize();
 static jint AndroidDatabaseCursorWindow_sCursorWindowSize = -1;
 J2OBJC_STATIC_FIELD_PRIMITIVE(AndroidDatabaseCursorWindow, sCursorWindowSize, jint)
 
-__attribute__((unused)) static id AndroidDatabaseCursorWindow_nativeCreateWithNSString_withInt_(NSString *name, jint cursorWindowSize);
+jlong AndroidDatabaseCursorWindow_nativeCreateWithNSString_withInt_(NSString *name, jint cursorWindowSize);
 
-__attribute__((unused)) static void AndroidDatabaseCursorWindow_nativeDisposeWithId_(id windowPtr);
+void AndroidDatabaseCursorWindow_nativeDisposeWithLong_(jlong windowPtr);
 
-__attribute__((unused)) static void AndroidDatabaseCursorWindow_nativeClearWithId_(id windowPtr);
+void AndroidDatabaseCursorWindow_nativeClearWithLong_(jlong windowPtr);
 
-__attribute__((unused)) static jint AndroidDatabaseCursorWindow_nativeGetNumRowsWithId_(id windowPtr);
+jint AndroidDatabaseCursorWindow_nativeGetNumRowsWithLong_(jlong windowPtr);
 
-__attribute__((unused)) static jboolean AndroidDatabaseCursorWindow_nativeSetNumColumnsWithId_withInt_(id windowPtr, jint columnNum);
+jboolean AndroidDatabaseCursorWindow_nativeSetNumColumnsWithLong_withInt_(jlong windowPtr, jint columnNum);
 
-__attribute__((unused)) static jboolean AndroidDatabaseCursorWindow_nativeAllocRowWithId_(id windowPtr);
+jboolean AndroidDatabaseCursorWindow_nativeAllocRowWithLong_(jlong windowPtr);
 
-__attribute__((unused)) static void AndroidDatabaseCursorWindow_nativeFreeLastRowWithId_(id windowPtr);
+void AndroidDatabaseCursorWindow_nativeFreeLastRowWithLong_(jlong windowPtr);
 
-__attribute__((unused)) static jint AndroidDatabaseCursorWindow_nativeGetTypeWithId_withInt_withInt_(id windowPtr, jint row, jint column);
+jint AndroidDatabaseCursorWindow_nativeGetTypeWithLong_withInt_withInt_(jlong windowPtr, jint row, jint column);
 
-__attribute__((unused)) static IOSByteArray *AndroidDatabaseCursorWindow_nativeGetBlobWithId_withInt_withInt_(id windowPtr, jint row, jint column);
+IOSByteArray *AndroidDatabaseCursorWindow_nativeGetBlobWithLong_withInt_withInt_(jlong windowPtr, jint row, jint column);
 
-__attribute__((unused)) static NSString *AndroidDatabaseCursorWindow_nativeGetStringWithId_withInt_withInt_(id windowPtr, jint row, jint column);
+NSString *AndroidDatabaseCursorWindow_nativeGetStringWithLong_withInt_withInt_(jlong windowPtr, jint row, jint column);
 
-__attribute__((unused)) static jlong AndroidDatabaseCursorWindow_nativeGetLongWithId_withInt_withInt_(id windowPtr, jint row, jint column);
+jlong AndroidDatabaseCursorWindow_nativeGetLongWithLong_withInt_withInt_(jlong windowPtr, jint row, jint column);
 
-__attribute__((unused)) static jdouble AndroidDatabaseCursorWindow_nativeGetDoubleWithId_withInt_withInt_(id windowPtr, jint row, jint column);
+jdouble AndroidDatabaseCursorWindow_nativeGetDoubleWithLong_withInt_withInt_(jlong windowPtr, jint row, jint column);
 
-__attribute__((unused)) static jboolean AndroidDatabaseCursorWindow_nativePutBlobWithId_withByteArray_withInt_withInt_(id windowPtr, IOSByteArray *value, jint row, jint column);
+void AndroidDatabaseCursorWindow_nativeCopyStringToBufferWithLong_withInt_withInt_withAndroidDatabaseCharArrayBuffer_(jlong windowPtr, jint row, jint column, AndroidDatabaseCharArrayBuffer *buffer);
 
-__attribute__((unused)) static jboolean AndroidDatabaseCursorWindow_nativePutStringWithId_withNSString_withInt_withInt_(id windowPtr, NSString *value, jint row, jint column);
+jboolean AndroidDatabaseCursorWindow_nativePutBlobWithLong_withByteArray_withInt_withInt_(jlong windowPtr, IOSByteArray *value, jint row, jint column);
 
-__attribute__((unused)) static jboolean AndroidDatabaseCursorWindow_nativePutLongWithId_withLong_withInt_withInt_(id windowPtr, jlong value, jint row, jint column);
+jboolean AndroidDatabaseCursorWindow_nativePutStringWithLong_withNSString_withInt_withInt_(jlong windowPtr, NSString *value, jint row, jint column);
 
-__attribute__((unused)) static jboolean AndroidDatabaseCursorWindow_nativePutDoubleWithId_withDouble_withInt_withInt_(id windowPtr, jdouble value, jint row, jint column);
+jboolean AndroidDatabaseCursorWindow_nativePutLongWithLong_withLong_withInt_withInt_(jlong windowPtr, jlong value, jint row, jint column);
 
-__attribute__((unused)) static jboolean AndroidDatabaseCursorWindow_nativePutNullWithId_withInt_withInt_(id windowPtr, jint row, jint column);
+jboolean AndroidDatabaseCursorWindow_nativePutDoubleWithLong_withDouble_withInt_withInt_(jlong windowPtr, jdouble value, jint row, jint column);
+
+jboolean AndroidDatabaseCursorWindow_nativePutNullWithLong_withInt_withInt_(jlong windowPtr, jint row, jint column);
+
+NSString *AndroidDatabaseCursorWindow_nativeGetNameWithLong_(jlong windowPtr);
 
 __attribute__((unused)) static void AndroidDatabaseCursorWindow_dispose(AndroidDatabaseCursorWindow *self);
 
@@ -157,98 +168,109 @@ __attribute__((unused)) static IOSObjectArray *AndroidDatabaseCursorWindow__Anno
 
 @implementation AndroidDatabaseCursorWindow
 
-+ (id)nativeCreateWithNSString:(NSString *)name
-                       withInt:(jint)cursorWindowSize {
++ (jlong)nativeCreateWithNSString:(NSString *)name
+                          withInt:(jint)cursorWindowSize {
   return AndroidDatabaseCursorWindow_nativeCreateWithNSString_withInt_(name, cursorWindowSize);
 }
 
-+ (void)nativeDisposeWithId:(id)windowPtr {
-  AndroidDatabaseCursorWindow_nativeDisposeWithId_(windowPtr);
++ (void)nativeDisposeWithLong:(jlong)windowPtr {
+  AndroidDatabaseCursorWindow_nativeDisposeWithLong_(windowPtr);
 }
 
-+ (void)nativeClearWithId:(id)windowPtr {
-  AndroidDatabaseCursorWindow_nativeClearWithId_(windowPtr);
++ (void)nativeClearWithLong:(jlong)windowPtr {
+  AndroidDatabaseCursorWindow_nativeClearWithLong_(windowPtr);
 }
 
-+ (jint)nativeGetNumRowsWithId:(id)windowPtr {
-  return AndroidDatabaseCursorWindow_nativeGetNumRowsWithId_(windowPtr);
++ (jint)nativeGetNumRowsWithLong:(jlong)windowPtr {
+  return AndroidDatabaseCursorWindow_nativeGetNumRowsWithLong_(windowPtr);
 }
 
-+ (jboolean)nativeSetNumColumnsWithId:(id)windowPtr
-                              withInt:(jint)columnNum {
-  return AndroidDatabaseCursorWindow_nativeSetNumColumnsWithId_withInt_(windowPtr, columnNum);
++ (jboolean)nativeSetNumColumnsWithLong:(jlong)windowPtr
+                                withInt:(jint)columnNum {
+  return AndroidDatabaseCursorWindow_nativeSetNumColumnsWithLong_withInt_(windowPtr, columnNum);
 }
 
-+ (jboolean)nativeAllocRowWithId:(id)windowPtr {
-  return AndroidDatabaseCursorWindow_nativeAllocRowWithId_(windowPtr);
++ (jboolean)nativeAllocRowWithLong:(jlong)windowPtr {
+  return AndroidDatabaseCursorWindow_nativeAllocRowWithLong_(windowPtr);
 }
 
-+ (void)nativeFreeLastRowWithId:(id)windowPtr {
-  AndroidDatabaseCursorWindow_nativeFreeLastRowWithId_(windowPtr);
++ (void)nativeFreeLastRowWithLong:(jlong)windowPtr {
+  AndroidDatabaseCursorWindow_nativeFreeLastRowWithLong_(windowPtr);
 }
 
-+ (jint)nativeGetTypeWithId:(id)windowPtr
-                    withInt:(jint)row
-                    withInt:(jint)column {
-  return AndroidDatabaseCursorWindow_nativeGetTypeWithId_withInt_withInt_(windowPtr, row, column);
++ (jint)nativeGetTypeWithLong:(jlong)windowPtr
+                      withInt:(jint)row
+                      withInt:(jint)column {
+  return AndroidDatabaseCursorWindow_nativeGetTypeWithLong_withInt_withInt_(windowPtr, row, column);
 }
 
-+ (IOSByteArray *)nativeGetBlobWithId:(id)windowPtr
++ (IOSByteArray *)nativeGetBlobWithLong:(jlong)windowPtr
+                                withInt:(jint)row
+                                withInt:(jint)column {
+  return AndroidDatabaseCursorWindow_nativeGetBlobWithLong_withInt_withInt_(windowPtr, row, column);
+}
+
++ (NSString *)nativeGetStringWithLong:(jlong)windowPtr
                               withInt:(jint)row
                               withInt:(jint)column {
-  return AndroidDatabaseCursorWindow_nativeGetBlobWithId_withInt_withInt_(windowPtr, row, column);
+  return AndroidDatabaseCursorWindow_nativeGetStringWithLong_withInt_withInt_(windowPtr, row, column);
 }
 
-+ (NSString *)nativeGetStringWithId:(id)windowPtr
++ (jlong)nativeGetLongWithLong:(jlong)windowPtr
+                       withInt:(jint)row
+                       withInt:(jint)column {
+  return AndroidDatabaseCursorWindow_nativeGetLongWithLong_withInt_withInt_(windowPtr, row, column);
+}
+
++ (jdouble)nativeGetDoubleWithLong:(jlong)windowPtr
+                           withInt:(jint)row
+                           withInt:(jint)column {
+  return AndroidDatabaseCursorWindow_nativeGetDoubleWithLong_withInt_withInt_(windowPtr, row, column);
+}
+
++ (void)nativeCopyStringToBufferWithLong:(jlong)windowPtr
+                                 withInt:(jint)row
+                                 withInt:(jint)column
+      withAndroidDatabaseCharArrayBuffer:(AndroidDatabaseCharArrayBuffer *)buffer {
+  AndroidDatabaseCursorWindow_nativeCopyStringToBufferWithLong_withInt_withInt_withAndroidDatabaseCharArrayBuffer_(windowPtr, row, column, buffer);
+}
+
++ (jboolean)nativePutBlobWithLong:(jlong)windowPtr
+                    withByteArray:(IOSByteArray *)value
+                          withInt:(jint)row
+                          withInt:(jint)column {
+  return AndroidDatabaseCursorWindow_nativePutBlobWithLong_withByteArray_withInt_withInt_(windowPtr, value, row, column);
+}
+
++ (jboolean)nativePutStringWithLong:(jlong)windowPtr
+                       withNSString:(NSString *)value
                             withInt:(jint)row
                             withInt:(jint)column {
-  return AndroidDatabaseCursorWindow_nativeGetStringWithId_withInt_withInt_(windowPtr, row, column);
+  return AndroidDatabaseCursorWindow_nativePutStringWithLong_withNSString_withInt_withInt_(windowPtr, value, row, column);
 }
 
-+ (jlong)nativeGetLongWithId:(id)windowPtr
-                     withInt:(jint)row
-                     withInt:(jint)column {
-  return AndroidDatabaseCursorWindow_nativeGetLongWithId_withInt_withInt_(windowPtr, row, column);
-}
-
-+ (jdouble)nativeGetDoubleWithId:(id)windowPtr
-                         withInt:(jint)row
-                         withInt:(jint)column {
-  return AndroidDatabaseCursorWindow_nativeGetDoubleWithId_withInt_withInt_(windowPtr, row, column);
-}
-
-+ (jboolean)nativePutBlobWithId:(id)windowPtr
-                  withByteArray:(IOSByteArray *)value
-                        withInt:(jint)row
-                        withInt:(jint)column {
-  return AndroidDatabaseCursorWindow_nativePutBlobWithId_withByteArray_withInt_withInt_(windowPtr, value, row, column);
-}
-
-+ (jboolean)nativePutStringWithId:(id)windowPtr
-                     withNSString:(NSString *)value
++ (jboolean)nativePutLongWithLong:(jlong)windowPtr
+                         withLong:(jlong)value
                           withInt:(jint)row
                           withInt:(jint)column {
-  return AndroidDatabaseCursorWindow_nativePutStringWithId_withNSString_withInt_withInt_(windowPtr, value, row, column);
+  return AndroidDatabaseCursorWindow_nativePutLongWithLong_withLong_withInt_withInt_(windowPtr, value, row, column);
 }
 
-+ (jboolean)nativePutLongWithId:(id)windowPtr
-                       withLong:(jlong)value
-                        withInt:(jint)row
-                        withInt:(jint)column {
-  return AndroidDatabaseCursorWindow_nativePutLongWithId_withLong_withInt_withInt_(windowPtr, value, row, column);
++ (jboolean)nativePutDoubleWithLong:(jlong)windowPtr
+                         withDouble:(jdouble)value
+                            withInt:(jint)row
+                            withInt:(jint)column {
+  return AndroidDatabaseCursorWindow_nativePutDoubleWithLong_withDouble_withInt_withInt_(windowPtr, value, row, column);
 }
 
-+ (jboolean)nativePutDoubleWithId:(id)windowPtr
-                       withDouble:(jdouble)value
++ (jboolean)nativePutNullWithLong:(jlong)windowPtr
                           withInt:(jint)row
                           withInt:(jint)column {
-  return AndroidDatabaseCursorWindow_nativePutDoubleWithId_withDouble_withInt_withInt_(windowPtr, value, row, column);
+  return AndroidDatabaseCursorWindow_nativePutNullWithLong_withInt_withInt_(windowPtr, row, column);
 }
 
-+ (jboolean)nativePutNullWithId:(id)windowPtr
-                        withInt:(jint)row
-                        withInt:(jint)column {
-  return AndroidDatabaseCursorWindow_nativePutNullWithId_withInt_withInt_(windowPtr, row, column);
++ (NSString *)nativeGetNameWithLong:(jlong)windowPtr {
+  return AndroidDatabaseCursorWindow_nativeGetNameWithLong_(windowPtr);
 }
 
 - (instancetype)initWithNSString:(NSString *)name {
@@ -285,7 +307,7 @@ __attribute__((unused)) static IOSObjectArray *AndroidDatabaseCursorWindow__Anno
   [self acquireReference];
   @try {
     mStartPos_ = 0;
-    AndroidDatabaseCursorWindow_nativeClearWithId_(mWindowPtr_);
+    AndroidDatabaseCursorWindow_nativeClearWithLong_(mWindowPtr_);
   }
   @finally {
     [self releaseReference];
@@ -303,7 +325,7 @@ __attribute__((unused)) static IOSObjectArray *AndroidDatabaseCursorWindow__Anno
 - (jint)getNumRows {
   [self acquireReference];
   @try {
-    return AndroidDatabaseCursorWindow_nativeGetNumRowsWithId_(mWindowPtr_);
+    return AndroidDatabaseCursorWindow_nativeGetNumRowsWithLong_(mWindowPtr_);
   }
   @finally {
     [self releaseReference];
@@ -313,7 +335,7 @@ __attribute__((unused)) static IOSObjectArray *AndroidDatabaseCursorWindow__Anno
 - (jboolean)setNumColumnsWithInt:(jint)columnNum {
   [self acquireReference];
   @try {
-    return AndroidDatabaseCursorWindow_nativeSetNumColumnsWithId_withInt_(mWindowPtr_, columnNum);
+    return AndroidDatabaseCursorWindow_nativeSetNumColumnsWithLong_withInt_(mWindowPtr_, columnNum);
   }
   @finally {
     [self releaseReference];
@@ -323,7 +345,7 @@ __attribute__((unused)) static IOSObjectArray *AndroidDatabaseCursorWindow__Anno
 - (jboolean)allocRow {
   [self acquireReference];
   @try {
-    return AndroidDatabaseCursorWindow_nativeAllocRowWithId_(mWindowPtr_);
+    return AndroidDatabaseCursorWindow_nativeAllocRowWithLong_(mWindowPtr_);
   }
   @finally {
     [self releaseReference];
@@ -333,7 +355,7 @@ __attribute__((unused)) static IOSObjectArray *AndroidDatabaseCursorWindow__Anno
 - (void)freeLastRow {
   [self acquireReference];
   @try {
-    AndroidDatabaseCursorWindow_nativeFreeLastRowWithId_(mWindowPtr_);
+    AndroidDatabaseCursorWindow_nativeFreeLastRowWithLong_(mWindowPtr_);
   }
   @finally {
     [self releaseReference];
@@ -371,7 +393,7 @@ __attribute__((unused)) static IOSObjectArray *AndroidDatabaseCursorWindow__Anno
                withInt:(jint)column {
   [self acquireReference];
   @try {
-    return AndroidDatabaseCursorWindow_nativeGetTypeWithId_withInt_withInt_(mWindowPtr_, row - mStartPos_, column);
+    return AndroidDatabaseCursorWindow_nativeGetTypeWithLong_withInt_withInt_(mWindowPtr_, row - mStartPos_, column);
   }
   @finally {
     [self releaseReference];
@@ -382,7 +404,7 @@ __attribute__((unused)) static IOSObjectArray *AndroidDatabaseCursorWindow__Anno
                          withInt:(jint)column {
   [self acquireReference];
   @try {
-    return AndroidDatabaseCursorWindow_nativeGetBlobWithId_withInt_withInt_(mWindowPtr_, row - mStartPos_, column);
+    return AndroidDatabaseCursorWindow_nativeGetBlobWithLong_withInt_withInt_(mWindowPtr_, row - mStartPos_, column);
   }
   @finally {
     [self releaseReference];
@@ -393,7 +415,7 @@ __attribute__((unused)) static IOSObjectArray *AndroidDatabaseCursorWindow__Anno
                        withInt:(jint)column {
   [self acquireReference];
   @try {
-    return AndroidDatabaseCursorWindow_nativeGetStringWithId_withInt_withInt_(mWindowPtr_, row - mStartPos_, column);
+    return AndroidDatabaseCursorWindow_nativeGetStringWithLong_withInt_withInt_(mWindowPtr_, row - mStartPos_, column);
   }
   @finally {
     [self releaseReference];
@@ -403,14 +425,23 @@ __attribute__((unused)) static IOSObjectArray *AndroidDatabaseCursorWindow__Anno
 - (void)copyStringToBufferWithInt:(jint)row
                           withInt:(jint)column
 withAndroidDatabaseCharArrayBuffer:(AndroidDatabaseCharArrayBuffer *)buffer {
-  @throw create_JavaLangUnsupportedOperationException_initWithNSString_(@"copyStringToBuffer not supported yet");
+  if (buffer == nil) {
+    @throw create_JavaLangIllegalArgumentException_initWithNSString_(@"CharArrayBuffer should not be null");
+  }
+  [self acquireReference];
+  @try {
+    AndroidDatabaseCursorWindow_nativeCopyStringToBufferWithLong_withInt_withInt_withAndroidDatabaseCharArrayBuffer_(mWindowPtr_, row - mStartPos_, column, buffer);
+  }
+  @finally {
+    [self releaseReference];
+  }
 }
 
 - (jlong)getLongWithInt:(jint)row
                 withInt:(jint)column {
   [self acquireReference];
   @try {
-    return AndroidDatabaseCursorWindow_nativeGetLongWithId_withInt_withInt_(mWindowPtr_, row - mStartPos_, column);
+    return AndroidDatabaseCursorWindow_nativeGetLongWithLong_withInt_withInt_(mWindowPtr_, row - mStartPos_, column);
   }
   @finally {
     [self releaseReference];
@@ -421,7 +452,7 @@ withAndroidDatabaseCharArrayBuffer:(AndroidDatabaseCharArrayBuffer *)buffer {
                     withInt:(jint)column {
   [self acquireReference];
   @try {
-    return AndroidDatabaseCursorWindow_nativeGetDoubleWithId_withInt_withInt_(mWindowPtr_, row - mStartPos_, column);
+    return AndroidDatabaseCursorWindow_nativeGetDoubleWithLong_withInt_withInt_(mWindowPtr_, row - mStartPos_, column);
   }
   @finally {
     [self releaseReference];
@@ -448,7 +479,7 @@ withAndroidDatabaseCharArrayBuffer:(AndroidDatabaseCharArrayBuffer *)buffer {
                          withInt:(jint)column {
   [self acquireReference];
   @try {
-    return AndroidDatabaseCursorWindow_nativePutBlobWithId_withByteArray_withInt_withInt_(mWindowPtr_, value, row - mStartPos_, column);
+    return AndroidDatabaseCursorWindow_nativePutBlobWithLong_withByteArray_withInt_withInt_(mWindowPtr_, value, row - mStartPos_, column);
   }
   @finally {
     [self releaseReference];
@@ -460,7 +491,7 @@ withAndroidDatabaseCharArrayBuffer:(AndroidDatabaseCharArrayBuffer *)buffer {
                           withInt:(jint)column {
   [self acquireReference];
   @try {
-    return AndroidDatabaseCursorWindow_nativePutStringWithId_withNSString_withInt_withInt_(mWindowPtr_, value, row - mStartPos_, column);
+    return AndroidDatabaseCursorWindow_nativePutStringWithLong_withNSString_withInt_withInt_(mWindowPtr_, value, row - mStartPos_, column);
   }
   @finally {
     [self releaseReference];
@@ -472,7 +503,7 @@ withAndroidDatabaseCharArrayBuffer:(AndroidDatabaseCharArrayBuffer *)buffer {
                     withInt:(jint)column {
   [self acquireReference];
   @try {
-    return AndroidDatabaseCursorWindow_nativePutLongWithId_withLong_withInt_withInt_(mWindowPtr_, value, row - mStartPos_, column);
+    return AndroidDatabaseCursorWindow_nativePutLongWithLong_withLong_withInt_withInt_(mWindowPtr_, value, row - mStartPos_, column);
   }
   @finally {
     [self releaseReference];
@@ -484,7 +515,7 @@ withAndroidDatabaseCharArrayBuffer:(AndroidDatabaseCharArrayBuffer *)buffer {
                         withInt:(jint)column {
   [self acquireReference];
   @try {
-    return AndroidDatabaseCursorWindow_nativePutDoubleWithId_withDouble_withInt_withInt_(mWindowPtr_, value, row - mStartPos_, column);
+    return AndroidDatabaseCursorWindow_nativePutDoubleWithLong_withDouble_withInt_withInt_(mWindowPtr_, value, row - mStartPos_, column);
   }
   @finally {
     [self releaseReference];
@@ -495,11 +526,15 @@ withAndroidDatabaseCharArrayBuffer:(AndroidDatabaseCharArrayBuffer *)buffer {
                    withInt:(jint)column {
   [self acquireReference];
   @try {
-    return AndroidDatabaseCursorWindow_nativePutNullWithId_withInt_withInt_(mWindowPtr_, row - mStartPos_, column);
+    return AndroidDatabaseCursorWindow_nativePutNullWithLong_withInt_withInt_(mWindowPtr_, row - mStartPos_, column);
   }
   @finally {
     [self releaseReference];
   }
+}
+
+- (jint)describeContents {
+  return 0;
 }
 
 - (void)onAllReferencesReleased {
@@ -511,12 +546,11 @@ withAndroidDatabaseCharArrayBuffer:(AndroidDatabaseCharArrayBuffer *)buffer {
 }
 
 - (NSString *)description {
-  return JreStrcat("$$@C", [self getName], @" {", mWindowPtr_, '}');
+  return JreStrcat("$$$C", [self getName], @" {", JavaLangLong_toHexStringWithLong_(mWindowPtr_), '}');
 }
 
 - (void)dealloc {
   JreCheckFinalize(self, [AndroidDatabaseCursorWindow class]);
-  RELEASE_(mWindowPtr_);
   RELEASE_(mName_);
   RELEASE_(mCloseGuard_);
   [super dealloc];
@@ -524,7 +558,7 @@ withAndroidDatabaseCharArrayBuffer:(AndroidDatabaseCharArrayBuffer *)buffer {
 
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
-    { NULL, "LNSObject;", 0x10a, 0, 1, -1, -1, -1, -1 },
+    { NULL, "J", 0x10a, 0, 1, -1, -1, -1, -1 },
     { NULL, "V", 0x10a, 2, 3, -1, -1, -1, -1 },
     { NULL, "V", 0x10a, 4, 3, -1, -1, -1, -1 },
     { NULL, "I", 0x10a, 5, 3, -1, -1, -1, -1 },
@@ -536,198 +570,233 @@ withAndroidDatabaseCharArrayBuffer:(AndroidDatabaseCharArrayBuffer *)buffer {
     { NULL, "LNSString;", 0x10a, 13, 11, -1, -1, -1, -1 },
     { NULL, "J", 0x10a, 14, 11, -1, -1, -1, -1 },
     { NULL, "D", 0x10a, 15, 11, -1, -1, -1, -1 },
-    { NULL, "Z", 0x10a, 16, 17, -1, -1, -1, -1 },
+    { NULL, "V", 0x10a, 16, 17, -1, -1, -1, -1 },
     { NULL, "Z", 0x10a, 18, 19, -1, -1, -1, -1 },
     { NULL, "Z", 0x10a, 20, 21, -1, -1, -1, -1 },
     { NULL, "Z", 0x10a, 22, 23, -1, -1, -1, -1 },
-    { NULL, "Z", 0x10a, 24, 11, -1, -1, -1, -1 },
-    { NULL, NULL, 0x1, -1, 25, -1, -1, -1, -1 },
-    { NULL, NULL, 0x1, -1, 26, -1, -1, 27, -1 },
-    { NULL, "V", 0x4, 28, -1, 29, -1, -1, -1 },
+    { NULL, "Z", 0x10a, 24, 25, -1, -1, -1, -1 },
+    { NULL, "Z", 0x10a, 26, 11, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x10a, 27, 3, -1, -1, -1, -1 },
+    { NULL, NULL, 0x1, -1, 28, -1, -1, -1, -1 },
+    { NULL, NULL, 0x1, -1, 29, -1, -1, 30, -1 },
+    { NULL, "V", 0x4, 31, -1, 32, -1, -1, -1 },
     { NULL, "V", 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 30, 31, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 33, 34, -1, -1, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 32, 31, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, 35, 34, -1, -1, -1, -1 },
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 33, 34, -1, -1, 35, -1 },
-    { NULL, "Z", 0x1, 36, 34, -1, -1, 37, -1 },
-    { NULL, "Z", 0x1, 38, 34, -1, -1, 39, -1 },
-    { NULL, "Z", 0x1, 40, 34, -1, -1, 41, -1 },
-    { NULL, "Z", 0x1, 42, 34, -1, -1, 43, -1 },
-    { NULL, "I", 0x1, 44, 34, -1, -1, -1, -1 },
-    { NULL, "[B", 0x1, 45, 34, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x1, 46, 34, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 47, 48, -1, -1, -1, -1 },
-    { NULL, "J", 0x1, 49, 34, -1, -1, -1, -1 },
-    { NULL, "D", 0x1, 50, 34, -1, -1, -1, -1 },
-    { NULL, "S", 0x1, 51, 34, -1, -1, -1, -1 },
-    { NULL, "I", 0x1, 52, 34, -1, -1, -1, -1 },
-    { NULL, "F", 0x1, 53, 34, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 54, 55, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 56, 57, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 58, 59, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 60, 61, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 62, 34, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, 36, 37, -1, -1, 38, -1 },
+    { NULL, "Z", 0x1, 39, 37, -1, -1, 40, -1 },
+    { NULL, "Z", 0x1, 41, 37, -1, -1, 42, -1 },
+    { NULL, "Z", 0x1, 43, 37, -1, -1, 44, -1 },
+    { NULL, "Z", 0x1, 45, 37, -1, -1, 46, -1 },
+    { NULL, "I", 0x1, 47, 37, -1, -1, -1, -1 },
+    { NULL, "[B", 0x1, 48, 37, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x1, 49, 37, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 50, 51, -1, -1, -1, -1 },
+    { NULL, "J", 0x1, 52, 37, -1, -1, -1, -1 },
+    { NULL, "D", 0x1, 53, 37, -1, -1, -1, -1 },
+    { NULL, "S", 0x1, 54, 37, -1, -1, -1, -1 },
+    { NULL, "I", 0x1, 55, 37, -1, -1, -1, -1 },
+    { NULL, "F", 0x1, 56, 37, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, 57, 58, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, 59, 60, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, 61, 11, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, 62, 63, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, 64, 37, -1, -1, -1, -1 },
+    { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x4, -1, -1, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x2, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x1, 63, -1, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x1, 65, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   methods[0].selector = @selector(nativeCreateWithNSString:withInt:);
-  methods[1].selector = @selector(nativeDisposeWithId:);
-  methods[2].selector = @selector(nativeClearWithId:);
-  methods[3].selector = @selector(nativeGetNumRowsWithId:);
-  methods[4].selector = @selector(nativeSetNumColumnsWithId:withInt:);
-  methods[5].selector = @selector(nativeAllocRowWithId:);
-  methods[6].selector = @selector(nativeFreeLastRowWithId:);
-  methods[7].selector = @selector(nativeGetTypeWithId:withInt:withInt:);
-  methods[8].selector = @selector(nativeGetBlobWithId:withInt:withInt:);
-  methods[9].selector = @selector(nativeGetStringWithId:withInt:withInt:);
-  methods[10].selector = @selector(nativeGetLongWithId:withInt:withInt:);
-  methods[11].selector = @selector(nativeGetDoubleWithId:withInt:withInt:);
-  methods[12].selector = @selector(nativePutBlobWithId:withByteArray:withInt:withInt:);
-  methods[13].selector = @selector(nativePutStringWithId:withNSString:withInt:withInt:);
-  methods[14].selector = @selector(nativePutLongWithId:withLong:withInt:withInt:);
-  methods[15].selector = @selector(nativePutDoubleWithId:withDouble:withInt:withInt:);
-  methods[16].selector = @selector(nativePutNullWithId:withInt:withInt:);
-  methods[17].selector = @selector(initWithNSString:);
-  methods[18].selector = @selector(initWithBoolean:);
-  methods[19].selector = @selector(java_finalize);
-  methods[20].selector = @selector(dispose);
-  methods[21].selector = @selector(getName);
-  methods[22].selector = @selector(clear);
-  methods[23].selector = @selector(getStartPosition);
-  methods[24].selector = @selector(setStartPositionWithInt:);
-  methods[25].selector = @selector(getNumRows);
-  methods[26].selector = @selector(setNumColumnsWithInt:);
-  methods[27].selector = @selector(allocRow);
-  methods[28].selector = @selector(freeLastRow);
-  methods[29].selector = @selector(isNullWithInt:withInt:);
-  methods[30].selector = @selector(isBlobWithInt:withInt:);
-  methods[31].selector = @selector(isLongWithInt:withInt:);
-  methods[32].selector = @selector(isFloatWithInt:withInt:);
-  methods[33].selector = @selector(isStringWithInt:withInt:);
-  methods[34].selector = @selector(getTypeWithInt:withInt:);
-  methods[35].selector = @selector(getBlobWithInt:withInt:);
-  methods[36].selector = @selector(getStringWithInt:withInt:);
-  methods[37].selector = @selector(copyStringToBufferWithInt:withInt:withAndroidDatabaseCharArrayBuffer:);
-  methods[38].selector = @selector(getLongWithInt:withInt:);
-  methods[39].selector = @selector(getDoubleWithInt:withInt:);
-  methods[40].selector = @selector(getShortWithInt:withInt:);
-  methods[41].selector = @selector(getIntWithInt:withInt:);
-  methods[42].selector = @selector(getFloatWithInt:withInt:);
-  methods[43].selector = @selector(putBlobWithByteArray:withInt:withInt:);
-  methods[44].selector = @selector(putStringWithNSString:withInt:withInt:);
-  methods[45].selector = @selector(putLongWithLong:withInt:withInt:);
-  methods[46].selector = @selector(putDoubleWithDouble:withInt:withInt:);
-  methods[47].selector = @selector(putNullWithInt:withInt:);
-  methods[48].selector = @selector(onAllReferencesReleased);
-  methods[49].selector = @selector(printStats);
-  methods[50].selector = @selector(description);
+  methods[1].selector = @selector(nativeDisposeWithLong:);
+  methods[2].selector = @selector(nativeClearWithLong:);
+  methods[3].selector = @selector(nativeGetNumRowsWithLong:);
+  methods[4].selector = @selector(nativeSetNumColumnsWithLong:withInt:);
+  methods[5].selector = @selector(nativeAllocRowWithLong:);
+  methods[6].selector = @selector(nativeFreeLastRowWithLong:);
+  methods[7].selector = @selector(nativeGetTypeWithLong:withInt:withInt:);
+  methods[8].selector = @selector(nativeGetBlobWithLong:withInt:withInt:);
+  methods[9].selector = @selector(nativeGetStringWithLong:withInt:withInt:);
+  methods[10].selector = @selector(nativeGetLongWithLong:withInt:withInt:);
+  methods[11].selector = @selector(nativeGetDoubleWithLong:withInt:withInt:);
+  methods[12].selector = @selector(nativeCopyStringToBufferWithLong:withInt:withInt:withAndroidDatabaseCharArrayBuffer:);
+  methods[13].selector = @selector(nativePutBlobWithLong:withByteArray:withInt:withInt:);
+  methods[14].selector = @selector(nativePutStringWithLong:withNSString:withInt:withInt:);
+  methods[15].selector = @selector(nativePutLongWithLong:withLong:withInt:withInt:);
+  methods[16].selector = @selector(nativePutDoubleWithLong:withDouble:withInt:withInt:);
+  methods[17].selector = @selector(nativePutNullWithLong:withInt:withInt:);
+  methods[18].selector = @selector(nativeGetNameWithLong:);
+  methods[19].selector = @selector(initWithNSString:);
+  methods[20].selector = @selector(initWithBoolean:);
+  methods[21].selector = @selector(java_finalize);
+  methods[22].selector = @selector(dispose);
+  methods[23].selector = @selector(getName);
+  methods[24].selector = @selector(clear);
+  methods[25].selector = @selector(getStartPosition);
+  methods[26].selector = @selector(setStartPositionWithInt:);
+  methods[27].selector = @selector(getNumRows);
+  methods[28].selector = @selector(setNumColumnsWithInt:);
+  methods[29].selector = @selector(allocRow);
+  methods[30].selector = @selector(freeLastRow);
+  methods[31].selector = @selector(isNullWithInt:withInt:);
+  methods[32].selector = @selector(isBlobWithInt:withInt:);
+  methods[33].selector = @selector(isLongWithInt:withInt:);
+  methods[34].selector = @selector(isFloatWithInt:withInt:);
+  methods[35].selector = @selector(isStringWithInt:withInt:);
+  methods[36].selector = @selector(getTypeWithInt:withInt:);
+  methods[37].selector = @selector(getBlobWithInt:withInt:);
+  methods[38].selector = @selector(getStringWithInt:withInt:);
+  methods[39].selector = @selector(copyStringToBufferWithInt:withInt:withAndroidDatabaseCharArrayBuffer:);
+  methods[40].selector = @selector(getLongWithInt:withInt:);
+  methods[41].selector = @selector(getDoubleWithInt:withInt:);
+  methods[42].selector = @selector(getShortWithInt:withInt:);
+  methods[43].selector = @selector(getIntWithInt:withInt:);
+  methods[44].selector = @selector(getFloatWithInt:withInt:);
+  methods[45].selector = @selector(putBlobWithByteArray:withInt:withInt:);
+  methods[46].selector = @selector(putStringWithNSString:withInt:withInt:);
+  methods[47].selector = @selector(putLongWithLong:withInt:withInt:);
+  methods[48].selector = @selector(putDoubleWithDouble:withInt:withInt:);
+  methods[49].selector = @selector(putNullWithInt:withInt:);
+  methods[50].selector = @selector(describeContents);
+  methods[51].selector = @selector(onAllReferencesReleased);
+  methods[52].selector = @selector(printStats);
+  methods[53].selector = @selector(description);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "STATS_TAG", "LNSString;", .constantValue.asLong = 0, 0x1a, -1, 64, -1, -1 },
-    { "sCursorWindowSize", "I", .constantValue.asLong = 0, 0xa, -1, 65, -1, -1 },
-    { "mWindowPtr_", "LNSObject;", .constantValue.asLong = 0, 0x1, -1, -1, -1, -1 },
+    { "STATS_TAG", "LNSString;", .constantValue.asLong = 0, 0x1a, -1, 66, -1, -1 },
+    { "sCursorWindowSize", "I", .constantValue.asLong = 0, 0xa, -1, 67, -1, -1 },
+    { "mWindowPtr_", "J", .constantValue.asLong = 0, 0x1, -1, -1, -1, -1 },
     { "mStartPos_", "I", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mName_", "LNSString;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
     { "mCloseGuard_", "LDalvikSystemCloseGuard;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "nativeCreate", "LNSString;I", "nativeDispose", "LNSObject;", "nativeClear", "nativeGetNumRows", "nativeSetNumColumns", "LNSObject;I", "nativeAllocRow", "nativeFreeLastRow", "nativeGetType", "LNSObject;II", "nativeGetBlob", "nativeGetString", "nativeGetLong", "nativeGetDouble", "nativePutBlob", "LNSObject;[BII", "nativePutString", "LNSObject;LNSString;II", "nativePutLong", "LNSObject;JII", "nativePutDouble", "LNSObject;DII", "nativePutNull", "LNSString;", "Z", (void *)&AndroidDatabaseCursorWindow__Annotations$0, "finalize", "LNSException;", "setStartPosition", "I", "setNumColumns", "isNull", "II", (void *)&AndroidDatabaseCursorWindow__Annotations$1, "isBlob", (void *)&AndroidDatabaseCursorWindow__Annotations$2, "isLong", (void *)&AndroidDatabaseCursorWindow__Annotations$3, "isFloat", (void *)&AndroidDatabaseCursorWindow__Annotations$4, "isString", (void *)&AndroidDatabaseCursorWindow__Annotations$5, "getType", "getBlob", "getString", "copyStringToBuffer", "IILAndroidDatabaseCharArrayBuffer;", "getLong", "getDouble", "getShort", "getInt", "getFloat", "putBlob", "[BII", "putString", "LNSString;II", "putLong", "JII", "putDouble", "DII", "putNull", "toString", &AndroidDatabaseCursorWindow_STATS_TAG, &AndroidDatabaseCursorWindow_sCursorWindowSize };
-  static const J2ObjcClassInfo _AndroidDatabaseCursorWindow = { "CursorWindow", "android.database", ptrTable, methods, fields, 7, 0x1, 51, 6, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "nativeCreate", "LNSString;I", "nativeDispose", "J", "nativeClear", "nativeGetNumRows", "nativeSetNumColumns", "JI", "nativeAllocRow", "nativeFreeLastRow", "nativeGetType", "JII", "nativeGetBlob", "nativeGetString", "nativeGetLong", "nativeGetDouble", "nativeCopyStringToBuffer", "JIILAndroidDatabaseCharArrayBuffer;", "nativePutBlob", "J[BII", "nativePutString", "JLNSString;II", "nativePutLong", "JJII", "nativePutDouble", "JDII", "nativePutNull", "nativeGetName", "LNSString;", "Z", (void *)&AndroidDatabaseCursorWindow__Annotations$0, "finalize", "LNSException;", "setStartPosition", "I", "setNumColumns", "isNull", "II", (void *)&AndroidDatabaseCursorWindow__Annotations$1, "isBlob", (void *)&AndroidDatabaseCursorWindow__Annotations$2, "isLong", (void *)&AndroidDatabaseCursorWindow__Annotations$3, "isFloat", (void *)&AndroidDatabaseCursorWindow__Annotations$4, "isString", (void *)&AndroidDatabaseCursorWindow__Annotations$5, "getType", "getBlob", "getString", "copyStringToBuffer", "IILAndroidDatabaseCharArrayBuffer;", "getLong", "getDouble", "getShort", "getInt", "getFloat", "putBlob", "[BII", "putString", "LNSString;II", "putLong", "putDouble", "DII", "putNull", "toString", &AndroidDatabaseCursorWindow_STATS_TAG, &AndroidDatabaseCursorWindow_sCursorWindowSize };
+  static const J2ObjcClassInfo _AndroidDatabaseCursorWindow = { "CursorWindow", "android.database", ptrTable, methods, fields, 7, 0x1, 54, 6, -1, -1, -1, -1, -1 };
   return &_AndroidDatabaseCursorWindow;
 }
 
 @end
 
-id AndroidDatabaseCursorWindow_nativeCreateWithNSString_withInt_(NSString *name, jint cursorWindowSize) {
-  AndroidDatabaseCursorWindow_initialize();
-  return (id<NSObject>)[CursorWindowNative nativeCreate:name cursorWindowSize:cursorWindowSize];
+JNIEXPORT jlong Java_android_database_CursorWindow_nativeCreate(JNIEnv *_env_, jclass _cls_, jstring name, jint cursorWindowSize);
+
+jlong AndroidDatabaseCursorWindow_nativeCreateWithNSString_withInt_(NSString *name, jint cursorWindowSize) {
+  return Java_android_database_CursorWindow_nativeCreate(&J2ObjC_JNIEnv, AndroidDatabaseCursorWindow_class_(), name, cursorWindowSize);
 }
 
-void AndroidDatabaseCursorWindow_nativeDisposeWithId_(id windowPtr) {
-  AndroidDatabaseCursorWindow_initialize();
-  [CursorWindowNative nativeDispose:(id<NSObject>)windowPtr];
+JNIEXPORT void Java_android_database_CursorWindow_nativeDispose(JNIEnv *_env_, jclass _cls_, jlong windowPtr);
+
+void AndroidDatabaseCursorWindow_nativeDisposeWithLong_(jlong windowPtr) {
+  Java_android_database_CursorWindow_nativeDispose(&J2ObjC_JNIEnv, AndroidDatabaseCursorWindow_class_(), windowPtr);
 }
 
-void AndroidDatabaseCursorWindow_nativeClearWithId_(id windowPtr) {
-  AndroidDatabaseCursorWindow_initialize();
-  [CursorWindowNative nativeClear:(id<NSObject>)windowPtr];
+JNIEXPORT void Java_android_database_CursorWindow_nativeClear(JNIEnv *_env_, jclass _cls_, jlong windowPtr);
+
+void AndroidDatabaseCursorWindow_nativeClearWithLong_(jlong windowPtr) {
+  Java_android_database_CursorWindow_nativeClear(&J2ObjC_JNIEnv, AndroidDatabaseCursorWindow_class_(), windowPtr);
 }
 
-jint AndroidDatabaseCursorWindow_nativeGetNumRowsWithId_(id windowPtr) {
-  AndroidDatabaseCursorWindow_initialize();
-  return [CursorWindowNative nativeGetNumRows:(id<NSObject>)windowPtr];
+JNIEXPORT jint Java_android_database_CursorWindow_nativeGetNumRows(JNIEnv *_env_, jclass _cls_, jlong windowPtr);
+
+jint AndroidDatabaseCursorWindow_nativeGetNumRowsWithLong_(jlong windowPtr) {
+  return Java_android_database_CursorWindow_nativeGetNumRows(&J2ObjC_JNIEnv, AndroidDatabaseCursorWindow_class_(), windowPtr);
 }
 
-jboolean AndroidDatabaseCursorWindow_nativeSetNumColumnsWithId_withInt_(id windowPtr, jint columnNum) {
-  AndroidDatabaseCursorWindow_initialize();
-  return [CursorWindowNative nativeSetNumColumns:(id<NSObject>)windowPtr columnNum:columnNum];
+JNIEXPORT jboolean Java_android_database_CursorWindow_nativeSetNumColumns(JNIEnv *_env_, jclass _cls_, jlong windowPtr, jint columnNum);
+
+jboolean AndroidDatabaseCursorWindow_nativeSetNumColumnsWithLong_withInt_(jlong windowPtr, jint columnNum) {
+  return Java_android_database_CursorWindow_nativeSetNumColumns(&J2ObjC_JNIEnv, AndroidDatabaseCursorWindow_class_(), windowPtr, columnNum);
 }
 
-jboolean AndroidDatabaseCursorWindow_nativeAllocRowWithId_(id windowPtr) {
-  AndroidDatabaseCursorWindow_initialize();
-  return [CursorWindowNative nativeAllocRow:(id<NSObject>)windowPtr];
+JNIEXPORT jboolean Java_android_database_CursorWindow_nativeAllocRow(JNIEnv *_env_, jclass _cls_, jlong windowPtr);
+
+jboolean AndroidDatabaseCursorWindow_nativeAllocRowWithLong_(jlong windowPtr) {
+  return Java_android_database_CursorWindow_nativeAllocRow(&J2ObjC_JNIEnv, AndroidDatabaseCursorWindow_class_(), windowPtr);
 }
 
-void AndroidDatabaseCursorWindow_nativeFreeLastRowWithId_(id windowPtr) {
-  AndroidDatabaseCursorWindow_initialize();
-  [CursorWindowNative nativeFreeLastRow:(id<NSObject>)windowPtr];
+JNIEXPORT void Java_android_database_CursorWindow_nativeFreeLastRow(JNIEnv *_env_, jclass _cls_, jlong windowPtr);
+
+void AndroidDatabaseCursorWindow_nativeFreeLastRowWithLong_(jlong windowPtr) {
+  Java_android_database_CursorWindow_nativeFreeLastRow(&J2ObjC_JNIEnv, AndroidDatabaseCursorWindow_class_(), windowPtr);
 }
 
-jint AndroidDatabaseCursorWindow_nativeGetTypeWithId_withInt_withInt_(id windowPtr, jint row, jint column) {
-  AndroidDatabaseCursorWindow_initialize();
-  return [CursorWindowNative nativeGetType:(id<NSObject>)windowPtr row:row column:column];
+JNIEXPORT jint Java_android_database_CursorWindow_nativeGetType(JNIEnv *_env_, jclass _cls_, jlong windowPtr, jint row, jint column);
+
+jint AndroidDatabaseCursorWindow_nativeGetTypeWithLong_withInt_withInt_(jlong windowPtr, jint row, jint column) {
+  return Java_android_database_CursorWindow_nativeGetType(&J2ObjC_JNIEnv, AndroidDatabaseCursorWindow_class_(), windowPtr, row, column);
 }
 
-IOSByteArray *AndroidDatabaseCursorWindow_nativeGetBlobWithId_withInt_withInt_(id windowPtr, jint row, jint column) {
-  AndroidDatabaseCursorWindow_initialize();
-  return [CursorWindowNative nativeGetBlob:(id<NSObject>)windowPtr row:row column:column];
+JNIEXPORT jarray Java_android_database_CursorWindow_nativeGetBlob(JNIEnv *_env_, jclass _cls_, jlong windowPtr, jint row, jint column);
+
+IOSByteArray *AndroidDatabaseCursorWindow_nativeGetBlobWithLong_withInt_withInt_(jlong windowPtr, jint row, jint column) {
+  return (IOSByteArray *) Java_android_database_CursorWindow_nativeGetBlob(&J2ObjC_JNIEnv, AndroidDatabaseCursorWindow_class_(), windowPtr, row, column);
 }
 
-NSString *AndroidDatabaseCursorWindow_nativeGetStringWithId_withInt_withInt_(id windowPtr, jint row, jint column) {
-  AndroidDatabaseCursorWindow_initialize();
-  return [CursorWindowNative nativeGetString:windowPtr row:row column:column];
+JNIEXPORT jstring Java_android_database_CursorWindow_nativeGetString(JNIEnv *_env_, jclass _cls_, jlong windowPtr, jint row, jint column);
+
+NSString *AndroidDatabaseCursorWindow_nativeGetStringWithLong_withInt_withInt_(jlong windowPtr, jint row, jint column) {
+  return (NSString *) Java_android_database_CursorWindow_nativeGetString(&J2ObjC_JNIEnv, AndroidDatabaseCursorWindow_class_(), windowPtr, row, column);
 }
 
-jlong AndroidDatabaseCursorWindow_nativeGetLongWithId_withInt_withInt_(id windowPtr, jint row, jint column) {
-  AndroidDatabaseCursorWindow_initialize();
-  return [CursorWindowNative nativeGetLong:windowPtr row:row column:column];
+JNIEXPORT jlong Java_android_database_CursorWindow_nativeGetLong(JNIEnv *_env_, jclass _cls_, jlong windowPtr, jint row, jint column);
+
+jlong AndroidDatabaseCursorWindow_nativeGetLongWithLong_withInt_withInt_(jlong windowPtr, jint row, jint column) {
+  return Java_android_database_CursorWindow_nativeGetLong(&J2ObjC_JNIEnv, AndroidDatabaseCursorWindow_class_(), windowPtr, row, column);
 }
 
-jdouble AndroidDatabaseCursorWindow_nativeGetDoubleWithId_withInt_withInt_(id windowPtr, jint row, jint column) {
-  AndroidDatabaseCursorWindow_initialize();
-  return [CursorWindowNative nativeGetDouble:windowPtr row:row column:column];
+JNIEXPORT jdouble Java_android_database_CursorWindow_nativeGetDouble(JNIEnv *_env_, jclass _cls_, jlong windowPtr, jint row, jint column);
+
+jdouble AndroidDatabaseCursorWindow_nativeGetDoubleWithLong_withInt_withInt_(jlong windowPtr, jint row, jint column) {
+  return Java_android_database_CursorWindow_nativeGetDouble(&J2ObjC_JNIEnv, AndroidDatabaseCursorWindow_class_(), windowPtr, row, column);
 }
 
-jboolean AndroidDatabaseCursorWindow_nativePutBlobWithId_withByteArray_withInt_withInt_(id windowPtr, IOSByteArray *value, jint row, jint column) {
-  AndroidDatabaseCursorWindow_initialize();
-  return [CursorWindowNative nativePutBlob:windowPtr value:value row:row column:column];
+JNIEXPORT void Java_android_database_CursorWindow_nativeCopyStringToBuffer(JNIEnv *_env_, jclass _cls_, jlong windowPtr, jint row, jint column, jobject buffer);
+
+void AndroidDatabaseCursorWindow_nativeCopyStringToBufferWithLong_withInt_withInt_withAndroidDatabaseCharArrayBuffer_(jlong windowPtr, jint row, jint column, AndroidDatabaseCharArrayBuffer *buffer) {
+  Java_android_database_CursorWindow_nativeCopyStringToBuffer(&J2ObjC_JNIEnv, AndroidDatabaseCursorWindow_class_(), windowPtr, row, column, buffer);
 }
 
-jboolean AndroidDatabaseCursorWindow_nativePutStringWithId_withNSString_withInt_withInt_(id windowPtr, NSString *value, jint row, jint column) {
-  AndroidDatabaseCursorWindow_initialize();
-  return [CursorWindowNative nativePutString:windowPtr value:value row:row column:column];
+JNIEXPORT jboolean Java_android_database_CursorWindow_nativePutBlob(JNIEnv *_env_, jclass _cls_, jlong windowPtr, jarray value, jint row, jint column);
+
+jboolean AndroidDatabaseCursorWindow_nativePutBlobWithLong_withByteArray_withInt_withInt_(jlong windowPtr, IOSByteArray *value, jint row, jint column) {
+  return Java_android_database_CursorWindow_nativePutBlob(&J2ObjC_JNIEnv, AndroidDatabaseCursorWindow_class_(), windowPtr, value, row, column);
 }
 
-jboolean AndroidDatabaseCursorWindow_nativePutLongWithId_withLong_withInt_withInt_(id windowPtr, jlong value, jint row, jint column) {
-  AndroidDatabaseCursorWindow_initialize();
-  return [CursorWindowNative nativePutLong:windowPtr value:value row:row column:column];
+JNIEXPORT jboolean Java_android_database_CursorWindow_nativePutString(JNIEnv *_env_, jclass _cls_, jlong windowPtr, jstring value, jint row, jint column);
+
+jboolean AndroidDatabaseCursorWindow_nativePutStringWithLong_withNSString_withInt_withInt_(jlong windowPtr, NSString *value, jint row, jint column) {
+  return Java_android_database_CursorWindow_nativePutString(&J2ObjC_JNIEnv, AndroidDatabaseCursorWindow_class_(), windowPtr, value, row, column);
 }
 
-jboolean AndroidDatabaseCursorWindow_nativePutDoubleWithId_withDouble_withInt_withInt_(id windowPtr, jdouble value, jint row, jint column) {
-  AndroidDatabaseCursorWindow_initialize();
-  return [CursorWindowNative nativePutDouble:windowPtr value:value row:row column:column];
+JNIEXPORT jboolean Java_android_database_CursorWindow_nativePutLong(JNIEnv *_env_, jclass _cls_, jlong windowPtr, jlong value, jint row, jint column);
+
+jboolean AndroidDatabaseCursorWindow_nativePutLongWithLong_withLong_withInt_withInt_(jlong windowPtr, jlong value, jint row, jint column) {
+  return Java_android_database_CursorWindow_nativePutLong(&J2ObjC_JNIEnv, AndroidDatabaseCursorWindow_class_(), windowPtr, value, row, column);
 }
 
-jboolean AndroidDatabaseCursorWindow_nativePutNullWithId_withInt_withInt_(id windowPtr, jint row, jint column) {
-  AndroidDatabaseCursorWindow_initialize();
-  return [CursorWindowNative nativePutNull:windowPtr row:row column:column];
+JNIEXPORT jboolean Java_android_database_CursorWindow_nativePutDouble(JNIEnv *_env_, jclass _cls_, jlong windowPtr, jdouble value, jint row, jint column);
+
+jboolean AndroidDatabaseCursorWindow_nativePutDoubleWithLong_withDouble_withInt_withInt_(jlong windowPtr, jdouble value, jint row, jint column) {
+  return Java_android_database_CursorWindow_nativePutDouble(&J2ObjC_JNIEnv, AndroidDatabaseCursorWindow_class_(), windowPtr, value, row, column);
+}
+
+JNIEXPORT jboolean Java_android_database_CursorWindow_nativePutNull(JNIEnv *_env_, jclass _cls_, jlong windowPtr, jint row, jint column);
+
+jboolean AndroidDatabaseCursorWindow_nativePutNullWithLong_withInt_withInt_(jlong windowPtr, jint row, jint column) {
+  return Java_android_database_CursorWindow_nativePutNull(&J2ObjC_JNIEnv, AndroidDatabaseCursorWindow_class_(), windowPtr, row, column);
+}
+
+JNIEXPORT jstring Java_android_database_CursorWindow_nativeGetName(JNIEnv *_env_, jclass _cls_, jlong windowPtr);
+
+NSString *AndroidDatabaseCursorWindow_nativeGetNameWithLong_(jlong windowPtr) {
+  return (NSString *) Java_android_database_CursorWindow_nativeGetName(&J2ObjC_JNIEnv, AndroidDatabaseCursorWindow_class_(), windowPtr);
 }
 
 void AndroidDatabaseCursorWindow_initWithNSString_(AndroidDatabaseCursorWindow *self, NSString *name) {
@@ -738,8 +807,8 @@ void AndroidDatabaseCursorWindow_initWithNSString_(AndroidDatabaseCursorWindow *
   if (AndroidDatabaseCursorWindow_sCursorWindowSize < 0) {
     AndroidDatabaseCursorWindow_sCursorWindowSize = 2048 * 1024;
   }
-  JreStrongAssign(&self->mWindowPtr_, AndroidDatabaseCursorWindow_nativeCreateWithNSString_withInt_(self->mName_, AndroidDatabaseCursorWindow_sCursorWindowSize));
-  if (self->mWindowPtr_ == nil) {
+  self->mWindowPtr_ = AndroidDatabaseCursorWindow_nativeCreateWithNSString_withInt_(self->mName_, AndroidDatabaseCursorWindow_sCursorWindowSize);
+  if (self->mWindowPtr_ == 0) {
     @throw create_AndroidDatabaseCursorWindowAllocationException_initWithNSString_(JreStrcat("$I$$", @"Cursor window allocation of ", (AndroidDatabaseCursorWindow_sCursorWindowSize / 1024), @" kb failed. ", AndroidDatabaseCursorWindow_printStats(self)));
   }
   [((DalvikSystemCloseGuard *) nil_chk(self->mCloseGuard_)) openWithNSString:@"close"];
@@ -769,15 +838,31 @@ void AndroidDatabaseCursorWindow_dispose(AndroidDatabaseCursorWindow *self) {
   if (self->mCloseGuard_ != nil) {
     [self->mCloseGuard_ close];
   }
-  if (self->mWindowPtr_ != nil) {
-    AndroidDatabaseCursorWindow_nativeDisposeWithId_(self->mWindowPtr_);
-    JreStrongAssign(&self->mWindowPtr_, nil);
+  if (self->mWindowPtr_ != 0) {
+    AndroidDatabaseCursorWindow_nativeDisposeWithLong_(self->mWindowPtr_);
+    self->mWindowPtr_ = 0;
   }
 }
 
 NSString *AndroidDatabaseCursorWindow_printStats(AndroidDatabaseCursorWindow *self) {
   JavaLangStringBuilder *buff = create_JavaLangStringBuilder_init();
+  jint myPid = 0;
   jint total = 0;
+  AndroidUtilSparseIntArray *pidCounts = create_AndroidUtilSparseIntArray_init();
+  jint numPids = [pidCounts size];
+  for (jint i = 0; i < numPids; i++) {
+    [buff appendWithNSString:@" (# cursors opened by "];
+    jint pid = [pidCounts keyAtWithInt:i];
+    if (pid == myPid) {
+      [buff appendWithNSString:@"this proc="];
+    }
+    else {
+      [buff appendWithNSString:JreStrcat("$IC", @"pid ", pid, '=')];
+    }
+    jint num = [pidCounts getWithInt:pid];
+    [buff appendWithNSString:JreStrcat("IC", num, ')')];
+    total += num;
+  }
   NSString *s = ([buff java_length] > 980) ? [buff substringWithInt:0 withInt:980] : [buff description];
   return JreStrcat("$I$", @"# Open Cursors=", total, s);
 }
