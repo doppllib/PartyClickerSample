@@ -25,34 +25,29 @@ android {
     }
 }
 
-def javaCoreVersion = '0.7.5'
-def dopplCoreVersion = '0.7.5.0'
-
 dependencies {
     compile 'com.android.support:appcompat-v7:25.1.0'
-    testCompile 'junit:junit:4.11'
 
+    //Database ORM
     compile 'co.touchlab.squeaky:squeaky-query:0.5.1'
-    doppl 'co.touchlab.squeaky:squeaky-query:0.5.1.0'
-
     annotationProcessor 'co.touchlab.squeaky:squeaky-processor:0.5.1'
     testAnnotationProcessor 'co.touchlab.squeaky:squeaky-processor:0.5.1'
+    doppl 'co.touchlab.squeaky:squeaky-query:0.5.1.0'
 
-    doppl "co.doppl.lib:androidbase:$dopplCoreVersion:doppl"
-
-    doppl 'co.doppl.com.google.dagger:dagger:2.5.2'
+    //Dagger
     compile 'com.google.dagger:dagger:2.5'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.5'
     testAnnotationProcessor 'com.google.dagger:dagger-compiler:2.5'
+    doppl 'co.doppl.com.google.dagger:dagger:2.5.2'
 
+    //Rx
     compile 'io.reactivex:rxandroid:1.2.1'
-
-    doppl 'co.doppl.io.reactivex:rxjava:1.2.1.2'
     doppl 'co.doppl.io.reactivex:rxandroid:1.2.1.2'
 
-    testCompile "co.doppl.lib:androidbasetest:$javaCoreVersion"
-    testDoppl "co.doppl.lib:androidbasetest:$dopplCoreVersion"
-
+    //Test Support
+    testCompile 'junit:junit:4.11'
+    testCompile "co.doppl.lib:androidbasetest:0.7.5"
+    testDoppl "co.doppl.lib:androidbasetest:0.7.5.0"
     testCompile "org.robolectric:robolectric:3.3.2"
     testCompile 'org.mockito:mockito-core:1.9.5'
 }
