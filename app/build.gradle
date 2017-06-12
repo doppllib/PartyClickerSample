@@ -78,7 +78,5 @@ dopplConfig {
 
 task runIOSTests(type:Exec, dependsOn: 'dopplDeploy') {
     workingDir '../iostest'
-
-    //on windows:
     commandLine 'xcodebuild', 'test', '-project', 'iostest.xcodeproj', '-scheme', 'iostest', '-destination', 'platform=iOS Simulator,name=iPhone 7,OS=10.3'
 }
