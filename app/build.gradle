@@ -29,10 +29,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.1.0'
 
     //Database ORM
-    compile 'co.touchlab.squeaky:squeaky-query:0.5.1'
-    annotationProcessor 'co.touchlab.squeaky:squeaky-processor:0.5.1'
-    testAnnotationProcessor 'co.touchlab.squeaky:squeaky-processor:0.5.1'
-    doppl 'co.touchlab.squeaky:squeaky-query:0.5.1.0'
+    compile 'co.touchlab.squeaky:squeaky-query:0.5.2'
+    annotationProcessor 'co.touchlab.squeaky:squeaky-processor:0.5.2'
+    testAnnotationProcessor 'co.touchlab.squeaky:squeaky-processor:0.5.2'
+    doppl 'co.touchlab.squeaky:squeaky-query:0.5.2.0'
 
     //Dagger
     compile 'com.google.dagger:dagger:2.5'
