@@ -23,6 +23,7 @@
 
 + (JavaSqlSQLException *)createWithNSString:(NSString *)message
                             withNSException:(NSException *)cause;
+#define withJavaLangThrowable withNSException
 
 @end
 

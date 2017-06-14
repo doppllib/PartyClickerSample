@@ -66,7 +66,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     return CoTouchlabSqueakyFieldTypesBaseDateType_normalizeDateStringWithCoTouchlabSqueakyFieldTypesBaseDateType_DateStringFormatConfig_withNSString_(formatConfig, defaultStr);
   }
   @catch (JavaTextParseException *e) {
-    @throw CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$@$$$@C", @"Problems with field ", fieldType, @" parsing default date-string '", defaultStr, @"' using '", formatConfig, '\''), e);
+    @throw nil_chk(CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$@$$$@C", @"Problems with field ", fieldType, @" parsing default date-string '", defaultStr, @"' using '", formatConfig, '\''), e));
   }
 }
 
@@ -85,7 +85,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     return CoTouchlabSqueakyFieldTypesBaseDateType_parseDateStringWithCoTouchlabSqueakyFieldTypesBaseDateType_DateStringFormatConfig_withNSString_(formatConfig, value);
   }
   @catch (JavaTextParseException *e) {
-    @throw CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$I$$$@C", @"Problems with column ", columnPos, @" parsing date-string '", value, @"' using '", formatConfig, '\''), e);
+    @throw nil_chk(CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$I$$$@C", @"Problems with column ", columnPos, @" parsing date-string '", value, @"' using '", formatConfig, '\''), e));
   }
 }
 

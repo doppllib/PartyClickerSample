@@ -754,7 +754,7 @@ jint CoTouchlabSqueakyTableTableUtils_doStatementsWithCoTouchlabSqueakyDbSQLiteD
         CoTouchlabSqueakyLoggerOLog_iWithNSString_withNSString_withNSException_(CoTouchlabSqueakyTableTableUtils_TAG, JreStrcat("$$$$C", @"ignoring {", label, @"} error for statement: {", statement, '}'), e);
       }
       else {
-        @throw CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$$", @"SQL statement failed: ", statement), e);
+        @throw nil_chk(CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$$", @"SQL statement failed: ", statement), e));
       }
     }
     stmtC++;

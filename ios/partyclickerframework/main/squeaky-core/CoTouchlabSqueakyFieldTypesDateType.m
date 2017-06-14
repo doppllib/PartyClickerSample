@@ -60,7 +60,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     return create_JavaSqlTimestamp_initWithLong_([((JavaUtilDate *) nil_chk(CoTouchlabSqueakyFieldTypesBaseDateType_parseDateStringWithCoTouchlabSqueakyFieldTypesBaseDateType_DateStringFormatConfig_withNSString_(dateFormatConfig, defaultStr))) getTime]);
   }
   @catch (JavaTextParseException *e) {
-    @throw CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$$$@C", @"Problems parsing default date string '", defaultStr, @"' using '", dateFormatConfig, '\''), e);
+    @throw nil_chk(CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$$$@C", @"Problems parsing default date string '", defaultStr, @"' using '", dateFormatConfig, '\''), e));
   }
 }
 

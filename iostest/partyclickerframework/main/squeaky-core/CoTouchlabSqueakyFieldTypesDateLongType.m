@@ -58,7 +58,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     return JavaLangLong_valueOfWithLong_(JavaLangLong_parseLongWithNSString_(defaultStr));
   }
   @catch (JavaLangNumberFormatException *e) {
-    @throw CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$@$$", @"Problems with field ", fieldType, @" parsing default date-long value: ", defaultStr), e);
+    @throw nil_chk(CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$@$$", @"Problems with field ", fieldType, @" parsing default date-long value: ", defaultStr), e));
   }
 }
 

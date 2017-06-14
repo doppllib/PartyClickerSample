@@ -29,6 +29,7 @@
 + (void)dWithNSString:(NSString *)tag
          withNSString:(NSString *)message
       withNSException:(NSException *)t;
+#define withJavaLangThrowable withNSException
 
 + (void)eWithNSString:(NSString *)tag
          withNSString:(NSString *)message;
@@ -36,6 +37,7 @@
 + (void)eWithNSString:(NSString *)tag
          withNSString:(NSString *)message
       withNSException:(NSException *)t;
+#define withJavaLangThrowable withNSException
 
 + (void)iWithNSString:(NSString *)tag
          withNSString:(NSString *)message;
@@ -43,6 +45,7 @@
 + (void)iWithNSString:(NSString *)tag
          withNSString:(NSString *)message
       withNSException:(NSException *)t;
+#define withJavaLangThrowable withNSException
 
 + (void)setLogWithCoTouchlabSqueakyLoggerOLogImpl:(id<CoTouchlabSqueakyLoggerOLogImpl>)log;
 
@@ -52,6 +55,7 @@
 + (void)wWithNSString:(NSString *)tag
          withNSString:(NSString *)message
       withNSException:(NSException *)t;
+#define withJavaLangThrowable withNSException
 
 @end
 

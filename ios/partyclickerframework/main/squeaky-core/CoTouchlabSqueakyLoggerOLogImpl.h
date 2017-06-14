@@ -23,6 +23,7 @@
 - (void)dWithNSString:(NSString *)tag
          withNSString:(NSString *)message
       withNSException:(NSException *)t;
+#define withJavaLangThrowable withNSException
 
 - (void)iWithNSString:(NSString *)tag
          withNSString:(NSString *)message;
@@ -30,6 +31,7 @@
 - (void)iWithNSString:(NSString *)tag
          withNSString:(NSString *)message
       withNSException:(NSException *)t;
+#define withJavaLangThrowable withNSException
 
 - (void)wWithNSString:(NSString *)tag
          withNSString:(NSString *)message;
@@ -37,6 +39,7 @@
 - (void)wWithNSString:(NSString *)tag
          withNSString:(NSString *)message
       withNSException:(NSException *)t;
+#define withJavaLangThrowable withNSException
 
 - (void)eWithNSString:(NSString *)tag
          withNSString:(NSString *)message;
@@ -44,6 +47,7 @@
 - (void)eWithNSString:(NSString *)tag
          withNSString:(NSString *)message
       withNSException:(NSException *)t;
+#define withJavaLangThrowable withNSException
 
 @end
 

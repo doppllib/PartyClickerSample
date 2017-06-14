@@ -27,7 +27,7 @@ __attribute__((unused)) static IOSObjectArray *DaggerModule__Annotations$0();
 }
 
 - (NSString *)description {
-  return @"@dagger.Module()";
+  return [NSString stringWithFormat:@"@dagger.Module(includes=%@)", includes_];
 }
 
 - (void)dealloc {

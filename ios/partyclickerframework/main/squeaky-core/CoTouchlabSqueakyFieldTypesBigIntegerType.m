@@ -48,7 +48,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     return [create_JavaMathBigInteger_initWithNSString_(defaultStr) description];
   }
   @catch (JavaLangIllegalArgumentException *e) {
-    @throw CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$@$$C", @"Problems with field ", fieldType, @" parsing default BigInteger string '", defaultStr, '\''), e);
+    @throw nil_chk(CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$@$$C", @"Problems with field ", fieldType, @" parsing default BigInteger string '", defaultStr, '\''), e));
   }
 }
 
@@ -65,7 +65,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     return create_JavaMathBigInteger_initWithNSString_((NSString *) cast_chk(sqlArg, [NSString class]));
   }
   @catch (JavaLangIllegalArgumentException *e) {
-    @throw CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$I$@C", @"Problems with column ", columnPos, @" parsing BigInteger string '", sqlArg, '\''), e);
+    @throw nil_chk(CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$I$@C", @"Problems with column ", columnPos, @" parsing BigInteger string '", sqlArg, '\''), e));
   }
 }
 

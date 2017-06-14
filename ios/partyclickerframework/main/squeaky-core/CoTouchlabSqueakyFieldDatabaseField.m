@@ -111,7 +111,7 @@ NSString *CoTouchlabSqueakyFieldDatabaseField_DEFAULT_STRING = @"__ormlite__ no 
 }
 
 - (NSString *)description {
-  return @"@co.touchlab.squeaky.field.DatabaseField()";
+  return [NSString stringWithFormat:@"@co.touchlab.squeaky.field.DatabaseField(columnName=%@, dataType=%@, defaultValue=%@, canBeNull=%d, id__=%d, generatedId=%d, foreign=%d, useGetSet=%d, format=%@, unique=%d, uniqueCombo=%d, index=%d, uniqueIndex=%d, indexName=%@, uniqueIndexName=%@, foreignAutoRefresh=%d, persisterClass=%@)", columnName_, dataType_, defaultValue_, canBeNull_, id___, generatedId_, foreign_, useGetSet_, format_, unique_, uniqueCombo_, index_, uniqueIndex_, indexName_, uniqueIndexName_, foreignAutoRefresh_, persisterClass_];
 }
 
 - (void)dealloc {

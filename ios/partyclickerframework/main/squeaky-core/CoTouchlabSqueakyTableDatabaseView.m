@@ -27,7 +27,7 @@ __attribute__((unused)) static IOSObjectArray *CoTouchlabSqueakyTableDatabaseVie
 }
 
 - (NSString *)description {
-  return @"@co.touchlab.squeaky.table.DatabaseView()";
+  return [NSString stringWithFormat:@"@co.touchlab.squeaky.table.DatabaseView(viewName=%@)", viewName_];
 }
 
 - (void)dealloc {

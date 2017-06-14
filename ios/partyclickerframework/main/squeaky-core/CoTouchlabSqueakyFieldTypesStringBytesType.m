@@ -79,7 +79,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     return [NSString java_stringWithBytes:bytes charsetName:charsetName];
   }
   @catch (JavaIoUnsupportedEncodingException *e) {
-    @throw CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$$", @"Could not convert string with charset name: ", charsetName), e);
+    @throw nil_chk(CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$$", @"Could not convert string with charset name: ", charsetName), e));
   }
 }
 
@@ -91,7 +91,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     return [((NSString *) nil_chk(string)) java_getBytesWithCharsetName:charsetName];
   }
   @catch (JavaIoUnsupportedEncodingException *e) {
-    @throw CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$$", @"Could not convert string with charset name: ", charsetName), e);
+    @throw nil_chk(CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$$", @"Could not convert string with charset name: ", charsetName), e));
   }
 }
 

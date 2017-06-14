@@ -78,7 +78,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     return [objInStream readObject];
   }
   @catch (JavaLangException *e) {
-    @throw CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$$$IC", @"Could not read serialized object from byte array: ", JavaUtilArrays_toStringWithByteArray_(bytes), @"(len ", ((IOSByteArray *) nil_chk(bytes))->size_, ')'), e);
+    @throw nil_chk(CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$$$IC", @"Could not read serialized object from byte array: ", JavaUtilArrays_toStringWithByteArray_(bytes), @"(len ", ((IOSByteArray *) nil_chk(bytes))->size_, ')'), e));
   }
   @finally {
     CoTouchlabSqueakyMiscIOUtils_closeQuietlyWithJavaIoCloseable_(objInStream);
@@ -97,7 +97,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     return [outStream toByteArray];
   }
   @catch (JavaLangException *e) {
-    @throw CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$@", @"Could not write serialized object to byte array: ", obj), e);
+    @throw nil_chk(CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$@", @"Could not write serialized object to byte array: ", obj), e));
   }
   @finally {
     CoTouchlabSqueakyMiscIOUtils_closeQuietlyWithJavaIoCloseable_(objOutStream);

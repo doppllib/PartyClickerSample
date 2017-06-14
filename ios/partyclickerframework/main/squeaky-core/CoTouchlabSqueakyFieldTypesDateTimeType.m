@@ -101,7 +101,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     return JavaLangLong_valueOfWithLong_(JavaLangLong_parseLongWithNSString_(defaultStr));
   }
   @catch (JavaLangNumberFormatException *e) {
-    @throw CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$@$$", @"Problems with field ", fieldType, @" parsing default DateTime value: ", defaultStr), e);
+    @throw nil_chk(CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$@$$", @"Problems with field ", fieldType, @" parsing default DateTime value: ", defaultStr), e));
   }
 }
 
@@ -226,7 +226,7 @@ id CoTouchlabSqueakyFieldTypesDateTimeType_createInstanceWithJavaLangLong_(CoTou
     return [((JavaLangReflectConstructor *) nil_chk(CoTouchlabSqueakyFieldTypesDateTimeType_millisConstructor)) newInstanceWithNSObjectArray:[IOSObjectArray arrayWithObjects:(id[]){ sqlArg } count:1 type:NSObject_class_()]];
   }
   @catch (JavaLangException *e) {
-    @throw CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(@"Could not use reflection to construct a Joda DateTime", e);
+    @throw nil_chk(CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(@"Could not use reflection to construct a Joda DateTime", e));
   }
 }
 
@@ -244,7 +244,7 @@ JavaLangLong *CoTouchlabSqueakyFieldTypesDateTimeType_extractMillisWithId_(CoTou
     }
   }
   @catch (JavaLangException *e) {
-    @throw CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$@", @"Could not use reflection to get millis from Joda DateTime: ", javaObject), e);
+    @throw nil_chk(CoTouchlabSqueakyMiscSqlExceptionUtil_createWithNSString_withNSException_(JreStrcat("$@", @"Could not use reflection to get millis from Joda DateTime: ", javaObject), e));
   }
 }
 
