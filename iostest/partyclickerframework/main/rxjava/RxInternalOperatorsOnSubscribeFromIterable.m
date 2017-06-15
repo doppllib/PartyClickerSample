@@ -204,6 +204,14 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(RxInternalOperatorsOnSubscribeFromIterable)
   }
 }
 
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
+}
+
 - (void)dealloc {
   RELEASE_(o_);
   RELEASE_(it_);

@@ -47,6 +47,14 @@ id<JavaUtilConcurrentThreadFactory> RxInternalUtilRxThreadFactory_NONE;
   return t;
 }
 
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
+}
+
 - (void)dealloc {
   RELEASE_(prefix_);
   [super dealloc];

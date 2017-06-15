@@ -22,6 +22,7 @@
 @class AndroidContentContentValues;
 @class AndroidDatabaseSqliteSQLiteSession;
 @class AndroidDatabaseSqliteSQLiteStatement;
+@class AndroidOsCancellationSignal;
 @class IOSObjectArray;
 @class JavaIoFile;
 @class JavaUtilArrayList;
@@ -153,6 +154,17 @@ withAndroidContentContentValues:(AndroidContentContentValues *)values;
                                  withNSString:(NSString *)orderBy
                                  withNSString:(NSString *)limit;
 
+- (id<AndroidDatabaseCursor>)queryWithBoolean:(jboolean)distinct
+                                 withNSString:(NSString *)table
+                            withNSStringArray:(IOSObjectArray *)columns
+                                 withNSString:(NSString *)selection
+                            withNSStringArray:(IOSObjectArray *)selectionArgs
+                                 withNSString:(NSString *)groupBy
+                                 withNSString:(NSString *)having
+                                 withNSString:(NSString *)orderBy
+                                 withNSString:(NSString *)limit
+              withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal;
+
 - (id<AndroidDatabaseCursor>)queryWithNSString:(NSString *)table
                              withNSStringArray:(IOSObjectArray *)columns
                                   withNSString:(NSString *)selection
@@ -181,13 +193,35 @@ withAndroidContentContentValues:(AndroidContentContentValues *)values;
                                                                                       withNSString:(NSString *)orderBy
                                                                                       withNSString:(NSString *)limit;
 
+- (id<AndroidDatabaseCursor>)queryWithFactoryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:(id<AndroidDatabaseSqliteSQLiteDatabase_CursorFactory>)cursorFactory
+                                                                                       withBoolean:(jboolean)distinct
+                                                                                      withNSString:(NSString *)table
+                                                                                 withNSStringArray:(IOSObjectArray *)columns
+                                                                                      withNSString:(NSString *)selection
+                                                                                 withNSStringArray:(IOSObjectArray *)selectionArgs
+                                                                                      withNSString:(NSString *)groupBy
+                                                                                      withNSString:(NSString *)having
+                                                                                      withNSString:(NSString *)orderBy
+                                                                                      withNSString:(NSString *)limit
+                                                                   withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal;
+
 - (id<AndroidDatabaseCursor>)rawQueryWithNSString:(NSString *)sql
                                 withNSStringArray:(IOSObjectArray *)selectionArgs;
+
+- (id<AndroidDatabaseCursor>)rawQueryWithNSString:(NSString *)sql
+                                withNSStringArray:(IOSObjectArray *)selectionArgs
+                  withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal;
 
 - (id<AndroidDatabaseCursor>)rawQueryWithFactoryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:(id<AndroidDatabaseSqliteSQLiteDatabase_CursorFactory>)cursorFactory
                                                                                          withNSString:(NSString *)sql
                                                                                     withNSStringArray:(IOSObjectArray *)selectionArgs
                                                                                          withNSString:(NSString *)editTable;
+
+- (id<AndroidDatabaseCursor>)rawQueryWithFactoryWithAndroidDatabaseSqliteSQLiteDatabase_CursorFactory:(id<AndroidDatabaseSqliteSQLiteDatabase_CursorFactory>)cursorFactory
+                                                                                         withNSString:(NSString *)sql
+                                                                                    withNSStringArray:(IOSObjectArray *)selectionArgs
+                                                                                         withNSString:(NSString *)editTable
+                                                                      withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal;
 
 + (jint)releaseMemory;
 

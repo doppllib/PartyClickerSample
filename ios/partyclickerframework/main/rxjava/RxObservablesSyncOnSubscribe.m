@@ -798,6 +798,14 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(RxObservablesSyncOnSubscribe_SyncOnSubscribeImp
   [((RxSubscriber *) nil_chk(actualSubscriber_)) onNextWithId:value];
 }
 
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
+}
+
 - (void)dealloc {
   RELEASE_(actualSubscriber_);
   RELEASE_(parent_);

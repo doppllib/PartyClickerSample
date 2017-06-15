@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        AndroidOsLooper.prepareMainLooper()
+        DopplRuntime.start()
         
         let context = AndroidContentIOSContext()
         let appModule = PPAppModule(androidAppApplication: context, with: PPLogCrashReporter())

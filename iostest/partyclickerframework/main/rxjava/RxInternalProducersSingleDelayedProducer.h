@@ -35,6 +35,10 @@
 
 - (instancetype)initWithRxSubscriber:(RxSubscriber *)child;
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 - (void)requestWithLong:(jlong)n;
 
 - (void)setValueWithId:(id)value;

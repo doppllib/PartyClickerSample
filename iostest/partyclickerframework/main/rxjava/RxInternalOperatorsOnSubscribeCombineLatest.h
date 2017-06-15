@@ -118,6 +118,10 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeCombineLatest)
                              withInt:(jint)bufferSize
                          withBoolean:(jboolean)delayError;
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 - (jboolean)isUnsubscribed;
 
 - (void)requestWithLong:(jlong)n;

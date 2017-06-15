@@ -21,6 +21,7 @@
 
 @class AndroidDatabaseCursorWindow;
 @class AndroidDatabaseSqliteSQLiteDatabase;
+@class AndroidOsCancellationSignal;
 
 @interface AndroidDatabaseSqliteSQLiteQuery : AndroidDatabaseSqliteSQLiteProgram
 
@@ -31,7 +32,8 @@
 #pragma mark Package-Private
 
 - (instancetype)initWithAndroidDatabaseSqliteSQLiteDatabase:(AndroidDatabaseSqliteSQLiteDatabase *)db
-                                               withNSString:(NSString *)query;
+                                               withNSString:(NSString *)query
+                            withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal;
 
 - (jint)fillWindowWithAndroidDatabaseCursorWindow:(AndroidDatabaseCursorWindow *)window
                                           withInt:(jint)startPos
@@ -42,11 +44,11 @@
 
 J2OBJC_EMPTY_STATIC_INIT(AndroidDatabaseSqliteSQLiteQuery)
 
-FOUNDATION_EXPORT void AndroidDatabaseSqliteSQLiteQuery_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_(AndroidDatabaseSqliteSQLiteQuery *self, AndroidDatabaseSqliteSQLiteDatabase *db, NSString *query);
+FOUNDATION_EXPORT void AndroidDatabaseSqliteSQLiteQuery_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withAndroidOsCancellationSignal_(AndroidDatabaseSqliteSQLiteQuery *self, AndroidDatabaseSqliteSQLiteDatabase *db, NSString *query, AndroidOsCancellationSignal *cancellationSignal);
 
-FOUNDATION_EXPORT AndroidDatabaseSqliteSQLiteQuery *new_AndroidDatabaseSqliteSQLiteQuery_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_(AndroidDatabaseSqliteSQLiteDatabase *db, NSString *query) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT AndroidDatabaseSqliteSQLiteQuery *new_AndroidDatabaseSqliteSQLiteQuery_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withAndroidOsCancellationSignal_(AndroidDatabaseSqliteSQLiteDatabase *db, NSString *query, AndroidOsCancellationSignal *cancellationSignal) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT AndroidDatabaseSqliteSQLiteQuery *create_AndroidDatabaseSqliteSQLiteQuery_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_(AndroidDatabaseSqliteSQLiteDatabase *db, NSString *query);
+FOUNDATION_EXPORT AndroidDatabaseSqliteSQLiteQuery *create_AndroidDatabaseSqliteSQLiteQuery_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withAndroidOsCancellationSignal_(AndroidDatabaseSqliteSQLiteDatabase *db, NSString *query, AndroidOsCancellationSignal *cancellationSignal);
 
 J2OBJC_TYPE_LITERAL_HEADER(AndroidDatabaseSqliteSQLiteQuery)
 

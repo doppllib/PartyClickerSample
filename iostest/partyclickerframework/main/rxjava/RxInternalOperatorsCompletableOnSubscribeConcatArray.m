@@ -110,6 +110,14 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(RxInternalOperatorsCompletableOnSubscribeConcat
   while ([self decrementAndGet] != 0);
 }
 
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
+}
+
 - (void)dealloc {
   RELEASE_(actual_);
   RELEASE_(sources_);

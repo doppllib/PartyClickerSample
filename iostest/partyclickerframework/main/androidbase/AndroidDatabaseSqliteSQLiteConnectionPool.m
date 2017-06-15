@@ -7,6 +7,8 @@
 #include "AndroidDatabaseSqliteSQLiteDatabase.h"
 #include "AndroidDatabaseSqliteSQLiteDatabaseConfiguration.h"
 #include "AndroidDatabaseSqliteSQLiteGlobal.h"
+#include "AndroidOsCancellationSignal.h"
+#include "AndroidOsOperationCanceledException.h"
 #include "AndroidUtilPrefixPrinter.h"
 #include "IOSObjectArray.h"
 #include "J2ObjC_source.h"
@@ -73,7 +75,10 @@
 - (void)markAcquiredConnectionsLockedWithAndroidDatabaseSqliteSQLiteConnectionPool_AcquiredConnectionStatus:(AndroidDatabaseSqliteSQLiteConnectionPool_AcquiredConnectionStatus *)status;
 
 - (AndroidDatabaseSqliteSQLiteConnection *)waitForConnectionWithNSString:(NSString *)sql
-                                                                 withInt:(jint)connectionFlags;
+                                                                 withInt:(jint)connectionFlags
+                                         withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal;
+
+- (void)cancelConnectionWaiterLockedWithAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter:(AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter *)waiter;
 
 - (void)logConnectionPoolBusyLockedWithLong:(jlong)waitMillis
                                     withInt:(jint)connectionFlags;
@@ -154,7 +159,9 @@ __attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnectionPool_re
 
 __attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnectionPool_markAcquiredConnectionsLockedWithAndroidDatabaseSqliteSQLiteConnectionPool_AcquiredConnectionStatus_(AndroidDatabaseSqliteSQLiteConnectionPool *self, AndroidDatabaseSqliteSQLiteConnectionPool_AcquiredConnectionStatus *status);
 
-__attribute__((unused)) static AndroidDatabaseSqliteSQLiteConnection *AndroidDatabaseSqliteSQLiteConnectionPool_waitForConnectionWithNSString_withInt_(AndroidDatabaseSqliteSQLiteConnectionPool *self, NSString *sql, jint connectionFlags);
+__attribute__((unused)) static AndroidDatabaseSqliteSQLiteConnection *AndroidDatabaseSqliteSQLiteConnectionPool_waitForConnectionWithNSString_withInt_withAndroidOsCancellationSignal_(AndroidDatabaseSqliteSQLiteConnectionPool *self, NSString *sql, jint connectionFlags, AndroidOsCancellationSignal *cancellationSignal);
+
+__attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnectionPool_cancelConnectionWaiterLockedWithAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter_(AndroidDatabaseSqliteSQLiteConnectionPool *self, AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter *waiter);
 
 __attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnectionPool_logConnectionPoolBusyLockedWithLong_withInt_(AndroidDatabaseSqliteSQLiteConnectionPool *self, jlong waitMillis, jint connectionFlags);
 
@@ -179,6 +186,29 @@ __attribute__((unused)) static AndroidDatabaseSqliteSQLiteConnectionPool_Connect
 __attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnectionPool_recycleConnectionWaiterLockedWithAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter_(AndroidDatabaseSqliteSQLiteConnectionPool *self, AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter *waiter);
 
 __attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnectionPool_AcquiredConnectionStatus_initWithNSString_withInt_(AndroidDatabaseSqliteSQLiteConnectionPool_AcquiredConnectionStatus *self, NSString *__name, jint __ordinal);
+
+@interface AndroidDatabaseSqliteSQLiteConnectionPool_1 : NSObject < AndroidOsCancellationSignal_OnCancelListener > {
+ @public
+  AndroidDatabaseSqliteSQLiteConnectionPool *this$0_;
+  AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter *val$waiter_;
+  jint val$nonce_;
+}
+
+- (instancetype)initWithAndroidDatabaseSqliteSQLiteConnectionPool:(AndroidDatabaseSqliteSQLiteConnectionPool *)outer$
+   withAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter:(AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter *)capture$0
+                                                          withInt:(jint)capture$1;
+
+- (void)onCancel;
+
+@end
+
+J2OBJC_EMPTY_STATIC_INIT(AndroidDatabaseSqliteSQLiteConnectionPool_1)
+
+__attribute__((unused)) static void AndroidDatabaseSqliteSQLiteConnectionPool_1_initWithAndroidDatabaseSqliteSQLiteConnectionPool_withAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter_withInt_(AndroidDatabaseSqliteSQLiteConnectionPool_1 *self, AndroidDatabaseSqliteSQLiteConnectionPool *outer$, AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter *capture$0, jint capture$1);
+
+__attribute__((unused)) static AndroidDatabaseSqliteSQLiteConnectionPool_1 *new_AndroidDatabaseSqliteSQLiteConnectionPool_1_initWithAndroidDatabaseSqliteSQLiteConnectionPool_withAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter_withInt_(AndroidDatabaseSqliteSQLiteConnectionPool *outer$, AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter *capture$0, jint capture$1) NS_RETURNS_RETAINED;
+
+__attribute__((unused)) static AndroidDatabaseSqliteSQLiteConnectionPool_1 *create_AndroidDatabaseSqliteSQLiteConnectionPool_1_initWithAndroidDatabaseSqliteSQLiteConnectionPool_withAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter_withInt_(AndroidDatabaseSqliteSQLiteConnectionPool *outer$, AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter *capture$0, jint capture$1);
 
 @interface AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter : NSObject {
  @public
@@ -288,8 +318,9 @@ J2OBJC_TYPE_LITERAL_HEADER(AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionW
 }
 
 - (AndroidDatabaseSqliteSQLiteConnection *)acquireConnectionWithNSString:(NSString *)sql
-                                                                 withInt:(jint)connectionFlags {
-  return AndroidDatabaseSqliteSQLiteConnectionPool_waitForConnectionWithNSString_withInt_(self, sql, connectionFlags);
+                                                                 withInt:(jint)connectionFlags
+                                         withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
+  return AndroidDatabaseSqliteSQLiteConnectionPool_waitForConnectionWithNSString_withInt_withAndroidOsCancellationSignal_(self, sql, connectionFlags, cancellationSignal);
 }
 
 - (void)releaseConnectionWithAndroidDatabaseSqliteSQLiteConnection:(AndroidDatabaseSqliteSQLiteConnection *)connection {
@@ -303,7 +334,7 @@ J2OBJC_TYPE_LITERAL_HEADER(AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionW
     }
     else if ([((AndroidDatabaseSqliteSQLiteConnection *) nil_chk(connection)) isPrimaryConnection]) {
       if (AndroidDatabaseSqliteSQLiteConnectionPool_recycleConnectionLockedWithAndroidDatabaseSqliteSQLiteConnection_withAndroidDatabaseSqliteSQLiteConnectionPool_AcquiredConnectionStatus_(self, connection, status)) {
-        JreAssert((mAvailablePrimaryConnection_ == nil), (@"android/database/sqlite/SQLiteConnectionPool.java:373 condition failed: assert mAvailablePrimaryConnection == null;"));
+        JreAssert((mAvailablePrimaryConnection_ == nil), (@"android/database/sqlite/SQLiteConnectionPool.java:376 condition failed: assert mAvailablePrimaryConnection == null;"));
         JreStrongAssign(&mAvailablePrimaryConnection_, connection);
       }
       AndroidDatabaseSqliteSQLiteConnectionPool_wakeConnectionWaitersLocked(self);
@@ -391,8 +422,13 @@ J2OBJC_TYPE_LITERAL_HEADER(AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionW
 }
 
 - (AndroidDatabaseSqliteSQLiteConnection *)waitForConnectionWithNSString:(NSString *)sql
-                                                                 withInt:(jint)connectionFlags {
-  return AndroidDatabaseSqliteSQLiteConnectionPool_waitForConnectionWithNSString_withInt_(self, sql, connectionFlags);
+                                                                 withInt:(jint)connectionFlags
+                                         withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal {
+  return AndroidDatabaseSqliteSQLiteConnectionPool_waitForConnectionWithNSString_withInt_withAndroidOsCancellationSignal_(self, sql, connectionFlags, cancellationSignal);
+}
+
+- (void)cancelConnectionWaiterLockedWithAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter:(AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter *)waiter {
+  AndroidDatabaseSqliteSQLiteConnectionPool_cancelConnectionWaiterLockedWithAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter_(self, waiter);
 }
 
 - (void)logConnectionPoolBusyLockedWithLong:(jlong)waitMillis
@@ -540,18 +576,19 @@ J2OBJC_TYPE_LITERAL_HEADER(AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionW
     { NULL, "V", 0x2, 21, 22, -1, -1, -1, -1 },
     { NULL, "LAndroidDatabaseSqliteSQLiteConnection;", 0x2, 23, 8, -1, -1, -1, -1 },
     { NULL, "V", 0x2, 24, 25, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 26, 27, -1, -1, -1, -1 },
     { NULL, "V", 0x2, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LAndroidDatabaseSqliteSQLiteConnection;", 0x2, 26, 27, -1, -1, -1, -1 },
-    { NULL, "LAndroidDatabaseSqliteSQLiteConnection;", 0x2, 28, 8, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 29, 14, -1, -1, -1, -1 },
-    { NULL, "Z", 0x2, 30, 31, -1, -1, -1, -1 },
-    { NULL, "I", 0xa, 32, 27, -1, -1, -1, -1 },
+    { NULL, "LAndroidDatabaseSqliteSQLiteConnection;", 0x2, 28, 29, -1, -1, -1, -1 },
+    { NULL, "LAndroidDatabaseSqliteSQLiteConnection;", 0x2, 30, 31, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 32, 14, -1, -1, -1, -1 },
+    { NULL, "Z", 0x2, 33, 34, -1, -1, -1, -1 },
+    { NULL, "I", 0xa, 35, 29, -1, -1, -1, -1 },
     { NULL, "V", 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x2, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter;", 0x2, 33, 34, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 35, 36, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 37, 38, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x1, 39, -1, -1, -1, -1, -1 },
+    { NULL, "LAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter;", 0x2, 36, 37, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 38, 25, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 39, 40, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x1, 41, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -562,7 +599,7 @@ J2OBJC_TYPE_LITERAL_HEADER(AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionW
   methods[4].selector = @selector(close);
   methods[5].selector = @selector(disposeWithBoolean:);
   methods[6].selector = @selector(reconfigureWithAndroidDatabaseSqliteSQLiteDatabaseConfiguration:);
-  methods[7].selector = @selector(acquireConnectionWithNSString:withInt:);
+  methods[7].selector = @selector(acquireConnectionWithNSString:withInt:withAndroidOsCancellationSignal:);
   methods[8].selector = @selector(releaseConnectionWithAndroidDatabaseSqliteSQLiteConnection:);
   methods[9].selector = @selector(recycleConnectionLockedWithAndroidDatabaseSqliteSQLiteConnection:withAndroidDatabaseSqliteSQLiteConnectionPool_AcquiredConnectionStatus:);
   methods[10].selector = @selector(shouldYieldConnectionWithAndroidDatabaseSqliteSQLiteConnection:withInt:);
@@ -576,23 +613,24 @@ J2OBJC_TYPE_LITERAL_HEADER(AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionW
   methods[18].selector = @selector(discardAcquiredConnectionsLocked);
   methods[19].selector = @selector(reconfigureAllConnectionsLocked);
   methods[20].selector = @selector(markAcquiredConnectionsLockedWithAndroidDatabaseSqliteSQLiteConnectionPool_AcquiredConnectionStatus:);
-  methods[21].selector = @selector(waitForConnectionWithNSString:withInt:);
-  methods[22].selector = @selector(logConnectionPoolBusyLockedWithLong:withInt:);
-  methods[23].selector = @selector(wakeConnectionWaitersLocked);
-  methods[24].selector = @selector(tryAcquirePrimaryConnectionLockedWithInt:);
-  methods[25].selector = @selector(tryAcquireNonPrimaryConnectionLockedWithNSString:withInt:);
-  methods[26].selector = @selector(finishAcquireConnectionLockedWithAndroidDatabaseSqliteSQLiteConnection:withInt:);
-  methods[27].selector = @selector(isSessionBlockingImportantConnectionWaitersLockedWithBoolean:withInt:);
-  methods[28].selector = @selector(getPriorityWithInt:);
-  methods[29].selector = @selector(setMaxConnectionPoolSizeLocked);
-  methods[30].selector = @selector(throwIfClosedLocked);
-  methods[31].selector = @selector(obtainConnectionWaiterLockedWithJavaLangThread:withLong:withInt:withBoolean:withNSString:withInt:);
-  methods[32].selector = @selector(recycleConnectionWaiterLockedWithAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter:);
-  methods[33].selector = @selector(dumpWithAndroidUtilPrinter:withBoolean:);
-  methods[34].selector = @selector(description);
+  methods[21].selector = @selector(waitForConnectionWithNSString:withInt:withAndroidOsCancellationSignal:);
+  methods[22].selector = @selector(cancelConnectionWaiterLockedWithAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter:);
+  methods[23].selector = @selector(logConnectionPoolBusyLockedWithLong:withInt:);
+  methods[24].selector = @selector(wakeConnectionWaitersLocked);
+  methods[25].selector = @selector(tryAcquirePrimaryConnectionLockedWithInt:);
+  methods[26].selector = @selector(tryAcquireNonPrimaryConnectionLockedWithNSString:withInt:);
+  methods[27].selector = @selector(finishAcquireConnectionLockedWithAndroidDatabaseSqliteSQLiteConnection:withInt:);
+  methods[28].selector = @selector(isSessionBlockingImportantConnectionWaitersLockedWithBoolean:withInt:);
+  methods[29].selector = @selector(getPriorityWithInt:);
+  methods[30].selector = @selector(setMaxConnectionPoolSizeLocked);
+  methods[31].selector = @selector(throwIfClosedLocked);
+  methods[32].selector = @selector(obtainConnectionWaiterLockedWithJavaLangThread:withLong:withInt:withBoolean:withNSString:withInt:);
+  methods[33].selector = @selector(recycleConnectionWaiterLockedWithAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter:);
+  methods[34].selector = @selector(dumpWithAndroidUtilPrinter:withBoolean:);
+  methods[35].selector = @selector(description);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "TAG", "LNSString;", .constantValue.asLong = 0, 0x1a, -1, 40, -1, -1 },
+    { "TAG", "LNSString;", .constantValue.asLong = 0, 0x1a, -1, 42, -1, -1 },
     { "CONNECTION_POOL_BUSY_MILLIS", "J", .constantValue.asLong = AndroidDatabaseSqliteSQLiteConnectionPool_CONNECTION_POOL_BUSY_MILLIS, 0x1a, -1, -1, -1, -1 },
     { "mCloseGuard_", "LDalvikSystemCloseGuard;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
     { "mLock_", "LNSObject;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
@@ -603,15 +641,15 @@ J2OBJC_TYPE_LITERAL_HEADER(AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionW
     { "mNextConnectionId_", "I", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mConnectionWaiterPool_", "LAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mConnectionWaiterQueue_", "LAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
-    { "mAvailableNonPrimaryConnections_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x12, -1, -1, 41, -1 },
+    { "mAvailableNonPrimaryConnections_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x12, -1, -1, 43, -1 },
     { "mAvailablePrimaryConnection_", "LAndroidDatabaseSqliteSQLiteConnection;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
-    { "mAcquiredConnections_", "LJavaUtilWeakHashMap;", .constantValue.asLong = 0, 0x12, -1, -1, 42, -1 },
+    { "mAcquiredConnections_", "LJavaUtilWeakHashMap;", .constantValue.asLong = 0, 0x12, -1, -1, 44, -1 },
     { "CONNECTION_FLAG_READ_ONLY", "I", .constantValue.asInt = AndroidDatabaseSqliteSQLiteConnectionPool_CONNECTION_FLAG_READ_ONLY, 0x19, -1, -1, -1, -1 },
     { "CONNECTION_FLAG_PRIMARY_CONNECTION_AFFINITY", "I", .constantValue.asInt = AndroidDatabaseSqliteSQLiteConnectionPool_CONNECTION_FLAG_PRIMARY_CONNECTION_AFFINITY, 0x19, -1, -1, -1, -1 },
     { "CONNECTION_FLAG_INTERACTIVE", "I", .constantValue.asInt = AndroidDatabaseSqliteSQLiteConnectionPool_CONNECTION_FLAG_INTERACTIVE, 0x19, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LAndroidDatabaseSqliteSQLiteDatabaseConfiguration;", "finalize", "LNSException;", "open", "dispose", "Z", "reconfigure", "acquireConnection", "LNSString;I", "releaseConnection", "LAndroidDatabaseSqliteSQLiteConnection;", "recycleConnectionLocked", "LAndroidDatabaseSqliteSQLiteConnection;LAndroidDatabaseSqliteSQLiteConnectionPool_AcquiredConnectionStatus;", "shouldYieldConnection", "LAndroidDatabaseSqliteSQLiteConnection;I", "collectDbStats", "LJavaUtilArrayList;", "(Ljava/util/ArrayList<Landroid/database/sqlite/SQLiteDebug$DbStats;>;)V", "openConnectionLocked", "LAndroidDatabaseSqliteSQLiteDatabaseConfiguration;Z", "closeConnectionAndLogExceptionsLocked", "markAcquiredConnectionsLocked", "LAndroidDatabaseSqliteSQLiteConnectionPool_AcquiredConnectionStatus;", "waitForConnection", "logConnectionPoolBusyLocked", "JI", "tryAcquirePrimaryConnectionLocked", "I", "tryAcquireNonPrimaryConnectionLocked", "finishAcquireConnectionLocked", "isSessionBlockingImportantConnectionWaitersLocked", "ZI", "getPriority", "obtainConnectionWaiterLocked", "LJavaLangThread;JIZLNSString;I", "recycleConnectionWaiterLocked", "LAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter;", "dump", "LAndroidUtilPrinter;Z", "toString", &AndroidDatabaseSqliteSQLiteConnectionPool_TAG, "Ljava/util/ArrayList<Landroid/database/sqlite/SQLiteConnection;>;", "Ljava/util/WeakHashMap<Landroid/database/sqlite/SQLiteConnection;Landroid/database/sqlite/SQLiteConnectionPool$AcquiredConnectionStatus;>;", "LAndroidDatabaseSqliteSQLiteConnectionPool_AcquiredConnectionStatus;LAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter;" };
-  static const J2ObjcClassInfo _AndroidDatabaseSqliteSQLiteConnectionPool = { "SQLiteConnectionPool", "android.database.sqlite", ptrTable, methods, fields, 7, 0x11, 35, 17, -1, 43, -1, -1, -1 };
+  static const void *ptrTable[] = { "LAndroidDatabaseSqliteSQLiteDatabaseConfiguration;", "finalize", "LNSException;", "open", "dispose", "Z", "reconfigure", "acquireConnection", "LNSString;ILAndroidOsCancellationSignal;", "releaseConnection", "LAndroidDatabaseSqliteSQLiteConnection;", "recycleConnectionLocked", "LAndroidDatabaseSqliteSQLiteConnection;LAndroidDatabaseSqliteSQLiteConnectionPool_AcquiredConnectionStatus;", "shouldYieldConnection", "LAndroidDatabaseSqliteSQLiteConnection;I", "collectDbStats", "LJavaUtilArrayList;", "(Ljava/util/ArrayList<Landroid/database/sqlite/SQLiteDebug$DbStats;>;)V", "openConnectionLocked", "LAndroidDatabaseSqliteSQLiteDatabaseConfiguration;Z", "closeConnectionAndLogExceptionsLocked", "markAcquiredConnectionsLocked", "LAndroidDatabaseSqliteSQLiteConnectionPool_AcquiredConnectionStatus;", "waitForConnection", "cancelConnectionWaiterLocked", "LAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter;", "logConnectionPoolBusyLocked", "JI", "tryAcquirePrimaryConnectionLocked", "I", "tryAcquireNonPrimaryConnectionLocked", "LNSString;I", "finishAcquireConnectionLocked", "isSessionBlockingImportantConnectionWaitersLocked", "ZI", "getPriority", "obtainConnectionWaiterLocked", "LJavaLangThread;JIZLNSString;I", "recycleConnectionWaiterLocked", "dump", "LAndroidUtilPrinter;Z", "toString", &AndroidDatabaseSqliteSQLiteConnectionPool_TAG, "Ljava/util/ArrayList<Landroid/database/sqlite/SQLiteConnection;>;", "Ljava/util/WeakHashMap<Landroid/database/sqlite/SQLiteConnection;Landroid/database/sqlite/SQLiteConnectionPool$AcquiredConnectionStatus;>;", "LAndroidDatabaseSqliteSQLiteConnectionPool_AcquiredConnectionStatus;LAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter;" };
+  static const J2ObjcClassInfo _AndroidDatabaseSqliteSQLiteConnectionPool = { "SQLiteConnectionPool", "android.database.sqlite", ptrTable, methods, fields, 7, 0x11, 36, 17, -1, 45, -1, -1, -1 };
   return &_AndroidDatabaseSqliteSQLiteConnectionPool;
 }
 
@@ -775,12 +813,15 @@ void AndroidDatabaseSqliteSQLiteConnectionPool_markAcquiredConnectionsLockedWith
   }
 }
 
-AndroidDatabaseSqliteSQLiteConnection *AndroidDatabaseSqliteSQLiteConnectionPool_waitForConnectionWithNSString_withInt_(AndroidDatabaseSqliteSQLiteConnectionPool *self, NSString *sql, jint connectionFlags) {
+AndroidDatabaseSqliteSQLiteConnection *AndroidDatabaseSqliteSQLiteConnectionPool_waitForConnectionWithNSString_withInt_withAndroidOsCancellationSignal_(AndroidDatabaseSqliteSQLiteConnectionPool *self, NSString *sql, jint connectionFlags, AndroidOsCancellationSignal *cancellationSignal) {
   jboolean wantPrimaryConnection = (connectionFlags & AndroidDatabaseSqliteSQLiteConnectionPool_CONNECTION_FLAG_PRIMARY_CONNECTION_AFFINITY) != 0;
   AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter *waiter;
   jint nonce;
   @synchronized(self->mLock_) {
     AndroidDatabaseSqliteSQLiteConnectionPool_throwIfClosedLocked(self);
+    if (cancellationSignal != nil) {
+      [cancellationSignal throwIfCanceled];
+    }
     AndroidDatabaseSqliteSQLiteConnection *connection = nil;
     if (!wantPrimaryConnection) {
       connection = AndroidDatabaseSqliteSQLiteConnectionPool_tryAcquireNonPrimaryConnectionLockedWithNSString_withInt_(self, sql, connectionFlags);
@@ -811,6 +852,9 @@ AndroidDatabaseSqliteSQLiteConnection *AndroidDatabaseSqliteSQLiteConnectionPool
       JreStrongAssign(&self->mConnectionWaiterQueue_, waiter);
     }
     nonce = ((AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter *) nil_chk(waiter))->mNonce_;
+  }
+  if (cancellationSignal != nil) {
+    [cancellationSignal setOnCancelListenerWithAndroidOsCancellationSignal_OnCancelListener:create_AndroidDatabaseSqliteSQLiteConnectionPool_1_initWithAndroidDatabaseSqliteSQLiteConnectionPool_withAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter_withInt_(self, waiter, nonce)];
   }
   @try {
     jlong busyTimeoutMillis = AndroidDatabaseSqliteSQLiteConnectionPool_CONNECTION_POOL_BUSY_MILLIS;
@@ -847,7 +891,32 @@ AndroidDatabaseSqliteSQLiteConnection *AndroidDatabaseSqliteSQLiteConnectionPool
     }
   }
   @finally {
+    if (cancellationSignal != nil) {
+      [cancellationSignal setOnCancelListenerWithAndroidOsCancellationSignal_OnCancelListener:nil];
+    }
   }
+}
+
+void AndroidDatabaseSqliteSQLiteConnectionPool_cancelConnectionWaiterLockedWithAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter_(AndroidDatabaseSqliteSQLiteConnectionPool *self, AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter *waiter) {
+  if (((AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter *) nil_chk(waiter))->mAssignedConnection_ != nil || waiter->mException_ != nil) {
+    return;
+  }
+  AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter *predecessor = nil;
+  AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter *current = self->mConnectionWaiterQueue_;
+  while (current != waiter) {
+    JreAssert((current != nil), (@"android/database/sqlite/SQLiteConnectionPool.java:718 condition failed: assert current != null;"));
+    predecessor = current;
+    current = ((AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter *) nil_chk(current))->mNext_;
+  }
+  if (predecessor != nil) {
+    JreStrongAssign(&predecessor->mNext_, waiter->mNext_);
+  }
+  else {
+    JreStrongAssign(&self->mConnectionWaiterQueue_, waiter->mNext_);
+  }
+  JreStrongAssignAndConsume(&waiter->mException_, new_AndroidOsOperationCanceledException_init());
+  JavaUtilConcurrentLocksLockSupport_unparkWithJavaLangThread_(waiter->mThread_);
+  AndroidDatabaseSqliteSQLiteConnectionPool_wakeConnectionWaitersLocked(self);
 }
 
 void AndroidDatabaseSqliteSQLiteConnectionPool_logConnectionPoolBusyLockedWithLong_withInt_(AndroidDatabaseSqliteSQLiteConnectionPool *self, jlong waitMillis, jint connectionFlags) {
@@ -1160,6 +1229,66 @@ AndroidDatabaseSqliteSQLiteConnectionPool_AcquiredConnectionStatus *AndroidDatab
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(AndroidDatabaseSqliteSQLiteConnectionPool_AcquiredConnectionStatus)
+
+@implementation AndroidDatabaseSqliteSQLiteConnectionPool_1
+
+- (instancetype)initWithAndroidDatabaseSqliteSQLiteConnectionPool:(AndroidDatabaseSqliteSQLiteConnectionPool *)outer$
+   withAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter:(AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter *)capture$0
+                                                          withInt:(jint)capture$1 {
+  AndroidDatabaseSqliteSQLiteConnectionPool_1_initWithAndroidDatabaseSqliteSQLiteConnectionPool_withAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter_withInt_(self, outer$, capture$0, capture$1);
+  return self;
+}
+
+- (void)onCancel {
+  @synchronized(this$0_->mLock_) {
+    if (((AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter *) nil_chk(val$waiter_))->mNonce_ == val$nonce_) {
+      AndroidDatabaseSqliteSQLiteConnectionPool_cancelConnectionWaiterLockedWithAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter_(this$0_, val$waiter_);
+    }
+  }
+}
+
+- (void)dealloc {
+  RELEASE_(this$0_);
+  RELEASE_(val$waiter_);
+  [super dealloc];
+}
+
++ (const J2ObjcClassInfo *)__metadata {
+  static J2ObjcMethodInfo methods[] = {
+    { NULL, NULL, 0x0, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
+  };
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
+  methods[0].selector = @selector(initWithAndroidDatabaseSqliteSQLiteConnectionPool:withAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter:withInt:);
+  methods[1].selector = @selector(onCancel);
+  #pragma clang diagnostic pop
+  static const J2ObjcFieldInfo fields[] = {
+    { "this$0_", "LAndroidDatabaseSqliteSQLiteConnectionPool;", .constantValue.asLong = 0, 0x1012, -1, -1, -1, -1 },
+    { "val$waiter_", "LAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter;", .constantValue.asLong = 0, 0x1012, -1, -1, -1, -1 },
+    { "val$nonce_", "I", .constantValue.asLong = 0, 0x1012, -1, -1, -1, -1 },
+  };
+  static const void *ptrTable[] = { "LAndroidDatabaseSqliteSQLiteConnectionPool;", "waitForConnectionWithNSString:withInt:withAndroidOsCancellationSignal:" };
+  static const J2ObjcClassInfo _AndroidDatabaseSqliteSQLiteConnectionPool_1 = { "", "android.database.sqlite", ptrTable, methods, fields, 7, 0x8018, 2, 3, 0, -1, 1, -1, -1 };
+  return &_AndroidDatabaseSqliteSQLiteConnectionPool_1;
+}
+
+@end
+
+void AndroidDatabaseSqliteSQLiteConnectionPool_1_initWithAndroidDatabaseSqliteSQLiteConnectionPool_withAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter_withInt_(AndroidDatabaseSqliteSQLiteConnectionPool_1 *self, AndroidDatabaseSqliteSQLiteConnectionPool *outer$, AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter *capture$0, jint capture$1) {
+  JreStrongAssign(&self->this$0_, outer$);
+  JreStrongAssign(&self->val$waiter_, capture$0);
+  self->val$nonce_ = capture$1;
+  NSObject_init(self);
+}
+
+AndroidDatabaseSqliteSQLiteConnectionPool_1 *new_AndroidDatabaseSqliteSQLiteConnectionPool_1_initWithAndroidDatabaseSqliteSQLiteConnectionPool_withAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter_withInt_(AndroidDatabaseSqliteSQLiteConnectionPool *outer$, AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter *capture$0, jint capture$1) {
+  J2OBJC_NEW_IMPL(AndroidDatabaseSqliteSQLiteConnectionPool_1, initWithAndroidDatabaseSqliteSQLiteConnectionPool_withAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter_withInt_, outer$, capture$0, capture$1)
+}
+
+AndroidDatabaseSqliteSQLiteConnectionPool_1 *create_AndroidDatabaseSqliteSQLiteConnectionPool_1_initWithAndroidDatabaseSqliteSQLiteConnectionPool_withAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter_withInt_(AndroidDatabaseSqliteSQLiteConnectionPool *outer$, AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter *capture$0, jint capture$1) {
+  J2OBJC_CREATE_IMPL(AndroidDatabaseSqliteSQLiteConnectionPool_1, initWithAndroidDatabaseSqliteSQLiteConnectionPool_withAndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter_withInt_, outer$, capture$0, capture$1)
+}
 
 @implementation AndroidDatabaseSqliteSQLiteConnectionPool_ConnectionWaiter
 

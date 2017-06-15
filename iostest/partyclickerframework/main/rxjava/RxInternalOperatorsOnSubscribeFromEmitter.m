@@ -281,6 +281,14 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(RxInternalOperatorsOnSubscribeFromEmitter_Cance
   return [self get];
 }
 
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
+}
+
 - (void)dealloc {
   RELEASE_(actual_);
   RELEASE_(serial_);
@@ -359,6 +367,14 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(RxInternalOperatorsOnSubscribeFromEmitter_BaseE
   }
 }
 
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
+}
+
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, 0, -1, 1, -1, -1 },
@@ -418,6 +434,14 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(RxInternalOperatorsOnSubscribeFromEmitter_NoneE
   [self doesNotRecognizeSelector:_cmd];
 }
 
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
+}
+
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, 0, -1, 1, -1, -1 },
@@ -454,6 +478,14 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(RxInternalOperatorsOnSubscribeFromEmitter_NoOve
 }
 
 - (void)onOverflow {
+}
+
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -523,6 +555,14 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(RxInternalOperatorsOnSubscribeFromEmitter_DropE
 
 - (void)onOverflow {
   [self onErrorWithNSException:create_RxExceptionsMissingBackpressureException_initWithNSString_(@"fromEmitter: could not emit value due to lack of requests")];
+}
+
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -660,6 +700,14 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(RxInternalOperatorsOnSubscribeFromEmitter_Error
       break;
     }
   }
+}
+
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
 }
 
 - (void)dealloc {
@@ -812,6 +860,14 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(RxInternalOperatorsOnSubscribeFromEmitter_Buffe
       break;
     }
   }
+}
+
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
 }
 
 - (void)dealloc {

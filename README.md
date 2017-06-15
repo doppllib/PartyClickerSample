@@ -16,7 +16,7 @@ You need to be on a Mac, and be able to install Xcode from the App Store.
 ## Install j2objc runtime
 
 Doppl uses a slightly modified j2objc runtime. This will likely be merged over time to keep the standard
-j2objc runtime, but for now, grab ours. Its about 2 gigs compressed and 9 gigs total.
+j2objc runtime, but for now, grab ours. Its about 1 gig compressed and 2 gigs total.
 
 [j2objc runtime](http://dopplmaven.s3-website-us-east-1.amazonaws.com/dist.zip)
 
@@ -55,3 +55,10 @@ to [dist directory] (no trailing slash).
 ![xcode paths](https://s3.amazonaws.com/dopplmaven/xcodepath.png)
 
 You should now be able to run the app without any modifications.
+
+**You might need to restart Xcode after setting the custom path!!!**
+
+Also, when trying to run the app, make sure you have the ios target selected and are trying to run it on
+an appropriate device or simulator.
+
+![xcode target](https://s3.amazonaws.com/dopplmaven/iostarget.png)

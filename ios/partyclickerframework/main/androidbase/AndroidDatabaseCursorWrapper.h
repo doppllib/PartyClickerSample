@@ -20,6 +20,7 @@
 #include "AndroidDatabaseCursor.h"
 
 @class AndroidDatabaseCharArrayBuffer;
+@class AndroidDatabaseContentObserver;
 @class AndroidDatabaseDataSetObserver;
 @class AndroidOsBundle;
 @class IOSByteArray;
@@ -101,11 +102,15 @@ withAndroidDatabaseCharArrayBuffer:(AndroidDatabaseCharArrayBuffer *)buffer OBJC
 
 - (jboolean)moveToPrevious;
 
+- (void)registerContentObserverWithAndroidDatabaseContentObserver:(AndroidDatabaseContentObserver *)observer;
+
 - (void)registerDataSetObserverWithAndroidDatabaseDataSetObserver:(AndroidDatabaseDataSetObserver *)observer;
 
 - (jboolean)requery;
 
 - (AndroidOsBundle *)respondWithAndroidOsBundle:(AndroidOsBundle *)extras;
+
+- (void)unregisterContentObserverWithAndroidDatabaseContentObserver:(AndroidDatabaseContentObserver *)observer;
 
 - (void)unregisterDataSetObserverWithAndroidDatabaseDataSetObserver:(AndroidDatabaseDataSetObserver *)observer;
 

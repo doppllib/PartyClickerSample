@@ -39,6 +39,10 @@
 
 - (void)drain;
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 - (jboolean)isTerminated;
 
 - (void)requestWithLong:(jlong)n;

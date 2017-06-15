@@ -907,6 +907,14 @@ withRxInternalOperatorsOperatorGroupBy_GroupBySubscriber:(RxInternalOperatorsOpe
   return false;
 }
 
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
+}
+
 - (void)dealloc {
   RELEASE_(key_);
   RELEASE_(queue_);

@@ -6,10 +6,6 @@
 #include "J2ObjC_source.h"
 #include "java/lang/Math.h"
 
-#import <sqlite3.h>
-
-#define SOFT_HEAP_LIMIT 8 * 1024 * 1024
-
 @interface AndroidDatabaseSqliteSQLiteGlobal ()
 
 + (jint)nativeReleaseMemory;
@@ -32,7 +28,7 @@ inline jint *AndroidDatabaseSqliteSQLiteGlobal_getRef_sDefaultPageSize();
 static jint AndroidDatabaseSqliteSQLiteGlobal_sDefaultPageSize;
 J2OBJC_STATIC_FIELD_PRIMITIVE(AndroidDatabaseSqliteSQLiteGlobal, sDefaultPageSize, jint)
 
-__attribute__((unused)) static jint AndroidDatabaseSqliteSQLiteGlobal_nativeReleaseMemory();
+jint AndroidDatabaseSqliteSQLiteGlobal_nativeReleaseMemory();
 
 __attribute__((unused)) static void AndroidDatabaseSqliteSQLiteGlobal_init(AndroidDatabaseSqliteSQLiteGlobal *self);
 
@@ -44,12 +40,12 @@ J2OBJC_INITIALIZED_DEFN(AndroidDatabaseSqliteSQLiteGlobal)
 
 @implementation AndroidDatabaseSqliteSQLiteGlobal
 
-+ (void)sqlite3_initialize {
-  AndroidDatabaseSqliteSQLiteGlobal_sqlite3_initialize();
-}
-
 + (jint)nativeReleaseMemory {
   return AndroidDatabaseSqliteSQLiteGlobal_nativeReleaseMemory();
+}
+
++ (void)initStatics {
+  AndroidDatabaseSqliteSQLiteGlobal_initStatics();
 }
 
 J2OBJC_IGNORE_DESIGNATED_BEGIN
@@ -93,8 +89,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
-    { NULL, "V", 0x109, -1, -1, -1, -1, -1, -1 },
     { NULL, "I", 0x10a, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x109, -1, -1, -1, -1, -1, -1 },
     { NULL, NULL, 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, "I", 0x9, -1, -1, -1, -1, -1, -1 },
     { NULL, "I", 0x9, -1, -1, -1, -1, -1, -1 },
@@ -107,8 +103,8 @@ J2OBJC_IGNORE_DESIGNATED_END
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
-  methods[0].selector = @selector(sqlite3_initialize);
-  methods[1].selector = @selector(nativeReleaseMemory);
+  methods[0].selector = @selector(nativeReleaseMemory);
+  methods[1].selector = @selector(initStatics);
   methods[2].selector = @selector(init);
   methods[3].selector = @selector(releaseMemory);
   methods[4].selector = @selector(getDefaultPageSize);
@@ -138,25 +134,16 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 @end
 
-void AndroidDatabaseSqliteSQLiteGlobal_sqlite3_initialize() {
-  AndroidDatabaseSqliteSQLiteGlobal_initialize();
-  // Enable multi-threaded mode.  In this mode, SQLite is safe to use by multiple
-  // threads as long as no two threads use the same database connection at the same
-  // time (which we guarantee in the SQLite database wrappers).
-  sqlite3_config(SQLITE_CONFIG_MULTITHREAD);
-  
-  // The soft heap limit prevents the page cache allocations from growing
-  // beyond the given limit, no matter what the max page cache sizes are
-  // set to. The limit does not, as of 3.5.0, affect any other allocations.
-  sqlite3_soft_heap_limit(SOFT_HEAP_LIMIT);
-  
-  // Initialize SQLite.
-  sqlite3_initialize();
-}
+JNIEXPORT jint Java_android_database_sqlite_SQLiteGlobal_nativeReleaseMemory(JNIEnv *_env_, jclass _cls_);
 
 jint AndroidDatabaseSqliteSQLiteGlobal_nativeReleaseMemory() {
-  AndroidDatabaseSqliteSQLiteGlobal_initialize();
-  return sqlite3_release_memory(SOFT_HEAP_LIMIT);
+  return Java_android_database_sqlite_SQLiteGlobal_nativeReleaseMemory(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteGlobal_class_());
+}
+
+JNIEXPORT void Java_android_database_sqlite_SQLiteGlobal_initStatics(JNIEnv *_env_, jclass _cls_);
+
+void AndroidDatabaseSqliteSQLiteGlobal_initStatics() {
+  Java_android_database_sqlite_SQLiteGlobal_initStatics(&J2ObjC_JNIEnv, AndroidDatabaseSqliteSQLiteGlobal_class_());
 }
 
 void AndroidDatabaseSqliteSQLiteGlobal_init(AndroidDatabaseSqliteSQLiteGlobal *self) {

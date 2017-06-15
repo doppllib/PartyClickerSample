@@ -379,6 +379,14 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(RxSubjectsPublishSubject_PublishSubjectState)
   }
 }
 
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
+}
+
 - (void)__javaClone:(RxSubjectsPublishSubject_PublishSubjectProducer *)original {
   [super __javaClone:original];
   [actual_ release];

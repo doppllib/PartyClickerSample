@@ -93,8 +93,7 @@ AndroidDatabaseSqliteSQLiteDebug *create_AndroidDatabaseSqliteSQLiteDebug_init()
 
 jboolean AndroidDatabaseSqliteSQLiteDebug_shouldLogSlowQueryWithLong_(jlong elapsedTimeMillis) {
   AndroidDatabaseSqliteSQLiteDebug_initialize();
-  jint slowQueryMillis = 10000;
-  return slowQueryMillis >= 0 && elapsedTimeMillis >= slowQueryMillis;
+  return false;
 }
 
 void AndroidDatabaseSqliteSQLiteDebug_dumpWithAndroidUtilPrinter_withNSStringArray_(id<AndroidUtilPrinter> printer, IOSObjectArray *args) {

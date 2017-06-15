@@ -239,6 +239,10 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorReplay_ReplaySubscriber)
 - (instancetype)initWithRxInternalOperatorsOperatorReplay_ReplaySubscriber:(RxInternalOperatorsOperatorReplay_ReplaySubscriber *)parent
                                                           withRxSubscriber:(RxSubscriber *)child;
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 - (jboolean)isUnsubscribed;
 
 - (jlong)producedWithLong:(jlong)n;

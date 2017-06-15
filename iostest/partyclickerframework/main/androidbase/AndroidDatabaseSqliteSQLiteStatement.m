@@ -22,7 +22,7 @@
 - (void)execute {
   [self acquireReference];
   @try {
-    [((AndroidDatabaseSqliteSQLiteSession *) nil_chk([self getSession])) executeWithNSString:[self getSql] withNSObjectArray:[self getBindArgs] withInt:[self getConnectionFlags]];
+    [((AndroidDatabaseSqliteSQLiteSession *) nil_chk([self getSession])) executeWithNSString:[self getSql] withNSObjectArray:[self getBindArgs] withInt:[self getConnectionFlags] withAndroidOsCancellationSignal:nil];
   }
   @catch (AndroidDatabaseSqliteSQLiteDatabaseCorruptException *ex) {
     [self onCorruption];
@@ -36,7 +36,7 @@
 - (jint)executeUpdateDelete {
   [self acquireReference];
   @try {
-    return [((AndroidDatabaseSqliteSQLiteSession *) nil_chk([self getSession])) executeForChangedRowCountWithNSString:[self getSql] withNSObjectArray:[self getBindArgs] withInt:[self getConnectionFlags]];
+    return [((AndroidDatabaseSqliteSQLiteSession *) nil_chk([self getSession])) executeForChangedRowCountWithNSString:[self getSql] withNSObjectArray:[self getBindArgs] withInt:[self getConnectionFlags] withAndroidOsCancellationSignal:nil];
   }
   @catch (AndroidDatabaseSqliteSQLiteDatabaseCorruptException *ex) {
     [self onCorruption];
@@ -50,7 +50,7 @@
 - (jlong)executeInsert {
   [self acquireReference];
   @try {
-    return [((AndroidDatabaseSqliteSQLiteSession *) nil_chk([self getSession])) executeForLastInsertedRowIdWithNSString:[self getSql] withNSObjectArray:[self getBindArgs] withInt:[self getConnectionFlags]];
+    return [((AndroidDatabaseSqliteSQLiteSession *) nil_chk([self getSession])) executeForLastInsertedRowIdWithNSString:[self getSql] withNSObjectArray:[self getBindArgs] withInt:[self getConnectionFlags] withAndroidOsCancellationSignal:nil];
   }
   @catch (AndroidDatabaseSqliteSQLiteDatabaseCorruptException *ex) {
     [self onCorruption];
@@ -64,7 +64,7 @@
 - (jlong)simpleQueryForLong {
   [self acquireReference];
   @try {
-    return [((AndroidDatabaseSqliteSQLiteSession *) nil_chk([self getSession])) executeForLongWithNSString:[self getSql] withNSObjectArray:[self getBindArgs] withInt:[self getConnectionFlags]];
+    return [((AndroidDatabaseSqliteSQLiteSession *) nil_chk([self getSession])) executeForLongWithNSString:[self getSql] withNSObjectArray:[self getBindArgs] withInt:[self getConnectionFlags] withAndroidOsCancellationSignal:nil];
   }
   @catch (AndroidDatabaseSqliteSQLiteDatabaseCorruptException *ex) {
     [self onCorruption];
@@ -78,7 +78,7 @@
 - (NSString *)simpleQueryForString {
   [self acquireReference];
   @try {
-    return [((AndroidDatabaseSqliteSQLiteSession *) nil_chk([self getSession])) executeForStringWithNSString:[self getSql] withNSObjectArray:[self getBindArgs] withInt:[self getConnectionFlags]];
+    return [((AndroidDatabaseSqliteSQLiteSession *) nil_chk([self getSession])) executeForStringWithNSString:[self getSql] withNSObjectArray:[self getBindArgs] withInt:[self getConnectionFlags] withAndroidOsCancellationSignal:nil];
   }
   @catch (AndroidDatabaseSqliteSQLiteDatabaseCorruptException *ex) {
     [self onCorruption];
@@ -121,7 +121,7 @@
 @end
 
 void AndroidDatabaseSqliteSQLiteStatement_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSObjectArray_(AndroidDatabaseSqliteSQLiteStatement *self, AndroidDatabaseSqliteSQLiteDatabase *db, NSString *sql, IOSObjectArray *bindArgs) {
-  AndroidDatabaseSqliteSQLiteProgram_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSObjectArray_(self, db, sql, bindArgs);
+  AndroidDatabaseSqliteSQLiteProgram_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSObjectArray_withAndroidOsCancellationSignal_(self, db, sql, bindArgs, nil);
 }
 
 AndroidDatabaseSqliteSQLiteStatement *new_AndroidDatabaseSqliteSQLiteStatement_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSObjectArray_(AndroidDatabaseSqliteSQLiteDatabase *db, NSString *sql, IOSObjectArray *bindArgs) {

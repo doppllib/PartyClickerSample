@@ -20,6 +20,7 @@
 #include "AndroidDatabaseSqliteSQLiteCursorDriver.h"
 
 @class AndroidDatabaseSqliteSQLiteDatabase;
+@class AndroidOsCancellationSignal;
 @class IOSObjectArray;
 @protocol AndroidDatabaseCursor;
 @protocol AndroidDatabaseSqliteSQLiteDatabase_CursorFactory;
@@ -30,7 +31,8 @@
 
 - (instancetype)initWithAndroidDatabaseSqliteSQLiteDatabase:(AndroidDatabaseSqliteSQLiteDatabase *)db
                                                withNSString:(NSString *)sql
-                                               withNSString:(NSString *)editTable;
+                                               withNSString:(NSString *)editTable
+                            withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignal;
 
 - (void)cursorClosed;
 
@@ -49,11 +51,11 @@
 
 J2OBJC_EMPTY_STATIC_INIT(AndroidDatabaseSqliteSQLiteDirectCursorDriver)
 
-FOUNDATION_EXPORT void AndroidDatabaseSqliteSQLiteDirectCursorDriver_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSString_(AndroidDatabaseSqliteSQLiteDirectCursorDriver *self, AndroidDatabaseSqliteSQLiteDatabase *db, NSString *sql, NSString *editTable);
+FOUNDATION_EXPORT void AndroidDatabaseSqliteSQLiteDirectCursorDriver_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSString_withAndroidOsCancellationSignal_(AndroidDatabaseSqliteSQLiteDirectCursorDriver *self, AndroidDatabaseSqliteSQLiteDatabase *db, NSString *sql, NSString *editTable, AndroidOsCancellationSignal *cancellationSignal);
 
-FOUNDATION_EXPORT AndroidDatabaseSqliteSQLiteDirectCursorDriver *new_AndroidDatabaseSqliteSQLiteDirectCursorDriver_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSString_(AndroidDatabaseSqliteSQLiteDatabase *db, NSString *sql, NSString *editTable) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT AndroidDatabaseSqliteSQLiteDirectCursorDriver *new_AndroidDatabaseSqliteSQLiteDirectCursorDriver_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSString_withAndroidOsCancellationSignal_(AndroidDatabaseSqliteSQLiteDatabase *db, NSString *sql, NSString *editTable, AndroidOsCancellationSignal *cancellationSignal) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT AndroidDatabaseSqliteSQLiteDirectCursorDriver *create_AndroidDatabaseSqliteSQLiteDirectCursorDriver_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSString_(AndroidDatabaseSqliteSQLiteDatabase *db, NSString *sql, NSString *editTable);
+FOUNDATION_EXPORT AndroidDatabaseSqliteSQLiteDirectCursorDriver *create_AndroidDatabaseSqliteSQLiteDirectCursorDriver_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSString_withAndroidOsCancellationSignal_(AndroidDatabaseSqliteSQLiteDatabase *db, NSString *sql, NSString *editTable, AndroidOsCancellationSignal *cancellationSignal);
 
 J2OBJC_TYPE_LITERAL_HEADER(AndroidDatabaseSqliteSQLiteDirectCursorDriver)
 

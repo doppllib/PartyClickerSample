@@ -541,6 +541,10 @@ J2OBJC_TYPE_LITERAL_HEADER(RxSubjectsReplaySubject_ReplaySizeAndTimeBoundBuffer_
 - (instancetype)initWithRxSubscriber:(RxSubscriber *)actual
 withRxSubjectsReplaySubject_ReplayState:(RxSubjectsReplaySubject_ReplayState *)state;
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 - (jboolean)isUnsubscribed;
 
 - (void)requestWithLong:(jlong)n;

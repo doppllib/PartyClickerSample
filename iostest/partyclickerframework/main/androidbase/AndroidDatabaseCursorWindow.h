@@ -24,7 +24,7 @@
 
 @interface AndroidDatabaseCursorWindow : AndroidDatabaseSqliteSQLiteClosable {
  @public
-  id mWindowPtr_;
+  jlong mWindowPtr_;
 }
 
 #pragma mark Public
@@ -40,6 +40,8 @@
 - (void)copyStringToBufferWithInt:(jint)row
                           withInt:(jint)column
 withAndroidDatabaseCharArrayBuffer:(AndroidDatabaseCharArrayBuffer *)buffer OBJC_METHOD_FAMILY_NONE;
+
+- (jint)describeContents;
 
 - (void)freeLastRow;
 
@@ -122,8 +124,6 @@ withAndroidDatabaseCharArrayBuffer:(AndroidDatabaseCharArrayBuffer *)buffer OBJC
 @end
 
 J2OBJC_EMPTY_STATIC_INIT(AndroidDatabaseCursorWindow)
-
-J2OBJC_FIELD_SETTER(AndroidDatabaseCursorWindow, mWindowPtr_, id)
 
 FOUNDATION_EXPORT void AndroidDatabaseCursorWindow_initWithNSString_(AndroidDatabaseCursorWindow *self, NSString *name);
 

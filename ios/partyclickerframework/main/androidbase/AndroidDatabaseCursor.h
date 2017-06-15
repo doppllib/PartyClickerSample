@@ -20,6 +20,7 @@
 #include "java/io/Closeable.h"
 
 @class AndroidDatabaseCharArrayBuffer;
+@class AndroidDatabaseContentObserver;
 @class AndroidDatabaseDataSetObserver;
 @class AndroidOsBundle;
 @class IOSByteArray;
@@ -89,6 +90,10 @@ withAndroidDatabaseCharArrayBuffer:(AndroidDatabaseCharArrayBuffer *)buffer OBJC
 - (void)close;
 
 - (jboolean)isClosed;
+
+- (void)registerContentObserverWithAndroidDatabaseContentObserver:(AndroidDatabaseContentObserver *)observer;
+
+- (void)unregisterContentObserverWithAndroidDatabaseContentObserver:(AndroidDatabaseContentObserver *)observer;
 
 - (void)registerDataSetObserverWithAndroidDatabaseDataSetObserver:(AndroidDatabaseDataSetObserver *)observer;
 

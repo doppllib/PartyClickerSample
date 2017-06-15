@@ -364,6 +364,10 @@ withRxInternalOperatorsOperatorGroupBy_GroupBySubscriber:(RxInternalOperatorsOpe
 
 - (void)callWithId:(RxSubscriber *)s;
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 - (jboolean)isUnsubscribed;
 
 - (void)onComplete;

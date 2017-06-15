@@ -194,6 +194,10 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorZip_ZipSubscriber)
 
 - (instancetype)initWithRxInternalOperatorsOperatorZip_Zip:(RxInternalOperatorsOperatorZip_Zip *)zipper;
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 - (void)requestWithLong:(jlong)n;
 
 @end
@@ -232,6 +236,10 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorZip_ZipProducer)
 
 - (instancetype)initWithRxSubscriber:(RxSubscriber *)child
                 withRxFunctionsFuncN:(id<RxFunctionsFuncN>)zipFunction;
+
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
 
 - (void)startWithRxObservableArray:(IOSObjectArray *)os
 withJavaUtilConcurrentAtomicAtomicLong:(JavaUtilConcurrentAtomicAtomicLong *)requested;

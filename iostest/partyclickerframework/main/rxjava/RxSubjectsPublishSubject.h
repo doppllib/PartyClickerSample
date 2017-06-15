@@ -172,6 +172,10 @@ J2OBJC_TYPE_LITERAL_HEADER(RxSubjectsPublishSubject_PublishSubjectState)
 - (instancetype)initWithRxSubjectsPublishSubject_PublishSubjectState:(RxSubjectsPublishSubject_PublishSubjectState *)parent
                                                     withRxSubscriber:(RxSubscriber *)actual;
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 - (jboolean)isUnsubscribed;
 
 - (void)onCompleted;

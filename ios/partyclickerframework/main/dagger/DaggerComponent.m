@@ -39,7 +39,7 @@ __attribute__((unused)) static IOSObjectArray *DaggerComponent_Builder__Annotati
 }
 
 - (NSString *)description {
-  return @"@dagger.Component()";
+  return [NSString stringWithFormat:@"@dagger.Component(modules=%@, dependencies=%@)", modules_, dependencies_];
 }
 
 - (void)dealloc {

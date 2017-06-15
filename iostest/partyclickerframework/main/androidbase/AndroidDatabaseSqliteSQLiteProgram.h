@@ -21,6 +21,7 @@
 
 @class AndroidDatabaseSqliteSQLiteDatabase;
 @class AndroidDatabaseSqliteSQLiteSession;
+@class AndroidOsCancellationSignal;
 @class IOSByteArray;
 @class IOSObjectArray;
 
@@ -62,7 +63,8 @@
 
 - (instancetype)initWithAndroidDatabaseSqliteSQLiteDatabase:(AndroidDatabaseSqliteSQLiteDatabase *)db
                                                withNSString:(NSString *)sql
-                                          withNSObjectArray:(IOSObjectArray *)bindArgs;
+                                          withNSObjectArray:(IOSObjectArray *)bindArgs
+                            withAndroidOsCancellationSignal:(AndroidOsCancellationSignal *)cancellationSignalForPrepare;
 
 - (IOSObjectArray *)getBindArgs;
 
@@ -76,7 +78,7 @@
 
 J2OBJC_STATIC_INIT(AndroidDatabaseSqliteSQLiteProgram)
 
-FOUNDATION_EXPORT void AndroidDatabaseSqliteSQLiteProgram_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSObjectArray_(AndroidDatabaseSqliteSQLiteProgram *self, AndroidDatabaseSqliteSQLiteDatabase *db, NSString *sql, IOSObjectArray *bindArgs);
+FOUNDATION_EXPORT void AndroidDatabaseSqliteSQLiteProgram_initWithAndroidDatabaseSqliteSQLiteDatabase_withNSString_withNSObjectArray_withAndroidOsCancellationSignal_(AndroidDatabaseSqliteSQLiteProgram *self, AndroidDatabaseSqliteSQLiteDatabase *db, NSString *sql, IOSObjectArray *bindArgs, AndroidOsCancellationSignal *cancellationSignalForPrepare);
 
 J2OBJC_TYPE_LITERAL_HEADER(AndroidDatabaseSqliteSQLiteProgram)
 

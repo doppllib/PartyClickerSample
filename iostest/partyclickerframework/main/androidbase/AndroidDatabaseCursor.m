@@ -52,9 +52,11 @@ __attribute__((unused)) static IOSObjectArray *AndroidDatabaseCursor__Annotation
     { NULL, "Z", 0x401, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x401, 20, 21, -1, -1, -1, -1 },
     { NULL, "V", 0x401, 22, 21, -1, -1, -1, -1 },
+    { NULL, "V", 0x401, 23, 24, -1, -1, -1, -1 },
+    { NULL, "V", 0x401, 25, 24, -1, -1, -1, -1 },
     { NULL, "Z", 0x401, -1, -1, -1, -1, -1, -1 },
     { NULL, "LAndroidOsBundle;", 0x401, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LAndroidOsBundle;", 0x401, 23, 24, -1, -1, -1, -1 },
+    { NULL, "LAndroidOsBundle;", 0x401, 26, 27, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -89,11 +91,13 @@ __attribute__((unused)) static IOSObjectArray *AndroidDatabaseCursor__Annotation
   methods[28].selector = @selector(requery);
   methods[29].selector = @selector(close);
   methods[30].selector = @selector(isClosed);
-  methods[31].selector = @selector(registerDataSetObserverWithAndroidDatabaseDataSetObserver:);
-  methods[32].selector = @selector(unregisterDataSetObserverWithAndroidDatabaseDataSetObserver:);
-  methods[33].selector = @selector(getWantsAllOnMoveCalls);
-  methods[34].selector = @selector(getExtras);
-  methods[35].selector = @selector(respondWithAndroidOsBundle:);
+  methods[31].selector = @selector(registerContentObserverWithAndroidDatabaseContentObserver:);
+  methods[32].selector = @selector(unregisterContentObserverWithAndroidDatabaseContentObserver:);
+  methods[33].selector = @selector(registerDataSetObserverWithAndroidDatabaseDataSetObserver:);
+  methods[34].selector = @selector(unregisterDataSetObserverWithAndroidDatabaseDataSetObserver:);
+  methods[35].selector = @selector(getWantsAllOnMoveCalls);
+  methods[36].selector = @selector(getExtras);
+  methods[37].selector = @selector(respondWithAndroidOsBundle:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "FIELD_TYPE_NULL", "I", .constantValue.asInt = AndroidDatabaseCursor_FIELD_TYPE_NULL, 0x19, -1, -1, -1, -1 },
@@ -102,8 +106,8 @@ __attribute__((unused)) static IOSObjectArray *AndroidDatabaseCursor__Annotation
     { "FIELD_TYPE_STRING", "I", .constantValue.asInt = AndroidDatabaseCursor_FIELD_TYPE_STRING, 0x19, -1, -1, -1, -1 },
     { "FIELD_TYPE_BLOB", "I", .constantValue.asInt = AndroidDatabaseCursor_FIELD_TYPE_BLOB, 0x19, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "move", "I", "moveToPosition", "getColumnIndex", "LNSString;", "getColumnIndexOrThrow", "LJavaLangIllegalArgumentException;", "getColumnName", "getBlob", "getString", "copyStringToBuffer", "ILAndroidDatabaseCharArrayBuffer;", "getShort", "getInt", "getLong", "getFloat", "getDouble", "getType", "isNull", (void *)&AndroidDatabaseCursor__Annotations$0, "registerDataSetObserver", "LAndroidDatabaseDataSetObserver;", "unregisterDataSetObserver", "respond", "LAndroidOsBundle;" };
-  static const J2ObjcClassInfo _AndroidDatabaseCursor = { "Cursor", "android.database", ptrTable, methods, fields, 7, 0x609, 36, 5, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "move", "I", "moveToPosition", "getColumnIndex", "LNSString;", "getColumnIndexOrThrow", "LJavaLangIllegalArgumentException;", "getColumnName", "getBlob", "getString", "copyStringToBuffer", "ILAndroidDatabaseCharArrayBuffer;", "getShort", "getInt", "getLong", "getFloat", "getDouble", "getType", "isNull", (void *)&AndroidDatabaseCursor__Annotations$0, "registerContentObserver", "LAndroidDatabaseContentObserver;", "unregisterContentObserver", "registerDataSetObserver", "LAndroidDatabaseDataSetObserver;", "unregisterDataSetObserver", "respond", "LAndroidOsBundle;" };
+  static const J2ObjcClassInfo _AndroidDatabaseCursor = { "Cursor", "android.database", ptrTable, methods, fields, 7, 0x609, 38, 5, -1, -1, -1, -1, -1 };
   return &_AndroidDatabaseCursor;
 }
 

@@ -172,6 +172,10 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorPublish_PublishSubscriber)
 - (instancetype)initWithRxInternalOperatorsOperatorPublish_PublishSubscriber:(RxInternalOperatorsOperatorPublish_PublishSubscriber *)parent
                                                             withRxSubscriber:(RxSubscriber *)child;
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 - (jboolean)isUnsubscribed;
 
 - (jlong)producedWithLong:(jlong)n;

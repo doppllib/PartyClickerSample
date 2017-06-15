@@ -41,6 +41,10 @@
 - (instancetype)initWithRxSubscriber:(RxSubscriber *)child
                    withJavaUtilQueue:(id<JavaUtilQueue>)queue;
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 - (jboolean)offerWithId:(id)value;
 
 - (void)requestWithLong:(jlong)n;

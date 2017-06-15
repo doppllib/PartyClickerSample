@@ -262,6 +262,14 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(RxInternalOperatorsOperatorMerge_HolderDelayErr
   return [self addAndGetWithLong:-n];
 }
 
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
+}
+
 - (void)__javaClone:(RxInternalOperatorsOperatorMerge_MergeProducer *)original {
   [super __javaClone:original];
   [subscriber_ release];

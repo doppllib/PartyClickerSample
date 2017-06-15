@@ -13,16 +13,12 @@
 #include "IOSObjectArray.h"
 #include "J2ObjC_source.h"
 #include "android/util/Log.h"
-#include "java/io/PrintStream.h"
-#include "java/io/PrintWriter.h"
-#include "java/io/StringWriter.h"
 #include "java/lang/Deprecated.h"
 #include "java/lang/Exception.h"
 #include "java/lang/IllegalArgumentException.h"
 #include "java/lang/IllegalStateException.h"
 #include "java/lang/Integer.h"
 #include "java/lang/RuntimeException.h"
-#include "java/lang/System.h"
 #include "java/lang/annotation/Annotation.h"
 #include "java/util/HashMap.h"
 #include "java/util/Map.h"
@@ -36,7 +32,6 @@
   jint mCount_;
   jint mCursorWindowCapacity_;
   id<JavaUtilMap> mColumnNameMap_;
-  NSException *mStackTrace_;
 }
 
 - (void)fillWindowWithInt:(jint)requiredPos;
@@ -48,7 +43,6 @@ J2OBJC_FIELD_SETTER(AndroidDatabaseSqliteSQLiteCursor, mColumns_, IOSObjectArray
 J2OBJC_FIELD_SETTER(AndroidDatabaseSqliteSQLiteCursor, mQuery_, AndroidDatabaseSqliteSQLiteQuery *)
 J2OBJC_FIELD_SETTER(AndroidDatabaseSqliteSQLiteCursor, mDriver_, id<AndroidDatabaseSqliteSQLiteCursorDriver>)
 J2OBJC_FIELD_SETTER(AndroidDatabaseSqliteSQLiteCursor, mColumnNameMap_, id<JavaUtilMap>)
-J2OBJC_FIELD_SETTER(AndroidDatabaseSqliteSQLiteCursor, mStackTrace_, NSException *)
 
 __attribute__((unused)) static void AndroidDatabaseSqliteSQLiteCursor_fillWindowWithInt_(AndroidDatabaseSqliteSQLiteCursor *self, jint requiredPos);
 
@@ -174,16 +168,6 @@ NSString *AndroidDatabaseSqliteSQLiteCursor_TAG = @"SQLiteCursor";
 - (void)java_finalize {
   @try {
     if (mWindow_ != nil) {
-      if (mStackTrace_ != nil) {
-        NSString *sql = [((AndroidDatabaseSqliteSQLiteQuery *) nil_chk(mQuery_)) getSql];
-        jint len = [((NSString *) nil_chk(sql)) java_length];
-        [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$$$$$$", @"Finalizing a Cursor that has not been deactivated or closed. database = ", [((AndroidDatabaseSqliteSQLiteDatabase *) nil_chk([mQuery_ getDatabase])) getLabel], @", table = ", mEditTable_, @", query = ", [sql java_substring:0 endIndex:(len > 1000) ? 1000 : len])];
-        JavaIoStringWriter *stringWriter = create_JavaIoStringWriter_init();
-        JavaIoPrintWriter *printWriter = create_JavaIoPrintWriter_initWithJavaIoWriter_(stringWriter);
-        [mStackTrace_ printStackTraceWithJavaIoPrintWriter:printWriter];
-        [printWriter close];
-        [JreLoadStatic(JavaLangSystem, out) printlnWithNSString:[stringWriter description]];
-      }
       [self close];
     }
   }
@@ -199,7 +183,6 @@ NSString *AndroidDatabaseSqliteSQLiteCursor_TAG = @"SQLiteCursor";
   RELEASE_(mQuery_);
   RELEASE_(mDriver_);
   RELEASE_(mColumnNameMap_);
-  RELEASE_(mStackTrace_);
   [super dealloc];
 }
 
@@ -247,10 +230,9 @@ NSString *AndroidDatabaseSqliteSQLiteCursor_TAG = @"SQLiteCursor";
     { "mCount_", "I", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mCursorWindowCapacity_", "I", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mColumnNameMap_", "LJavaUtilMap;", .constantValue.asLong = 0, 0x2, -1, -1, 15, -1 },
-    { "mStackTrace_", "LNSException;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
   };
   static const void *ptrTable[] = { "LAndroidDatabaseSqliteSQLiteDatabase;LAndroidDatabaseSqliteSQLiteCursorDriver;LNSString;LAndroidDatabaseSqliteSQLiteQuery;", (void *)&AndroidDatabaseSqliteSQLiteCursor__Annotations$0, "LAndroidDatabaseSqliteSQLiteCursorDriver;LNSString;LAndroidDatabaseSqliteSQLiteQuery;", "onMove", "II", "fillWindow", "I", "getColumnIndex", "LNSString;", "setWindow", "LAndroidDatabaseCursorWindow;", "setSelectionArguments", "[LNSString;", "finalize", &AndroidDatabaseSqliteSQLiteCursor_TAG, "Ljava/util/Map<Ljava/lang/String;Ljava/lang/Integer;>;" };
-  static const J2ObjcClassInfo _AndroidDatabaseSqliteSQLiteCursor = { "SQLiteCursor", "android.database.sqlite", ptrTable, methods, fields, 7, 0x1, 14, 10, -1, -1, -1, -1, -1 };
+  static const J2ObjcClassInfo _AndroidDatabaseSqliteSQLiteCursor = { "SQLiteCursor", "android.database.sqlite", ptrTable, methods, fields, 7, 0x1, 14, 9, -1, -1, -1, -1, -1 };
   return &_AndroidDatabaseSqliteSQLiteCursor;
 }
 
@@ -274,7 +256,6 @@ void AndroidDatabaseSqliteSQLiteCursor_initWithAndroidDatabaseSqliteSQLiteCursor
   if (query == nil) {
     @throw create_JavaLangIllegalArgumentException_initWithNSString_(@"query object cannot be null");
   }
-  JreStrongAssign(&self->mStackTrace_, nil);
   JreStrongAssign(&self->mDriver_, driver);
   JreStrongAssign(&self->mEditTable_, editTable);
   JreStrongAssign(&self->mColumnNameMap_, nil);

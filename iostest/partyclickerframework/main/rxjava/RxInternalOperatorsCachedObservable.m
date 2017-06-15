@@ -611,6 +611,14 @@ withRxInternalOperatorsCachedObservable_CacheState:(RxInternalOperatorsCachedObs
   }
 }
 
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
+}
+
 - (void)__javaClone:(RxInternalOperatorsCachedObservable_ReplayProducer *)original {
   [super __javaClone:original];
   [state_ release];

@@ -366,6 +366,14 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(RxInternalOperatorsOperatorZip_ZipSubscriber)
   [((RxInternalOperatorsOperatorZip_Zip *) nil_chk(zipper_)) tick];
 }
 
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
+}
+
 - (void)__javaClone:(RxInternalOperatorsOperatorZip_ZipProducer *)original {
   [super __javaClone:original];
   [zipper_ release];
@@ -508,6 +516,14 @@ withJavaUtilConcurrentAtomicAtomicLong:(JavaUtilConcurrentAtomicAtomicLong *)req
     }
     while ([self decrementAndGet] > 0);
   }
+}
+
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
 }
 
 - (void)__javaClone:(RxInternalOperatorsOperatorZip_Zip *)original {

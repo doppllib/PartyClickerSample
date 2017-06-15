@@ -32,7 +32,7 @@ __attribute__((unused)) static void DaggerProvides_Type_initWithNSString_withInt
 }
 
 - (NSString *)description {
-  return @"@dagger.Provides()";
+  return [NSString stringWithFormat:@"@dagger.Provides(type=%@)", type_];
 }
 
 - (void)dealloc {

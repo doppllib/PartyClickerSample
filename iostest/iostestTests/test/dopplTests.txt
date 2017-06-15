@@ -1,0 +1,5 @@
+com.kgalligan.partyclicker.data.DatabaseHelperTest
+com.kgalligan.partyclicker.data.ModPersonTaskTest
+com.kgalligan.partyclicker.presenter.CrashReporterTest
+com.kgalligan.partyclicker.presenter.PartyListPresenterTest
+com.kgalligan.partyclicker.presenter.PartyPresenterTest

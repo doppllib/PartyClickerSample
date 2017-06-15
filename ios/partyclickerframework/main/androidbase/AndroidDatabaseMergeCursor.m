@@ -3,6 +3,7 @@
 //
 
 #include "AndroidDatabaseAbstractCursor.h"
+#include "AndroidDatabaseContentObserver.h"
 #include "AndroidDatabaseCursor.h"
 #include "AndroidDatabaseDataSetObserver.h"
 #include "AndroidDatabaseMergeCursor.h"
@@ -149,6 +150,24 @@ __attribute__((unused)) static AndroidDatabaseMergeCursor_1 *create_AndroidDatab
   [super close];
 }
 
+- (void)registerContentObserverWithAndroidDatabaseContentObserver:(AndroidDatabaseContentObserver *)observer {
+  jint length = ((IOSObjectArray *) nil_chk(mCursors_))->size_;
+  for (jint i = 0; i < length; i++) {
+    if (IOSObjectArray_Get(nil_chk(mCursors_), i) != nil) {
+      [((id<AndroidDatabaseCursor>) nil_chk(IOSObjectArray_Get(mCursors_, i))) registerContentObserverWithAndroidDatabaseContentObserver:observer];
+    }
+  }
+}
+
+- (void)unregisterContentObserverWithAndroidDatabaseContentObserver:(AndroidDatabaseContentObserver *)observer {
+  jint length = ((IOSObjectArray *) nil_chk(mCursors_))->size_;
+  for (jint i = 0; i < length; i++) {
+    if (IOSObjectArray_Get(nil_chk(mCursors_), i) != nil) {
+      [((id<AndroidDatabaseCursor>) nil_chk(IOSObjectArray_Get(mCursors_, i))) unregisterContentObserverWithAndroidDatabaseContentObserver:observer];
+    }
+  }
+}
+
 - (void)registerDataSetObserverWithAndroidDatabaseDataSetObserver:(AndroidDatabaseDataSetObserver *)observer {
   jint length = ((IOSObjectArray *) nil_chk(mCursors_))->size_;
   for (jint i = 0; i < length; i++) {
@@ -207,6 +226,8 @@ __attribute__((unused)) static AndroidDatabaseMergeCursor_1 *create_AndroidDatab
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 13, 14, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 15, 14, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 16, 17, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 18, 17, -1, -1, -1, -1 },
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
@@ -226,17 +247,19 @@ __attribute__((unused)) static AndroidDatabaseMergeCursor_1 *create_AndroidDatab
   methods[12].selector = @selector(getColumnNames);
   methods[13].selector = @selector(deactivate);
   methods[14].selector = @selector(close);
-  methods[15].selector = @selector(registerDataSetObserverWithAndroidDatabaseDataSetObserver:);
-  methods[16].selector = @selector(unregisterDataSetObserverWithAndroidDatabaseDataSetObserver:);
-  methods[17].selector = @selector(requery);
+  methods[15].selector = @selector(registerContentObserverWithAndroidDatabaseContentObserver:);
+  methods[16].selector = @selector(unregisterContentObserverWithAndroidDatabaseContentObserver:);
+  methods[17].selector = @selector(registerDataSetObserverWithAndroidDatabaseDataSetObserver:);
+  methods[18].selector = @selector(unregisterDataSetObserverWithAndroidDatabaseDataSetObserver:);
+  methods[19].selector = @selector(requery);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "mObserver_", "LAndroidDatabaseDataSetObserver;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mCursor_", "LAndroidDatabaseCursor;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mCursors_", "[LAndroidDatabaseCursor;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "[LAndroidDatabaseCursor;", "onMove", "II", "getString", "I", "getShort", "getInt", "getLong", "getFloat", "getDouble", "getType", "isNull", "getBlob", "registerDataSetObserver", "LAndroidDatabaseDataSetObserver;", "unregisterDataSetObserver" };
-  static const J2ObjcClassInfo _AndroidDatabaseMergeCursor = { "MergeCursor", "android.database", ptrTable, methods, fields, 7, 0x1, 18, 3, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "[LAndroidDatabaseCursor;", "onMove", "II", "getString", "I", "getShort", "getInt", "getLong", "getFloat", "getDouble", "getType", "isNull", "getBlob", "registerContentObserver", "LAndroidDatabaseContentObserver;", "unregisterContentObserver", "registerDataSetObserver", "LAndroidDatabaseDataSetObserver;", "unregisterDataSetObserver" };
+  static const J2ObjcClassInfo _AndroidDatabaseMergeCursor = { "MergeCursor", "android.database", ptrTable, methods, fields, 7, 0x1, 20, 3, -1, -1, -1, -1, -1 };
   return &_AndroidDatabaseMergeCursor;
 }
 

@@ -155,6 +155,14 @@ J2OBJC_STATIC_FIELD_CONSTANT(RxInternalUtilBackpressureDrainManager, serialVersi
   }
 }
 
+- (jboolean)isEqual:(id)obj {
+  return self == obj;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)self;
+}
+
 - (void)dealloc {
   RELEASE_(exception_);
   RELEASE_(actual_);

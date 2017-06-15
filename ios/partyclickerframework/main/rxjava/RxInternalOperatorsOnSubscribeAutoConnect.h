@@ -42,6 +42,10 @@
 
 - (void)callWithId:(RxSubscriber *)child;
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 @end
 
 J2OBJC_EMPTY_STATIC_INIT(RxInternalOperatorsOnSubscribeAutoConnect)

@@ -76,6 +76,10 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsCompletableOnSubscribeConcatIterab
 - (instancetype)initWithRxCompletableSubscriber:(id<RxCompletableSubscriber>)actual
                            withJavaUtilIterator:(id<JavaUtilIterator>)sources;
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;

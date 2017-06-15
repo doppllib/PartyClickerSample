@@ -28,7 +28,7 @@ __attribute__((unused)) static IOSObjectArray *DaggerMapKey__Annotations$0();
 }
 
 - (NSString *)description {
-  return @"@dagger.MapKey()";
+  return [NSString stringWithFormat:@"@dagger.MapKey(unwrapValue=%d)", unwrapValue_];
 }
 
 + (const J2ObjcClassInfo *)__metadata {

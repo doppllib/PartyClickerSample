@@ -34,7 +34,7 @@ __attribute__((unused)) static IOSObjectArray *DaggerSubcomponent_Builder__Annot
 }
 
 - (NSString *)description {
-  return @"@dagger.Subcomponent()";
+  return [NSString stringWithFormat:@"@dagger.Subcomponent(modules=%@)", modules_];
 }
 
 - (void)dealloc {

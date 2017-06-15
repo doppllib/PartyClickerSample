@@ -107,6 +107,10 @@ J2OBJC_TYPE_LITERAL_HEADER(RxSubjectsUnicastSubject)
 
 - (void)callWithId:(RxSubscriber *)subscriber;
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 - (jboolean)isUnsubscribed;
 
 - (void)onCompleted;

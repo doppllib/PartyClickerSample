@@ -74,6 +74,10 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorEagerConcatMap)
 
 - (instancetype)initWithRxInternalOperatorsOperatorEagerConcatMap_EagerOuterSubscriber:(RxInternalOperatorsOperatorEagerConcatMap_EagerOuterSubscriber *)parent;
 
+- (NSUInteger)hash;
+
+- (jboolean)isEqual:(id)obj;
+
 - (void)requestWithLong:(jlong)n;
 
 @end
