@@ -9,7 +9,6 @@ buildscript {
         classpath 'com.android.tools.build:gradle:2.3.2'
         classpath 'me.tatarka:gradle-retrolambda:3.5.0'
         classpath 'co.doppl:gradle:0.8.1'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     }
 }
 

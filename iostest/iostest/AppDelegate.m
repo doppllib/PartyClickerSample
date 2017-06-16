@@ -7,8 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "DopplRuntime.h"
-
 
 @interface AppDelegate ()
 
@@ -19,8 +17,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [DopplRuntime start];
-    
     return YES;
 }
 

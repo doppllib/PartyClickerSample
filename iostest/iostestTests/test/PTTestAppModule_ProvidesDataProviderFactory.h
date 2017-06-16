@@ -28,10 +28,10 @@
 #pragma mark Public
 
 - (instancetype)initWithPTTestAppModule:(PTTestAppModule *)module
-                withJavaxInjectProvider:(id<JavaxInjectProvider>)applicationProvider;
+                withJavaxInjectProvider:(id<JavaxInjectProvider>)partyDatabaseProvider;
 
 + (id<DaggerInternalFactory>)createWithPTTestAppModule:(PTTestAppModule *)module
-                               withJavaxInjectProvider:(id<JavaxInjectProvider>)applicationProvider;
+                               withJavaxInjectProvider:(id<JavaxInjectProvider>)partyDatabaseProvider;
 
 - (id<PDDataProvider>)get;
 
@@ -39,13 +39,13 @@
 
 J2OBJC_EMPTY_STATIC_INIT(PTTestAppModule_ProvidesDataProviderFactory)
 
-FOUNDATION_EXPORT void PTTestAppModule_ProvidesDataProviderFactory_initWithPTTestAppModule_withJavaxInjectProvider_(PTTestAppModule_ProvidesDataProviderFactory *self, PTTestAppModule *module, id<JavaxInjectProvider> applicationProvider);
+FOUNDATION_EXPORT void PTTestAppModule_ProvidesDataProviderFactory_initWithPTTestAppModule_withJavaxInjectProvider_(PTTestAppModule_ProvidesDataProviderFactory *self, PTTestAppModule *module, id<JavaxInjectProvider> partyDatabaseProvider);
 
-FOUNDATION_EXPORT PTTestAppModule_ProvidesDataProviderFactory *new_PTTestAppModule_ProvidesDataProviderFactory_initWithPTTestAppModule_withJavaxInjectProvider_(PTTestAppModule *module, id<JavaxInjectProvider> applicationProvider) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT PTTestAppModule_ProvidesDataProviderFactory *new_PTTestAppModule_ProvidesDataProviderFactory_initWithPTTestAppModule_withJavaxInjectProvider_(PTTestAppModule *module, id<JavaxInjectProvider> partyDatabaseProvider) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT PTTestAppModule_ProvidesDataProviderFactory *create_PTTestAppModule_ProvidesDataProviderFactory_initWithPTTestAppModule_withJavaxInjectProvider_(PTTestAppModule *module, id<JavaxInjectProvider> applicationProvider);
+FOUNDATION_EXPORT PTTestAppModule_ProvidesDataProviderFactory *create_PTTestAppModule_ProvidesDataProviderFactory_initWithPTTestAppModule_withJavaxInjectProvider_(PTTestAppModule *module, id<JavaxInjectProvider> partyDatabaseProvider);
 
-FOUNDATION_EXPORT id<DaggerInternalFactory> PTTestAppModule_ProvidesDataProviderFactory_createWithPTTestAppModule_withJavaxInjectProvider_(PTTestAppModule *module, id<JavaxInjectProvider> applicationProvider);
+FOUNDATION_EXPORT id<DaggerInternalFactory> PTTestAppModule_ProvidesDataProviderFactory_createWithPTTestAppModule_withJavaxInjectProvider_(PTTestAppModule *module, id<JavaxInjectProvider> partyDatabaseProvider);
 
 J2OBJC_TYPE_LITERAL_HEADER(PTTestAppModule_ProvidesDataProviderFactory)
 
