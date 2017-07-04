@@ -25,8 +25,10 @@
 
 + (NSException *)addValueAsLastCauseWithNSException:(NSException *)e
                                              withId:(id)value;
+#define addValueAsLastCauseWithJavaLangThrowable addValueAsLastCauseWithNSException
 
 + (RxExceptionsOnErrorThrowable *)fromWithNSException:(NSException *)t;
+#define fromWithJavaLangThrowable fromWithNSException
 
 - (id)getValue;
 

@@ -26,6 +26,7 @@
 #pragma mark Public
 
 - (instancetype)initWithNSException:(NSException *)exception;
+#define initWithJavaLangThrowable initWithNSException
 
 - (void)callWithId:(RxSubscriber *)observer;
 

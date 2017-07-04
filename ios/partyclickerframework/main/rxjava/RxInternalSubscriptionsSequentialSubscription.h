@@ -23,6 +23,9 @@
 #define INCLUDE_RxSubscription 1
 #include "RxSubscription.h"
 
+@protocol JavaUtilFunctionBinaryOperator;
+@protocol JavaUtilFunctionUnaryOperator;
+
 @interface RxInternalSubscriptionsSequentialSubscription : JavaUtilConcurrentAtomicAtomicReference < RxSubscription >
 
 #pragma mark Public
@@ -31,11 +34,19 @@
 
 - (instancetype)initWithRxSubscription:(id<RxSubscription>)initial;
 
+- (id<RxSubscription>)accumulateAndGetWithId:(id<RxSubscription>)arg0
+          withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (id<RxSubscription>)current;
 
 - (id<RxSubscription>)get;
 
+- (id<RxSubscription>)getAndAccumulateWithId:(id<RxSubscription>)arg0
+          withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (id<RxSubscription>)getAndSetWithId:(id<RxSubscription>)arg0;
+
+- (id<RxSubscription>)getAndUpdateWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
 
 - (jboolean)isUnsubscribed;
 
@@ -46,6 +57,8 @@
 - (void)unsubscribe;
 
 - (jboolean)updateWithRxSubscription:(id<RxSubscription>)next;
+
+- (id<RxSubscription>)updateAndGetWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
 
 - (jboolean)updateWeakWithRxSubscription:(id<RxSubscription>)next;
 

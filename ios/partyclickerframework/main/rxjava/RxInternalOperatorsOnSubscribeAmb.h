@@ -137,6 +137,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeAmb)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 
@@ -169,6 +170,8 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeAmb_AmbSubscriber)
 
 @class RxInternalOperatorsOnSubscribeAmb_AmbSubscriber;
 @protocol JavaUtilCollection;
+@protocol JavaUtilFunctionBinaryOperator;
+@protocol JavaUtilFunctionUnaryOperator;
 
 @interface RxInternalOperatorsOnSubscribeAmb_Selection : JavaUtilConcurrentAtomicAtomicReference {
  @public
@@ -177,13 +180,23 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeAmb_AmbSubscriber)
 
 #pragma mark Public
 
+- (RxInternalOperatorsOnSubscribeAmb_AmbSubscriber *)accumulateAndGetWithId:(RxInternalOperatorsOnSubscribeAmb_AmbSubscriber *)arg0
+                                         withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (RxInternalOperatorsOnSubscribeAmb_AmbSubscriber *)get;
 
+- (RxInternalOperatorsOnSubscribeAmb_AmbSubscriber *)getAndAccumulateWithId:(RxInternalOperatorsOnSubscribeAmb_AmbSubscriber *)arg0
+                                         withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (RxInternalOperatorsOnSubscribeAmb_AmbSubscriber *)getAndSetWithId:(RxInternalOperatorsOnSubscribeAmb_AmbSubscriber *)arg0;
+
+- (RxInternalOperatorsOnSubscribeAmb_AmbSubscriber *)getAndUpdateWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
 
 - (void)unsubscribeLosers;
 
 - (void)unsubscribeOthersWithRxInternalOperatorsOnSubscribeAmb_AmbSubscriber:(RxInternalOperatorsOnSubscribeAmb_AmbSubscriber *)notThis;
+
+- (RxInternalOperatorsOnSubscribeAmb_AmbSubscriber *)updateAndGetWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
 
 #pragma mark Package-Private
 

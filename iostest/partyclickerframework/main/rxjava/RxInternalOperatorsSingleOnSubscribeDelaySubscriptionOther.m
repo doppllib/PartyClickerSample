@@ -22,6 +22,7 @@
 - (void)onSuccessWithId:(id)value;
 
 - (void)onErrorWithNSException:(NSException *)error;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 @end
 
@@ -48,6 +49,7 @@ __attribute__((unused)) static RxInternalOperatorsSingleOnSubscribeDelaySubscrip
 - (void)onNextWithId:(id)t;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onCompleted;
 

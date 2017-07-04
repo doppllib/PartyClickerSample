@@ -90,6 +90,7 @@ __attribute__((unused)) static RxInternalOperatorsOperatorOnErrorResumeNextViaFu
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 
@@ -115,6 +116,7 @@ __attribute__((unused)) static RxInternalOperatorsOperatorOnErrorResumeNextViaFu
 - (void)onNextWithId:(id)t;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onCompleted;
 

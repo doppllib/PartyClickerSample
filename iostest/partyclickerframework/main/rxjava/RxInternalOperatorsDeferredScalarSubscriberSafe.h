@@ -33,6 +33,7 @@
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)ex;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 @end
 

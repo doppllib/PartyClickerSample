@@ -38,6 +38,7 @@
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)ex;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)setProducerWithRxProducer:(id<RxProducer>)p;
 

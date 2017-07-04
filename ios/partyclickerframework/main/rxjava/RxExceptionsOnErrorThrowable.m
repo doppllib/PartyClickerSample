@@ -29,9 +29,11 @@
 }
 
 - (instancetype)initWithNSException:(NSException *)exception;
+#define initWithJavaLangThrowable initWithNSException
 
 - (instancetype)initWithNSException:(NSException *)exception
                              withId:(id)value;
+#define initWithJavaLangThrowable initWithNSException
 
 @end
 

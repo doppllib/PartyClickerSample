@@ -207,7 +207,7 @@ withRxInternalOperatorsBlockingOperatorNext_NextObserver:(RxInternalOperatorsBlo
 
 - (jboolean)hasNext {
   if (error_ != nil) {
-    @throw RxExceptionsExceptions_propagateWithNSException_(error_);
+    @throw nil_chk(RxExceptionsExceptions_propagateWithNSException_(error_));
   }
   if (!hasNext_) {
     return false;
@@ -221,7 +221,7 @@ withRxInternalOperatorsBlockingOperatorNext_NextObserver:(RxInternalOperatorsBlo
 
 - (id)next {
   if (error_ != nil) {
-    @throw RxExceptionsExceptions_propagateWithNSException_(error_);
+    @throw nil_chk(RxExceptionsExceptions_propagateWithNSException_(error_));
   }
   if ([self hasNext]) {
     isNextConsumed_ = true;
@@ -315,7 +315,7 @@ jboolean RxInternalOperatorsBlockingOperatorNext_NextIterator_moveToNext(RxInter
     }
     if ([nextNotification isOnError]) {
       JreStrongAssign(&self->error_, [nextNotification getThrowable]);
-      @throw RxExceptionsExceptions_propagateWithNSException_(self->error_);
+      @throw nil_chk(RxExceptionsExceptions_propagateWithNSException_(self->error_));
     }
     @throw create_JavaLangIllegalStateException_initWithNSString_(@"Should not reach here");
   }
@@ -323,7 +323,7 @@ jboolean RxInternalOperatorsBlockingOperatorNext_NextIterator_moveToNext(RxInter
     [self->observer_ unsubscribe];
     [((JavaLangThread *) nil_chk(JavaLangThread_currentThread())) interrupt];
     JreStrongAssign(&self->error_, e);
-    @throw RxExceptionsExceptions_propagateWithNSException_(e);
+    @throw nil_chk(RxExceptionsExceptions_propagateWithNSException_(e));
   }
 }
 

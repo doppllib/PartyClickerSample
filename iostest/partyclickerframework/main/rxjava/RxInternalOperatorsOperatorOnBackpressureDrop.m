@@ -50,6 +50,7 @@ __attribute__((unused)) static RxInternalOperatorsOperatorOnBackpressureDrop_1 *
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 

@@ -151,7 +151,7 @@ NSString *AndroidDatabaseSqliteSQLiteCursor_TAG = @"SQLiteCursor";
     return [super requery];
   }
   @catch (JavaLangIllegalStateException *e) {
-    AndroidUtilLog_wWithNSString_withNSString_withNSException_(AndroidDatabaseSqliteSQLiteCursor_TAG, JreStrcat("$$", @"requery() failed ", [((JavaLangIllegalStateException *) nil_chk(e)) getMessage]), e);
+    AndroidUtilLog_wWithNSString_withNSString_withNSException_(AndroidDatabaseSqliteSQLiteCursor_TAG, JreStrcat("$$", @"requery() failed ", [e getMessage]), e);
     return false;
   }
 }

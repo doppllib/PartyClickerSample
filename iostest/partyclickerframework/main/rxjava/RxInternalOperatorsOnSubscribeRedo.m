@@ -163,6 +163,7 @@ __attribute__((unused)) static RxInternalOperatorsOnSubscribeRedo_2 *create_RxIn
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)v;
 
@@ -214,6 +215,7 @@ __attribute__((unused)) static RxInternalOperatorsOnSubscribeRedo_3 *create_RxIn
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(RxNotification *)t;
 
@@ -269,6 +271,7 @@ __attribute__((unused)) static RxInternalOperatorsOnSubscribeRedo_4 *create_RxIn
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 

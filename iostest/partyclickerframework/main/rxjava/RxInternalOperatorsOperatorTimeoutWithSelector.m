@@ -49,6 +49,7 @@ __attribute__((unused)) static RxInternalOperatorsOperatorTimeoutWithSelector_1 
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 
@@ -96,6 +97,7 @@ __attribute__((unused)) static RxInternalOperatorsOperatorTimeoutWithSelector_2 
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 

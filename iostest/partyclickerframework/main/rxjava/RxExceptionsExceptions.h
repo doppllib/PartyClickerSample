@@ -26,28 +26,37 @@
 
 + (void)addCauseWithNSException:(NSException *)e
                 withNSException:(NSException *)cause;
+#define addCauseWithJavaLangThrowable addCauseWithNSException
+#define withJavaLangThrowable withNSException
 
 + (NSException *)getFinalCauseWithNSException:(NSException *)e;
+#define getFinalCauseWithJavaLangThrowable getFinalCauseWithNSException
 
 + (JavaLangRuntimeException *)propagateWithNSException:(NSException *)t;
+#define propagateWithJavaLangThrowable propagateWithNSException
 
 + (void)throwIfAnyWithJavaUtilList:(id<JavaUtilList>)exceptions;
 
 + (void)throwIfFatalWithNSException:(NSException *)t;
+#define throwIfFatalWithJavaLangThrowable throwIfFatalWithNSException
 
 + (void)throwOrReportWithNSException:(NSException *)t
                       withRxObserver:(id<RxObserver>)o;
+#define throwOrReportWithJavaLangThrowable throwOrReportWithNSException
 
 + (void)throwOrReportWithNSException:(NSException *)t
                       withRxObserver:(id<RxObserver>)o
                               withId:(id)value;
+#define throwOrReportWithJavaLangThrowable throwOrReportWithNSException
 
 + (void)throwOrReportWithNSException:(NSException *)throwable
               withRxSingleSubscriber:(RxSingleSubscriber *)subscriber;
+#define throwOrReportWithJavaLangThrowable throwOrReportWithNSException
 
 + (void)throwOrReportWithNSException:(NSException *)t
               withRxSingleSubscriber:(RxSingleSubscriber *)o
                               withId:(id)value;
+#define throwOrReportWithJavaLangThrowable throwOrReportWithNSException
 
 @end
 

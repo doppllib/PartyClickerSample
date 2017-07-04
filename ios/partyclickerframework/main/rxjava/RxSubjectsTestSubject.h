@@ -36,9 +36,11 @@
 - (void)onCompletedWithLong:(jlong)delayTime;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onErrorWithNSException:(NSException *)e
                       withLong:(jlong)delayTime;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)v;
 
@@ -56,6 +58,7 @@
 - (void)internalOnCompleted;
 
 - (void)internalOnErrorWithNSException:(NSException *)e;
+#define internalOnErrorWithJavaLangThrowable internalOnErrorWithNSException
 
 - (void)internalOnNextWithId:(id)v;
 

@@ -73,6 +73,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsSingleOnErrorReturn)
                       withRxFunctionsFunc1:(id<RxFunctionsFunc1>)resumeFunction;
 
 - (void)onErrorWithNSException:(NSException *)error;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSuccessWithId:(id)value;
 

@@ -172,6 +172,7 @@ __attribute__((unused)) static RxCompletable_3 *create_RxCompletable_3_initWithR
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSubscribeWithRxSubscription:(id<RxSubscription>)d;
 
@@ -218,6 +219,7 @@ __attribute__((unused)) static RxCompletable_4 *create_RxCompletable_4_initWithJ
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSubscribeWithRxSubscription:(id<RxSubscription>)d;
 
@@ -275,6 +277,7 @@ __attribute__((unused)) static RxCompletable_6 *create_RxCompletable_6_initWithR
 }
 
 - (instancetype)initWithNSException:(NSException *)capture$0;
+#define initWithJavaLangThrowable initWithNSException
 
 - (void)callWithId:(id<RxCompletableSubscriber>)s;
 
@@ -355,6 +358,7 @@ __attribute__((unused)) static RxCompletable_10 *create_RxCompletable_10_initWit
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)t;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 
@@ -395,6 +399,7 @@ __attribute__((unused)) static RxCompletable_11 *create_RxCompletable_11_initWit
 - (instancetype)initWithRxCompletableSubscriber:(id<RxCompletableSubscriber>)capture$0;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSuccessWithId:(id)value;
 
@@ -496,6 +501,7 @@ withJavaUtilConcurrentAtomicAtomicBoolean:(JavaUtilConcurrentAtomicAtomicBoolean
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSubscribeWithRxSubscription:(id<RxSubscription>)d;
 
@@ -542,6 +548,7 @@ __attribute__((unused)) static RxCompletable_13_1_1 *create_RxCompletable_13_1_1
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSubscribeWithRxSubscription:(id<RxSubscription>)d;
 
@@ -567,6 +574,7 @@ __attribute__((unused)) static RxCompletable_14 *create_RxCompletable_14_initWit
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSubscribeWithRxSubscription:(id<RxSubscription>)d;
 
@@ -623,6 +631,7 @@ withRxSubscriptionsCompositeSubscription:(RxSubscriptionsCompositeSubscription *
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSubscribeWithRxSubscription:(id<RxSubscription>)d;
 
@@ -663,6 +672,7 @@ __attribute__((unused)) static RxCompletable_16_1_1 *create_RxCompletable_16_1_1
 
 - (instancetype)initWithRxCompletable_16_1:(RxCompletable_16_1 *)outer$
                            withNSException:(NSException *)capture$0;
+#define withJavaLangThrowable withNSException
 
 - (void)call;
 
@@ -755,6 +765,7 @@ __attribute__((unused)) static RxCompletable_19 *create_RxCompletable_19_initWit
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSubscribeWithRxSubscription:(id<RxSubscription>)d;
 
@@ -820,6 +831,7 @@ __attribute__((unused)) static RxCompletable_20 *create_RxCompletable_20_initWit
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSubscribeWithRxSubscription:(id<RxSubscription>)d;
 
@@ -845,6 +857,7 @@ __attribute__((unused)) static RxCompletable_21 *create_RxCompletable_21_initWit
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSubscribeWithRxSubscription:(id<RxSubscription>)d;
 
@@ -914,6 +927,7 @@ __attribute__((unused)) static RxCompletable_24 *create_RxCompletable_24_initWit
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSubscribeWithRxSubscription:(id<RxSubscription>)d;
 
@@ -954,6 +968,7 @@ __attribute__((unused)) static RxCompletable_24_1_1 *create_RxCompletable_24_1_1
 
 - (instancetype)initWithRxCompletable_24_1:(RxCompletable_24_1 *)outer$
                            withNSException:(NSException *)capture$0;
+#define withJavaLangThrowable withNSException
 
 - (void)call;
 
@@ -1000,6 +1015,7 @@ __attribute__((unused)) static RxCompletable_25 *create_RxCompletable_25_initWit
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSubscribeWithRxSubscription:(id<RxSubscription>)d;
 
@@ -1048,6 +1064,7 @@ __attribute__((unused)) static RxCompletable_26 *create_RxCompletable_26_initWit
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSubscribeWithRxSubscription:(id<RxSubscription>)d;
 
@@ -1071,6 +1088,7 @@ __attribute__((unused)) static RxCompletable_26_1 *create_RxCompletable_26_1_ini
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSubscribeWithRxSubscription:(id<RxSubscription>)d;
 
@@ -1094,6 +1112,7 @@ __attribute__((unused)) static RxCompletable_26_1_1 *create_RxCompletable_26_1_1
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSubscribeWithRxSubscription:(id<RxSubscription>)d;
 
@@ -1120,6 +1139,7 @@ withRxSubscriptionsMultipleAssignmentSubscription:(RxSubscriptionsMultipleAssign
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSubscribeWithRxSubscription:(id<RxSubscription>)d;
 
@@ -1148,8 +1168,10 @@ withRxSubscriptionsMultipleAssignmentSubscription:(RxSubscriptionsMultipleAssign
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)callOnErrorWithNSException:(NSException *)e;
+#define callOnErrorWithJavaLangThrowable callOnErrorWithNSException
 
 - (void)onSubscribeWithRxSubscription:(id<RxSubscription>)d;
 
@@ -1173,6 +1195,7 @@ __attribute__((unused)) static RxCompletable_29 *create_RxCompletable_29_initWit
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSubscribeWithRxSubscription:(id<RxSubscription>)d;
 
@@ -1282,6 +1305,7 @@ __attribute__((unused)) static RxCompletable_33 *create_RxCompletable_33_initWit
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSubscribeWithRxSubscription:(id<RxSubscription>)d;
 
@@ -1347,6 +1371,7 @@ __attribute__((unused)) static RxCompletable_35 *create_RxCompletable_35_initWit
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSubscribeWithRxSubscription:(id<RxSubscription>)d;
 
@@ -1584,7 +1609,7 @@ RxCompletable *RxCompletable_NEVER;
     [cdl await];
   }
   @catch (JavaLangInterruptedException *ex) {
-    @throw RxExceptionsExceptions_propagateWithNSException_(ex);
+    @throw nil_chk(RxExceptionsExceptions_propagateWithNSException_(ex));
   }
   if (IOSObjectArray_Get(err, 0) != nil) {
     RxExceptionsExceptions_propagateWithNSException_(IOSObjectArray_Get(err, 0));
@@ -1608,7 +1633,7 @@ withJavaUtilConcurrentTimeUnit:(JavaUtilConcurrentTimeUnit *)unit {
     b = [cdl awaitWithLong:timeout withJavaUtilConcurrentTimeUnit:unit];
   }
   @catch (JavaLangInterruptedException *ex) {
-    @throw RxExceptionsExceptions_propagateWithNSException_(ex);
+    @throw nil_chk(RxExceptionsExceptions_propagateWithNSException_(ex));
   }
   if (b) {
     if (IOSObjectArray_Get(err, 0) != nil) {
@@ -1708,7 +1733,7 @@ withJavaUtilConcurrentTimeUnit:(JavaUtilConcurrentTimeUnit *)unit {
     [cdl await];
   }
   @catch (JavaLangInterruptedException *ex) {
-    @throw RxExceptionsExceptions_propagateWithNSException_(ex);
+    @throw nil_chk(RxExceptionsExceptions_propagateWithNSException_(ex));
   }
   return IOSObjectArray_Get(err, 0);
 }
@@ -1727,7 +1752,7 @@ withJavaUtilConcurrentTimeUnit:(JavaUtilConcurrentTimeUnit *)unit {
     b = [cdl awaitWithLong:timeout withJavaUtilConcurrentTimeUnit:unit];
   }
   @catch (JavaLangInterruptedException *ex) {
-    @throw RxExceptionsExceptions_propagateWithNSException_(ex);
+    @throw nil_chk(RxExceptionsExceptions_propagateWithNSException_(ex));
   }
   if (b) {
     return IOSObjectArray_Get(err, 0);
@@ -2200,7 +2225,7 @@ RxCompletable *RxCompletable_createWithRxCompletable_OnSubscribe_(id<RxCompletab
   }
   @catch (NSException *ex) {
     RxPluginsRxJavaHooks_onErrorWithNSException_(ex);
-    @throw RxCompletable_toNpeWithNSException_(ex);
+    @throw nil_chk(RxCompletable_toNpeWithNSException_(ex));
   }
 }
 
@@ -2435,7 +2460,7 @@ void RxCompletable_unsafeSubscribeWithRxCompletableSubscriber_(RxCompletable *se
     RxExceptionsExceptions_throwIfFatalWithNSException_(ex);
     ex = RxPluginsRxJavaHooks_onCompletableErrorWithNSException_(ex);
     RxPluginsRxJavaHooks_onErrorWithNSException_(ex);
-    @throw RxCompletable_toNpeWithNSException_(ex);
+    @throw nil_chk(RxCompletable_toNpeWithNSException_(ex));
   }
 }
 
@@ -2459,7 +2484,7 @@ void RxCompletable_unsafeSubscribeWithRxSubscriber_withBoolean_(RxCompletable *s
     RxExceptionsExceptions_throwIfFatalWithNSException_(ex);
     ex = RxPluginsRxJavaHooks_onObservableErrorWithNSException_(ex);
     RxPluginsRxJavaHooks_onErrorWithNSException_(ex);
-    @throw RxCompletable_toNpeWithNSException_(ex);
+    @throw nil_chk(RxCompletable_toNpeWithNSException_(ex));
   }
 }
 
@@ -4769,7 +4794,7 @@ RxCompletable_22 *create_RxCompletable_22_initWithJavaUtilConcurrentCountDownLat
     @throw ex;
   }
   @catch (NSException *ex) {
-    @throw RxCompletable_toNpeWithNSException_(ex);
+    @throw nil_chk(RxCompletable_toNpeWithNSException_(ex));
   }
 }
 

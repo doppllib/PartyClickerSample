@@ -46,6 +46,7 @@
 - (void)handleSubscriptionTimeErrorWithRxSingleSubscriber:(RxSingleSubscriber *)t
                                                    withId:(id)resource
                                           withNSException:(NSException *)ex;
+#define withJavaLangThrowable withNSException
 
 @end
 

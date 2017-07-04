@@ -35,10 +35,13 @@
 - (void)appendStackTraceWithJavaLangStringBuilder:(JavaLangStringBuilder *)b
                                   withNSException:(NSException *)ex
                                      withNSString:(NSString *)prefix;
+#define withJavaLangThrowable withNSException
 
 - (id<JavaUtilList>)getListOfCausesWithNSException:(NSException *)ex;
+#define getListOfCausesWithJavaLangThrowable getListOfCausesWithNSException
 
 - (NSException *)getRootCauseWithNSException:(NSException *)e;
+#define getRootCauseWithJavaLangThrowable getRootCauseWithNSException
 
 @end
 

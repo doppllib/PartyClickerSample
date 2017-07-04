@@ -876,7 +876,7 @@ AndroidDatabaseSqliteSQLiteConnection *AndroidDatabaseSqliteSQLiteConnectionPool
           if (connection != nil) {
             return connection;
           }
-          @throw ex;
+          @throw nil_chk(ex);
         }
         jlong now = AndroidOsSystemClock_uptimeMillis();
         if (now < nextBusyTimeoutTime) {

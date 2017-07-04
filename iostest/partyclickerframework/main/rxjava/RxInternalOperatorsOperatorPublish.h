@@ -95,6 +95,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorPublish)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 
@@ -164,7 +165,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorPublish_PublishSubscriber)
 @interface RxInternalOperatorsOperatorPublish_InnerProducer : JavaUtilConcurrentAtomicAtomicLong < RxProducer, RxSubscription > {
  @public
   RxInternalOperatorsOperatorPublish_PublishSubscriber *parent_;
-  __unsafe_unretained RxSubscriber *child_;
+  RxSubscriber *child_;
 }
 
 #pragma mark Public
@@ -189,6 +190,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorPublish_PublishSubscriber)
 J2OBJC_EMPTY_STATIC_INIT(RxInternalOperatorsOperatorPublish_InnerProducer)
 
 J2OBJC_FIELD_SETTER(RxInternalOperatorsOperatorPublish_InnerProducer, parent_, RxInternalOperatorsOperatorPublish_PublishSubscriber *)
+J2OBJC_FIELD_SETTER(RxInternalOperatorsOperatorPublish_InnerProducer, child_, RxSubscriber *)
 
 inline jlong RxInternalOperatorsOperatorPublish_InnerProducer_get_UNSUBSCRIBED();
 #define RxInternalOperatorsOperatorPublish_InnerProducer_UNSUBSCRIBED ((jlong) 0x8000000000000000LL)

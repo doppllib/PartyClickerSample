@@ -4,7 +4,7 @@ apply plugin: 'co.doppl.gradle'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "com.kgalligan.partyclicker"
         minSdkVersion 19
@@ -29,25 +29,25 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.1.0'
 
     //Database ORM
-    compile 'co.touchlab.squeaky:squeaky-query:0.5.2'
-    annotationProcessor 'co.touchlab.squeaky:squeaky-processor:0.5.2'
-    testAnnotationProcessor 'co.touchlab.squeaky:squeaky-processor:0.5.2'
-    doppl 'co.touchlab.squeaky:squeaky-query:0.5.2.0'
+    compile 'co.touchlab.squeaky:squeaky-query:0.5.3'
+    annotationProcessor 'co.touchlab.squeaky:squeaky-processor:0.5.3'
+    testAnnotationProcessor 'co.touchlab.squeaky:squeaky-processor:0.5.3'
+    doppl 'co.touchlab.squeaky:squeaky-query:0.5.3.0'
 
     //Dagger
     compile 'com.google.dagger:dagger:2.5'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.5'
     testAnnotationProcessor 'com.google.dagger:dagger-compiler:2.5'
-    doppl 'co.doppl.com.google.dagger:dagger:2.5.3'
+    doppl 'co.doppl.com.google.dagger:dagger:2.5.4'
 
     //Rx
     compile 'io.reactivex:rxandroid:1.2.1'
-    doppl 'co.doppl.io.reactivex:rxandroid:1.2.1.2'
+    doppl 'co.doppl.io.reactivex:rxandroid:1.2.1.4'
 
     //Test Support
     testCompile 'junit:junit:4.11'
-    testCompile "co.doppl.lib:androidbasetest:0.7.5"
-    testDoppl "co.doppl.lib:androidbasetest:0.7.5.0"
+    testCompile "co.doppl.lib:androidbasetest:0.8.0"
+    testDoppl "co.doppl.lib:androidbasetest:0.8.0.0"
     testCompile "org.robolectric:robolectric:3.3.2"
     testCompile 'org.mockito:mockito-core:1.9.5'
 }
@@ -55,9 +55,7 @@ dependencies {
 dopplConfig {
 
     copyMainOutput "../ios/partyclickerframework/main", "../iostest/partyclickerframework/main"
-    copyTestOutput "../iostest/iostestTests/test"
-
-    mainBridgingHeaderOutput "../ios/ios/Main-Bridging-Header.h"
+    copyTestOutput "../iostest/partyclickerframework/test"
 
     copyDependencies true
 

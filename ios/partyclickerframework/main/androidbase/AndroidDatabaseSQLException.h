@@ -29,6 +29,7 @@
 
 - (instancetype)initWithNSString:(NSString *)error
                  withNSException:(NSException *)cause;
+#define withJavaLangThrowable withNSException
 
 @end
 

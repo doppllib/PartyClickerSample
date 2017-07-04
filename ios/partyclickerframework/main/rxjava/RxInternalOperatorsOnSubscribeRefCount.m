@@ -69,6 +69,7 @@ __attribute__((unused)) static RxInternalOperatorsOnSubscribeRefCount_1 *create_
                                               withRxSubscriber:(RxSubscriber *)subscriber;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 

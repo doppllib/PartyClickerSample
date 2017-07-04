@@ -68,6 +68,7 @@ __attribute__((unused)) static RxInternalOperatorsOperatorScan_1 *create_RxInter
 - (void)onNextWithId:(id)t;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onCompleted;
 
@@ -97,6 +98,7 @@ __attribute__((unused)) static RxInternalOperatorsOperatorScan_2 *create_RxInter
 - (void)onNextWithId:(id)currentValue;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onCompleted;
 

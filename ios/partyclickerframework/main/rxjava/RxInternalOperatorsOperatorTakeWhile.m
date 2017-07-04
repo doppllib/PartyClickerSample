@@ -49,6 +49,7 @@ __attribute__((unused)) static RxInternalOperatorsOperatorTakeWhile_1 *create_Rx
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 @end
 

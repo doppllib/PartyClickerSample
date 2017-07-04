@@ -148,6 +148,7 @@ J2OBJC_FIELD_SETTER(RxObservablesSyncOnSubscribe_SyncOnSubscribeImpl, onUnsubscr
 
 - (void)handleThrownErrorWithRxSubscriber:(RxSubscriber *)a
                           withNSException:(NSException *)ex;
+#define withJavaLangThrowable withNSException
 
 - (void)slowPathWithLong:(jlong)n;
 

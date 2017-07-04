@@ -26,10 +26,12 @@
 - (instancetype)initWithNSString:(NSString *)message;
 
 - (void)attachToWithNSException:(NSException *)exception;
+#define attachToWithJavaLangThrowable attachToWithNSException
 
 - (NSException *)fillInStackTrace;
 
 + (RxExceptionsAssemblyStackTraceException *)findWithNSException:(NSException *)e;
+#define findWithJavaLangThrowable findWithNSException
 
 @end
 

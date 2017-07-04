@@ -105,6 +105,7 @@ withJavaUtilConcurrentTimeUnit:(JavaUtilConcurrentTimeUnit *)unit;
 + (RxCompletable *)errorWithRxFunctionsFunc0:(id<RxFunctionsFunc0>)errorFunc0;
 
 + (RxCompletable *)errorWithNSException:(NSException *)error;
+#define errorWithJavaLangThrowable errorWithNSException
 
 + (RxCompletable *)fromActionWithRxFunctionsAction0:(id<RxFunctionsAction0>)action;
 
@@ -257,10 +258,12 @@ withJavaUtilConcurrentTimeUnit:(JavaUtilConcurrentTimeUnit *)unit;
 #pragma mark Package-Private
 
 + (void)deliverUncaughtExceptionWithNSException:(NSException *)e;
+#define deliverUncaughtExceptionWithJavaLangThrowable deliverUncaughtExceptionWithNSException
 
 + (id)requireNonNullWithId:(id)o;
 
 + (JavaLangNullPointerException *)toNpeWithNSException:(NSException *)ex;
+#define toNpeWithJavaLangThrowable toNpeWithNSException
 
 @end
 

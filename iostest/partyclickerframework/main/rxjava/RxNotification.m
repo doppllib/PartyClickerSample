@@ -23,6 +23,7 @@
 - (instancetype)initWithRxNotification_Kind:(RxNotification_Kind *)kind
                                      withId:(id)value
                             withNSException:(NSException *)e;
+#define withJavaLangThrowable withNSException
 
 @end
 

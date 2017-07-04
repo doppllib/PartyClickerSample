@@ -107,6 +107,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeConcatMap)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)mainError;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 
@@ -115,15 +116,18 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeConcatMap)
 - (void)drain;
 
 - (void)drainErrorWithNSException:(NSException *)mapperError;
+#define drainErrorWithJavaLangThrowable drainErrorWithNSException
 
 - (void)innerCompletedWithLong:(jlong)produced;
 
 - (void)innerErrorWithNSException:(NSException *)innerError
                          withLong:(jlong)produced;
+#define innerErrorWithJavaLangThrowable innerErrorWithNSException
 
 - (void)innerNextWithId:(id)value;
 
 - (void)pluginErrorWithNSException:(NSException *)e;
+#define pluginErrorWithJavaLangThrowable pluginErrorWithNSException
 
 - (void)requestMoreWithLong:(jlong)n;
 
@@ -172,6 +176,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeConcatMap_ConcatMapSubs
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 

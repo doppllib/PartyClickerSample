@@ -135,6 +135,7 @@ withJavaUtilConcurrentTimeUnit:(JavaUtilConcurrentTimeUnit *)unit
 - (RxSingle *)doOnUnsubscribeWithRxFunctionsAction0:(id<RxFunctionsAction0>)action;
 
 + (RxSingle *)errorWithNSException:(NSException *)exception;
+#define errorWithJavaLangThrowable errorWithNSException
 
 - (RxSingle *)flatMapWithRxFunctionsFunc1:(id<RxFunctionsFunc1>)func;
 

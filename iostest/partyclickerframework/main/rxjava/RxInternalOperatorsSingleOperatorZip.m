@@ -71,6 +71,7 @@ __attribute__((unused)) static RxInternalOperatorsSingleOperatorZip_1 *create_Rx
 - (void)onSuccessWithId:(id)value;
 
 - (void)onErrorWithNSException:(NSException *)error;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 @end
 

@@ -85,6 +85,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsCompletableOnSubscribeConcat)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)t;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(RxCompletable *)t;
 
@@ -93,6 +94,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsCompletableOnSubscribeConcat)
 - (void)innerComplete;
 
 - (void)innerErrorWithNSException:(NSException *)e;
+#define innerErrorWithJavaLangThrowable innerErrorWithNSException
 
 - (void)next;
 
@@ -134,6 +136,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsCompletableOnSubscribeConcat_Compl
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSubscribeWithRxSubscription:(id<RxSubscription>)d;
 

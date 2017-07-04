@@ -48,6 +48,7 @@ __attribute__((unused)) static RxInternalOperatorsOperatorSubscribeOn_1 *create_
 - (void)onNextWithId:(id)t;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onCompleted;
 

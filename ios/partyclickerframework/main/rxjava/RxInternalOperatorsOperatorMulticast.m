@@ -89,6 +89,7 @@ __attribute__((unused)) static RxInternalOperatorsOperatorMulticast_2 *create_Rx
 - (void)onNextWithId:(id)t;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onCompleted;
 

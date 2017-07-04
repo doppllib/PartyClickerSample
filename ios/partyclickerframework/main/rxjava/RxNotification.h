@@ -35,6 +35,7 @@
 + (RxNotification *)createOnCompletedWithIOSClass:(IOSClass *)type;
 
 + (RxNotification *)createOnErrorWithNSException:(NSException *)e;
+#define createOnErrorWithJavaLangThrowable createOnErrorWithNSException
 
 + (RxNotification *)createOnNextWithId:(id)t;
 

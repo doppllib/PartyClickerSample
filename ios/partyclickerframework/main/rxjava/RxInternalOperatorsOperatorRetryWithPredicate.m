@@ -52,6 +52,7 @@ __attribute__((unused)) static RxInternalOperatorsOperatorRetryWithPredicate_Sou
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)v;
 

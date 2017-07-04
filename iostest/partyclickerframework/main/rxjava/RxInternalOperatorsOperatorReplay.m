@@ -140,6 +140,7 @@ __attribute__((unused)) static RxInternalOperatorsOperatorReplay_3 *create_RxInt
 - (void)onNextWithId:(id)t;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onCompleted;
 

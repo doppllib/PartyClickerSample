@@ -81,6 +81,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsSingleObserveOn)
 - (void)call;
 
 - (void)onErrorWithNSException:(NSException *)error;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSuccessWithId:(id)value;
 

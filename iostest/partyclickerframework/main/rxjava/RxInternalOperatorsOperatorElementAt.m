@@ -38,6 +38,7 @@ __attribute__((unused)) static RxInternalOperatorsOperatorElementAt *create_RxIn
 - (void)onNextWithId:(id)value;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onCompleted;
 

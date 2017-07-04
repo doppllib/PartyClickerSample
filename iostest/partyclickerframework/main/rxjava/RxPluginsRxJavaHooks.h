@@ -86,6 +86,7 @@
 + (void)lockdown;
 
 + (NSException *)onCompletableErrorWithNSException:(NSException *)error;
+#define onCompletableErrorWithJavaLangThrowable onCompletableErrorWithNSException
 
 + (id<RxCompletable_Operator>)onCompletableLiftWithRxCompletable_Operator:(id<RxCompletable_Operator>)operator_;
 
@@ -101,12 +102,14 @@
 + (id<RxCompletable_OnSubscribe>)onCreateWithRxCompletable_OnSubscribe:(id<RxCompletable_OnSubscribe>)onSubscribe;
 
 + (void)onErrorWithNSException:(NSException *)ex;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 + (RxScheduler *)onIOSchedulerWithRxScheduler:(RxScheduler *)scheduler;
 
 + (RxScheduler *)onNewThreadSchedulerWithRxScheduler:(RxScheduler *)scheduler;
 
 + (NSException *)onObservableErrorWithNSException:(NSException *)error;
+#define onObservableErrorWithJavaLangThrowable onObservableErrorWithNSException
 
 + (id<RxObservable_Operator>)onObservableLiftWithRxObservable_Operator:(id<RxObservable_Operator>)operator_;
 
@@ -118,6 +121,7 @@
 + (id<RxFunctionsAction0>)onScheduledActionWithRxFunctionsAction0:(id<RxFunctionsAction0>)action;
 
 + (NSException *)onSingleErrorWithNSException:(NSException *)error;
+#define onSingleErrorWithJavaLangThrowable onSingleErrorWithNSException
 
 + (id<RxObservable_Operator>)onSingleLiftWithRxObservable_Operator:(id<RxObservable_Operator>)operator_;
 
@@ -177,6 +181,7 @@
 + (void)initCreate OBJC_METHOD_FAMILY_NONE;
 
 + (void)signalUncaughtWithNSException:(NSException *)ex;
+#define signalUncaughtWithJavaLangThrowable signalUncaughtWithNSException
 
 @end
 

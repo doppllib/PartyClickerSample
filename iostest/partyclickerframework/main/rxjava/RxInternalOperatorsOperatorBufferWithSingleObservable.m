@@ -43,6 +43,7 @@ __attribute__((unused)) static RxInternalOperatorsOperatorBufferWithSingleObserv
 - (void)onNextWithId:(id)t;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onCompleted;
 

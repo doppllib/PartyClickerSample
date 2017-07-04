@@ -290,7 +290,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(RxInternalOperatorsBlockingOperatorMostRecent_M
       @throw create_JavaUtilNoSuchElementException_init();
     }
     if (RxInternalOperatorsNotificationLite_isErrorWithId_(buf_)) {
-      @throw RxExceptionsExceptions_propagateWithNSException_(RxInternalOperatorsNotificationLite_getErrorWithId_(buf_));
+      @throw nil_chk(RxExceptionsExceptions_propagateWithNSException_(RxInternalOperatorsNotificationLite_getErrorWithId_(buf_)));
     }
     return RxInternalOperatorsNotificationLite_getValueWithId_(buf_);
   }

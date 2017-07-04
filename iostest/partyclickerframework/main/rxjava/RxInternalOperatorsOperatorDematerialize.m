@@ -20,6 +20,7 @@
 - (void)onNextWithId:(RxNotification *)t;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onCompleted;
 

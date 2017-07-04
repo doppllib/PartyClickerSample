@@ -47,6 +47,7 @@ __attribute__((unused)) static IOSObjectArray *RxObserversTestObserver__Annotati
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 

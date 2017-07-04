@@ -943,7 +943,7 @@ void RxPluginsRxJavaHooks_onErrorWithNSException_(NSException *ex) {
       return;
     }
     @catch (NSException *pluginException) {
-      [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, err))) printlnWithNSString:JreStrcat("$$", @"The onError handler threw an Exception. It shouldn't. => ", [((NSException *) nil_chk(pluginException)) getMessage])];
+      [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, err))) printlnWithNSString:JreStrcat("$$", @"The onError handler threw an Exception. It shouldn't. => ", [pluginException getMessage])];
       [pluginException printStackTrace];
       RxPluginsRxJavaHooks_signalUncaughtWithNSException_(pluginException);
     }

@@ -339,7 +339,7 @@ J2OBJC_IGNORE_DESIGNATED_END
           defaultSize = JavaLangInteger_parseIntWithNSString_(sizeFromProperty);
         }
         @catch (JavaLangNumberFormatException *e) {
-          [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, err))) printlnWithNSString:JreStrcat("$$$$", @"Failed to set 'rx.buffer.size' with value ", sizeFromProperty, @" => ", [((JavaLangNumberFormatException *) nil_chk(e)) getMessage])];
+          [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, err))) printlnWithNSString:JreStrcat("$$$$", @"Failed to set 'rx.buffer.size' with value ", sizeFromProperty, @" => ", [e getMessage])];
         }
       }
       RxInternalUtilRxRingBuffer_SIZE = defaultSize;

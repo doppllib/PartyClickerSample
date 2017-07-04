@@ -44,7 +44,7 @@ J2OBJC_FIELD_SETTER(RxObserversSafeSubscriber, actual_, RxSubscriber *)
     @catch (NSException *e) {
       RxExceptionsExceptions_throwIfFatalWithNSException_(e);
       RxPluginsRxJavaHooks_onErrorWithNSException_(e);
-      @throw create_RxExceptionsOnCompletedFailedException_initWithNSString_withNSException_([((NSException *) nil_chk(e)) getMessage], e);
+      @throw create_RxExceptionsOnCompletedFailedException_initWithNSString_withNSException_([e getMessage], e);
     }
     @finally {
       @try {
@@ -52,7 +52,7 @@ J2OBJC_FIELD_SETTER(RxObserversSafeSubscriber, actual_, RxSubscriber *)
       }
       @catch (NSException *e) {
         RxPluginsRxJavaHooks_onErrorWithNSException_(e);
-        @throw create_RxExceptionsUnsubscribeFailedException_initWithNSString_withNSException_([((NSException *) nil_chk(e)) getMessage], e);
+        @throw create_RxExceptionsUnsubscribeFailedException_initWithNSString_withNSException_([e getMessage], e);
       }
     }
   }

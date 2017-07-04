@@ -73,6 +73,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorBufferWithSize)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 
@@ -125,6 +126,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorBufferWithSize_BufferExact
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 
@@ -217,6 +219,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorBufferWithSize_BufferSkip_
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 

@@ -2213,7 +2213,7 @@ withJavaUtilConcurrentTimeUnit:(JavaUtilConcurrentTimeUnit *)unit
     }
     @catch (NSException *e2) {
       RxExceptionsExceptions_throwIfFatalWithNSException_(e2);
-      JavaLangRuntimeException *r = create_RxExceptionsOnErrorFailedException_initWithNSString_withNSException_(JreStrcat("$$$", @"Error occurred attempting to subscribe [", [((NSException *) nil_chk(e)) getMessage], @"] and then again while trying to pass to onError."), e2);
+      JavaLangRuntimeException *r = create_RxExceptionsOnErrorFailedException_initWithNSString_withNSException_(JreStrcat("$$$", @"Error occurred attempting to subscribe [", [e getMessage], @"] and then again while trying to pass to onError."), e2);
       RxPluginsRxJavaHooks_onObservableErrorWithNSException_(r);
       @throw r;
     }
@@ -4419,7 +4419,7 @@ id<RxSubscription> RxObservable_subscribeWithRxSubscriber_withRxObservable_(RxSu
       }
       @catch (NSException *e2) {
         RxExceptionsExceptions_throwIfFatalWithNSException_(e2);
-        JavaLangRuntimeException *r = create_RxExceptionsOnErrorFailedException_initWithNSString_withNSException_(JreStrcat("$$$", @"Error occurred attempting to subscribe [", [((NSException *) nil_chk(e)) getMessage], @"] and then again while trying to pass to onError."), e2);
+        JavaLangRuntimeException *r = create_RxExceptionsOnErrorFailedException_initWithNSString_withNSException_(JreStrcat("$$$", @"Error occurred attempting to subscribe [", [e getMessage], @"] and then again while trying to pass to onError."), e2);
         RxPluginsRxJavaHooks_onObservableErrorWithNSException_(r);
         @throw r;
       }

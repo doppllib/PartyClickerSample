@@ -87,6 +87,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsSingleTimeout)
 - (void)call;
 
 - (void)onErrorWithNSException:(NSException *)error;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSuccessWithId:(id)value;
 
@@ -128,6 +129,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsSingleTimeout_TimeoutSingleSubscri
 #pragma mark Public
 
 - (void)onErrorWithNSException:(NSException *)error;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSuccessWithId:(id)value;
 

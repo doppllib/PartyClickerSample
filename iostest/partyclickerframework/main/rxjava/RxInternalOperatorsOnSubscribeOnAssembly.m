@@ -85,7 +85,7 @@ NSString *RxInternalOperatorsOnSubscribeOnAssembly_createStacktrace() {
       JavaLangStackTraceElement *e = *b__++;
       NSString *row = [((JavaLangStackTraceElement *) nil_chk(e)) description];
       if (!JreLoadVolatileBoolean(&RxInternalOperatorsOnSubscribeOnAssembly_fullStackTrace)) {
-        if ([e getLineNumber] <= 1) {
+        if ([e getLineNumber] <= 1 && [e getLineNumber] != -1) {
           continue;
         }
         if ([((NSString *) nil_chk(row)) java_contains:@"RxJavaHooks."]) {

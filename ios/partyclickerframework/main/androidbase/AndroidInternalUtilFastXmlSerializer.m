@@ -260,10 +260,10 @@ J2OBJC_IGNORE_DESIGNATED_END
       JreStrongAssign(&mCharset_, [((JavaNioCharsetCharset *) nil_chk(JavaNioCharsetCharset_forNameWithNSString_(encoding))) newEncoder]);
     }
     @catch (JavaNioCharsetIllegalCharsetNameException *e) {
-      @throw (JavaIoUnsupportedEncodingException *) cast_chk(([create_JavaIoUnsupportedEncodingException_initWithNSString_(encoding) initCauseWithNSException:e]), [JavaIoUnsupportedEncodingException class]);
+      @throw nil_chk((JavaIoUnsupportedEncodingException *) cast_chk(([create_JavaIoUnsupportedEncodingException_initWithNSString_(encoding) initCauseWithNSException:e]), [JavaIoUnsupportedEncodingException class]));
     }
     @catch (JavaNioCharsetUnsupportedCharsetException *e) {
-      @throw (JavaIoUnsupportedEncodingException *) cast_chk(([create_JavaIoUnsupportedEncodingException_initWithNSString_(encoding) initCauseWithNSException:e]), [JavaIoUnsupportedEncodingException class]);
+      @throw nil_chk((JavaIoUnsupportedEncodingException *) cast_chk(([create_JavaIoUnsupportedEncodingException_initWithNSString_(encoding) initCauseWithNSException:e]), [JavaIoUnsupportedEncodingException class]));
     }
     JreStrongAssign(&mOutputStream_, os);
   }

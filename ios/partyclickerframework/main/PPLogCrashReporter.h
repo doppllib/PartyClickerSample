@@ -28,6 +28,7 @@
 - (void)logWithNSString:(NSString *)s;
 
 - (void)reportWithNSException:(NSException *)t;
+#define reportWithJavaLangThrowable reportWithNSException
 
 @end
 

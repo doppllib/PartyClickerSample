@@ -94,6 +94,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsBlockingOperatorNext_NextIterator)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(RxNotification *)args;
 

@@ -30,6 +30,7 @@
 - (id<RxCompletable_Operator>)onLiftWithRxCompletable_Operator:(id<RxCompletable_Operator>)lift;
 
 - (NSException *)onSubscribeErrorWithNSException:(NSException *)e;
+#define onSubscribeErrorWithJavaLangThrowable onSubscribeErrorWithNSException
 
 - (id<RxCompletable_OnSubscribe>)onSubscribeStartWithRxCompletable:(RxCompletable *)completableInstance
                                      withRxCompletable_OnSubscribe:(id<RxCompletable_OnSubscribe>)onSubscribe;

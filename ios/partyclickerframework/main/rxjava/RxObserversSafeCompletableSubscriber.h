@@ -39,6 +39,7 @@
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSubscribeWithRxSubscription:(id<RxSubscription>)d;
 

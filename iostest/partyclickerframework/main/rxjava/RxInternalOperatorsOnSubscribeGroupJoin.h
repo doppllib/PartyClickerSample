@@ -116,7 +116,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeGroupJoin)
 
 - (id<RxObserver>)getWithId:(id)arg0;
 
-- (void)init__ OBJC_METHOD_FAMILY_NONE;
+- (void)helloInit;
 
 - (jboolean)isUnsubscribed;
 
@@ -142,8 +142,10 @@ withJavaUtilFunctionBiFunction:(id<JavaUtilFunctionBiFunction>)arg2;
 - (void)completeWithJavaUtilList:(id<JavaUtilList>)list;
 
 - (void)errorAllWithNSException:(NSException *)e;
+#define errorAllWithJavaLangThrowable errorAllWithNSException
 
 - (void)errorMainWithNSException:(NSException *)e;
+#define errorMainWithJavaLangThrowable errorMainWithNSException
 
 - (id<JavaUtilMap>)leftMap;
 
@@ -182,6 +184,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeGroupJoin_ResultManager
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)args;
 
@@ -219,6 +222,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeGroupJoin_ResultManager
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)args;
 
@@ -263,6 +267,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeGroupJoin_ResultManager
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)args;
 
@@ -303,6 +308,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeGroupJoin_ResultManager
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)args;
 
@@ -385,6 +391,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeGroupJoin_WindowObserva
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)args;
 

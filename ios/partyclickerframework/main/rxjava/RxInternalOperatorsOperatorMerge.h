@@ -208,6 +208,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorMerge_MergeProducer)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(RxObservable *)t;
 
@@ -304,6 +305,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorMerge_MergeSubscriber)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 

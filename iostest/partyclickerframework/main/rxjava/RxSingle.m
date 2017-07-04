@@ -113,6 +113,7 @@ __attribute__((unused)) static IOSObjectArray *RxSingle__Annotations$0();
 }
 
 - (instancetype)initWithNSException:(NSException *)capture$0;
+#define initWithJavaLangThrowable initWithNSException
 
 - (void)callWithId:(RxSingleSubscriber *)te;
 
@@ -155,6 +156,7 @@ __attribute__((unused)) static RxSingle_2 *create_RxSingle_2_initWithRxSingle_(R
 - (void)onSuccessWithId:(RxSingle *)innerSingle;
 
 - (void)onErrorWithNSException:(NSException *)error;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 @end
 
@@ -323,6 +325,7 @@ __attribute__((unused)) static RxSingle_10 *create_RxSingle_10_initWithRxFunctio
 - (instancetype)init;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSuccessWithId:(id)args;
 
@@ -344,6 +347,7 @@ __attribute__((unused)) static RxSingle_11 *create_RxSingle_11_init();
 - (instancetype)initWithRxFunctionsAction1:(id<RxFunctionsAction1>)capture$0;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSuccessWithId:(id)args;
 
@@ -367,6 +371,7 @@ __attribute__((unused)) static RxSingle_12 *create_RxSingle_12_initWithRxFunctio
                     withRxFunctionsAction1:(id<RxFunctionsAction1>)capture$1;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSuccessWithId:(id)args;
 
@@ -390,6 +395,7 @@ __attribute__((unused)) static RxSingle_13 *create_RxSingle_13_initWithRxFunctio
 - (void)onSuccessWithId:(id)value;
 
 - (void)onErrorWithNSException:(NSException *)error;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 @end
 
@@ -455,6 +461,7 @@ __attribute__((unused)) static RxSingle_15_1 *create_RxSingle_15_1_initWithRxSin
 - (void)onSuccessWithId:(id)value;
 
 - (void)onErrorWithNSException:(NSException *)error;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 @end
 
@@ -1485,7 +1492,7 @@ id<RxSubscription> RxSingle_unsafeSubscribeWithRxSubscriber_withBoolean_(RxSingl
     }
     @catch (NSException *e2) {
       RxExceptionsExceptions_throwIfFatalWithNSException_(e2);
-      JavaLangRuntimeException *r = create_JavaLangRuntimeException_initWithNSString_withNSException_(JreStrcat("$$$", @"Error occurred attempting to subscribe [", [((NSException *) nil_chk(e)) getMessage], @"] and then again while trying to pass to onError."), e2);
+      JavaLangRuntimeException *r = create_JavaLangRuntimeException_initWithNSString_withNSException_(JreStrcat("$$$", @"Error occurred attempting to subscribe [", [e getMessage], @"] and then again while trying to pass to onError."), e2);
       RxPluginsRxJavaHooks_onSingleErrorWithNSException_(r);
       @throw r;
     }
@@ -1508,7 +1515,7 @@ id<RxSubscription> RxSingle_subscribeWithRxSingleSubscriber_(RxSingle *self, RxS
     }
     @catch (NSException *e2) {
       RxExceptionsExceptions_throwIfFatalWithNSException_(e2);
-      JavaLangRuntimeException *r = create_JavaLangRuntimeException_initWithNSString_withNSException_(JreStrcat("$$$", @"Error occurred attempting to subscribe [", [((NSException *) nil_chk(ex)) getMessage], @"] and then again while trying to pass to onError."), e2);
+      JavaLangRuntimeException *r = create_JavaLangRuntimeException_initWithNSString_withNSException_(JreStrcat("$$$", @"Error occurred attempting to subscribe [", [ex getMessage], @"] and then again while trying to pass to onError."), e2);
       RxPluginsRxJavaHooks_onSingleErrorWithNSException_(r);
       @throw r;
     }

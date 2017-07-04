@@ -111,7 +111,7 @@ void AndroidDatabaseDefaultDatabaseErrorHandler_deleteDatabaseFileWithNSString_(
     AndroidDatabaseSqliteSQLiteDatabase_deleteDatabaseWithJavaIoFile_(create_JavaIoFile_initWithNSString_(fileName));
   }
   @catch (JavaLangException *e) {
-    AndroidUtilLog_wWithNSString_withNSString_(AndroidDatabaseDefaultDatabaseErrorHandler_TAG, JreStrcat("$$", @"delete failed: ", [((JavaLangException *) nil_chk(e)) getMessage]));
+    AndroidUtilLog_wWithNSString_withNSString_(AndroidDatabaseDefaultDatabaseErrorHandler_TAG, JreStrcat("$$", @"delete failed: ", [e getMessage]));
   }
 }
 

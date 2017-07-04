@@ -50,10 +50,12 @@
 - (void)terminate;
 
 - (void)terminateWithNSException:(NSException *)error;
+#define terminateWithJavaLangThrowable terminateWithNSException
 
 - (void)terminateAndDrain;
 
 - (void)terminateAndDrainWithNSException:(NSException *)error;
+#define terminateAndDrainWithJavaLangThrowable terminateAndDrainWithNSException
 
 @end
 
@@ -84,6 +86,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalUtilBackpressureDrainManager)
 - (jboolean)acceptWithId:(id)value;
 
 - (void)completeWithNSException:(NSException *)exception;
+#define completeWithJavaLangThrowable completeWithNSException
 
 @end
 

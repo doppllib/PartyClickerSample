@@ -93,6 +93,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorMaterialize_Holder)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 
