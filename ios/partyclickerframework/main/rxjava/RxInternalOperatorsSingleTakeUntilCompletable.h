@@ -77,6 +77,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsSingleTakeUntilCompletable)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)error;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSubscribeWithRxSubscription:(id<RxSubscription>)d;
 

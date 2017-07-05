@@ -76,6 +76,7 @@
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 
@@ -139,6 +140,8 @@ J2OBJC_TYPE_LITERAL_HEADER(RxSubjectsReplaySubject)
 @class IOSObjectArray;
 @class RxSubjectsReplaySubject_ReplayProducer;
 @class RxSubscriber;
+@protocol JavaUtilFunctionBinaryOperator;
+@protocol JavaUtilFunctionUnaryOperator;
 @protocol RxSubjectsReplaySubject_ReplayBuffer;
 
 @interface RxSubjectsReplaySubject_ReplayState : JavaUtilConcurrentAtomicAtomicReference < RxObservable_OnSubscribe, RxObserver > {
@@ -150,17 +153,28 @@ J2OBJC_TYPE_LITERAL_HEADER(RxSubjectsReplaySubject)
 
 - (instancetype)initWithRxSubjectsReplaySubject_ReplayBuffer:(id<RxSubjectsReplaySubject_ReplayBuffer>)buffer;
 
+- (IOSObjectArray *)accumulateAndGetWithId:(IOSObjectArray *)arg0
+        withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (void)callWithId:(RxSubscriber *)t;
 
 - (IOSObjectArray *)get;
 
+- (IOSObjectArray *)getAndAccumulateWithId:(IOSObjectArray *)arg0
+        withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (IOSObjectArray *)getAndSetWithId:(IOSObjectArray *)arg0;
+
+- (IOSObjectArray *)getAndUpdateWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
 
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
+
+- (IOSObjectArray *)updateAndGetWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
 
 #pragma mark Package-Private
 
@@ -207,6 +221,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxSubjectsReplaySubject_ReplayState)
 - (void)nextWithId:(id)t;
 
 - (void)errorWithNSException:(NSException *)e;
+#define errorWithJavaLangThrowable errorWithNSException
 
 - (void)complete;
 
@@ -260,6 +275,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxSubjectsReplaySubject_ReplayBuffer)
 - (NSException *)error;
 
 - (void)errorWithNSException:(NSException *)e;
+#define errorWithJavaLangThrowable errorWithNSException
 
 - (jboolean)isComplete;
 
@@ -323,6 +339,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxSubjectsReplaySubject_ReplayUnboundedBuffer)
 - (NSException *)error;
 
 - (void)errorWithNSException:(NSException *)ex;
+#define errorWithJavaLangThrowable errorWithNSException
 
 - (jboolean)isComplete;
 
@@ -361,6 +378,9 @@ J2OBJC_TYPE_LITERAL_HEADER(RxSubjectsReplaySubject_ReplaySizeBoundBuffer)
 #define INCLUDE_JavaUtilConcurrentAtomicAtomicReference 1
 #include "java/util/concurrent/atomic/AtomicReference.h"
 
+@protocol JavaUtilFunctionBinaryOperator;
+@protocol JavaUtilFunctionUnaryOperator;
+
 @interface RxSubjectsReplaySubject_ReplaySizeBoundBuffer_Node : JavaUtilConcurrentAtomicAtomicReference {
  @public
   id value_Node_;
@@ -370,9 +390,19 @@ J2OBJC_TYPE_LITERAL_HEADER(RxSubjectsReplaySubject_ReplaySizeBoundBuffer)
 
 - (instancetype)initWithId:(id)value;
 
+- (RxSubjectsReplaySubject_ReplaySizeBoundBuffer_Node *)accumulateAndGetWithId:(RxSubjectsReplaySubject_ReplaySizeBoundBuffer_Node *)arg0
+                                            withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (RxSubjectsReplaySubject_ReplaySizeBoundBuffer_Node *)get;
 
+- (RxSubjectsReplaySubject_ReplaySizeBoundBuffer_Node *)getAndAccumulateWithId:(RxSubjectsReplaySubject_ReplaySizeBoundBuffer_Node *)arg0
+                                            withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (RxSubjectsReplaySubject_ReplaySizeBoundBuffer_Node *)getAndSetWithId:(RxSubjectsReplaySubject_ReplaySizeBoundBuffer_Node *)arg0;
+
+- (RxSubjectsReplaySubject_ReplaySizeBoundBuffer_Node *)getAndUpdateWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
+
+- (RxSubjectsReplaySubject_ReplaySizeBoundBuffer_Node *)updateAndGetWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
 
 #pragma mark Protected
 
@@ -427,6 +457,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxSubjectsReplaySubject_ReplaySizeBoundBuffer_Node)
 - (NSException *)error;
 
 - (void)errorWithNSException:(NSException *)ex;
+#define errorWithJavaLangThrowable errorWithNSException
 
 - (jboolean)isComplete;
 
@@ -472,6 +503,9 @@ J2OBJC_TYPE_LITERAL_HEADER(RxSubjectsReplaySubject_ReplaySizeAndTimeBoundBuffer)
 #define INCLUDE_JavaUtilConcurrentAtomicAtomicReference 1
 #include "java/util/concurrent/atomic/AtomicReference.h"
 
+@protocol JavaUtilFunctionBinaryOperator;
+@protocol JavaUtilFunctionUnaryOperator;
+
 @interface RxSubjectsReplaySubject_ReplaySizeAndTimeBoundBuffer_TimedNode : JavaUtilConcurrentAtomicAtomicReference {
  @public
   id value_TimedNode_;
@@ -483,9 +517,19 @@ J2OBJC_TYPE_LITERAL_HEADER(RxSubjectsReplaySubject_ReplaySizeAndTimeBoundBuffer)
 - (instancetype)initWithId:(id)value
                   withLong:(jlong)timestamp;
 
+- (RxSubjectsReplaySubject_ReplaySizeAndTimeBoundBuffer_TimedNode *)accumulateAndGetWithId:(RxSubjectsReplaySubject_ReplaySizeAndTimeBoundBuffer_TimedNode *)arg0
+                                                        withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (RxSubjectsReplaySubject_ReplaySizeAndTimeBoundBuffer_TimedNode *)get;
 
+- (RxSubjectsReplaySubject_ReplaySizeAndTimeBoundBuffer_TimedNode *)getAndAccumulateWithId:(RxSubjectsReplaySubject_ReplaySizeAndTimeBoundBuffer_TimedNode *)arg0
+                                                        withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (RxSubjectsReplaySubject_ReplaySizeAndTimeBoundBuffer_TimedNode *)getAndSetWithId:(RxSubjectsReplaySubject_ReplaySizeAndTimeBoundBuffer_TimedNode *)arg0;
+
+- (RxSubjectsReplaySubject_ReplaySizeAndTimeBoundBuffer_TimedNode *)getAndUpdateWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
+
+- (RxSubjectsReplaySubject_ReplaySizeAndTimeBoundBuffer_TimedNode *)updateAndGetWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
 
 #pragma mark Protected
 

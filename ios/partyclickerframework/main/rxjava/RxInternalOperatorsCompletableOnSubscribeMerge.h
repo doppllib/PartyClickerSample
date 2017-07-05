@@ -93,6 +93,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsCompletableOnSubscribeMerge)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)t;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(RxCompletable *)t;
 

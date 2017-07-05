@@ -82,6 +82,8 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeFromAsyncEmitter)
 #define INCLUDE_RxSubscription 1
 #include "RxSubscription.h"
 
+@protocol JavaUtilFunctionBinaryOperator;
+@protocol JavaUtilFunctionUnaryOperator;
 @protocol RxAsyncEmitter_Cancellable;
 
 @interface RxInternalOperatorsOnSubscribeFromAsyncEmitter_CancellableSubscription : JavaUtilConcurrentAtomicAtomicReference < RxSubscription >
@@ -90,13 +92,23 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeFromAsyncEmitter)
 
 - (instancetype)initWithRxAsyncEmitter_Cancellable:(id<RxAsyncEmitter_Cancellable>)cancellable;
 
+- (id<RxAsyncEmitter_Cancellable>)accumulateAndGetWithId:(id<RxAsyncEmitter_Cancellable>)arg0
+                      withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (id<RxAsyncEmitter_Cancellable>)get;
 
+- (id<RxAsyncEmitter_Cancellable>)getAndAccumulateWithId:(id<RxAsyncEmitter_Cancellable>)arg0
+                      withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (id<RxAsyncEmitter_Cancellable>)getAndSetWithId:(id<RxAsyncEmitter_Cancellable>)arg0;
+
+- (id<RxAsyncEmitter_Cancellable>)getAndUpdateWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
 
 - (jboolean)isUnsubscribed;
 
 - (void)unsubscribe;
+
+- (id<RxAsyncEmitter_Cancellable>)updateAndGetWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
 
 @end
 
@@ -154,6 +166,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeFromAsyncEmitter_Cancel
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)requestWithLong:(jlong)n;
 
@@ -297,6 +310,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeFromAsyncEmitter_DropAs
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 
@@ -345,6 +359,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeFromAsyncEmitter_ErrorA
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 
@@ -400,6 +415,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeFromAsyncEmitter_Buffer
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 

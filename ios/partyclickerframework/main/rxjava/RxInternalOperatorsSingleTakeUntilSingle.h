@@ -71,6 +71,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsSingleTakeUntilSingle)
 #pragma mark Public
 
 - (void)onErrorWithNSException:(NSException *)error;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSuccessWithId:(id)value;
 
@@ -110,6 +111,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsSingleTakeUntilSingle_TakeUntilSou
 #pragma mark Public
 
 - (void)onErrorWithNSException:(NSException *)error;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSuccessWithId:(id)value;
 

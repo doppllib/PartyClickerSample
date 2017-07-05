@@ -141,10 +141,10 @@ RxExceptionsExceptions *create_RxExceptionsExceptions_init() {
 JavaLangRuntimeException *RxExceptionsExceptions_propagateWithNSException_(NSException *t) {
   RxExceptionsExceptions_initialize();
   if ([t isKindOfClass:[JavaLangRuntimeException class]]) {
-    @throw (JavaLangRuntimeException *) cast_chk(t, [JavaLangRuntimeException class]);
+    @throw nil_chk((JavaLangRuntimeException *) cast_chk(t, [JavaLangRuntimeException class]));
   }
   else if ([t isKindOfClass:[JavaLangError class]]) {
-    @throw (JavaLangError *) cast_chk(t, [JavaLangError class]);
+    @throw nil_chk((JavaLangError *) cast_chk(t, [JavaLangError class]));
   }
   else {
     @throw create_JavaLangRuntimeException_initWithNSException_(t);
@@ -154,22 +154,22 @@ JavaLangRuntimeException *RxExceptionsExceptions_propagateWithNSException_(NSExc
 void RxExceptionsExceptions_throwIfFatalWithNSException_(NSException *t) {
   RxExceptionsExceptions_initialize();
   if ([t isKindOfClass:[RxExceptionsOnErrorNotImplementedException class]]) {
-    @throw (RxExceptionsOnErrorNotImplementedException *) cast_chk(t, [RxExceptionsOnErrorNotImplementedException class]);
+    @throw nil_chk((RxExceptionsOnErrorNotImplementedException *) cast_chk(t, [RxExceptionsOnErrorNotImplementedException class]));
   }
   else if ([t isKindOfClass:[RxExceptionsOnErrorFailedException class]]) {
-    @throw (RxExceptionsOnErrorFailedException *) cast_chk(t, [RxExceptionsOnErrorFailedException class]);
+    @throw nil_chk((RxExceptionsOnErrorFailedException *) cast_chk(t, [RxExceptionsOnErrorFailedException class]));
   }
   else if ([t isKindOfClass:[RxExceptionsOnCompletedFailedException class]]) {
-    @throw (RxExceptionsOnCompletedFailedException *) cast_chk(t, [RxExceptionsOnCompletedFailedException class]);
+    @throw nil_chk((RxExceptionsOnCompletedFailedException *) cast_chk(t, [RxExceptionsOnCompletedFailedException class]));
   }
   else if ([t isKindOfClass:[JavaLangVirtualMachineError class]]) {
-    @throw (JavaLangVirtualMachineError *) cast_chk(t, [JavaLangVirtualMachineError class]);
+    @throw nil_chk((JavaLangVirtualMachineError *) cast_chk(t, [JavaLangVirtualMachineError class]));
   }
   else if ([t isKindOfClass:[JavaLangThreadDeath class]]) {
-    @throw (JavaLangThreadDeath *) cast_chk(t, [JavaLangThreadDeath class]);
+    @throw nil_chk((JavaLangThreadDeath *) cast_chk(t, [JavaLangThreadDeath class]));
   }
   else if ([t isKindOfClass:[JavaLangLinkageError class]]) {
-    @throw (JavaLangLinkageError *) cast_chk(t, [JavaLangLinkageError class]);
+    @throw nil_chk((JavaLangLinkageError *) cast_chk(t, [JavaLangLinkageError class]));
   }
 }
 
@@ -214,10 +214,10 @@ void RxExceptionsExceptions_throwIfAnyWithJavaUtilList_(id<JavaUtilList> excepti
     if ([exceptions size] == 1) {
       NSException *t = [exceptions getWithInt:0];
       if ([t isKindOfClass:[JavaLangRuntimeException class]]) {
-        @throw (JavaLangRuntimeException *) cast_chk(t, [JavaLangRuntimeException class]);
+        @throw nil_chk((JavaLangRuntimeException *) cast_chk(t, [JavaLangRuntimeException class]));
       }
       else if ([t isKindOfClass:[JavaLangError class]]) {
-        @throw (JavaLangError *) cast_chk(t, [JavaLangError class]);
+        @throw nil_chk((JavaLangError *) cast_chk(t, [JavaLangError class]));
       }
       else {
         @throw create_JavaLangRuntimeException_initWithNSException_(t);

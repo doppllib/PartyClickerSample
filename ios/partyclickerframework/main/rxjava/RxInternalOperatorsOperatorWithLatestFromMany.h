@@ -91,6 +91,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorWithLatestFromMany)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 
@@ -102,6 +103,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorWithLatestFromMany)
 
 - (void)innerErrorWithInt:(jint)index
           withNSException:(NSException *)e;
+#define withJavaLangThrowable withNSException
 
 - (void)innerNextWithInt:(jint)index
                   withId:(id)o;
@@ -153,6 +155,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorWithLatestFromMany_WithLat
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 

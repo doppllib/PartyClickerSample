@@ -41,6 +41,7 @@
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)v;
 
@@ -84,6 +85,8 @@ J2OBJC_TYPE_LITERAL_HEADER(RxSubjectsPublishSubject)
 @class IOSObjectArray;
 @class RxSubjectsPublishSubject_PublishSubjectProducer;
 @class RxSubscriber;
+@protocol JavaUtilFunctionBinaryOperator;
+@protocol JavaUtilFunctionUnaryOperator;
 
 @interface RxSubjectsPublishSubject_PublishSubjectState : JavaUtilConcurrentAtomicAtomicReference < RxObservable_OnSubscribe, RxObserver > {
  @public
@@ -94,17 +97,28 @@ J2OBJC_TYPE_LITERAL_HEADER(RxSubjectsPublishSubject)
 
 - (instancetype)init;
 
+- (IOSObjectArray *)accumulateAndGetWithId:(IOSObjectArray *)arg0
+        withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (void)callWithId:(RxSubscriber *)t;
 
 - (IOSObjectArray *)get;
 
+- (IOSObjectArray *)getAndAccumulateWithId:(IOSObjectArray *)arg0
+        withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (IOSObjectArray *)getAndSetWithId:(IOSObjectArray *)arg0;
+
+- (IOSObjectArray *)getAndUpdateWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
 
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
+
+- (IOSObjectArray *)updateAndGetWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
 
 #pragma mark Package-Private
 
@@ -181,6 +195,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxSubjectsPublishSubject_PublishSubjectState)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 

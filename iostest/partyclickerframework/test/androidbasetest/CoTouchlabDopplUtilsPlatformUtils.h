@@ -23,6 +23,8 @@
 
 + (jboolean)isJ2objc;
 
++ (void)triggerXcodeBreakpoint;
+
 @end
 
 J2OBJC_EMPTY_STATIC_INIT(CoTouchlabDopplUtilsPlatformUtils)
@@ -34,6 +36,8 @@ FOUNDATION_EXPORT CoTouchlabDopplUtilsPlatformUtils *new_CoTouchlabDopplUtilsPla
 FOUNDATION_EXPORT CoTouchlabDopplUtilsPlatformUtils *create_CoTouchlabDopplUtilsPlatformUtils_init();
 
 FOUNDATION_EXPORT jboolean CoTouchlabDopplUtilsPlatformUtils_isJ2objc();
+
+FOUNDATION_EXPORT void CoTouchlabDopplUtilsPlatformUtils_triggerXcodeBreakpoint();
 
 J2OBJC_TYPE_LITERAL_HEADER(CoTouchlabDopplUtilsPlatformUtils)
 

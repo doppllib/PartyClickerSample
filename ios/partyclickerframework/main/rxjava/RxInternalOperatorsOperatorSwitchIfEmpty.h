@@ -63,6 +63,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorSwitchIfEmpty)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 
@@ -106,6 +107,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorSwitchIfEmpty_ParentSubscr
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 

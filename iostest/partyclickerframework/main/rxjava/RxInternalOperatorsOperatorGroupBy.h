@@ -173,6 +173,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorGroupBy_GroupByProducer)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)t;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 
@@ -192,6 +193,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorGroupBy_GroupByProducer)
 - (void)errorAllWithRxSubscriber:(RxSubscriber *)a
                withJavaUtilQueue:(id<JavaUtilQueue>)q
                  withNSException:(NSException *)ex;
+#define withJavaLangThrowable withNSException
 
 @end
 
@@ -289,6 +291,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorGroupBy_GroupBySubscriber_
 - (void)onComplete;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 
@@ -373,6 +376,7 @@ withRxInternalOperatorsOperatorGroupBy_GroupBySubscriber:(RxInternalOperatorsOpe
 - (void)onComplete;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 

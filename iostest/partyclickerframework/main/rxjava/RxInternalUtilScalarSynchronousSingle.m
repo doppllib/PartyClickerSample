@@ -92,6 +92,7 @@ __attribute__((unused)) static RxInternalUtilScalarSynchronousSingle_2 *create_R
 - (instancetype)initWithRxSingleSubscriber:(RxSingleSubscriber *)capture$0;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSuccessWithId:(id)r;
 

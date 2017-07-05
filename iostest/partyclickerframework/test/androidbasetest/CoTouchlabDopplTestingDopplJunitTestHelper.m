@@ -6,8 +6,10 @@
 #include "IOSClass.h"
 #include "IOSObjectArray.h"
 #include "J2ObjC_source.h"
+#include "java/io/BufferedReader.h"
 #include "java/io/IOException.h"
 #include "java/io/InputStream.h"
+#include "java/io/InputStreamReader.h"
 #include "java/io/PrintStream.h"
 #include "java/lang/ClassLoader.h"
 #include "java/lang/ClassNotFoundException.h"
@@ -230,6 +232,10 @@ J2OBJC_IGNORE_DESIGNATED_END
   return CoTouchlabDopplTestingDopplJunitTestHelper_mainWithNSStringArray_(args);
 }
 
++ (jint)runSpecificWithNSString:(NSString *)cla {
+  return CoTouchlabDopplTestingDopplJunitTestHelper_runSpecificWithNSString_(cla);
+}
+
 + (jint)runWithNSStringArray:(IOSObjectArray *)classes {
   return CoTouchlabDopplTestingDopplJunitTestHelper_runWithNSStringArray_(classes);
 }
@@ -276,6 +282,10 @@ withOrgJunitRunnerNotificationRunListener:(OrgJunitRunnerNotificationRunListener
 withOrgJunitRunnerNotificationRunListener:(OrgJunitRunnerNotificationRunListener *)listener
 withCoTouchlabDopplTestingDopplJunitTestHelper_DopplJunitListener:(id<CoTouchlabDopplTestingDopplJunitTestHelper_DopplJunitListener>)dopplJunitListener {
   return CoTouchlabDopplTestingDopplJunitTestHelper_runWithIOSClassArray_withOrgJunitRunnerNotificationRunListener_withCoTouchlabDopplTestingDopplJunitTestHelper_DopplJunitListener_(classes, listener, dopplJunitListener);
+}
+
++ (jint)runResourceWithNSString:(NSString *)name {
+  return CoTouchlabDopplTestingDopplJunitTestHelper_runResourceWithNSString_(name);
 }
 
 - (OrgJunitRunnerNotificationRunListener *)newRunListenerWithCoTouchlabDopplTestingDopplJunitTestHelper_OutputFormat:(CoTouchlabDopplTestingDopplJunitTestHelper_OutputFormat *)outputFormat {
@@ -389,72 +399,76 @@ BOOL IsNSObjectClass(Class cls) {
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
     { NULL, "I", 0x9, 1, 2, -1, -1, -1, -1 },
-    { NULL, "I", 0x9, 3, 2, -1, -1, -1, -1 },
     { NULL, "I", 0x9, 3, 4, -1, -1, -1, -1 },
-    { NULL, "I", 0x9, 3, 5, -1, -1, -1, -1 },
-    { NULL, "LOrgJunitRunnerResult;", 0x9, 6, 7, 8, -1, -1, -1 },
-    { NULL, "I", 0xa, 9, 10, -1, 11, -1, -1 },
+    { NULL, "I", 0x9, 5, 2, -1, -1, -1, -1 },
+    { NULL, "I", 0x9, 5, 6, -1, -1, -1, -1 },
+    { NULL, "I", 0x9, 5, 7, -1, -1, -1, -1 },
+    { NULL, "LOrgJunitRunnerResult;", 0x9, 8, 9, 10, -1, -1, -1 },
+    { NULL, "I", 0xa, 11, 12, -1, 13, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "I", 0x9, 3, 12, -1, -1, -1, -1 },
-    { NULL, "I", 0x9, 3, 13, -1, -1, -1, -1 },
-    { NULL, "I", 0x9, 3, 14, -1, -1, -1, -1 },
-    { NULL, "LOrgJunitRunnerNotificationRunListener;", 0x1, 15, 16, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 17, 18, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x2, 19, 20, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x2, 21, 22, -1, -1, -1, -1 },
-    { NULL, "LJavaUtilSet;", 0x102, -1, -1, -1, 23, -1, -1 },
-    { NULL, "Z", 0x4, 24, 25, -1, -1, -1, -1 },
-    { NULL, "Z", 0x4, 26, 25, -1, -1, -1, -1 },
-    { NULL, "Z", 0x4, 27, 25, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x2, 28, 25, -1, -1, -1, -1 },
-    { NULL, "LJavaUtilSet;", 0x2, -1, -1, -1, 23, -1, -1 },
-    { NULL, "Z", 0x2, 29, 30, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 31, 32, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 33, 20, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 34, 35, -1, -1, -1, -1 },
+    { NULL, "I", 0x9, 5, 14, -1, -1, -1, -1 },
+    { NULL, "I", 0x9, 5, 15, -1, -1, -1, -1 },
+    { NULL, "I", 0x9, 5, 16, -1, -1, -1, -1 },
+    { NULL, "I", 0x9, 17, 4, -1, -1, -1, -1 },
+    { NULL, "LOrgJunitRunnerNotificationRunListener;", 0x1, 18, 19, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 20, 21, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x2, 22, 4, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x2, 23, 24, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilSet;", 0x102, -1, -1, -1, 25, -1, -1 },
+    { NULL, "Z", 0x4, 26, 27, -1, -1, -1, -1 },
+    { NULL, "Z", 0x4, 28, 27, -1, -1, -1, -1 },
+    { NULL, "Z", 0x4, 29, 27, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x2, 30, 27, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilSet;", 0x2, -1, -1, -1, 25, -1, -1 },
+    { NULL, "Z", 0x2, 31, 32, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 33, 34, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 35, 4, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 36, 37, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(initWithJavaIoPrintStream:);
   methods[2].selector = @selector(mainWithNSStringArray:);
-  methods[3].selector = @selector(runWithNSStringArray:);
-  methods[4].selector = @selector(runWithNSStringArray:withOrgJunitRunnerNotificationRunListener:);
-  methods[5].selector = @selector(runWithNSStringArray:withOrgJunitRunnerNotificationRunListener:withCoTouchlabDopplTestingDopplJunitTestHelper_DopplJunitListener:);
-  methods[6].selector = @selector(runSpecificTestWithOrgJunitRunnerJUnitCore:withNSString:);
-  methods[7].selector = @selector(runInnerWithJavaUtilList:withBoolean:);
-  methods[8].selector = @selector(run);
-  methods[9].selector = @selector(runWithIOSClassArray:);
-  methods[10].selector = @selector(runWithIOSClassArray:withOrgJunitRunnerNotificationRunListener:);
-  methods[11].selector = @selector(runWithIOSClassArray:withOrgJunitRunnerNotificationRunListener:withCoTouchlabDopplTestingDopplJunitTestHelper_DopplJunitListener:);
-  methods[12].selector = @selector(newRunListenerWithCoTouchlabDopplTestingDopplJunitTestHelper_OutputFormat:);
-  methods[13].selector = @selector(sortClassesWithIOSClassArray:withCoTouchlabDopplTestingDopplJunitTestHelper_SortOrder:);
-  methods[14].selector = @selector(replaceAllWithNSString:);
-  methods[15].selector = @selector(getSortKeyWithIOSClass:withCoTouchlabDopplTestingDopplJunitTestHelper_SortOrder:);
-  methods[16].selector = @selector(getAllTestClasses);
-  methods[17].selector = @selector(isJUnitTestClassWithIOSClass:);
-  methods[18].selector = @selector(isJUnit3TestClassWithIOSClass:);
-  methods[19].selector = @selector(isJUnit4TestClassWithIOSClass:);
-  methods[20].selector = @selector(getPackageNameWithIOSClass:);
-  methods[21].selector = @selector(getTestClasses);
-  methods[22].selector = @selector(matchesPatternWithIOSClass:withNSString:);
-  methods[23].selector = @selector(loadPropertiesWithJavaIoInputStream:);
-  methods[24].selector = @selector(loadPropertiesFromResourceWithNSString:);
-  methods[25].selector = @selector(onErrorWithJavaLangException:);
+  methods[3].selector = @selector(runSpecificWithNSString:);
+  methods[4].selector = @selector(runWithNSStringArray:);
+  methods[5].selector = @selector(runWithNSStringArray:withOrgJunitRunnerNotificationRunListener:);
+  methods[6].selector = @selector(runWithNSStringArray:withOrgJunitRunnerNotificationRunListener:withCoTouchlabDopplTestingDopplJunitTestHelper_DopplJunitListener:);
+  methods[7].selector = @selector(runSpecificTestWithOrgJunitRunnerJUnitCore:withNSString:);
+  methods[8].selector = @selector(runInnerWithJavaUtilList:withBoolean:);
+  methods[9].selector = @selector(run);
+  methods[10].selector = @selector(runWithIOSClassArray:);
+  methods[11].selector = @selector(runWithIOSClassArray:withOrgJunitRunnerNotificationRunListener:);
+  methods[12].selector = @selector(runWithIOSClassArray:withOrgJunitRunnerNotificationRunListener:withCoTouchlabDopplTestingDopplJunitTestHelper_DopplJunitListener:);
+  methods[13].selector = @selector(runResourceWithNSString:);
+  methods[14].selector = @selector(newRunListenerWithCoTouchlabDopplTestingDopplJunitTestHelper_OutputFormat:);
+  methods[15].selector = @selector(sortClassesWithIOSClassArray:withCoTouchlabDopplTestingDopplJunitTestHelper_SortOrder:);
+  methods[16].selector = @selector(replaceAllWithNSString:);
+  methods[17].selector = @selector(getSortKeyWithIOSClass:withCoTouchlabDopplTestingDopplJunitTestHelper_SortOrder:);
+  methods[18].selector = @selector(getAllTestClasses);
+  methods[19].selector = @selector(isJUnitTestClassWithIOSClass:);
+  methods[20].selector = @selector(isJUnit3TestClassWithIOSClass:);
+  methods[21].selector = @selector(isJUnit4TestClassWithIOSClass:);
+  methods[22].selector = @selector(getPackageNameWithIOSClass:);
+  methods[23].selector = @selector(getTestClasses);
+  methods[24].selector = @selector(matchesPatternWithIOSClass:withNSString:);
+  methods[25].selector = @selector(loadPropertiesWithJavaIoInputStream:);
+  methods[26].selector = @selector(loadPropertiesFromResourceWithNSString:);
+  methods[27].selector = @selector(onErrorWithJavaLangException:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "PROPERTIES_FILE_NAME", "LNSString;", .constantValue.asLong = 0, 0x1a, -1, 36, -1, -1 },
+    { "PROPERTIES_FILE_NAME", "LNSString;", .constantValue.asLong = 0, 0x1a, -1, 38, -1, -1 },
     { "out_", "LJavaIoPrintStream;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
-    { "includePatterns_", "LJavaUtilSet;", .constantValue.asLong = 0, 0x12, -1, -1, 37, -1 },
-    { "excludePatterns_", "LJavaUtilSet;", .constantValue.asLong = 0, 0x12, -1, -1, 37, -1 },
-    { "nameMappings_", "LJavaUtilMap;", .constantValue.asLong = 0, 0x12, -1, -1, 38, -1 },
-    { "randomNames_", "LJavaUtilMap;", .constantValue.asLong = 0, 0x12, -1, -1, 38, -1 },
+    { "includePatterns_", "LJavaUtilSet;", .constantValue.asLong = 0, 0x12, -1, -1, 39, -1 },
+    { "excludePatterns_", "LJavaUtilSet;", .constantValue.asLong = 0, 0x12, -1, -1, 39, -1 },
+    { "nameMappings_", "LJavaUtilMap;", .constantValue.asLong = 0, 0x12, -1, -1, 40, -1 },
+    { "randomNames_", "LJavaUtilMap;", .constantValue.asLong = 0, 0x12, -1, -1, 40, -1 },
     { "random_", "LJavaUtilRandom;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
     { "outputFormat_", "LCoTouchlabDopplTestingDopplJunitTestHelper_OutputFormat;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "sortOrder_", "LCoTouchlabDopplTestingDopplJunitTestHelper_SortOrder;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LJavaIoPrintStream;", "main", "[LNSString;", "run", "[LNSString;LOrgJunitRunnerNotificationRunListener;", "[LNSString;LOrgJunitRunnerNotificationRunListener;LCoTouchlabDopplTestingDopplJunitTestHelper_DopplJunitListener;", "runSpecificTest", "LOrgJunitRunnerJUnitCore;LNSString;", "LJavaLangClassNotFoundException;", "runInner", "LJavaUtilList;Z", "(Ljava/util/List<Lco/touchlab/doppl/testing/DopplJunitTestHelper$ResultContainer;>;Z)I", "[LIOSClass;", "[LIOSClass;LOrgJunitRunnerNotificationRunListener;", "[LIOSClass;LOrgJunitRunnerNotificationRunListener;LCoTouchlabDopplTestingDopplJunitTestHelper_DopplJunitListener;", "newRunListener", "LCoTouchlabDopplTestingDopplJunitTestHelper_OutputFormat;", "sortClasses", "[LIOSClass;LCoTouchlabDopplTestingDopplJunitTestHelper_SortOrder;", "replaceAll", "LNSString;", "getSortKey", "LIOSClass;LCoTouchlabDopplTestingDopplJunitTestHelper_SortOrder;", "()Ljava/util/Set<Ljava/lang/Class;>;", "isJUnitTestClass", "LIOSClass;", "isJUnit3TestClass", "isJUnit4TestClass", "getPackageName", "matchesPattern", "LIOSClass;LNSString;", "loadProperties", "LJavaIoInputStream;", "loadPropertiesFromResource", "onError", "LJavaLangException;", &CoTouchlabDopplTestingDopplJunitTestHelper_PROPERTIES_FILE_NAME, "Ljava/util/Set<Ljava/lang/String;>;", "Ljava/util/Map<Ljava/lang/String;Ljava/lang/String;>;", "LCoTouchlabDopplTestingDopplJunitTestHelper_OutputFormat;LCoTouchlabDopplTestingDopplJunitTestHelper_SortOrder;LCoTouchlabDopplTestingDopplJunitTestHelper_TestInclusion;LCoTouchlabDopplTestingDopplJunitTestHelper_DopplJunitListener;LCoTouchlabDopplTestingDopplJunitTestHelper_ResultContainer;LCoTouchlabDopplTestingDopplJunitTestHelper_GtmUnitTestingTextListener;" };
-  static const J2ObjcClassInfo _CoTouchlabDopplTestingDopplJunitTestHelper = { "DopplJunitTestHelper", "co.touchlab.doppl.testing", ptrTable, methods, fields, 7, 0x1, 26, 9, -1, 39, -1, -1, -1 };
+  static const void *ptrTable[] = { "LJavaIoPrintStream;", "main", "[LNSString;", "runSpecific", "LNSString;", "run", "[LNSString;LOrgJunitRunnerNotificationRunListener;", "[LNSString;LOrgJunitRunnerNotificationRunListener;LCoTouchlabDopplTestingDopplJunitTestHelper_DopplJunitListener;", "runSpecificTest", "LOrgJunitRunnerJUnitCore;LNSString;", "LJavaLangClassNotFoundException;", "runInner", "LJavaUtilList;Z", "(Ljava/util/List<Lco/touchlab/doppl/testing/DopplJunitTestHelper$ResultContainer;>;Z)I", "[LIOSClass;", "[LIOSClass;LOrgJunitRunnerNotificationRunListener;", "[LIOSClass;LOrgJunitRunnerNotificationRunListener;LCoTouchlabDopplTestingDopplJunitTestHelper_DopplJunitListener;", "runResource", "newRunListener", "LCoTouchlabDopplTestingDopplJunitTestHelper_OutputFormat;", "sortClasses", "[LIOSClass;LCoTouchlabDopplTestingDopplJunitTestHelper_SortOrder;", "replaceAll", "getSortKey", "LIOSClass;LCoTouchlabDopplTestingDopplJunitTestHelper_SortOrder;", "()Ljava/util/Set<Ljava/lang/Class;>;", "isJUnitTestClass", "LIOSClass;", "isJUnit3TestClass", "isJUnit4TestClass", "getPackageName", "matchesPattern", "LIOSClass;LNSString;", "loadProperties", "LJavaIoInputStream;", "loadPropertiesFromResource", "onError", "LJavaLangException;", &CoTouchlabDopplTestingDopplJunitTestHelper_PROPERTIES_FILE_NAME, "Ljava/util/Set<Ljava/lang/String;>;", "Ljava/util/Map<Ljava/lang/String;Ljava/lang/String;>;", "LCoTouchlabDopplTestingDopplJunitTestHelper_OutputFormat;LCoTouchlabDopplTestingDopplJunitTestHelper_SortOrder;LCoTouchlabDopplTestingDopplJunitTestHelper_TestInclusion;LCoTouchlabDopplTestingDopplJunitTestHelper_DopplJunitListener;LCoTouchlabDopplTestingDopplJunitTestHelper_ResultContainer;LCoTouchlabDopplTestingDopplJunitTestHelper_GtmUnitTestingTextListener;" };
+  static const J2ObjcClassInfo _CoTouchlabDopplTestingDopplJunitTestHelper = { "DopplJunitTestHelper", "co.touchlab.doppl.testing", ptrTable, methods, fields, 7, 0x1, 28, 9, -1, 41, -1, -1, -1 };
   return &_CoTouchlabDopplTestingDopplJunitTestHelper;
 }
 
@@ -497,6 +511,11 @@ jint CoTouchlabDopplTestingDopplJunitTestHelper_mainWithNSStringArray_(IOSObject
   CoTouchlabDopplTestingDopplJunitTestHelper *runner = create_CoTouchlabDopplTestingDopplJunitTestHelper_init();
   CoTouchlabDopplTestingDopplJunitTestHelper_loadPropertiesFromResourceWithNSString_(runner, CoTouchlabDopplTestingDopplJunitTestHelper_PROPERTIES_FILE_NAME);
   return [runner run];
+}
+
+jint CoTouchlabDopplTestingDopplJunitTestHelper_runSpecificWithNSString_(NSString *cla) {
+  CoTouchlabDopplTestingDopplJunitTestHelper_initialize();
+  return CoTouchlabDopplTestingDopplJunitTestHelper_runWithNSStringArray_withOrgJunitRunnerNotificationRunListener_withCoTouchlabDopplTestingDopplJunitTestHelper_DopplJunitListener_([IOSObjectArray arrayWithObjects:(id[]){ cla } count:1 type:NSString_class_()], nil, nil);
 }
 
 jint CoTouchlabDopplTestingDopplJunitTestHelper_runWithNSStringArray_(IOSObjectArray *classes) {
@@ -607,6 +626,32 @@ jint CoTouchlabDopplTestingDopplJunitTestHelper_runWithIOSClassArray_withOrgJuni
     }
   }
   return CoTouchlabDopplTestingDopplJunitTestHelper_runWithNSStringArray_withOrgJunitRunnerNotificationRunListener_withCoTouchlabDopplTestingDopplJunitTestHelper_DopplJunitListener_([classnameList toArrayWithNSObjectArray:[IOSObjectArray arrayWithLength:[classnameList size] type:NSString_class_()]], listener, dopplJunitListener);
+}
+
+jint CoTouchlabDopplTestingDopplJunitTestHelper_runResourceWithNSString_(NSString *name) {
+  CoTouchlabDopplTestingDopplJunitTestHelper_initialize();
+  JavaIoInputStream *resourceAsStream = [((JavaLangClassLoader *) nil_chk([CoTouchlabDopplTestingDopplJunitTestHelper_class_() getClassLoader])) getResourceAsStreamWithNSString:name];
+  JavaIoBufferedReader *br = create_JavaIoBufferedReader_initWithJavaIoReader_(create_JavaIoInputStreamReader_initWithJavaIoInputStream_(resourceAsStream));
+  id<JavaUtilList> classNames = create_JavaUtilArrayList_init();
+  @try {
+    NSString *line = [br readLine];
+    while (line != nil) {
+      [classNames addWithId:line];
+      line = [br readLine];
+    }
+  }
+  @catch (JavaIoIOException *e) {
+    [e printStackTrace];
+  }
+  @finally {
+    @try {
+      [br close];
+    }
+    @catch (JavaIoIOException *e) {
+      [e printStackTrace];
+    }
+  }
+  return CoTouchlabDopplTestingDopplJunitTestHelper_runWithNSStringArray_withOrgJunitRunnerNotificationRunListener_withCoTouchlabDopplTestingDopplJunitTestHelper_DopplJunitListener_([classNames toArrayWithNSObjectArray:[IOSObjectArray arrayWithLength:[classNames size] type:NSString_class_()]], nil, nil);
 }
 
 NSString *CoTouchlabDopplTestingDopplJunitTestHelper_replaceAllWithNSString_(CoTouchlabDopplTestingDopplJunitTestHelper *self, NSString *value) {

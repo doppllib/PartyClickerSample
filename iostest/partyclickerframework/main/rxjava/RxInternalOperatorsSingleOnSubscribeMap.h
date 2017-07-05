@@ -75,6 +75,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsSingleOnSubscribeMap)
                       withRxFunctionsFunc1:(id<RxFunctionsFunc1>)mapper;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSuccessWithId:(id)t;
 

@@ -102,6 +102,7 @@ withRxInternalOperatorsOnSubscribePublishMulticast:(RxInternalOperatorsOnSubscri
 - (void)onNextWithId:(id)t;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onCompleted;
 
@@ -915,13 +916,9 @@ RxInternalOperatorsOperatorPublish_PublishSubscriber_1 *create_RxInternalOperato
   return (NSUInteger)self;
 }
 
-- (void)__javaClone:(RxInternalOperatorsOperatorPublish_InnerProducer *)original {
-  [super __javaClone:original];
-  [child_ release];
-}
-
 - (void)dealloc {
   RELEASE_(parent_);
+  RELEASE_(child_);
   [super dealloc];
 }
 
@@ -958,7 +955,7 @@ RxInternalOperatorsOperatorPublish_PublishSubscriber_1 *create_RxInternalOperato
 void RxInternalOperatorsOperatorPublish_InnerProducer_initWithRxInternalOperatorsOperatorPublish_PublishSubscriber_withRxSubscriber_(RxInternalOperatorsOperatorPublish_InnerProducer *self, RxInternalOperatorsOperatorPublish_PublishSubscriber *parent, RxSubscriber *child) {
   JavaUtilConcurrentAtomicAtomicLong_init(self);
   JreStrongAssign(&self->parent_, parent);
-  self->child_ = child;
+  JreStrongAssign(&self->child_, child);
   [self lazySetWithLong:RxInternalOperatorsOperatorPublish_InnerProducer_NOT_REQUESTED];
 }
 

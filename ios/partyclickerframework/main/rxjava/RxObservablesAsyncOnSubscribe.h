@@ -203,6 +203,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxObservablesAsyncOnSubscribe_AsyncOnSubscribeImpl)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(RxObservable *)t;
 
@@ -261,6 +262,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxObservablesAsyncOnSubscribe_AsyncOuterManager)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 

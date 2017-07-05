@@ -87,6 +87,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorBufferWithTime)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 
@@ -144,6 +145,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorBufferWithTime_InexactSubs
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 

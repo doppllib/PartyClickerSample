@@ -12,6 +12,14 @@
 #include "java/lang/RuntimeException.h"
 #include "java/lang/reflect/Field.h"
 
+@interface CoTouchlabDopplTestingDopplRuntimeEnvironment ()
+
++ (void)loadAndroid;
+
+@end
+
+__attribute__((unused)) static void CoTouchlabDopplTestingDopplRuntimeEnvironment_loadAndroid();
+
 AndroidAppApplication *CoTouchlabDopplTestingDopplRuntimeEnvironment_application;
 
 @implementation CoTouchlabDopplTestingDopplRuntimeEnvironment
@@ -35,7 +43,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LAndroidAppApplication;", 0x29, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x9, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0xa, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"

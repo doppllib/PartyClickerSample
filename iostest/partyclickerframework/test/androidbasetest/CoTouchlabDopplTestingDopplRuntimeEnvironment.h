@@ -25,8 +25,6 @@
 
 + (AndroidAppApplication *)getApplication;
 
-+ (void)loadAndroid;
-
 @end
 
 J2OBJC_EMPTY_STATIC_INIT(CoTouchlabDopplTestingDopplRuntimeEnvironment)
@@ -44,8 +42,6 @@ FOUNDATION_EXPORT CoTouchlabDopplTestingDopplRuntimeEnvironment *new_CoTouchlabD
 FOUNDATION_EXPORT CoTouchlabDopplTestingDopplRuntimeEnvironment *create_CoTouchlabDopplTestingDopplRuntimeEnvironment_init();
 
 FOUNDATION_EXPORT AndroidAppApplication *CoTouchlabDopplTestingDopplRuntimeEnvironment_getApplication();
-
-FOUNDATION_EXPORT void CoTouchlabDopplTestingDopplRuntimeEnvironment_loadAndroid();
 
 J2OBJC_TYPE_LITERAL_HEADER(CoTouchlabDopplTestingDopplRuntimeEnvironment)
 

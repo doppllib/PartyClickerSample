@@ -138,7 +138,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     }
   }
   if ([((RxNotification *) nil_chk(buf_)) isOnError]) {
-    @throw RxExceptionsExceptions_propagateWithNSException_([((RxNotification *) nil_chk(buf_)) getThrowable]);
+    @throw nil_chk(RxExceptionsExceptions_propagateWithNSException_([((RxNotification *) nil_chk(buf_)) getThrowable]));
   }
   return ![((RxNotification *) nil_chk(buf_)) isOnCompleted];
 }
@@ -237,7 +237,7 @@ RxNotification *RxInternalOperatorsBlockingOperatorToIterator_SubscriberIterator
   }
   @catch (JavaLangInterruptedException *e) {
     [self unsubscribe];
-    @throw RxExceptionsExceptions_propagateWithNSException_(e);
+    @throw nil_chk(RxExceptionsExceptions_propagateWithNSException_(e));
   }
 }
 

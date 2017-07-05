@@ -31,6 +31,7 @@ J2OBJC_FIELD_SETTER(RxInternalOperatorsOperatorTakeUntil, other_, RxObservable *
 - (void)onNextWithId:(id)t;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onCompleted;
 
@@ -56,6 +57,7 @@ __attribute__((unused)) static RxInternalOperatorsOperatorTakeUntil_1 *create_Rx
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 

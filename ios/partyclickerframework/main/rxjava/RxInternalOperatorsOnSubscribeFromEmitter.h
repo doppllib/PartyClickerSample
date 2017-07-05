@@ -82,6 +82,8 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeFromEmitter)
 #define INCLUDE_RxSubscription 1
 #include "RxSubscription.h"
 
+@protocol JavaUtilFunctionBinaryOperator;
+@protocol JavaUtilFunctionUnaryOperator;
 @protocol RxFunctionsCancellable;
 
 @interface RxInternalOperatorsOnSubscribeFromEmitter_CancellableSubscription : JavaUtilConcurrentAtomicAtomicReference < RxSubscription >
@@ -90,13 +92,23 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeFromEmitter)
 
 - (instancetype)initWithRxFunctionsCancellable:(id<RxFunctionsCancellable>)cancellable;
 
+- (id<RxFunctionsCancellable>)accumulateAndGetWithId:(id<RxFunctionsCancellable>)arg0
+                  withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (id<RxFunctionsCancellable>)get;
 
+- (id<RxFunctionsCancellable>)getAndAccumulateWithId:(id<RxFunctionsCancellable>)arg0
+                  withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (id<RxFunctionsCancellable>)getAndSetWithId:(id<RxFunctionsCancellable>)arg0;
+
+- (id<RxFunctionsCancellable>)getAndUpdateWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
 
 - (jboolean)isUnsubscribed;
 
 - (void)unsubscribe;
+
+- (id<RxFunctionsCancellable>)updateAndGetWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
 
 @end
 
@@ -154,6 +166,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeFromEmitter_Cancellable
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)requestWithLong:(jlong)n;
 
@@ -297,6 +310,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeFromEmitter_DropEmitter
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 
@@ -345,6 +359,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeFromEmitter_ErrorEmitte
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 
@@ -400,6 +415,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOnSubscribeFromEmitter_BufferEmitt
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 

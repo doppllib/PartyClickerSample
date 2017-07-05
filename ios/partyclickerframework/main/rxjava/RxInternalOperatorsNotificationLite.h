@@ -28,6 +28,7 @@
 + (id)completed;
 
 + (id)errorWithNSException:(NSException *)e;
+#define errorWithJavaLangThrowable errorWithNSException
 
 + (NSException *)getErrorWithId:(id)n;
 
@@ -90,6 +91,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsNotificationLite)
 #pragma mark Public
 
 - (instancetype)initWithNSException:(NSException *)e;
+#define initWithJavaLangThrowable initWithNSException
 
 - (NSString *)description;
 

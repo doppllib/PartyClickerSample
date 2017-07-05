@@ -524,6 +524,7 @@
 + (RxObservable *)empty;
 
 + (RxObservable *)errorWithNSException:(NSException *)exception;
+#define errorWithJavaLangThrowable errorWithNSException
 
 - (RxObservable *)existsWithRxFunctionsFunc1:(id<RxFunctionsFunc1>)predicate;
 

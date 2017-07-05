@@ -148,6 +148,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorTimeoutBase_TimeoutStub)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)error;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)value;
 

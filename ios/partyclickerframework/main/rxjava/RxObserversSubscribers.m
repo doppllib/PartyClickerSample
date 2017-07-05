@@ -35,6 +35,7 @@ __attribute__((unused)) static RxObserversSubscribers *create_RxObserversSubscri
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 
@@ -58,6 +59,7 @@ __attribute__((unused)) static RxObserversSubscribers_1 *create_RxObserversSubsc
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)args;
 
@@ -83,6 +85,7 @@ __attribute__((unused)) static RxObserversSubscribers_2 *create_RxObserversSubsc
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)args;
 
@@ -110,6 +113,7 @@ __attribute__((unused)) static RxObserversSubscribers_3 *create_RxObserversSubsc
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)args;
 
@@ -134,6 +138,7 @@ __attribute__((unused)) static RxObserversSubscribers_4 *create_RxObserversSubsc
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 

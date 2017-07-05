@@ -65,6 +65,7 @@ __attribute__((unused)) static RxInternalOperatorsOperatorToObservableSortedList
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)value;
 

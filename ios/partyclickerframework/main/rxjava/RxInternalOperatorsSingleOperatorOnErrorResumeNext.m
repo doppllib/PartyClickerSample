@@ -60,6 +60,7 @@ __attribute__((unused)) static RxInternalOperatorsSingleOperatorOnErrorResumeNex
 - (void)onSuccessWithId:(id)value;
 
 - (void)onErrorWithNSException:(NSException *)error;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 @end
 

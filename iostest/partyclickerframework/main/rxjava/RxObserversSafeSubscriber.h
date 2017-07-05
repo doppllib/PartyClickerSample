@@ -33,12 +33,14 @@
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)args;
 
 #pragma mark Protected
 
 - (void)_onErrorWithNSException:(NSException *)e;
+#define _onErrorWithJavaLangThrowable _onErrorWithNSException
 
 @end
 

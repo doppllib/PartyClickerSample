@@ -124,13 +124,13 @@ AndroidUtilSize *AndroidUtilSize_parseSizeWithNSString_(NSString *string) {
     sep_ix = [string java_indexOf:'x'];
   }
   if (sep_ix < 0) {
-    @throw AndroidUtilSize_invalidSizeWithNSString_(string);
+    @throw nil_chk(AndroidUtilSize_invalidSizeWithNSString_(string));
   }
   @try {
     return create_AndroidUtilSize_initWithInt_withInt_(JavaLangInteger_parseIntWithNSString_([string java_substring:0 endIndex:sep_ix]), JavaLangInteger_parseIntWithNSString_([string java_substring:sep_ix + 1]));
   }
   @catch (JavaLangNumberFormatException *e) {
-    @throw AndroidUtilSize_invalidSizeWithNSString_(string);
+    @throw nil_chk(AndroidUtilSize_invalidSizeWithNSString_(string));
   }
 }
 

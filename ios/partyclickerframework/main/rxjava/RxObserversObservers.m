@@ -34,6 +34,7 @@ __attribute__((unused)) static RxObserversObservers *create_RxObserversObservers
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)args;
 
@@ -57,6 +58,7 @@ __attribute__((unused)) static RxObserversObservers_1 *create_RxObserversObserve
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)args;
 
@@ -82,6 +84,7 @@ __attribute__((unused)) static RxObserversObservers_2 *create_RxObserversObserve
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)args;
 
@@ -109,6 +112,7 @@ __attribute__((unused)) static RxObserversObservers_3 *create_RxObserversObserve
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)args;
 

@@ -33,6 +33,7 @@
 - (void)onSuccessWithId:(id)value;
 
 - (void)onErrorWithNSException:(NSException *)error;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 @end
 

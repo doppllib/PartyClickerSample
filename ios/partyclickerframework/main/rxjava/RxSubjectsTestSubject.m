@@ -74,6 +74,7 @@ __attribute__((unused)) static RxSubjectsTestSubject_2 *create_RxSubjectsTestSub
 
 - (instancetype)initWithRxSubjectsTestSubject:(RxSubjectsTestSubject *)outer$
                               withNSException:(NSException *)capture$0;
+#define withJavaLangThrowable withNSException
 
 - (void)call;
 

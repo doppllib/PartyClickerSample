@@ -144,16 +144,16 @@ AndroidUtilSizeF *AndroidUtilSizeF_parseSizeFWithNSString_(NSString *string) {
     sep_ix = [string java_indexOf:'x'];
   }
   if (sep_ix < 0) {
-    @throw AndroidUtilSizeF_invalidSizeFWithNSString_(string);
+    @throw nil_chk(AndroidUtilSizeF_invalidSizeFWithNSString_(string));
   }
   @try {
     return create_AndroidUtilSizeF_initWithFloat_withFloat_(JavaLangFloat_parseFloatWithNSString_([string java_substring:0 endIndex:sep_ix]), JavaLangFloat_parseFloatWithNSString_([string java_substring:sep_ix + 1]));
   }
   @catch (JavaLangNumberFormatException *e) {
-    @throw AndroidUtilSizeF_invalidSizeFWithNSString_(string);
+    @throw nil_chk(AndroidUtilSizeF_invalidSizeFWithNSString_(string));
   }
   @catch (JavaLangIllegalArgumentException *e) {
-    @throw AndroidUtilSizeF_invalidSizeFWithNSString_(string);
+    @throw nil_chk(AndroidUtilSizeF_invalidSizeFWithNSString_(string));
   }
 }
 

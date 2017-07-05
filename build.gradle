@@ -6,9 +6,9 @@ buildscript {
         maven { url 'https://dl.bintray.com/doppllib/maven' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.2'
+        classpath 'com.android.tools.build:gradle:2.3.3'
         classpath 'me.tatarka:gradle-retrolambda:3.5.0'
-        classpath 'co.doppl:gradle:0.8.1'
+        classpath 'co.doppl:gradle:0.8.3'
     }
 }
 

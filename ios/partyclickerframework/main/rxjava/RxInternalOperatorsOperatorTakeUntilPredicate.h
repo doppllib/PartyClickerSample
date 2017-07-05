@@ -65,6 +65,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorTakeUntilPredicate)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 

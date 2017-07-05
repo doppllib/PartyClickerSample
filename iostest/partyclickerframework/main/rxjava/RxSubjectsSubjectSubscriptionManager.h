@@ -27,6 +27,8 @@
 @class RxSubjectsSubjectSubscriptionManager_State;
 @class RxSubjectsSubjectSubscriptionManager_SubjectObserver;
 @class RxSubscriber;
+@protocol JavaUtilFunctionBinaryOperator;
+@protocol JavaUtilFunctionUnaryOperator;
 @protocol RxFunctionsAction1;
 
 @interface RxSubjectsSubjectSubscriptionManager : JavaUtilConcurrentAtomicAtomicReference < RxObservable_OnSubscribe > {
@@ -42,11 +44,21 @@
 
 - (instancetype)init;
 
+- (RxSubjectsSubjectSubscriptionManager_State *)accumulateAndGetWithId:(RxSubjectsSubjectSubscriptionManager_State *)arg0
+                                    withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (void)callWithId:(RxSubscriber *)child;
 
 - (RxSubjectsSubjectSubscriptionManager_State *)get;
 
+- (RxSubjectsSubjectSubscriptionManager_State *)getAndAccumulateWithId:(RxSubjectsSubjectSubscriptionManager_State *)arg0
+                                    withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (RxSubjectsSubjectSubscriptionManager_State *)getAndSetWithId:(RxSubjectsSubjectSubscriptionManager_State *)arg0;
+
+- (RxSubjectsSubjectSubscriptionManager_State *)getAndUpdateWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
+
+- (RxSubjectsSubjectSubscriptionManager_State *)updateAndGetWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
 
 #pragma mark Package-Private
 
@@ -169,6 +181,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxSubjectsSubjectSubscriptionManager_State)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 

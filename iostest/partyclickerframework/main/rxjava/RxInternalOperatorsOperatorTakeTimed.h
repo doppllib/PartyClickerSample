@@ -80,6 +80,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorTakeTimed)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 

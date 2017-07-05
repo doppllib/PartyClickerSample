@@ -46,6 +46,7 @@
 - (void)assertErrorWithIOSClass:(IOSClass *)clazz;
 
 - (void)assertErrorWithNSException:(NSException *)throwable;
+#define assertErrorWithJavaLangThrowable assertErrorWithNSException
 
 - (void)assertNoErrors;
 
@@ -108,6 +109,7 @@
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 

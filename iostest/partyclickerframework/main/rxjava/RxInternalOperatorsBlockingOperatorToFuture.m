@@ -42,6 +42,7 @@ __attribute__((unused)) static RxInternalOperatorsBlockingOperatorToFuture *crea
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)v;
 

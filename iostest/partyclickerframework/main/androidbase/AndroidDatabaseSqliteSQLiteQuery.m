@@ -52,7 +52,7 @@ J2OBJC_STATIC_FIELD_OBJ_FINAL(AndroidDatabaseSqliteSQLiteQuery, TAG, NSString *)
       @throw ex;
     }
     @catch (AndroidDatabaseSqliteSQLiteException *ex) {
-      AndroidUtilLog_eWithNSString_withNSString_(AndroidDatabaseSqliteSQLiteQuery_TAG, JreStrcat("$$$$", @"exception: ", [((AndroidDatabaseSqliteSQLiteException *) nil_chk(ex)) getMessage], @"; query: ", [self getSql]));
+      AndroidUtilLog_eWithNSString_withNSString_(AndroidDatabaseSqliteSQLiteQuery_TAG, JreStrcat("$$$$", @"exception: ", [ex getMessage], @"; query: ", [self getSql]));
       @throw ex;
     }
     @finally {

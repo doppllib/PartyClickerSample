@@ -147,6 +147,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorWindowWithTime_State)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 
@@ -161,6 +162,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorWindowWithTime_State)
 - (jboolean)emitValueWithId:(id)t;
 
 - (void)errorWithNSException:(NSException *)e;
+#define errorWithJavaLangThrowable errorWithNSException
 
 - (void)nextWindow;
 
@@ -253,6 +255,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorWindowWithTime_CountedSeri
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 

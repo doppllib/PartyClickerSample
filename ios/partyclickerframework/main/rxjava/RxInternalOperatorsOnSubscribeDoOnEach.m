@@ -40,6 +40,7 @@ J2OBJC_FIELD_SETTER(RxInternalOperatorsOnSubscribeDoOnEach, source_, RxObservabl
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)value;
 

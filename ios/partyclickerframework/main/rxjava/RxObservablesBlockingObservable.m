@@ -74,6 +74,7 @@ __attribute__((unused)) static id RxObservablesBlockingObservable_blockForSingle
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)args;
 
@@ -120,6 +121,7 @@ __attribute__((unused)) static RxObservablesBlockingObservable_2 *create_RxObser
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)item;
 
@@ -145,6 +147,7 @@ __attribute__((unused)) static RxObservablesBlockingObservable_3 *create_RxObser
 - (void)onNextWithId:(id)t;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onCompleted;
 
@@ -168,6 +171,7 @@ __attribute__((unused)) static RxObservablesBlockingObservable_4 *create_RxObser
 - (void)onNextWithId:(id)t;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onCompleted;
 
@@ -193,6 +197,7 @@ __attribute__((unused)) static RxObservablesBlockingObservable_5 *create_RxObser
 - (void)onNextWithId:(id)t;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onCompleted;
 
@@ -259,6 +264,7 @@ __attribute__((unused)) static RxObservablesBlockingObservable_8 *create_RxObser
 - (void)onNextWithId:(id)t;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onCompleted;
 

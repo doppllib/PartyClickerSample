@@ -25,8 +25,10 @@
 
 - (instancetype)initWithNSString:(NSString *)message
                  withNSException:(NSException *)throwable;
+#define withJavaLangThrowable withNSException
 
 - (instancetype)initWithNSException:(NSException *)throwable;
+#define initWithJavaLangThrowable initWithNSException
 
 @end
 

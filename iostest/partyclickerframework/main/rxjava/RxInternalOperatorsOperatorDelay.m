@@ -26,6 +26,7 @@
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 
@@ -66,6 +67,7 @@ __attribute__((unused)) static RxInternalOperatorsOperatorDelay_1_1 *create_RxIn
 
 - (instancetype)initWithRxInternalOperatorsOperatorDelay_1:(RxInternalOperatorsOperatorDelay_1 *)outer$
                                            withNSException:(NSException *)capture$0;
+#define withJavaLangThrowable withNSException
 
 - (void)call;
 

@@ -19,6 +19,9 @@
 #define INCLUDE_JavaUtilConcurrentAtomicAtomicReference 1
 #include "java/util/concurrent/atomic/AtomicReference.h"
 
+@protocol JavaUtilFunctionBinaryOperator;
+@protocol JavaUtilFunctionUnaryOperator;
+
 @interface RxInternalUtilAtomicLinkedQueueNode : JavaUtilConcurrentAtomicAtomicReference
 
 #pragma mark Public
@@ -27,11 +30,19 @@
 
 - (instancetype)initWithId:(id)val;
 
+- (RxInternalUtilAtomicLinkedQueueNode *)accumulateAndGetWithId:(RxInternalUtilAtomicLinkedQueueNode *)arg0
+                             withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (RxInternalUtilAtomicLinkedQueueNode *)get;
+
+- (RxInternalUtilAtomicLinkedQueueNode *)getAndAccumulateWithId:(RxInternalUtilAtomicLinkedQueueNode *)arg0
+                             withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
 
 - (id)getAndNullValue;
 
 - (RxInternalUtilAtomicLinkedQueueNode *)getAndSetWithId:(RxInternalUtilAtomicLinkedQueueNode *)arg0;
+
+- (RxInternalUtilAtomicLinkedQueueNode *)getAndUpdateWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
 
 - (id)lpValue;
 
@@ -40,6 +51,8 @@
 - (void)soNextWithRxInternalUtilAtomicLinkedQueueNode:(RxInternalUtilAtomicLinkedQueueNode *)n;
 
 - (void)spValueWithId:(id)newValue;
+
+- (RxInternalUtilAtomicLinkedQueueNode *)updateAndGetWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
 
 @end
 

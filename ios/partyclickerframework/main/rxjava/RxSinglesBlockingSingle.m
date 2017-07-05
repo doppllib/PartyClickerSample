@@ -47,6 +47,7 @@ __attribute__((unused)) static RxSinglesBlockingSingle *create_RxSinglesBlocking
 - (void)onSuccessWithId:(id)value;
 
 - (void)onErrorWithNSException:(NSException *)error;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 @end
 
@@ -77,7 +78,7 @@ __attribute__((unused)) static RxSinglesBlockingSingle_1 *create_RxSinglesBlocki
   RxInternalUtilBlockingUtils_awaitForCompleteWithJavaUtilConcurrentCountDownLatch_withRxSubscription_(latch, subscription);
   NSException *throwable = [returnException get];
   if (throwable != nil) {
-    @throw RxExceptionsExceptions_propagateWithNSException_(throwable);
+    @throw nil_chk(RxExceptionsExceptions_propagateWithNSException_(throwable));
   }
   return [returnItem get];
 }

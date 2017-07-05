@@ -66,6 +66,7 @@ __attribute__((unused)) static RxInternalOperatorsBufferUntilSubscriber_OnSubscr
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 

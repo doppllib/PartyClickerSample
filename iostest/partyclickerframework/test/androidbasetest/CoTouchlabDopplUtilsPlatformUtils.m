@@ -3,6 +3,7 @@
 //
 
 #include "CoTouchlabDopplUtilsPlatformUtils.h"
+#include "CoTouchlabDopplUtilsXcodeUtils.h"
 #include "J2ObjC_source.h"
 #include "java/lang/System.h"
 
@@ -19,17 +20,23 @@ J2OBJC_IGNORE_DESIGNATED_END
   return CoTouchlabDopplUtilsPlatformUtils_isJ2objc();
 }
 
++ (void)triggerXcodeBreakpoint {
+  CoTouchlabDopplUtilsPlatformUtils_triggerXcodeBreakpoint();
+}
+
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "Z", 0x9, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x9, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(isJ2objc);
+  methods[2].selector = @selector(triggerXcodeBreakpoint);
   #pragma clang diagnostic pop
-  static const J2ObjcClassInfo _CoTouchlabDopplUtilsPlatformUtils = { "PlatformUtils", "co.touchlab.doppl.utils", NULL, methods, NULL, 7, 0x1, 2, 0, -1, -1, -1, -1, -1 };
+  static const J2ObjcClassInfo _CoTouchlabDopplUtilsPlatformUtils = { "PlatformUtils", "co.touchlab.doppl.utils", NULL, methods, NULL, 7, 0x1, 3, 0, -1, -1, -1, -1, -1 };
   return &_CoTouchlabDopplUtilsPlatformUtils;
 }
 
@@ -50,6 +57,13 @@ CoTouchlabDopplUtilsPlatformUtils *create_CoTouchlabDopplUtilsPlatformUtils_init
 jboolean CoTouchlabDopplUtilsPlatformUtils_isJ2objc() {
   CoTouchlabDopplUtilsPlatformUtils_initialize();
   return [((NSString *) nil_chk(JavaLangSystem_getPropertyWithNSString_(@"java.vendor"))) java_contains:@"J2ObjC"];
+}
+
+void CoTouchlabDopplUtilsPlatformUtils_triggerXcodeBreakpoint() {
+  CoTouchlabDopplUtilsPlatformUtils_initialize();
+  if (CoTouchlabDopplUtilsPlatformUtils_isJ2objc()) {
+    CoTouchlabDopplUtilsXcodeUtils_triggerXcodeBreakpoint();
+  }
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(CoTouchlabDopplUtilsPlatformUtils)

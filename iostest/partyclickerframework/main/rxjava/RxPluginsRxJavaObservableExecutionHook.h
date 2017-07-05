@@ -31,6 +31,7 @@
 - (id<RxObservable_Operator>)onLiftWithRxObservable_Operator:(id<RxObservable_Operator>)lift;
 
 - (NSException *)onSubscribeErrorWithNSException:(NSException *)e;
+#define onSubscribeErrorWithJavaLangThrowable onSubscribeErrorWithNSException
 
 - (id<RxSubscription>)onSubscribeReturnWithRxSubscription:(id<RxSubscription>)subscription;
 

@@ -62,6 +62,10 @@ withOrgJunitRunnerNotificationRunListener:(OrgJunitRunnerNotificationRunListener
 withOrgJunitRunnerNotificationRunListener:(OrgJunitRunnerNotificationRunListener *)listener
 withCoTouchlabDopplTestingDopplJunitTestHelper_DopplJunitListener:(id<CoTouchlabDopplTestingDopplJunitTestHelper_DopplJunitListener>)dopplListener;
 
++ (jint)runResourceWithNSString:(NSString *)name;
+
++ (jint)runSpecificWithNSString:(NSString *)cla;
+
 + (OrgJunitRunnerResult *)runSpecificTestWithOrgJunitRunnerJUnitCore:(OrgJunitRunnerJUnitCore *)junitCore
                                                         withNSString:(NSString *)c;
 
@@ -96,6 +100,8 @@ FOUNDATION_EXPORT CoTouchlabDopplTestingDopplJunitTestHelper *create_CoTouchlabD
 
 FOUNDATION_EXPORT jint CoTouchlabDopplTestingDopplJunitTestHelper_mainWithNSStringArray_(IOSObjectArray *args);
 
+FOUNDATION_EXPORT jint CoTouchlabDopplTestingDopplJunitTestHelper_runSpecificWithNSString_(NSString *cla);
+
 FOUNDATION_EXPORT jint CoTouchlabDopplTestingDopplJunitTestHelper_runWithNSStringArray_(IOSObjectArray *classes);
 
 FOUNDATION_EXPORT jint CoTouchlabDopplTestingDopplJunitTestHelper_runWithNSStringArray_withOrgJunitRunnerNotificationRunListener_(IOSObjectArray *classes, OrgJunitRunnerNotificationRunListener *listener);
@@ -109,6 +115,8 @@ FOUNDATION_EXPORT jint CoTouchlabDopplTestingDopplJunitTestHelper_runWithIOSClas
 FOUNDATION_EXPORT jint CoTouchlabDopplTestingDopplJunitTestHelper_runWithIOSClassArray_withOrgJunitRunnerNotificationRunListener_(IOSObjectArray *classes, OrgJunitRunnerNotificationRunListener *listener);
 
 FOUNDATION_EXPORT jint CoTouchlabDopplTestingDopplJunitTestHelper_runWithIOSClassArray_withOrgJunitRunnerNotificationRunListener_withCoTouchlabDopplTestingDopplJunitTestHelper_DopplJunitListener_(IOSObjectArray *classes, OrgJunitRunnerNotificationRunListener *listener, id<CoTouchlabDopplTestingDopplJunitTestHelper_DopplJunitListener> dopplJunitListener);
+
+FOUNDATION_EXPORT jint CoTouchlabDopplTestingDopplJunitTestHelper_runResourceWithNSString_(NSString *name);
 
 J2OBJC_TYPE_LITERAL_HEADER(CoTouchlabDopplTestingDopplJunitTestHelper)
 

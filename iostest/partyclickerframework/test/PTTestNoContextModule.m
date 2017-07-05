@@ -43,6 +43,7 @@ __attribute__((unused)) static IOSObjectArray *PTTestNoContextModule__Annotation
 - (void)logWithNSString:(NSString *)s;
 
 - (void)reportWithNSException:(NSException *)t;
+#define reportWithJavaLangThrowable reportWithNSException
 
 @end
 

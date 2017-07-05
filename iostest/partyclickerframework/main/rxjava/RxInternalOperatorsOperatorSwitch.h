@@ -147,6 +147,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorSwitch_HolderDelayError)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(RxObservable *)t;
 
@@ -158,6 +159,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorSwitch_HolderDelayError)
 withRxInternalUtilAtomicSpscLinkedArrayQueue:(RxInternalUtilAtomicSpscLinkedArrayQueue *)localQueue
                       withRxSubscriber:(RxSubscriber *)localChild
                            withBoolean:(jboolean)empty;
+#define withJavaLangThrowable withNSException
 
 #pragma mark Package-Private
 
@@ -177,6 +179,7 @@ withRxInternalOperatorsOperatorSwitch_InnerSubscriber:(RxInternalOperatorsOperat
 
 - (void)errorWithNSException:(NSException *)e
                     withLong:(jlong)id_;
+#define errorWithJavaLangThrowable errorWithNSException
 
 - (void)init__ OBJC_METHOD_FAMILY_NONE;
 
@@ -184,8 +187,10 @@ withRxInternalOperatorsOperatorSwitch_InnerSubscriber:(RxInternalOperatorsOperat
                            withLong:(jlong)id_;
 
 - (void)pluginErrorWithNSException:(NSException *)e;
+#define pluginErrorWithJavaLangThrowable pluginErrorWithNSException
 
 - (jboolean)updateErrorWithNSException:(NSException *)next;
+#define updateErrorWithJavaLangThrowable updateErrorWithNSException
 
 @end
 
@@ -230,6 +235,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorSwitch_SwitchSubscriber)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 

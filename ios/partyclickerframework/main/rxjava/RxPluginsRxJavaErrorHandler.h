@@ -22,6 +22,7 @@
 - (instancetype)init;
 
 - (void)handleErrorWithNSException:(NSException *)e;
+#define handleErrorWithJavaLangThrowable handleErrorWithNSException
 
 - (NSString *)handleOnNextValueRenderingWithId:(id)item;
 

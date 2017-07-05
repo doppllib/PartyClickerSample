@@ -236,7 +236,7 @@ __attribute__((unused)) static id<JavaLangCharSequence> AndroidUtilJsonReader_ge
         if (lenient_) {
           return token;
         }
-        @throw AndroidUtilJsonReader_syntaxErrorWithNSString_(self, @"Expected EOF");
+        @throw nil_chk(AndroidUtilJsonReader_syntaxErrorWithNSString_(self, @"Expected EOF"));
       }
       @catch (JavaIoEOFException *e) {
         return JreStrongAssign(&token_, JreLoadEnum(AndroidUtilJsonToken, END_DOCUMENT));
@@ -673,7 +673,7 @@ AndroidUtilJsonToken *AndroidUtilJsonReader_nextInArrayWithBoolean_(AndroidUtilJ
       case ',':
       break;
       default:
-      @throw AndroidUtilJsonReader_syntaxErrorWithNSString_(self, @"Unterminated array");
+      @throw nil_chk(AndroidUtilJsonReader_syntaxErrorWithNSString_(self, @"Unterminated array"));
     }
   }
   switch (AndroidUtilJsonReader_nextNonWhitespace(self)) {
@@ -713,7 +713,7 @@ AndroidUtilJsonToken *AndroidUtilJsonReader_nextInObjectWithBoolean_(AndroidUtil
       case ',':
       break;
       default:
-      @throw AndroidUtilJsonReader_syntaxErrorWithNSString_(self, @"Unterminated object");
+      @throw nil_chk(AndroidUtilJsonReader_syntaxErrorWithNSString_(self, @"Unterminated object"));
     }
   }
   jint quote = AndroidUtilJsonReader_nextNonWhitespace(self);
@@ -728,7 +728,7 @@ AndroidUtilJsonToken *AndroidUtilJsonReader_nextInObjectWithBoolean_(AndroidUtil
     self->pos_--;
     JreStrongAssign(&self->name_, AndroidUtilJsonReader_nextLiteralWithBoolean_(self, false));
     if ([((NSString *) nil_chk(self->name_)) java_isEmpty]) {
-      @throw AndroidUtilJsonReader_syntaxErrorWithNSString_(self, @"Expected name");
+      @throw nil_chk(AndroidUtilJsonReader_syntaxErrorWithNSString_(self, @"Expected name"));
     }
   }
   AndroidUtilJsonReader_replaceTopWithAndroidUtilJsonScope_(self, JreLoadEnum(AndroidUtilJsonScope, DANGLING_NAME));
@@ -746,7 +746,7 @@ AndroidUtilJsonToken *AndroidUtilJsonReader_objectValue(AndroidUtilJsonReader *s
     }
     break;
     default:
-    @throw AndroidUtilJsonReader_syntaxErrorWithNSString_(self, @"Expected ':'");
+    @throw nil_chk(AndroidUtilJsonReader_syntaxErrorWithNSString_(self, @"Expected ':'"));
   }
   AndroidUtilJsonReader_replaceTopWithAndroidUtilJsonScope_(self, JreLoadEnum(AndroidUtilJsonScope, NONEMPTY_OBJECT));
   return AndroidUtilJsonReader_nextValue(self);
@@ -848,7 +848,7 @@ jint AndroidUtilJsonReader_nextNonWhitespace(AndroidUtilJsonReader *self) {
           case '*':
           self->pos_++;
           if (!AndroidUtilJsonReader_skipToWithNSString_(self, @"*/")) {
-            @throw AndroidUtilJsonReader_syntaxErrorWithNSString_(self, @"Unterminated comment");
+            @throw nil_chk(AndroidUtilJsonReader_syntaxErrorWithNSString_(self, @"Unterminated comment"));
           }
           self->pos_ += 2;
           continue;
@@ -873,7 +873,7 @@ jint AndroidUtilJsonReader_nextNonWhitespace(AndroidUtilJsonReader *self) {
 
 void AndroidUtilJsonReader_checkLenient(AndroidUtilJsonReader *self) {
   if (!self->lenient_) {
-    @throw AndroidUtilJsonReader_syntaxErrorWithNSString_(self, @"Use JsonReader.setLenient(true) to accept malformed JSON");
+    @throw nil_chk(AndroidUtilJsonReader_syntaxErrorWithNSString_(self, @"Use JsonReader.setLenient(true) to accept malformed JSON"));
   }
 }
 
@@ -934,7 +934,7 @@ NSString *AndroidUtilJsonReader_nextStringWithChar_(AndroidUtilJsonReader *self,
     [builder appendWithCharArray:self->buffer_ withInt:start withInt:self->pos_ - start];
   }
   while (AndroidUtilJsonReader_fillBufferWithInt_(self, 1));
-  @throw AndroidUtilJsonReader_syntaxErrorWithNSString_(self, @"Unterminated string");
+  @throw nil_chk(AndroidUtilJsonReader_syntaxErrorWithNSString_(self, @"Unterminated string"));
 }
 
 NSString *AndroidUtilJsonReader_nextLiteralWithBoolean_(AndroidUtilJsonReader *self, jboolean assignOffsetsOnly) {
@@ -1008,7 +1008,7 @@ NSString *AndroidUtilJsonReader_nextLiteralWithBoolean_(AndroidUtilJsonReader *s
 
 jchar AndroidUtilJsonReader_readEscapeCharacter(AndroidUtilJsonReader *self) {
   if (self->pos_ == self->limit_ && !AndroidUtilJsonReader_fillBufferWithInt_(self, 1)) {
-    @throw AndroidUtilJsonReader_syntaxErrorWithNSString_(self, @"Unterminated escape sequence");
+    @throw nil_chk(AndroidUtilJsonReader_syntaxErrorWithNSString_(self, @"Unterminated escape sequence"));
   }
   jchar escaped = IOSCharArray_Get(nil_chk(self->buffer_), self->pos_++);
   {
@@ -1016,7 +1016,7 @@ jchar AndroidUtilJsonReader_readEscapeCharacter(AndroidUtilJsonReader *self) {
     switch (escaped) {
       case 'u':
       if (self->pos_ + 4 > self->limit_ && !AndroidUtilJsonReader_fillBufferWithInt_(self, 4)) {
-        @throw AndroidUtilJsonReader_syntaxErrorWithNSString_(self, @"Unterminated escape sequence");
+        @throw nil_chk(AndroidUtilJsonReader_syntaxErrorWithNSString_(self, @"Unterminated escape sequence"));
       }
       hex = [((LibcoreInternalStringPool *) nil_chk(self->stringPool_)) getWithCharArray:self->buffer_ withInt:self->pos_ withInt:4];
       self->pos_ += 4;
@@ -1043,7 +1043,7 @@ jchar AndroidUtilJsonReader_readEscapeCharacter(AndroidUtilJsonReader *self) {
 AndroidUtilJsonToken *AndroidUtilJsonReader_readLiteral(AndroidUtilJsonReader *self) {
   JreStrongAssign(&self->value_, AndroidUtilJsonReader_nextLiteralWithBoolean_(self, true));
   if (self->valueLength_ == 0) {
-    @throw AndroidUtilJsonReader_syntaxErrorWithNSString_(self, @"Expected literal value");
+    @throw nil_chk(AndroidUtilJsonReader_syntaxErrorWithNSString_(self, @"Expected literal value"));
   }
   JreStrongAssign(&self->token_, AndroidUtilJsonReader_decodeLiteral(self));
   if (self->token_ == JreLoadEnum(AndroidUtilJsonToken, STRING)) {

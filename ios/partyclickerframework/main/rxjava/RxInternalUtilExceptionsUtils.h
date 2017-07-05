@@ -33,10 +33,12 @@
 
 + (jboolean)addThrowableWithJavaUtilConcurrentAtomicAtomicReference:(JavaUtilConcurrentAtomicAtomicReference *)field
                                                     withNSException:(NSException *)error;
+#define withJavaLangThrowable withNSException
 
 + (jboolean)isTerminatedWithJavaUtilConcurrentAtomicAtomicReference:(JavaUtilConcurrentAtomicAtomicReference *)field;
 
 + (jboolean)isTerminatedWithNSException:(NSException *)error;
+#define isTerminatedWithJavaLangThrowable isTerminatedWithNSException
 
 + (NSException *)terminateWithJavaUtilConcurrentAtomicAtomicReference:(JavaUtilConcurrentAtomicAtomicReference *)field;
 

@@ -190,7 +190,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (jboolean)hasNext {
   if (iteratorNotification_ != nil && [iteratorNotification_ isOnError]) {
-    @throw RxExceptionsExceptions_propagateWithNSException_([iteratorNotification_ getThrowable]);
+    @throw nil_chk(RxExceptionsExceptions_propagateWithNSException_([iteratorNotification_ getThrowable]));
   }
   if (iteratorNotification_ == nil || ![iteratorNotification_ isOnCompleted]) {
     if (iteratorNotification_ == nil) {
@@ -201,12 +201,12 @@ J2OBJC_IGNORE_DESIGNATED_END
         [self unsubscribe];
         [((JavaLangThread *) nil_chk(JavaLangThread_currentThread())) interrupt];
         JreStrongAssign(&iteratorNotification_, RxNotification_createOnErrorWithNSException_(ex));
-        @throw RxExceptionsExceptions_propagateWithNSException_(ex);
+        @throw nil_chk(RxExceptionsExceptions_propagateWithNSException_(ex));
       }
       RxNotification *n = [((JavaUtilConcurrentAtomicAtomicReference *) nil_chk(value_)) getAndSetWithId:nil];
       JreStrongAssign(&iteratorNotification_, n);
       if ([((RxNotification *) nil_chk(iteratorNotification_)) isOnError]) {
-        @throw RxExceptionsExceptions_propagateWithNSException_([((RxNotification *) nil_chk(iteratorNotification_)) getThrowable]);
+        @throw nil_chk(RxExceptionsExceptions_propagateWithNSException_([((RxNotification *) nil_chk(iteratorNotification_)) getThrowable]));
       }
     }
   }

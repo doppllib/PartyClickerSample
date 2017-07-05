@@ -84,6 +84,7 @@ withRxInternalProducersProducerArbiter:(RxInternalProducersProducerArbiter *)pa;
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(RxObservable *)o;
 

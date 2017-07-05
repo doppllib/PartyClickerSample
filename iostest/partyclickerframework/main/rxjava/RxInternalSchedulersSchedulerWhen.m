@@ -21,6 +21,8 @@
 #include "java/util/concurrent/atomic/AtomicReference.h"
 
 @class RxInternalSchedulersSchedulerWhen_ScheduledAction;
+@protocol JavaUtilFunctionBinaryOperator;
+@protocol JavaUtilFunctionUnaryOperator;
 
 #pragma clang diagnostic ignored "-Wincomplete-implementation"
 
@@ -139,9 +141,19 @@ __attribute__((unused)) static RxInternalSchedulersSchedulerWhen_3 *create_RxInt
 
 - (void)unsubscribe;
 
+- (id<RxSubscription>)getAndUpdateWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
+
 - (id<RxSubscription>)get;
 
+- (id<RxSubscription>)updateAndGetWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
+
+- (id<RxSubscription>)getAndAccumulateWithId:(id<RxSubscription>)arg0
+          withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (id<RxSubscription>)getAndSetWithId:(id<RxSubscription>)arg0;
+
+- (id<RxSubscription>)accumulateAndGetWithId:(id<RxSubscription>)arg0
+          withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
 
 @end
 
@@ -162,9 +174,19 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalSchedulersSchedulerWhen_ScheduledAction)
 
 - (id<RxSubscription>)callActualWithRxScheduler_Worker:(RxScheduler_Worker *)actualWorker;
 
+- (id<RxSubscription>)getAndUpdateWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
+
 - (id<RxSubscription>)get;
 
+- (id<RxSubscription>)updateAndGetWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
+
+- (id<RxSubscription>)getAndAccumulateWithId:(id<RxSubscription>)arg0
+          withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (id<RxSubscription>)getAndSetWithId:(id<RxSubscription>)arg0;
+
+- (id<RxSubscription>)accumulateAndGetWithId:(id<RxSubscription>)arg0
+          withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
 
 @end
 
@@ -193,9 +215,19 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalSchedulersSchedulerWhen_ImmediateAction)
 
 - (id<RxSubscription>)callActualWithRxScheduler_Worker:(RxScheduler_Worker *)actualWorker;
 
+- (id<RxSubscription>)getAndUpdateWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
+
 - (id<RxSubscription>)get;
 
+- (id<RxSubscription>)updateAndGetWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
+
+- (id<RxSubscription>)getAndAccumulateWithId:(id<RxSubscription>)arg0
+          withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (id<RxSubscription>)getAndSetWithId:(id<RxSubscription>)arg0;
+
+- (id<RxSubscription>)accumulateAndGetWithId:(id<RxSubscription>)arg0
+          withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
 
 @end
 

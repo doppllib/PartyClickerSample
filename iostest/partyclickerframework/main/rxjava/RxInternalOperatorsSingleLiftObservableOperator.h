@@ -74,6 +74,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsSingleLiftObservableOperator)
 #pragma mark Public
 
 - (void)onErrorWithNSException:(NSException *)error;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onSuccessWithId:(id)value;
 

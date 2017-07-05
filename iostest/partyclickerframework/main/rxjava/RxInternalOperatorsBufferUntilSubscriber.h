@@ -36,6 +36,7 @@
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 
@@ -64,6 +65,8 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsBufferUntilSubscriber)
 #include "java/util/concurrent/atomic/AtomicReference.h"
 
 @class JavaUtilConcurrentConcurrentLinkedQueue;
+@protocol JavaUtilFunctionBinaryOperator;
+@protocol JavaUtilFunctionUnaryOperator;
 @protocol RxObserver;
 
 @interface RxInternalOperatorsBufferUntilSubscriber_State : JavaUtilConcurrentAtomicAtomicReference {
@@ -75,9 +78,19 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsBufferUntilSubscriber)
 
 #pragma mark Public
 
+- (id<RxObserver>)accumulateAndGetWithId:(id<RxObserver>)arg0
+      withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (id<RxObserver>)get;
 
+- (id<RxObserver>)getAndAccumulateWithId:(id<RxObserver>)arg0
+      withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (id<RxObserver>)getAndSetWithId:(id<RxObserver>)arg0;
+
+- (id<RxObserver>)getAndUpdateWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
+
+- (id<RxObserver>)updateAndGetWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
 
 #pragma mark Package-Private
 

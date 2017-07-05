@@ -83,6 +83,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsCompletableFromEmitter)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)t;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)setCancellationWithRxAsyncEmitter_Cancellable:(id<RxAsyncEmitter_Cancellable>)c;
 

@@ -153,6 +153,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorReplay)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)t;
 
@@ -289,6 +290,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorReplay_InnerProducer)
 - (void)nextWithId:(id)value;
 
 - (void)errorWithNSException:(NSException *)e;
+#define errorWithJavaLangThrowable errorWithNSException
 
 - (void)complete;
 
@@ -323,6 +325,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorReplay_ReplayBuffer)
 - (void)complete;
 
 - (void)errorWithNSException:(NSException *)e;
+#define errorWithJavaLangThrowable errorWithNSException
 
 - (void)nextWithId:(id)value;
 
@@ -351,6 +354,9 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorReplay_UnboundedReplayBuff
 #define INCLUDE_JavaUtilConcurrentAtomicAtomicReference 1
 #include "java/util/concurrent/atomic/AtomicReference.h"
 
+@protocol JavaUtilFunctionBinaryOperator;
+@protocol JavaUtilFunctionUnaryOperator;
+
 @interface RxInternalOperatorsOperatorReplay_Node : JavaUtilConcurrentAtomicAtomicReference {
  @public
   id value_Node_;
@@ -362,9 +368,19 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorReplay_UnboundedReplayBuff
 - (instancetype)initWithId:(id)value
                   withLong:(jlong)index;
 
+- (RxInternalOperatorsOperatorReplay_Node *)accumulateAndGetWithId:(RxInternalOperatorsOperatorReplay_Node *)arg0
+                                withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (RxInternalOperatorsOperatorReplay_Node *)get;
 
+- (RxInternalOperatorsOperatorReplay_Node *)getAndAccumulateWithId:(RxInternalOperatorsOperatorReplay_Node *)arg0
+                                withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (RxInternalOperatorsOperatorReplay_Node *)getAndSetWithId:(RxInternalOperatorsOperatorReplay_Node *)arg0;
+
+- (RxInternalOperatorsOperatorReplay_Node *)getAndUpdateWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
+
+- (RxInternalOperatorsOperatorReplay_Node *)updateAndGetWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
 
 @end
 
@@ -392,6 +408,8 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorReplay_Node)
 @class RxInternalOperatorsOperatorReplay_InnerProducer;
 @class RxInternalOperatorsOperatorReplay_Node;
 @protocol JavaUtilCollection;
+@protocol JavaUtilFunctionBinaryOperator;
+@protocol JavaUtilFunctionUnaryOperator;
 
 @interface RxInternalOperatorsOperatorReplay_BoundedReplayBuffer : JavaUtilConcurrentAtomicAtomicReference < RxInternalOperatorsOperatorReplay_ReplayBuffer > {
  @public
@@ -404,17 +422,28 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorReplay_Node)
 
 - (instancetype)init;
 
+- (RxInternalOperatorsOperatorReplay_Node *)accumulateAndGetWithId:(RxInternalOperatorsOperatorReplay_Node *)arg0
+                                withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (void)complete;
 
 - (void)errorWithNSException:(NSException *)e;
+#define errorWithJavaLangThrowable errorWithNSException
 
 - (RxInternalOperatorsOperatorReplay_Node *)get;
 
+- (RxInternalOperatorsOperatorReplay_Node *)getAndAccumulateWithId:(RxInternalOperatorsOperatorReplay_Node *)arg0
+                                withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (RxInternalOperatorsOperatorReplay_Node *)getAndSetWithId:(RxInternalOperatorsOperatorReplay_Node *)arg0;
+
+- (RxInternalOperatorsOperatorReplay_Node *)getAndUpdateWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
 
 - (void)nextWithId:(id)value;
 
 - (void)replayWithRxInternalOperatorsOperatorReplay_InnerProducer:(RxInternalOperatorsOperatorReplay_InnerProducer *)output;
+
+- (RxInternalOperatorsOperatorReplay_Node *)updateAndGetWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
 
 #pragma mark Package-Private
 
@@ -462,6 +491,8 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorReplay_BoundedReplayBuffer
 #define RxInternalOperatorsOperatorReplay_SizeBoundReplayBuffer_
 
 @class RxInternalOperatorsOperatorReplay_Node;
+@protocol JavaUtilFunctionBinaryOperator;
+@protocol JavaUtilFunctionUnaryOperator;
 
 @interface RxInternalOperatorsOperatorReplay_SizeBoundReplayBuffer : RxInternalOperatorsOperatorReplay_BoundedReplayBuffer {
  @public
@@ -472,9 +503,19 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorReplay_BoundedReplayBuffer
 
 - (instancetype)initWithInt:(jint)limit;
 
+- (RxInternalOperatorsOperatorReplay_Node *)accumulateAndGetWithId:(RxInternalOperatorsOperatorReplay_Node *)arg0
+                                withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (RxInternalOperatorsOperatorReplay_Node *)get;
 
+- (RxInternalOperatorsOperatorReplay_Node *)getAndAccumulateWithId:(RxInternalOperatorsOperatorReplay_Node *)arg0
+                                withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (RxInternalOperatorsOperatorReplay_Node *)getAndSetWithId:(RxInternalOperatorsOperatorReplay_Node *)arg0;
+
+- (RxInternalOperatorsOperatorReplay_Node *)getAndUpdateWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
+
+- (RxInternalOperatorsOperatorReplay_Node *)updateAndGetWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
 
 #pragma mark Package-Private
 
@@ -499,6 +540,8 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorReplay_SizeBoundReplayBuff
 
 @class RxInternalOperatorsOperatorReplay_Node;
 @class RxScheduler;
+@protocol JavaUtilFunctionBinaryOperator;
+@protocol JavaUtilFunctionUnaryOperator;
 
 @interface RxInternalOperatorsOperatorReplay_SizeAndTimeBoundReplayBuffer : RxInternalOperatorsOperatorReplay_BoundedReplayBuffer {
  @public
@@ -513,9 +556,19 @@ J2OBJC_TYPE_LITERAL_HEADER(RxInternalOperatorsOperatorReplay_SizeBoundReplayBuff
                    withLong:(jlong)maxAgeInMillis
             withRxScheduler:(RxScheduler *)scheduler;
 
+- (RxInternalOperatorsOperatorReplay_Node *)accumulateAndGetWithId:(RxInternalOperatorsOperatorReplay_Node *)arg0
+                                withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (RxInternalOperatorsOperatorReplay_Node *)get;
 
+- (RxInternalOperatorsOperatorReplay_Node *)getAndAccumulateWithId:(RxInternalOperatorsOperatorReplay_Node *)arg0
+                                withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (RxInternalOperatorsOperatorReplay_Node *)getAndSetWithId:(RxInternalOperatorsOperatorReplay_Node *)arg0;
+
+- (RxInternalOperatorsOperatorReplay_Node *)getAndUpdateWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
+
+- (RxInternalOperatorsOperatorReplay_Node *)updateAndGetWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
 
 #pragma mark Package-Private
 

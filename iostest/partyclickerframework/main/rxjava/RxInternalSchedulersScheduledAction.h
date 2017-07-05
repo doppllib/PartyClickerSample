@@ -31,6 +31,8 @@
 @class RxInternalUtilSubscriptionList;
 @class RxSubscriptionsCompositeSubscription;
 @protocol JavaUtilConcurrentFuture;
+@protocol JavaUtilFunctionBinaryOperator;
+@protocol JavaUtilFunctionUnaryOperator;
 @protocol RxFunctionsAction0;
 
 @interface RxInternalSchedulersScheduledAction : JavaUtilConcurrentAtomicAtomicReference < JavaLangRunnable, RxSubscription > {
@@ -49,6 +51,9 @@
 - (instancetype)initWithRxFunctionsAction0:(id<RxFunctionsAction0>)action
         withRxInternalUtilSubscriptionList:(RxInternalUtilSubscriptionList *)parent;
 
+- (JavaLangThread *)accumulateAndGetWithId:(JavaLangThread *)arg0
+        withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (void)addWithJavaUtilConcurrentFuture:(id<JavaUtilConcurrentFuture>)f;
 
 - (void)addWithRxSubscription:(id<RxSubscription>)s;
@@ -59,7 +64,12 @@
 
 - (JavaLangThread *)get;
 
+- (JavaLangThread *)getAndAccumulateWithId:(JavaLangThread *)arg0
+        withJavaUtilFunctionBinaryOperator:(id<JavaUtilFunctionBinaryOperator>)arg1;
+
 - (JavaLangThread *)getAndSetWithId:(JavaLangThread *)arg0;
+
+- (JavaLangThread *)getAndUpdateWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
 
 - (jboolean)isUnsubscribed;
 
@@ -67,9 +77,12 @@
 
 - (void)unsubscribe;
 
+- (JavaLangThread *)updateAndGetWithJavaUtilFunctionUnaryOperator:(id<JavaUtilFunctionUnaryOperator>)arg0;
+
 #pragma mark Package-Private
 
 - (void)signalErrorWithNSException:(NSException *)ie;
+#define signalErrorWithJavaLangThrowable signalErrorWithNSException
 
 @end
 

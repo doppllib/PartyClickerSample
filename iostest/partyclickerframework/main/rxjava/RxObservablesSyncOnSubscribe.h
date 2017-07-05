@@ -190,6 +190,7 @@ J2OBJC_TYPE_LITERAL_HEADER(RxObservablesSyncOnSubscribe_SyncOnSubscribeImpl)
 - (void)onCompleted;
 
 - (void)onErrorWithNSException:(NSException *)e;
+#define onErrorWithJavaLangThrowable onErrorWithNSException
 
 - (void)onNextWithId:(id)value;
 
