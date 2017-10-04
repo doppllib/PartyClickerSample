@@ -26,32 +26,29 @@ public class PartyActivity extends AppCompatActivity implements PartyPresenter.U
         activity.startActivity(intent);
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_party);
-        addPersonButton = (Button) findViewById(R.id.addPersonButton);
+        addPersonButton = findViewById(R.id.addPersonButton);
         removePersonButton = findViewById(R.id.removePersonButton);
-        showCountText = (TextView)findViewById(R.id.showCountText);
+        showCountText = findViewById(R.id.showCountText);
 
-        addPersonButton.setOnClickListener(v -> partyPresenter.addPerson());
+        addPersonButton.setOnClickListener(v -> partyPresenter.addPerson(this));
 
-        removePersonButton.setOnClickListener(v -> partyPresenter.removePerson());
+        removePersonButton.setOnClickListener(v -> partyPresenter.removePerson(this));
 
         partyPresenter = new PartyPresenter(getIntent().getIntExtra(PARTY_ID, - 1));
         AppManager.getInstance().getDaggerComponent().inject(partyPresenter);
-
-        partyPresenter.applyUiInterface(this);
-        partyPresenter.init();
+        partyPresenter.wire(this);
     }
 
     @Override
     protected void onDestroy()
     {
         super.onDestroy();
-        partyPresenter.clearUiInterface();
+        partyPresenter.unwire();
     }
 
     @Override

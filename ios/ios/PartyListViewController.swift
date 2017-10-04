@@ -22,11 +22,14 @@ class PartyListViewController: UIViewController, UITableViewDelegate, UITableVie
         
         presenter = PPPartyListPresenter()
         PAppManager.getInstance().getDaggerComponent().inject(with: presenter)
-        presenter.applyUiInterface(with: self)
-        presenter.callRefreshPartyList()
+        presenter.wire(with: self)
         
         tableView.register(UITableViewCell.classForKeyedArchiver(), forCellReuseIdentifier: "SimpleTableItem")
         styleEditButton()        
+    }
+    
+    deinit {
+        presenter.unwire()
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,7 +38,7 @@ class PartyListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        presenter.callRefreshPartyList()
+        
     }
     
     @IBAction func editButton(_ sender: Any) {
@@ -44,9 +47,8 @@ class PartyListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     @IBAction func createPartyClicked(_ sender: Any) {
-        presenter.createParty(with: partyNameTextView.text)
+        presenter.createParty(with: partyNameTextView.text, with: self)
         partyNameTextView.text = ""
-        presenter.callRefreshPartyList()
     }
     
     func styleEditButton(){
@@ -76,7 +78,7 @@ class PartyListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.callParty(with: jint((parties.getWith(jint(indexPath.row)) as! PDParty).getId()))
+        presenter.callParty(with: jint((parties.getWith(jint(indexPath.row)) as! PDParty).getId()), with: self)
         tableView.deselectRow(at: indexPath, animated: false)
     }
     

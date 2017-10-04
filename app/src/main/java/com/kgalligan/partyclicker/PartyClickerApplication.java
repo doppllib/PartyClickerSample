@@ -13,8 +13,6 @@ import com.kgalligan.partyclicker.presenter.LogCrashReporter;
 
 public class PartyClickerApplication extends Application
 {
-
-
     @Override
     public void onCreate()
     {

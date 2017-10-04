@@ -1,17 +1,15 @@
 package com.kgalligan.partyclicker.presenter;
-import android.support.annotation.NonNull;
-import android.util.Log;
-
-import com.google.j2objc.annotations.Weak;
 import com.kgalligan.partyclicker.data.DataProvider;
 import com.kgalligan.partyclicker.data.Party;
-import com.kgalligan.partyclicker.data.Person;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Observable;
+import io.reactivex.FlowableTransformer;
+import io.reactivex.Observable;
+import io.reactivex.ObservableTransformer;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by kgalligan on 4/23/17.
@@ -26,47 +24,35 @@ public class PartyListPresenter
     CrashReporter crashReporter;
 
     @Inject
-    Observable.Transformer schedulerTransformer;
+    FlowableTransformer flowableTransformer;
 
-    @Weak
-    @NonNull
-    private UiInterface uiInterface;
+    @Inject
+    ObservableTransformer observableTransformer;
+
+    private Disposable disposable;
 
     public interface UiInterface
     {
         void processing(boolean b);
+
         void refreshPartyList(List<Party> partyList);
+
         void showParty(Party party);
     }
 
-    public PartyListPresenter()
-    {
-        clearUiInterface();
-    }
-
-    public void applyUiInterface(UiInterface uiInterface)
-    {
-        this.uiInterface = uiInterface;
-    }
-
-    public void clearUiInterface()
-    {
-        uiInterface = new EmptyUiInterface();
-    }
-
-    public void callRefreshPartyList()
+    public void wire(UiInterface uiInterface)
     {
         uiInterface.processing(true);
+        disposable = databaseHelper.allParties()
+                .compose((FlowableTransformer<List<Party>, List<Party>>) flowableTransformer)
+                .doOnNext(parties -> uiInterface.processing(false))
+                .subscribe(uiInterface:: refreshPartyList);
+    }
 
-        Observable.<List<Party>>create(subscriber -> {
-            subscriber.onNext(databaseHelper.allParties());
-            subscriber.onCompleted();
-        })
-                .compose((Observable.Transformer<List<Party>, List<Party>>)schedulerTransformer)
-                .subscribe(o -> {
-                    uiInterface.refreshPartyList(o);
-                    uiInterface.processing(false);
-                }, throwable -> crashReporter.report(throwable));
+    public void unwire()
+    {
+        disposable.dispose();
+        disposable = null;
     }
 
     /**
@@ -74,14 +60,12 @@ public class PartyListPresenter
      *
      * @param id
      */
-    public void callParty(int id)
+    public void callParty(int id, UiInterface uiInterface)
     {
-        Observable.<Party>create(subscriber -> {
-            subscriber.onNext(databaseHelper.loadParty(id));
-            subscriber.onCompleted();
-        })
-                .compose((Observable.Transformer<Party, Party>)schedulerTransformer)
-                .subscribe(party -> uiInterface.showParty(party), throwable -> crashReporter.report(throwable));
+        Observable.fromCallable(() -> databaseHelper.loadParty(id))
+                .compose((ObservableTransformer<Party, Party>) observableTransformer)
+                .subscribe(party -> uiInterface.showParty(party),
+                        throwable -> crashReporter.report(throwable));
     }
 
     /**
@@ -89,52 +73,29 @@ public class PartyListPresenter
      *
      * @param name
      */
-    public void createParty(String name)
+    public void createParty(String name, UiInterface uiInterface)
     {
-        crashReporter.log("Creating: "+ name);
-        Observable.<Party>create(subscriber -> {
-            subscriber.onNext(databaseHelper.createParty(name));
-            subscriber.onCompleted();
-        })
-                .compose((Observable.Transformer<Party, Party>)schedulerTransformer)
-                .subscribe(party -> uiInterface.showParty(party), throwable -> crashReporter.report(throwable));
+        crashReporter.log("Creating: " + name);
+        Observable.fromCallable(() -> databaseHelper.createParty(name))
+                .compose((ObservableTransformer<Party, Party>) observableTransformer)
+                .doOnError(throwable -> crashReporter.report(throwable))
+                .subscribe(party -> uiInterface.showParty(party));
     }
 
     public void deleteParty(int id)
     {
-        Observable.<Party>create(subscriber -> {
+        Observable.fromCallable(() ->
+        {
             Party party = databaseHelper.loadParty(id);
             databaseHelper.deleteParty(party);
-            subscriber.onNext(party);
-            subscriber.onCompleted();
-        })
-                .compose((Observable.Transformer<Party, Party>)schedulerTransformer)
-                .subscribe(o -> callRefreshPartyList(),
-                        throwable -> crashReporter.report(throwable));
+            return party;
+        }).compose((ObservableTransformer<Party, Party>) observableTransformer)
+                .doOnError(throwable -> crashReporter.report(throwable))
+                .subscribe();
     }
 
-    public int countPeople(Party party)
+    int countPeople(Party party)
     {
         return databaseHelper.countCurrentParty(party.getId());
-    }
-
-    public List<Person> allPeople(Party party)
-    {
-        return databaseHelper.allPeopleForParty(party);
-    }
-
-    static class EmptyUiInterface implements UiInterface
-    {
-        @Override
-        public void processing(boolean b)
-        {}
-
-        @Override
-        public void refreshPartyList(List<Party> partyList)
-        {}
-
-        @Override
-        public void showParty(Party party)
-        {}
     }
 }

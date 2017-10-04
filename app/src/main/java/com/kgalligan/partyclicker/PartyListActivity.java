@@ -27,8 +27,8 @@ public class PartyListActivity extends AppCompatActivity implements PartyListPre
         setContentView(R.layout.activity_main);
 
         presenter = new PartyListPresenter();
-        presenter.applyUiInterface(this);
         AppManager.getInstance().getDaggerComponent().inject(presenter);
+        presenter.wire(this);
 
         final ListView partyListView = (ListView) findViewById(R.id.partyListView);
         partyArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, new ArrayList<Party>());
@@ -38,13 +38,13 @@ public class PartyListActivity extends AppCompatActivity implements PartyListPre
         findViewById(R.id.addPartyButton).setOnClickListener(v ->
         {
             String name = partyNameString.getText().toString().trim();
-            presenter.createParty(name);
+            presenter.createParty(name, this);
         });
 
         partyListView.setOnItemClickListener((parent, view, position, id) ->
         {
             Party party = (Party) partyListView.getAdapter().getItem(position);
-            presenter.callParty(party.getId());
+            presenter.callParty(party.getId(), this);
         });
     }
 
@@ -52,19 +52,13 @@ public class PartyListActivity extends AppCompatActivity implements PartyListPre
     protected void onDestroy()
     {
         super.onDestroy();
-        presenter.clearUiInterface();
+        presenter.unwire();
     }
 
     @Override
     protected void onResume()
     {
         super.onResume();
-        refreshParties();
-    }
-
-    private void refreshParties()
-    {
-        presenter.callRefreshPartyList();
     }
 
     @Override

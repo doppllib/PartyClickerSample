@@ -3,12 +3,12 @@ apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'co.doppl.gradle'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.kgalligan.partyclicker"
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -25,30 +25,37 @@ android {
     }
 }
 
+def archVer = "1.0.0-alpha8"
+def dopplArchVer = "1.0.0.2-alpha8"
+
 dependencies {
-    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:appcompat-v7:26.1.0'
     testCompile 'junit:junit:4.12'
 
     //Database ORM
-    compile "android.arch.persistence.room:runtime:1.0.0-alpha1"
-    annotationProcessor "android.arch.persistence.room:compiler:1.0.0-alpha1"
-    testAnnotationProcessor "android.arch.persistence.room:compiler:1.0.0-alpha1"
-    doppl "android.arch.persistence.room:runtime:1.0.0.2-alpha1"
+    annotationProcessor "android.arch.persistence.room:compiler:$archVer"
+    testAnnotationProcessor "android.arch.persistence.room:compiler:$archVer"
+    compile "android.arch.persistence.room:runtime:$archVer"
+    doppl "co.doppl.android.arch.persistence.room:runtime:$dopplArchVer"
+    compile "android.arch.persistence.room:rxjava2:$archVer"
+    doppl "co.doppl.android.arch.persistence.room:rxjava2:$dopplArchVer"
 
     //Dagger
     compile 'com.google.dagger:dagger:2.5'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.5'
     testAnnotationProcessor 'com.google.dagger:dagger-compiler:2.5'
-    doppl 'co.doppl.com.google.dagger:dagger:2.5.4'
+    doppl 'co.doppl.com.google.dagger:dagger:2.5.6'
 
     //Rx
-    compile 'io.reactivex:rxandroid:1.2.1'
-    doppl 'co.doppl.io.reactivex:rxandroid:1.2.1.4'
+    compile "io.reactivex.rxjava2:rxjava:2.0.8"
+    doppl "co.doppl.io.reactivex.rxjava2:rxjava:2.0.8.2"
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    doppl "co.doppl.io.reactivex.rxjava2:rxandroid:2.0.1.2"
 
     //Test Support
     testCompile 'junit:junit:4.11'
-    testCompile "co.doppl.lib:androidbasetest:0.8.0"
-    testDoppl "co.doppl.lib:androidbasetest:0.8.0.0"
+    testCompile "co.doppl.lib:androidbasetest:0.8.4"
+    testDoppl "co.doppl.lib:androidbasetest:0.8.4.0"
     testCompile "org.robolectric:robolectric:3.3.2"
     testCompile 'org.mockito:mockito-core:1.9.5'
 }
@@ -56,7 +63,7 @@ dependencies {
 dopplConfig {
 
     copyMainOutput "../ios/partyclickerframework/main", "../iostest/partyclickerframework/main"
-    copyTestOutput "../iostest/partyclickerframework/test"
+//    copyTestOutput "../iostest/partyclickerframework/test"
 
     copyDependencies true
 

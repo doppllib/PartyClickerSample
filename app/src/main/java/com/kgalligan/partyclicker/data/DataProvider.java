@@ -1,6 +1,8 @@
 package com.kgalligan.partyclicker.data;
 import java.util.List;
 
+import io.reactivex.Flowable;
+
 /**
  * Simple wrapper for data methods. Make testing simpler.
  *
@@ -10,7 +12,7 @@ import java.util.List;
 public interface DataProvider
 {
 
-    List<Party> allParties();
+    Flowable<List<Party>> allParties();
 
     Party loadParty(int id);
 
@@ -20,7 +22,7 @@ public interface DataProvider
 
     int countCurrentParty(int id);
 
-    List<Person> allPeopleForParty(Party party);
+    Flowable<List<Person>> allPeopleForParty(Party party);
 
     void addPerson(Party party, boolean coming);
 }

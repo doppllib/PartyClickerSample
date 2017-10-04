@@ -6,6 +6,8 @@ import android.arch.persistence.room.Query;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
+
 /**
  * Pretty sure interfaces don't need access identifiers https://developer.android.com/topic/libraries/architecture/room.html
  *
@@ -24,11 +26,14 @@ public interface PartyDao
     void createPerson(Person person);
 
     @Query("select * from party order by created desc")
-    List<Party> allParties();
+    Flowable<List<Party>> allParties();
 
     @Query("select * from person where party_id = :partyId")
-    List<Person> allPeopleForParty(int partyId);
+    Flowable<List<Person>> allPeopleForParty(int partyId);
+
+    @Query("SELECT count(id) from person where party_id = :partyId")
+    int countPeopleAtParty(int partyId);
 
     @Query("select * from party where id = :id")
-    List<Party> partyForId(int id);
+    Party partyForId(long id);
 }

@@ -3,6 +3,8 @@ package com.kgalligan.partyclicker.data;
 import java.util.Date;
 import java.util.List;
 
+import io.reactivex.Flowable;
+
 
 /**
  * Created by kgalligan on 1/5/17.
@@ -18,19 +20,11 @@ public class DatabaseHelper implements DataProvider
 
     public int countCurrentParty(int partyId)
     {
-        List<Person> people = partyDatabase.partyDao().allPeopleForParty(partyId);
-        int count = 0;
-
-        for(Person person : people)
-        {
-            count += person.getVal();
-        }
-        return count;
-        //return (int)DatabaseUtils.longForQuery(getWritableDatabase(), "select sum(val) from person where party_id = ?", new String[]{Integer.toString(partyId)});
+        return partyDatabase.partyDao().countPeopleAtParty(partyId);
     }
 
     @Override
-    public List<Person> allPeopleForParty(Party party)
+    public Flowable<List<Person>> allPeopleForParty(Party party)
     {
         return partyDatabase.partyDao().allPeopleForParty(party.getId());
     }
@@ -45,7 +39,7 @@ public class DatabaseHelper implements DataProvider
         partyDatabase.partyDao().createPerson(person);
     }
 
-    public List<Party> allParties()
+    public Flowable<List<Party>> allParties()
     {
         return partyDatabase.partyDao().allParties();
     }
@@ -69,6 +63,6 @@ public class DatabaseHelper implements DataProvider
 
     public Party loadParty(int id)
     {
-        return partyDatabase.partyDao().partyForId(id).get(0);
+        return partyDatabase.partyDao().partyForId(id);
     }
 }

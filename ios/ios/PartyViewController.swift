@@ -23,16 +23,19 @@ class PartyViewController: UIViewController, PPPartyPresenter_UiInterface{
         self.navigationItem.backBarButtonItem?.title = "Parties"
         presenter = PPPartyPresenter(int: jint(party.getId()))
         PAppManager.getInstance().getDaggerComponent().inject(with: presenter)
-        presenter.applyUiInterface(with: self)
-        presenter.init__()
+        presenter.wire(with: self)
+    }
+    
+    deinit {
+        presenter.unwire()
     }
     
     @IBAction func addClicked(_ sender: Any) {
-        presenter.addPerson()
+        presenter.addPerson(with: self)
     }
     
     @IBAction func removeClicked(_ sender: Any) {
-        presenter.removePerson()
+        presenter.removePerson(with: self)
     }
     
     func updateCountLabel() {

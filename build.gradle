@@ -3,19 +3,23 @@
 buildscript {
     repositories {
         jcenter()
-        maven { url 'https://dl.bintray.com/doppllib/maven' }
+        google()
+        maven { url dopplMavenDeploy }
+        maven { url 'https://dl.bintray.com/doppllib/maven2' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath 'me.tatarka:gradle-retrolambda:3.5.0'
-        classpath 'co.doppl:gradle:0.8.3'
+        classpath 'com.android.tools.build:gradle:3.0.0-beta7'
+        classpath 'me.tatarka:gradle-retrolambda:3.6.1'
+        classpath 'co.doppl:gradle:0.8.8'
     }
 }
 
 allprojects {
     repositories {
         jcenter()
-        maven { url 'https://dl.bintray.com/doppllib/maven' }
+        google()
+        maven { url dopplMavenDeploy }
+        maven { url 'https://dl.bintray.com/doppllib/maven2' }
         maven { url "https://maven.google.com" }
     }
 }
