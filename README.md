@@ -1,23 +1,27 @@
 # PartyClickerSample
 
-This is a functional sample app built using the Doppl framework. The accompanying blogpost can be found [here](https://medium.com/@kpgalligan/f62ba341719a).
+This is a functional sample app built using the Doppl framework. It is not a serious app example,
+but does demonstrate the basic process of sharing code without too much setup required.
 
-## Android Architecture Components
+Please follow the [Doppl tutorial](http://doppl.co/docs/quicktutorial.html) to get more install detail.
 
-This is a sample running the new Android Architecture components Room DB. It's based off the first
-alpha, without tests, so you probably shouldn't use this. Read about it [here](https://medium.com/doppl/androids-room-db-on-ios-f844e2350817)
+There is an associated blog post [here](https://medium.com/@kpgalligan/f62ba341719a). It is somewhat outdated, particularly the parts about
+database libraries. It does explain more about Doppl and the app itself.
 
-## Instructions
+## Packages Used
 
-Follow the detailed tutorial on our website.
+This sample uses Room DB and Rxjava to build a basic sample app. The code below the UI is shared to iOS, and used there as well.
 
-[http://doppl.co/docs/quicktutorial.html](http://doppl.co/docs/quicktutorial.html)
+## Install
 
-## Branches
+Please follow the [Doppl tutorial](http://doppl.co/docs/quicktutorial.html). There are several steps, some of which may be confusing to developers who are not experienced on both Android and iOS.
 
-The main branch uses a database library that we traditionally used internally at touchlab. Other branches with different db libraries include:
+* Download [Doppl library](http://doppl.co/download.html)
 
-* GreenDAO
-* GreenDAO with SQLCipher and encryption
-* SQLDelight
-* Room DB (this is just a demo. Room is still in alpha)
+* Add this to local.properties 'j2objc.home=[your doppl dist dir]'
+
+* In Xcode > Preferences > Location > Custom Paths add 'J2OBJC_LOCAL_PATH' and set to the doppl dist dir
+
+* On the command line at the root of the project source, run './gradlew dopplDeploy'
+
+* Open the ios project. You should be able to run sample.
