@@ -25,3 +25,7 @@ Please follow the [Doppl tutorial](http://doppl.co/docs/quicktutorial.html). The
 * On the command line at the root of the project source, run './gradlew dopplDeploy'
 
 * Open the ios project. You should be able to run sample.
+
+## Video
+
+[![Party Clicker Setup](https://img.youtube.com/vi/k0Z6RMkzkr4/0.jpg)](https://www.youtube.com/watch?v=k0Z6RMkzkr4)
