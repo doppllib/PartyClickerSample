@@ -31,7 +31,7 @@ public interface PartyDao
     @Query("select * from person where party_id = :partyId")
     Flowable<List<Person>> allPeopleForParty(int partyId);
 
-    @Query("SELECT count(id) from person where party_id = :partyId")
+    @Query("SELECT sum(val) from person where party_id = :partyId")
     int countPeopleAtParty(int partyId);
 
     @Query("select * from party where id = :id")

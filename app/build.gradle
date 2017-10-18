@@ -62,9 +62,6 @@ dependencies {
 
 dopplConfig {
 
-    copyMainOutput "../ios/partyclickerframework/main", "../iostest/partyclickerframework/main"
-//    copyTestOutput "../iostest/partyclickerframework/test"
-
     copyDependencies true
 
     translatedPathPrefix 'com.kgalligan.partyclicker', 'P'
@@ -80,4 +77,6 @@ dopplConfig {
         include '**/test/**'
         include '**/AppManager.java'
     }
+
+    framework.homepage='https://www.touchlab.co/'
 }

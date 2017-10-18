@@ -10,7 +10,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0-beta7'
         classpath 'me.tatarka:gradle-retrolambda:3.6.1'
-        classpath 'co.doppl:gradle:0.8.8'
+        classpath 'co.doppl:gradle:0.9.0'
     }
 }
 

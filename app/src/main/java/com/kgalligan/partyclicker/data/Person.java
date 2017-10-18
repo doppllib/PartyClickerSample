@@ -10,9 +10,14 @@ import java.util.Date;
 /**
  * Created by kgalligan on 1/5/17.
  */
-@Entity(foreignKeys = @ForeignKey(entity = Party.class,
+@Entity(foreignKeys = @ForeignKey
+        (
+        entity = Party.class,
         parentColumns = "id",
-        childColumns = "party_id"))
+        childColumns = "party_id",
+        onDelete = ForeignKey.CASCADE
+        )
+)
 public class Person
 {
     private static final DateFormat standardTimeFormat = DateFormat.getTimeInstance(DateFormat.MEDIUM);

@@ -22,9 +22,17 @@ Please follow the [Doppl tutorial](http://doppl.co/docs/quicktutorial.html). The
 
 * In Xcode > Preferences > Location > Custom Paths add 'J2OBJC_LOCAL_PATH' and set to the doppl dist dir
 
-* On the command line at the root of the project source, run './gradlew dopplDeploy'
+* On the command line at the root of the project source, run './gradlew dopplBuild'
 
-* Open the ios project. You should be able to run sample.
+* In terminal, open 'iosApp' and run 'pod install'
+
+* Open the iosApp workspace. You should be able to run sample.
+
+## Run Tests
+
+* In terminal, open 'iosTest' and run 'pod install'
+
+* Open the iosTest workspace. Run sample. Tests will run on app start (integrating into XCTest soon)
 
 ## Video
 
