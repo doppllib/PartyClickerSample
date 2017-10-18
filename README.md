@@ -33,9 +33,3 @@ Please follow the [Doppl tutorial](http://doppl.co/docs/quicktutorial.html). The
 * In terminal, open 'iosTest' and run 'pod install'
 
 * Open the iosTest workspace. Run sample. Tests will run on app start (integrating into XCTest soon)
-
-## Video
-
-Video of project setup. Click to play.
-
-[![Party Clicker Setup](https://img.youtube.com/vi/k0Z6RMkzkr4/0.jpg)](https://www.youtube.com/watch?v=k0Z6RMkzkr4)
